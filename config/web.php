@@ -736,9 +736,9 @@ return array (
   ),
   'editor' => 
   array (
-    'title' => 'Html在线编辑器,富文本编辑器-在线工具箱	',
-    'keywords' => 'Html在线编辑器,富文本编辑器,在线文章编辑器	',
-    'description' => 'Html在线编辑器提供富文本编辑器,在线文章编辑器,富文本编辑器,Html在线编辑器使用，具有高级功能的Html在线编辑器可全屏编辑,Web版Html在线编辑器在线使用,文章,网站编辑,微信公众号可以在线使用编辑器功能等	',
+    'title' => '在线Markdown编辑器,Html在线编辑器,Markdown转Html工具-在线工具箱',
+    'keywords' => '在线Markdown编辑器,Markdown在线编辑器,Html在线编辑器,富文本编辑器,Markdown转Html,Html转Markdown,Markdown与Html互转,在线文章编辑器,所见即所得编辑器',
+    'description' => '在线Markdown编辑器与Html富文本编辑器，基于Vditor引擎，支持所见即所得、即时渲染、分屏预览三种编辑模式，可视化编辑与HTML源码一键切换，实现Markdown与Html双向互转；内置代码块语法高亮、自动保存草稿、一键复制、下载html/md文件、全屏编辑与字数统计，适用于文章撰写、网站编辑、微信公众号排版、程序员笔记等场景在线使用',
   ),
   'regexdso' => 
   array (
@@ -793,12 +793,6 @@ return array (
     'title' => 'C++格式化,在线美化C++代码,CPP格式化-在线工具箱',
     'keywords' => 'C++代码格式化,C++代码美化,CPP格式化,C++代码在线格式化	',
     'description' => 'C++格式化工具为您提供C++格式化,C++代码美化,CPP格式化,C++代码格式化,C++代码格式化美化排版处理,,C++代码格式化美化在线工具,需要将C++代码美化时,输入您需要格式化的C++代码,点击C++代码格式化,即可转换成功,并自动将C++语法高亮着色,方便阅读查看C++语法是否正确等	',
-  ),
-  'htmlmarkdown' => 
-  array (
-    'title' => 'HTML与MarkDown互转工具-在线工具箱',
-    'keywords' => 'HTML与MarkDown互转工具,Html转MarkDown,Html转MarkDown,MarkDown和HTML在线转换工具',
-    'description' => 'HTML与MarkDown互转工具为您提供在线MarkDown转为HTML代码,Html转为MarkDown格式,MarkDown转为Html语言,MarkDown和Html在线转换,MarkDown在线转换,Html在线转换工具,MarkDown转成Html代码,MarkDown在线转为Html工具,把MarkDown代码转换成HTML格式,通过简单的标记语法,它可以使普通文本内容具有一定的格式	',
   ),
   'caiji' => 
   array (

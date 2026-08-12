@@ -49,7 +49,6 @@ return [
             ['url' => '/htmlfromcsv/', 'name' => 'Excel转HTML表格', 'accent' => ''],
             ['url' => '/htmltable/', 'name' => 'Html表格生成器', 'accent' => ''],
             ['url' => '/html2ubb/', 'name' => 'HTML/UBB互转', 'accent' => ''],
-            ['url' => '/htmlmarkdown/', 'name' => 'HTML/MarkDown互转', 'accent' => ''],
             ['url' => '/regex/', 'name' => '正则表达式测试工具', 'accent' => 'green'],
             ['url' => '/regexcode/', 'name' => '正则生成代码', 'accent' => ''],
             ['url' => '/formatfilter/', 'name' => 'Html过滤工具', 'accent' => ''],
@@ -96,7 +95,7 @@ return [
     [
         'cat' => '文本数字',
         'items' => [
-            ['url' => '/editor/', 'name' => 'Html在线编辑器', 'accent' => ''],
+            ['url' => '/editor/', 'name' => 'Markdown/Html在线编辑器', 'accent' => ''],
             ['url' => '/autoformat/', 'name' => '文章自动排版', 'accent' => '#f30'],
             ['url' => '/caiji/', 'name' => '文章内容采集', 'accent' => 'green'],
             ['url' => '/jianfan/', 'name' => '简繁字体转换', 'accent' => ''],
