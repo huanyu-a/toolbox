@@ -1,8 +1,68 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.htmlescape.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.htmlescape.keywords}" /><meta name="description" content="{$Think.config.web.htmlescape.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
-<div class="container"><div class="row"><div class="col-md-12 col10main"><div class="accordion" id="accordion2"><div class="accordion-group"><!-- <div><a href="https://www.aliyun.com/minisite/goods?userCode=eaborev5" target="_blank" rel="nofollow"><img src="http://zxgj.16400.cn/static/images/ali.jpg"></a></div> -->
-<ul class="nav nav-tabs hbflag"><li role="presentation"><a href="/html2js/"> Html转JS</a></li><li role="presentation"><a href="/htmloutjs/">Html/JS互转</a></li><li role="presentation" class="active"><a href="/htmlescape/"> Html转义工具</a></li><li role="presentation"><a href="/html2cj/"> Html转C#/JSP</a></li><li role="presentation"><a href="/html2php/">Html转PHP代码</a></li><li role="presentation"><a href="/html2all/">Html转ASP/Perl</a></li><li role="presentation"><a href="/htmlfromcsv/">Excel转HTML表格</a></li><li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false">更多工具<span class="caret"> </span></a><ul class="dropdown-menu"><li role="presentation"><a href="/htmltable/">Html表格生成器</a></li><li role="presentation"><a href="/html2ubb/">HTML/UBB互转</a></li><li role="presentation"><a href="/htmlmarkdown/">HTML/MarkDown互转</a></li></ul></li></ul><div class="panel"><form id="form1" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><textarea class="form-control" id="content" name="content" rows="10" placeholder="请在输入框粘贴需转换的HTML代码"></textarea></div></div><div class="form-group"><div class="col-sm-12 text-center"><input type="button" id="btn1" value="HTML转义" class="btn btn-success"><input type="button" id="btn2" value="HTML反转义" class="btn btn-info"><span id="copyallcode" class="btn btn-default" data-clipboard-target="#result">复制</span><button type="button" class="btn btn-default" onclick="ClearAll()">清空</button><a class="btn btn-warning" href="/formathtml/" target="_blank">Html格式化</a></div></div><div class="form-group"><div class="col-sm-12"><pre><code id="result"></code></pre></div></div></form></div></div><div class="alert alert alert-success alert-dismissible"><h4>html在线转义工具</h4><p>HTML转换工具，可以将HTML代码转换为HTML转义字符串,如果您觉得好用，请记得收藏我们的地址。</p></div> <div class="accordion-group"> </div></div></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/hightout.js"></script><script src="/static/script/pcjs/htmlescape.js"></script>{include file="nav" /}
-{include file="link" /}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.htmlescape.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.htmlescape.keywords}" /><meta name="description" content="{$Think.config.web.htmlescape.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🏷️</span>HTML 转义工具</h2>
+        <p class="tool-desc">将 HTML 代码转义为安全字符串，或把转义字符串还原为 HTML，防止 XSS 注入、方便代码展示。</p>
+        <div class="t-grid">
+            <div class="t-col">
+                <label class="t-label" for="heInput">HTML 代码 / 转义字符串</label>
+                <textarea class="t-area" id="heInput" rows="8" placeholder="请在输入框粘贴需转换的 HTML 代码…"></textarea>
+            </div>
+            <div class="t-col">
+                <label class="t-label" for="heOutput">结果</label>
+                <textarea class="t-area t-area-readonly" id="heOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+            </div>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="heEscape">HTML 转义 →</button>
+            <button class="t-btn t-btn-ok" type="button" id="heUnescape">HTML 反转义 ←</button>
+            <button class="t-btn t-btn-ghost" type="button" data-copy="#heOutput">复制结果</button>
+            <button class="t-btn t-btn-ghost" type="button" id="heSwap">⇄ 交换</button>
+            <button class="t-btn t-btn-ghost" type="button" id="heClear">清空</button>
+        </div>
+        <div class="t-error" id="heError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 HTML 转义</h2>
+        <p class="tool-desc">HTML 转义会将 &lt; &gt; &amp; &quot; &#39; 等特殊字符替换为对应的 HTML 实体，常用于在网页中安全展示代码片段、防止脚本注入。反转义则将其还原为原始字符。本站转换完全在本地完成，不会上传内容。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var input = document.getElementById('heInput');
+    var output = document.getElementById('heOutput');
+    var error = document.getElementById('heError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    var escMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;' };
+    function escapeHtml(s) { return s.replace(/[&<>"'`]/g, function (c) { return escMap[c]; }); }
+    function unescapeHtml(s) {
+        var doc = document.implementation.createHTMLDocument('');
+        doc.body.innerHTML = s;
+        return doc.body.textContent || '';
+    }
+    document.getElementById('heEscape').addEventListener('click', function () {
+        hideErr();
+        if (!input.value) { showErr('请输入要转义的 HTML 代码'); return; }
+        output.value = escapeHtml(input.value);
+    });
+    document.getElementById('heUnescape').addEventListener('click', function () {
+        hideErr();
+        if (!input.value) { showErr('请输入要反转义的字符串'); return; }
+        output.value = unescapeHtml(input.value);
+    });
+    document.getElementById('heSwap').addEventListener('click', function () {
+        var t = input.value; input.value = output.value; output.value = t;
+    });
+    document.getElementById('heClear').addEventListener('click', function () {
+        input.value = ''; output.value = ''; hideErr(); input.focus();
+    });
+})();
+</script>
 </body></html>

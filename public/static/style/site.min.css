@@ -903,7 +903,10 @@ pre { padding: 12px 14px; }
     .topbar .navbar-brand { height: 50px; line-height: 50px; padding: 0 12px; font-size: 16px; }
     .navbar-search-toggle { display: block; margin-top: 7px; }
     .crumb-bar { display: none; }
-    .home-cats { padding-right: 64px; }
+    
+    .home-wrap .container { padding-right: 112px; }
+    .container > .tool-wrap,
+    .container > .row { padding-right: 110px; }
     .topbar .navbar-nav > li > a { height: 44px; line-height: 44px; }
     .topbar .nav-search { display: none; }
     .search-pop { padding: 12px 0 6px; }
