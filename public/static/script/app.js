@@ -216,7 +216,7 @@
 
     function layoutMore() {
         if (!topMenu || !moreMenu) return;
-        if (window.innerWidth < 768) {
+        if (window.innerWidth < 992) {
             moreMenu.style.display = 'none';
             Array.prototype.forEach.call(topMenu.querySelectorAll('li[data-cat]'), function (li) {
                 li.style.display = '';

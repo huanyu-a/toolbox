@@ -423,6 +423,9 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
     border-radius: 7px;
     top: 2px;
 }
+.topbar .navbar-nav > li {
+    margin-bottom: 0; 
+}
 .topbar .navbar-nav > li > a {
     color: var(--text-2);
     font-size: 14px;
@@ -537,7 +540,7 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
 .float-cat-item.active {
     background: var(--brand-soft); color: var(--brand-strong); font-weight: 600;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .float-cat-nav { display: flex; }
 }
 
@@ -888,7 +891,7 @@ pre { padding: 12px 14px; }
 .footer-nav .list-inline li a:hover { color: var(--brand-strong); }
 
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     html { padding-top: 50px !important; }
     .home-title { font-size: 28px; }
     .home-hero { padding: 40px 0 32px; }
