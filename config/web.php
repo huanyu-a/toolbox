@@ -148,9 +148,9 @@ return array (
   ),
   'ports' => 
   array (
-    'title' => 'HTTP,TCP,UDP常见端口大全,455端口,443端口-在线工具箱',
-    'keywords' => 'GET,POST,HEAD方法,OPTIONS,PUT,DELETE,TRACE,CONNECT方法,method,http请求方法,http请求方式',
-    'description' => 'HTTP Request请求方法对照表大全为您提供http请求方法大全,http请求方法有哪些,http请求method大全,http请求方式,HTTP请求方法在编写底层的HTTP协议代码时,是必须要考虑的内容',
+    'title' => 'TCP/UDP常见端口大全,常用端口对照表-在线工具箱',
+    'keywords' => '端口大全,常用端口,端口对照表,tcp端口,udp端口,端口号查询',
+    'description' => 'TCP/UDP常见端口大全为您提供常用端口号在线查询,涵盖HTTP、HTTPS、FTP、SSH、SMTP、MySQL、Redis等常用服务端口及其用途说明,方便运维与开发人员快速查阅',
   ),
   'websocket' => 
   array (
@@ -244,9 +244,9 @@ return array (
   ),
   'linuxcmd' => 
   array (
-    'title' => 'HTTP请求方法对照表,HTTP请求method大全-在线工具箱',
-    'keywords' => 'GET,POST,HEAD方法,OPTIONS,PUT,DELETE,TRACE,CONNECT方法,method,http请求方法,http请求方式',
-    'description' => 'HTTP Request请求方法对照表大全为您提供http请求方法大全,http请求方法有哪些,http请求method大全,http请求方式,HTTP请求方法在编写底层的HTTP协议代码时,是必须要考虑的内容',
+    'title' => 'Linux常用命令大全,Linux命令查询-在线工具箱',
+    'keywords' => 'Linux命令大全,linux常用命令,linux命令查询,shell命令,服务器命令',
+    'description' => 'Linux常用命令大全为您提供Linux命令在线查询,涵盖文件操作、目录管理、权限设置、进程管理、网络配置、系统监控等常用Linux命令及其参数说明,适合运维人员和开发者在日常工作中快速查阅',
   ),
   'alldns' => 
   array (
