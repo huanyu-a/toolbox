@@ -907,6 +907,8 @@ pre { padding: 12px 14px; }
     .home-wrap .container { padding-right: 112px; }
     .container > .tool-wrap,
     .container > .row { padding-right: 110px; }
+    
+    .foot-history .row { padding-right: 125px; }
     .topbar .navbar-nav > li > a { height: 44px; line-height: 44px; }
     .topbar .nav-search { display: none; }
     .search-pop { padding: 12px 0 6px; }
