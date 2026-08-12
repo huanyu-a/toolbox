@@ -9,11 +9,11 @@
         <div id="navbar" class="navbar-collapse collapse" role="navigation">
             <ul class="nav navbar-nav" id="top_menu">
                 {volist name="tools" id="cat"}
-                <li class="dropdown">
+                <li class="dropdown{if condition="$cat.cat == $current_cat"} open active{/if}">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$cat.cat}<span class="caret"></span></a>
                     <ul class="dropdown-menu ul-list">
                         {volist name="cat.items" id="tool"}
-                        <li><a href="{$tool.url}"{if condition="$tool.accent != ''"} style="color:{$tool.accent}"{/if}>{$tool.name}</a></li>
+                        <li{if condition="$tool.url == $current_url"} class="cur"{/if}><a href="{$tool.url}"{if condition="$tool.accent != ''"} style="color:{$tool.accent}"{/if}>{$tool.name}</a></li>
                         {/volist}
                     </ul>
                 </li>
@@ -33,6 +33,17 @@
         </div>
     </div>
 </nav>
+{if condition="$current_tool_name != ''"}
+<div class="crumb-bar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li>{if condition="$current_cat != ''"}<a href="/#cat-{$current_cat}">{$current_cat}</a>{else}工具{/if}</li>
+            <li class="active">{$current_tool_name}</li>
+        </ol>
+    </div>
+</div>
+{/if}
 <div class="search-dropdown hidden-xs" id="searchDropdown" style="display:none;"></div>
 <script>window.TOOLS_DATA = {:isset($tools) && $tools ? json_encode($tools) : '[]'};</script>
 <script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?3cac3b804824023eab6a7154c37a23c1";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script>

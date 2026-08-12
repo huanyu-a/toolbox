@@ -176,6 +176,31 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
 .search-dropdown .sd-item a:hover { border-color: var(--brand); color: var(--brand-strong); background: var(--brand-soft); }
 .search-dropdown .sd-empty { color: var(--text-3); font-size: 13px; padding: 8px; }
 
+/* 面包屑 */
+.crumb-bar {
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+}
+.crumb-bar .breadcrumb {
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    border-radius: 0;
+}
+.crumb-bar .breadcrumb a { color: var(--text-2); }
+.crumb-bar .breadcrumb a:hover { color: var(--brand-strong); }
+.crumb-bar .breadcrumb > .active { color: var(--text); font-weight: 600; }
+
+/* 导航当前项高亮 */
+.topbar .dropdown-menu > li.cur > a {
+    color: var(--brand-strong);
+    background: var(--brand-soft);
+    font-weight: 600;
+}
+
 /* ---------- 首页 ---------- */
 .home-hero {
     background: linear-gradient(160deg, var(--brand-soft) 0%, var(--bg) 60%);

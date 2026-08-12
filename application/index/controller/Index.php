@@ -18,9 +18,21 @@ class Index extends Controller
             $toolCount += isset($cat['items']) ? count($cat['items']) : 0;
         }
         $data['homeCount'] = $toolCount;
-        // 当前工具 slug，用于导航高亮
-        $data['current_act'] = input('act', 'index');
+        // 当前工具信息（面包屑 + 导航高亮）
         $act = input('act', 'index');
+        $data['current_act'] = $act;
+        $data['current_cat'] = '';
+        $data['current_tool_name'] = '';
+        $data['current_url'] = '/' . trim($act, '/') . '/';
+        foreach ((array)$data['tools'] as $cat) {
+            foreach ((array)$cat['items'] as $item) {
+                if (rtrim($item['url'], '/') === '/' . trim($act, '/')) {
+                    $data['current_cat'] = $cat['cat'];
+                    $data['current_tool_name'] = $item['name'];
+                    break 2;
+                }
+            }
+        }
         switch ($act) {
             case 'uuid':
                 $data['uuid_number'] = input('uuid_number', 1);

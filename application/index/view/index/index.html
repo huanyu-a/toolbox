@@ -42,7 +42,7 @@
     </section>
     <section class="container home-cats" id="homeCats">
         {volist name="tools" id="cat"}
-        <div class="home-cat" data-cat="{$cat.cat}">
+        <div class="home-cat" id="cat-{$cat.cat}" data-cat="{$cat.cat}">
             <div class="home-cat-head">
                 <span class="home-cat-name">{$cat.cat}</span>
                 <span class="home-cat-count">{$cat.items|count} 个</span>
