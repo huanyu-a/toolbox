@@ -101,7 +101,7 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
     font-size: 14px;
     height: 52px;
     line-height: 52px;
-    padding: 0 12px;
+    padding: 0 8px;
 }
 .topbar .navbar-nav > li > a:hover,
 .topbar .navbar-nav > li > a:focus,
@@ -140,7 +140,7 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
 .nav-search .navbar-form { margin: 8px 6px 0 0; padding: 0; border: none; box-shadow: none; }
 .nav-search .top-search {
     height: 34px;
-    width: 230px;
+    width: 180px;
     border-radius: 17px !important;
     border: 1px solid var(--border);
     background: var(--surface-2);
@@ -193,6 +193,18 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
 .crumb-bar .breadcrumb a { color: var(--text-2); }
 .crumb-bar .breadcrumb a:hover { color: var(--brand-strong); }
 .crumb-bar .breadcrumb > .active { color: var(--text); font-weight: 600; }
+
+/* 导航当前分类高亮（不展开下拉） */
+.topbar .navbar-nav > li.active > a {
+    color: var(--brand-strong);
+    background: var(--brand-soft);
+    font-weight: 600;
+}
+.topbar .navbar-nav > li.active > a:hover,
+.topbar .navbar-nav > li.active > a:focus {
+    color: var(--brand-strong);
+    background: var(--brand-soft);
+}
 
 /* 导航当前项高亮 */
 .topbar .dropdown-menu > li.cur > a {
@@ -444,6 +456,10 @@ pre { padding: 12px 14px; }
     .topbar .navbar-collapse { background: var(--surface); border-color: var(--border); }
     .topbar .navbar-nav > li > a { height: 44px; line-height: 44px; }
     .nav-search { display: none !important; }
+}
+@media (max-width: 1199px) {
+    .nav-search { display: none !important; }
+    .topbar .navbar-nav > li > a { padding: 0 6px; font-size: 13px; }
 }
 @media (max-width: 991px) {
     .nav-search .top-search { width: 150px; }

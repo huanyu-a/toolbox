@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
-    <div class="jz container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar"><span class="sr-only">在线工具箱</span> <span
@@ -9,7 +9,7 @@
         <div id="navbar" class="navbar-collapse collapse" role="navigation">
             <ul class="nav navbar-nav" id="top_menu">
                 {volist name="tools" id="cat"}
-                <li class="dropdown{if condition="$cat.cat == $current_cat"} open active{/if}">
+                <li class="dropdown{if condition="$cat.cat == $current_cat"} active{/if}">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$cat.cat}<span class="caret"></span></a>
                     <ul class="dropdown-menu ul-list">
                         {volist name="cat.items" id="tool"}
