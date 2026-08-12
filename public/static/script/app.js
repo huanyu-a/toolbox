@@ -15,10 +15,10 @@
         } else {
             document.documentElement.removeAttribute('data-theme');
         }
-        var icon = document.querySelector('#themeToggle .theme-icon');
-        if (icon) {
+        var icons = document.querySelectorAll('.theme-toggle-btn .theme-icon');
+        icons.forEach(function (icon) {
             icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-        }
+        });
         try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* ignore */ }
     }
 
@@ -29,13 +29,13 @@
         applyTheme(theme);
     }
 
-    var themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function () {
+    var themeToggles = document.querySelectorAll('.theme-toggle-btn');
+    themeToggles.forEach(function (btn) {
+        btn.addEventListener('click', function () {
             var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
             applyTheme(cur === 'dark' ? 'light' : 'dark');
         });
-    }
+    });
     if (mql && mql.addEventListener) {
         mql.addEventListener('change', function (e) {
             var saved = null;
@@ -264,6 +264,58 @@
             clearTimeout(moreTimer);
             moreTimer = setTimeout(layoutMore, 150);
         });
+    }
+
+    /* ---------- 移动端右侧悬浮分类锚文本导航（参考 hao.bx9y.com.cn） ---------- */
+    var floatNav = document.getElementById('floatCatNav');
+    if (floatNav && TOOLS.length) {
+        var isHome = window.location.pathname === '/' || window.location.pathname === '';
+        // 当前分类（工具页高亮）
+        var currentCat = '';
+        var activeLi = topMenu ? topMenu.querySelector('li.active[data-cat]') : null;
+        if (activeLi) currentCat = activeLi.getAttribute('data-cat') || '';
+
+        TOOLS.forEach(function (cat) {
+            var a = document.createElement('a');
+            a.className = 'float-cat-item' + (cat.cat === currentCat ? ' active' : '');
+            a.textContent = cat.cat;
+            a.href = isHome ? '#cat-' + encodeURIComponent(cat.cat) : '/#cat-' + encodeURIComponent(cat.cat);
+            a.setAttribute('data-cat', cat.cat);
+            a.addEventListener('click', function (e) {
+                if (!isHome) return; // 非首页直接跳转
+                e.preventDefault();
+                var target = document.getElementById('cat-' + cat.cat);
+                if (!target) return;
+                // 立即高亮当前点击的分类
+                floatNav.querySelectorAll('.float-cat-item').forEach(function (item) {
+                    item.classList.toggle('active', item === a);
+                });
+                try {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } catch (err) {
+                    // 旧浏览器：手动滚动 + scroll-margin-top 兼容（62px 顶栏）
+                    var y = target.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - 62;
+                    window.scrollTo(0, Math.max(0, y));
+                }
+            });
+            floatNav.appendChild(a);
+        });
+
+        // 首页：滚动监听高亮当前分类（scrollspy）
+        if (isHome && 'IntersectionObserver' in window) {
+            var catSections = document.querySelectorAll('.home-cat');
+            var spyObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    var id = entry.target.getAttribute('id') || '';
+                    var name = entry.target.getAttribute('data-cat') || id.replace(/^cat-/, '');
+                    floatNav.querySelectorAll('.float-cat-item').forEach(function (item) {
+                        item.classList.toggle('active', item.getAttribute('data-cat') === name);
+                    });
+                });
+            }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+            catSections.forEach(function (sec) { spyObserver.observe(sec); });
+        }
     }
 
     /* ---------- 足迹历史 ---------- */

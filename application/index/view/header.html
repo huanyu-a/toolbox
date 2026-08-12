@@ -4,6 +4,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar"><span class="sr-only">在线工具箱</span> <span
                     class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <button type="button" class="navbar-search-toggle theme-toggle-btn" id="topThemeBtnXs" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></button>
             <button type="button" class="navbar-search-toggle" id="topSearchBtnXs" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
             <a class="navbar-brand" href="/" title="在线工具箱"><em class="logo_ico glyphicon glyphicon-wrench"></em>在线工具箱</a>
         </div>
@@ -28,7 +29,7 @@
                 <li class="nav-search">
                     <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
                 </li>
-                <li class="nav-theme"><a href="javascript:;" id="themeToggle" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></a></li>
+                <li class="nav-theme"><a href="javascript:;" id="themeToggle" class="theme-toggle-btn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></a></li>
             </ul>
         </div>
     </div>
@@ -45,6 +46,7 @@
 </div>
 {/if}
 <div class="search-pop-mask" id="searchMask" style="display:none;"></div>
+<nav class="float-cat-nav" id="floatCatNav" aria-label="分类导航"></nav>
 <div class="search-pop" id="searchPop" style="display:none;">
     <div class="container">
         <div class="search-pop-head">
