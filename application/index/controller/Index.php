@@ -10,6 +10,16 @@ class Index extends Controller
     public function index()
     {
         $data = array();
+        // 工具注册表（分类导航数据源，TP5.1 顶层配置需用尾点 pull 读取）
+        $data['tools'] = config('tools.');
+        // 工具总数
+        $toolCount = 0;
+        foreach ((array)$data['tools'] as $cat) {
+            $toolCount += isset($cat['items']) ? count($cat['items']) : 0;
+        }
+        $data['homeCount'] = $toolCount;
+        // 当前工具 slug，用于导航高亮
+        $data['current_act'] = input('act', 'index');
         $act = input('act', 'index');
         switch ($act) {
             case 'uuid':
