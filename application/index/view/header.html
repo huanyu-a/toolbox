@@ -4,8 +4,6 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar"><span class="sr-only">在线工具箱</span> <span
                     class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-            <button type="button" class="navbar-search-toggle theme-toggle-btn" id="topThemeBtnXs" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></button>
-            <button type="button" class="navbar-search-toggle" id="topSearchBtnXs" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
             <a class="navbar-brand" href="/" title="在线工具箱"><em class="logo_ico glyphicon glyphicon-wrench"></em>在线工具箱</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" role="navigation">
@@ -47,6 +45,11 @@
 {/if}
 <div class="search-pop-mask" id="searchMask" style="display:none;"></div>
 <nav class="float-cat-nav" id="floatCatNav" aria-label="分类导航"></nav>
+<!-- 移动端悬浮按钮组：分类（右下角，点击展开右侧面板）、搜索/主题（右上角） -->
+<div class="fab-mask" id="fabMask" style="display:none;"></div>
+<button type="button" class="fab fab-cat" id="fabCatBtn" title="分类导航" aria-label="分类导航" aria-expanded="false"><span class="fab-ico">☰</span></button>
+<button type="button" class="fab fab-search" id="fabSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="fab-ico">🔍</span></button>
+<button type="button" class="fab fab-theme theme-toggle-btn" id="fabThemeBtn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></button>
 <div class="search-pop" id="searchPop" style="display:none;">
     <div class="container">
         <div class="search-pop-head">

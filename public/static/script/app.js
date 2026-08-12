@@ -157,9 +157,9 @@
             openSearch();
         });
     }
-    var topBtnXs = document.getElementById('topSearchBtnXs');
-    if (topBtnXs) {
-        topBtnXs.addEventListener('click', function (e) {
+    var fabSearchBtn = document.getElementById('fabSearchBtn');
+    if (fabSearchBtn) {
+        fabSearchBtn.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             openSearch();
@@ -168,7 +168,10 @@
     if (searchClose) searchClose.addEventListener('click', closeSearch);
     if (searchMask) searchMask.addEventListener('click', closeSearch);
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeSearch();
+        if (e.key === 'Escape') {
+            closeSearch();
+            closeCatNav();
+        }
     });
     if (topInput) {
         topInput.addEventListener('input', function () { renderTopSearch(topInput.value); });
@@ -266,7 +269,45 @@
         });
     }
 
-    /* ---------- 移动端右侧悬浮分类锚文本导航（参考 hao.bx9y.com.cn） ---------- */
+    /* ---------- 移动端悬浮按钮组：分类面板 / 搜索 / 主题 ---------- */
+    var fabCatBtn = document.getElementById('fabCatBtn');
+    var fabMask = document.getElementById('fabMask');
+    var fabCatIcon = fabCatBtn ? fabCatBtn.querySelector('.fab-ico') : null;
+
+    function openCatNav() {
+        if (floatNav) floatNav.classList.add('open');
+        if (fabMask) fabMask.style.display = 'block';
+        if (fabCatBtn) fabCatBtn.classList.add('active');
+        if (fabCatIcon) fabCatIcon.textContent = '✕';
+        if (fabCatBtn) fabCatBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeCatNav() {
+        if (floatNav) floatNav.classList.remove('open');
+        if (fabMask) fabMask.style.display = 'none';
+        if (fabCatBtn) fabCatBtn.classList.remove('active');
+        if (fabCatIcon) fabCatIcon.textContent = '☰';
+        if (fabCatBtn) fabCatBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    if (fabCatBtn) {
+        fabCatBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.innerWidth >= 992) return; // 桌面端不显示，兜底忽略
+            if (floatNav && floatNav.classList.contains('open')) {
+                closeCatNav();
+            } else {
+                openCatNav();
+            }
+        });
+    }
+    if (fabMask) fabMask.addEventListener('click', closeCatNav);
+    window.addEventListener('resize', function () {
+        if (window.innerWidth >= 992) closeCatNav();
+    });
+
+    /* ---------- 移动端右侧悬浮分类面板（点击展开/收起） ---------- */
     var floatNav = document.getElementById('floatCatNav');
     if (floatNav && TOOLS.length) {
         var isHome = window.location.pathname === '/' || window.location.pathname === '';
@@ -282,6 +323,7 @@
             a.href = isHome ? '#cat-' + encodeURIComponent(cat.cat) : '/#cat-' + encodeURIComponent(cat.cat);
             a.setAttribute('data-cat', cat.cat);
             a.addEventListener('click', function (e) {
+                closeCatNav(); // 点击分类后收起面板
                 if (!isHome) return; // 非首页直接跳转
                 e.preventDefault();
                 var target = document.getElementById('cat-' + cat.cat);
