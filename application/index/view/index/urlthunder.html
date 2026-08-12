@@ -1,6 +1,126 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.urlthunder.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.urlthunder.keywords}" /><meta name="description" content="{$Think.config.web.urlthunder.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">⚡</span>迅雷旋风URL加解密</h2><p class="tool-desc">下载地址加解密工具为您提供迅雷URL加密,快车URL加密,旋风URL加密,迅雷url解密工具,下载地址加解密,迅雷快车旋风URL加密解密工具,迅雷Url加密,快车Url加密工具,</p><form id="form1" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><input class="form-control" id="input" name="input" type="text" value="" placeholder="请输入地址，例如：http://zxgj.16400.cn" /></div></div><div class="form-group"><div class="col-sm-12 text-center"><button type="button" class="btn btn-success" onclick="Encryption()">加密Url</button><button type="button" class="btn btn-info" onclick="Decryption()">解密Url</button><button type="button" class="btn btn-default" onclick="empty()">清空输入框</button></div></div><div class="form-group" id="errcode" style="display: none;"><div class="col-sm-12"><div class="alert alert-danger alert-dismissible text-center" role="alert"><span>地址格式不正确，无法解密!</span></div></div></div> <div class="input-group"><div id="re"></div></div> <div class="input-group"><input class="form-control" id="xun" type="text" value="" placeholder="迅 雷 地 址" /><span class="input-group-btn"><button class="btn btn-default" type="button" id="copyallcode" data-clipboard-target="#xun">复制</button></span> </div> <div class="input-group mt10"><input class="form-control" id="kuai" type="text" value="" placeholder="快 车 地 址" /><span class="input-group-btn"><button class="btn btn-default" type="button" id="copyallcode2" onclick="copyTxtToClipboard('#kuai','#copyallcode2')">复制</button></span> </div> <div class="input-group mt10"><input class="form-control" id="xuan" type="text" value="" placeholder="旋 风 地 址" /><span class="input-group-btn"><button class="btn btn-default" type="button" id="copyallcode3" onclick="copyTxtToClipboard('#xuan','#copyallcode3')">复制</button></span> </div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/pcjs/urlthunder.js" type="text/javascript"></script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">⚡</span>迅雷/快车/旋风 URL 加解密</h2>
+        <p class="tool-desc">下载地址加解密工具：将普通下载地址加密为迅雷（thunder://）、快车（flashget://）、旋风（qqdl://）专用链接，也支持将三种加密链接解密还原出原始地址。</p>
+        <label class="t-label" for="thunderInput">下载地址</label>
+        <div class="t-row">
+            <input class="t-input t-flex1" id="thunderInput" type="text" placeholder="请输入地址，例如：http://zxgj.16400.cn" />
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="thunderEncrypt">加密 URL</button>
+            <button class="t-btn t-btn-ok" type="button" id="thunderDecrypt">解密 URL</button>
+            <button class="t-btn t-btn-ghost" type="button" id="thunderClear">清空</button>
+        </div>
+        <div class="t-result" id="thunderSrcBox">
+            <button class="t-copy" type="button" data-copy="#thunderSrcText">复制</button>
+            <div id="thunderSrcText"></div>
+        </div>
+        <div id="thunderEncWrap" style="display:none;margin-top:14px">
+            <div class="t-row" style="margin-bottom:10px">
+                <span class="t-result-label">迅雷</span>
+                <input class="t-input t-flex1" id="thunderXun" type="text" readonly value="" />
+                <button class="t-btn t-btn-sm" type="button" data-copy="#thunderXun">复制</button>
+            </div>
+            <div class="t-row" style="margin-bottom:10px">
+                <span class="t-result-label">快车</span>
+                <input class="t-input t-flex1" id="thunderKuai" type="text" readonly value="" />
+                <button class="t-btn t-btn-sm" type="button" data-copy="#thunderKuai">复制</button>
+            </div>
+            <div class="t-row">
+                <span class="t-result-label">旋风</span>
+                <input class="t-input t-flex1" id="thunderXuan" type="text" readonly value="" />
+                <button class="t-btn t-btn-sm" type="button" data-copy="#thunderXuan">复制</button>
+            </div>
+        </div>
+        <div class="t-error" id="thunderError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于下载地址加解密</h2>
+        <p class="tool-desc">迅雷/快车/旋风链接本质是 Base64 编码：thunder:// 内为"AA + 地址 + ZZ"，flashget:// 内为"[FLASHGET] + 地址 + [FLASHGET]"（末尾附 &abc），qqdl:// 内为地址本身。解密时先去掉协议前缀，再 Base64 解码并剥掉包裹标记即可还原原始地址。本站转换完全在本地完成。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var input = document.getElementById('thunderInput');
+    var srcBox = document.getElementById('thunderSrcBox');
+    var srcText = document.getElementById('thunderSrcText');
+    var encWrap = document.getElementById('thunderEncWrap');
+    var xun = document.getElementById('thunderXun');
+    var kuai = document.getElementById('thunderKuai');
+    var xuan = document.getElementById('thunderXuan');
+    var error = document.getElementById('thunderError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+
+    function encrypt() {
+        hideErr();
+        var v = input.value.replace(/ +$/g, '');
+        if (!v) { showErr('请输入要加密的下载地址'); return; }
+        if (/^thunder|^flashget/i.test(v)) { showErr('该地址已是加密链接，请使用“解密 URL”还原'); return; }
+        xun.value = 'thunder://' + Tools.base64Encode('AA' + v + 'ZZ');
+        kuai.value = 'flashget://' + Tools.base64Encode('[FLASHGET]' + v + '[FLASHGET]') + '&abc';
+        xuan.value = 'qqdl://' + Tools.base64Encode(v);
+        srcBox.classList.remove('show');
+        encWrap.style.display = 'block';
+    }
+
+    function decrypt() {
+        hideErr();
+        var v = input.value.replace(/ +$|\/$/g, '').replace('Flashget://', 'flashget://');
+        if (!v) { showErr('请输入要解密的下载地址'); return; }
+        var url = '', ok = false;
+        try {
+            if (/^thunder/i.test(v)) {
+                url = Tools.base64Decode(v.replace('thunder://', '')).replace(/^AA|ZZ$/gi, '');
+                ok = true;
+            } else if (/^flashget/i.test(v)) {
+                url = Tools.base64Decode(v.replace('flashget://', '').replace(/&.*$/, '')).replace(/^\[FLASHGET\]|\[FLASHGET\]$/gi, '');
+                ok = true;
+            } else if (/^qqdl/i.test(v)) {
+                url = Tools.base64Decode(v.replace('qqdl://', ''));
+                ok = true;
+            }
+        } catch (e) {
+            ok = false;
+        }
+        if (!ok || !url) {
+            srcBox.classList.remove('show');
+            encWrap.style.display = 'none';
+            showErr('地址格式不正确，无法解密');
+            return;
+        }
+        srcText.textContent = '';
+        var a = document.createElement('a');
+        a.href = url;
+        a.textContent = url;
+        a.target = '_blank';
+        a.rel = 'nofollow noopener';
+        srcText.appendChild(a);
+        srcBox.classList.add('show');
+        encWrap.style.display = 'none';
+    }
+
+    document.getElementById('thunderEncrypt').addEventListener('click', encrypt);
+    document.getElementById('thunderDecrypt').addEventListener('click', decrypt);
+    document.getElementById('thunderClear').addEventListener('click', function () {
+        input.value = '';
+        xun.value = ''; kuai.value = ''; xuan.value = '';
+        srcBox.classList.remove('show');
+        encWrap.style.display = 'none';
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') encrypt();
+    });
+})();
+</script>
 </body></html>

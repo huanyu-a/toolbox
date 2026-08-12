@@ -22,46 +22,98 @@
     {:$Think.config.web.header}
 {include file="seo" /}</head>
 <body>
-{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔣</span>Native/Unicode编码转换</h2><p class="tool-desc">Native/Unicode编码在线转换工具为您提供在线Native/Unicode在线编码转换工具，提供Native与Unicode编码相互转换的功能,Native编码,</p>
-                        <form id="form1" class="form-horizontal" method="post">
-                            <div class="form-group">
-                                <div class="col-sm-12"><textarea onmouseover="this.focus();" id="content" name="content"
-                                                                 class="form-control" rows="10"
-                                                                 placeholder="请输入要转换的文本"></textarea></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12 text-center">
-                                    <button type="button" id="encode" class="btn btn-success"
-                                            onclick="javascript:Native2Unicode();">Native转Unicode
-                                    </button>
-                                    <button type="button" id="decode" class="btn btn-success"
-                                            onclick="javascript:Unicode2Native();">Unicode转Native
-                                    </button>
-                                    <span id="copyallcode" class="btn btn-default"
-                                          data-clipboard-target="#result">复制结果</span><input type="button"
-                                                                                            onclick="ClearAll();"
-                                                                                            value="清空"
-                                                                                            class="btn btn-default">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <pre><code id="result"></code></pre>
-                                </div>
-                            </div>
-                        </form>
-                    </div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/tool.js" type="text/javascript"></script>
-<script src="/static/script/hightout.js"></script>
-<script type="text/javascript">
-    //Native 转换 Unicode
-    function Native2Unicode() {var a_s=$("#content").val();var out='';if ('' == a_s) { alert('请输入Native字符串'); return; }for (var i=0; i<$("#content").val().length; i++)out = out + '&#' + a_s.charCodeAt(i) + ';';hightout(out);}
-    //Unicode 转换 Native
-    function Unicode2Native() { var a_s=$("#content").val();var code = a_s.match(/&#(\d+);/g);var out='';if (code == null) { alert('请输入正确的Unicode代码！'); $("#content").focus();return; }for (var i=0; i<code.length; i++)out = out +  String.fromCharCode(code[i].replace(/[&#;]/g, ''));hightout(out);}
-</script>
+{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔣</span>Native / Unicode 编码转换</h2>
+        <p class="tool-desc">汉字与 Unicode 编码互转，支持 \uXXXX、&#xHHHH;、&#DDDDD; 三种格式，可批量转换任意字符，全程本地处理。</p>
+        <div class="t-grid">
+            <div class="t-col">
+                <label class="t-label" for="nuInput">原文</label>
+                <textarea class="t-area" id="nuInput" rows="8" placeholder="请输入要转换的文本…"></textarea>
+            </div>
+            <div class="t-col">
+                <label class="t-label" for="nuOutput">结果</label>
+                <textarea class="t-area t-area-readonly" id="nuOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+            </div>
+        </div>
+        <div class="t-options" style="margin-top:12px">
+            <span style="font-weight:600">转换格式：</span>
+            <label><input type="radio" name="nuMode" value="u" checked> \uXXXX</label>
+            <label><input type="radio" name="nuMode" value="xh"> &#xHHHH;（十六进制）</label>
+            <label><input type="radio" name="nuMode" value="d"> &#DDDDD;（十进制）</label>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="nuToCode">中文 → 编码</button>
+            <button class="t-btn t-btn-ok" type="button" id="nuToText">编码 → 中文</button>
+            <button class="t-btn t-btn-ghost" type="button" data-copy="#nuOutput">复制结果</button>
+            <button class="t-btn t-btn-ghost" type="button" id="nuSwap">⇄ 交换</button>
+            <button class="t-btn t-btn-ghost" type="button" id="nuClear">清空</button>
+        </div>
+        <div class="t-error" id="nuError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 Native / Unicode 编码</h2>
+        <p class="tool-desc">Unicode 为每个字符分配唯一的码点（Code Point），常见表示形式有 \uXXXX（JavaScript 转义）、&#xHHHH;（十六进制 HTML 实体）、&#DDDDD;（十进制 HTML 实体）。例如"中"对应 \u4E2D、&#x4E2D;、&#20013;。本站转换完全在本地完成。</p>
+    </div>
+</div></div>
 {include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var input = document.getElementById('nuInput');
+    var output = document.getElementById('nuOutput');
+    var error = document.getElementById('nuError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    function getMode() {
+        var m = document.querySelector('input[name="nuMode"]:checked');
+        return m ? m.value : 'u';
+    }
+    function pad4(hex) {
+        while (hex.length < 4) hex = '0' + hex;
+        return hex;
+    }
+    function toCode() {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要转换的文本'); return; }
+        var mode = getMode();
+        var out = '';
+        for (var i = 0; i < v.length; i++) {
+            var code = v.charCodeAt(i);
+            if (mode === 'u') out += '\\u' + pad4(code.toString(16));
+            else if (mode === 'xh') out += '&#x' + pad4(code.toString(16)) + ';';
+            else out += '&#' + code + ';';
+        }
+        output.value = out;
+    }
+    function toText() {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入编码内容'); return; }
+        var out = v
+            .replace(/\\u([0-9a-fA-F]{1,4})/g, function (m, h) { return String.fromCharCode(parseInt(h, 16)); })
+            .replace(/&#x([0-9a-fA-F]{1,6});/g, function (m, h) { return String.fromCharCode(parseInt(h, 16)); })
+            .replace(/&#(\d{1,7});/g, function (m, d) { return String.fromCharCode(parseInt(d, 10)); });
+        output.value = out;
+    }
+    document.getElementById('nuToCode').addEventListener('click', toCode);
+    document.getElementById('nuToText').addEventListener('click', toText);
+    document.getElementById('nuSwap').addEventListener('click', function () {
+        var t = input.value; input.value = output.value; output.value = t;
+    });
+    document.getElementById('nuClear').addEventListener('click', function () {
+        input.value = ''; output.value = ''; hideErr(); input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') toCode();
+    });
+})();
+</script>
 </body>
 </html>
