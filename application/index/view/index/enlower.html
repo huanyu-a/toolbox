@@ -1,6 +1,45 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.enlower.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.enlower.keywords}" /><meta name="description" content="{$Think.config.web.enlower.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔡</span>英文字母大小写转换</h2><p class="tool-desc">英文字母大小写转换工具为您提供在线英文字母大小写转换工具，能方便快捷地将英文字母全部转换为大写或小写，或将英文句子转换成首字母大写,在线大小写转换,单词大小写在线转换等</p><form id="form1" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><textarea onmouseover="this.focus();" id="content" name="content" class="form-control" rows="10" placeholder="请输入要转换的文本内容"></textarea></div></div><div class="form-group"><div class="col-sm-12 text-center"><select class="btn btn-default dropdown-toggle" id="tabsize" name="tabsize"><option value="0">全部 </option><option value="1">每个单词首字母</option><option value="2">每行首字母</option><option value="3">每句首字</option></select><input onclick="en_convert(1)" value="转为大写" type="button" name="body" class="btn btn-success"><input onclick="en_convert(2)" value="转为小写" type="button" name="body" class="btn btn-info"><span id="copyallcode" class="btn btn-default" data-clipboard-target="#content">复制</span><button type="button" class="btn btn-default" onclick="javascript:$('#content').val('').focus(); ">清空</button></div></div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script>setJS(["/static/script/pcjs/enletter.js"]);</script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔡</span>英文字母大小写转换</h2>
+        <p class="tool-desc">英文字母大小写转换工具为您提供在线英文字母大小写转换工具，能方便快捷地将英文字母全部转换为大写或小写，或将英文句子转换成首字母大写,在线大小写转换,单词大小写在线转换等</p>
+        <label class="t-label" for="content">待转换文本</label>
+        <textarea class="t-area" id="content" rows="10" placeholder="请输入要转换的文本内容"></textarea>
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="toUpper">转为大写</button>
+            <button class="t-btn t-btn-ok" type="button" id="toLower">转为小写</button>
+            <button class="t-btn t-btn-ghost" type="button" data-copy="#content">复制</button>
+            <button class="t-btn t-btn-ghost" type="button" id="clearBtn">清空</button>
+        </div>
+        <div class="t-error" id="enError"></div>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var content = document.getElementById('content');
+    var error = document.getElementById('enError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    // 等价于原 englishConvert()：str == "xx" -> toLowerCase()，否则 toUpperCase()
+    function convert(mode) {
+        hideErr();
+        var text = content.value;
+        if (!text) { showErr('请输入要转换的文本内容'); content.focus(); return; }
+        content.value = mode === 'lower' ? text.toLowerCase() : text.toUpperCase();
+    }
+    document.getElementById('toUpper').addEventListener('click', function () { convert('upper'); });
+    document.getElementById('toLower').addEventListener('click', function () { convert('lower'); });
+    document.getElementById('clearBtn').addEventListener('click', function () {
+        content.value = '';
+        hideErr();
+        content.focus();
+    });
+})();
+</script>
 </body></html>

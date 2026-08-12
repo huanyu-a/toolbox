@@ -1,6 +1,62 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.quchong.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.quchong.keywords}" /><meta name="description" content="{$Think.config.web.quchong.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🧹</span>内容去重工具</h2><p class="tool-desc">在线去重工具为您提供在线去重工具,去重复行,将列表内容放入文本框内，每行一条，点击去重按钮，即可得到无重复数据的列表,可以实现文本txt去重复,js去重复,java数组去重复,.</p><form id="mform" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><textarea onmouseover="this.focus();" id="content" name="content" class="form-control" rows="10" placeholder="请输入要去重的内容"></textarea></div></div><div class="form-group"><div class="col-sm-12 text-center"><input type="button" onclick="process();" value="去重处理" class="btn btn-success"><span id="copyallcode" class="btn btn-default" data-clipboard-target="#result">复制</span><input type="button" onclick="ClearAll();" value="清空" class="btn btn-default"></div></div><div class="form-group"><div class="col-sm-12"><pre><code id="result"></code></pre></div></div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/pcjs/quchong.js"></script><script src="/static/script/hightout.js"></script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🧹</span>内容去重工具</h2>
+        <p class="tool-desc">在线去重工具为您提供在线去重工具,去重复行,将列表内容放入文本框内，每行一条，点击去重按钮，即可得到无重复数据的列表,可以实现文本txt去重复,js去重复,java数组去重复,.</p>
+        <label class="t-label" for="content">待去重内容（每行一条）</label>
+        <textarea class="t-area" id="content" rows="10" placeholder="请输入要去重的内容"></textarea>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ok" type="button" id="go">去重处理</button>
+            <button class="t-btn t-btn-ghost" type="button" id="clear">清空</button>
+        </div>
+        <div class="t-result">
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ghost t-copy" type="button" data-copy="#result">复制结果</button>
+            </div>
+            <pre><code id="result"></code></pre>
+        </div>
+        <div class="t-error" id="err"></div>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var input = document.getElementById('content');
+    var result = document.getElementById('result');
+    var err = document.getElementById('err');
+    function showErr(m) { err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function unique(lines) {
+        var seen = new Set();
+        var out = [];
+        for (var i = 0; i < lines.length; i++) {
+            var p = lines[i];
+            if (p == null) continue;
+            if (!seen.has(p)) { seen.add(p); out.push(p); }
+        }
+        return out;
+    }
+    document.getElementById('go').addEventListener('click', function () {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要去重的内容'); return; }
+        var arr = unique(v.split('\n'));
+        var html = '';
+        for (var i = 0; i < arr.length; i++) html += arr[i] + '\n';
+        result.textContent = html;
+    });
+    document.getElementById('clear').addEventListener('click', function () {
+        input.value = '';
+        result.textContent = '';
+        hideErr();
+        input.focus();
+    });
+})();
+</script>
 </body></html>

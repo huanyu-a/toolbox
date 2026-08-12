@@ -1,6 +1,63 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.txtcount.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.txtcount.keywords}" /><meta name="description" content="{$Think.config.web.txtcount.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔢</span>在线统计字数工具</h2><p class="tool-desc">在线字数统计工具为您提供文字个数实时统计,汉字和中文标点算两个字符,数字,空格,英文字母,英文标点算做一个字符,在线字数统计工具,在线字数统计,在线字数统计工具,</p><form id="form1" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><textarea onmouseover="this.focus();" id="content" class="form-control" rows="12" placeholder="请输入要统计的字符串"></textarea></div></div><div class="form-group"><div class="col-sm-12 text-center"><input type="button" onclick="Empty();" value="清空输入框" class="btn btn-default" /></div></div><div class="alert alert-info alert-dismissible text-center line-24" id="result">汉字：<span id="zhongwen" class="red">0</span> 个，中文标点：<span id="zbiaodian" class="red">0</span> 个，汉字+标点：<span id="zhongwenbiaodian" class="red">0</span> 个，英文（含英文状态下的数字、符号、标点）：<span id="yingwen" class="red">0</span> 个，数字：<span id="shuzi" class="red">0</span> 个，字符总数：<span id="totalwords" class="red">0</span> 个字符 </div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/pcjs/txtcount.js" type="text/javascript"></script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔢</span>在线统计字数工具</h2>
+        <p class="tool-desc">在线字数统计工具为您提供文字个数实时统计,汉字和中文标点算两个字符,数字,空格,英文字母,英文标点算做一个字符,在线字数统计工具,在线字数统计,在线字数统计工具,</p>
+        <label class="t-label" for="content">请输入要统计的字符串</label>
+        <textarea class="t-area" id="content" rows="12" placeholder="请输入要统计的字符串"></textarea>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ghost" type="button" id="empty">清空输入框</button>
+        </div>
+        <div class="t-result">
+            <p>汉字：<span id="zhongwen">0</span> 个，中文标点：<span id="zbiaodian">0</span> 个，汉字+标点：<span id="zhongwenbiaodian">0</span> 个，英文（含英文状态下的数字、符号、标点）：<span id="yingwen">0</span> 个，数字：<span id="shuzi">0</span> 个，字符总数：<span id="totalwords">0</span> 个字符</p>
+        </div>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var content = document.getElementById('content');
+    function $(id) { return document.getElementById(id); }
+    function count() {
+        var Words = content.value;
+        var W = {};
+        var iTotal = 0, sTotal = 0, eTotal = 0, inum = 0, i;
+        for (i = 0; i < Words.length; i++) {
+            var c = Words.charAt(i);
+            if (/[\u4e00-\u9fa5]/.test(c)) {
+                if (isNaN(W[c])) { W[c] = 1; }
+                iTotal++;
+            }
+        }
+        for (i = 0; i < Words.length; i++) {
+            var c2 = Words.charAt(i);
+            if (/[^\x00-\xff]/.test(c2)) {
+                sTotal++;
+            } else {
+                eTotal++;
+            }
+            if (/[0-9]/.test(c2)) inum++;
+        }
+        $('zhongwen').textContent = iTotal;
+        $('zbiaodian').textContent = sTotal - iTotal;
+        $('zhongwenbiaodian').textContent = sTotal;
+        $('yingwen').textContent = eTotal;
+        $('shuzi').textContent = inum;
+        $('totalwords').textContent = iTotal * 2 + (sTotal - iTotal) * 2 + eTotal;
+    }
+    content.addEventListener('input', count);
+    count();
+    $('empty').addEventListener('click', function () {
+        content.value = '';
+        count();
+        content.focus();
+    });
+})();
+</script>
 </body></html>
