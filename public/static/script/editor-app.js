@@ -125,19 +125,44 @@
     }, 600);
   }
 
+  /* ---------- HTML 源码转 Markdown（切回可视化时使用） ---------- */
+  function htmlToMd(html) {
+    if (!html) {
+      return '';
+    }
+    try {
+      if (window.Lute && typeof window.Lute.New === 'function') {
+        var lute = window.Lute.New();
+        if (typeof lute.HTML2Md === 'function') {
+          var md = lute.HTML2Md(html);
+          if (typeof md === 'string') {
+            return md;
+          }
+        }
+      }
+    } catch (e) { /* 转换失败时降级为原文，保证内容不丢失 */ }
+    return html;
+  }
+
   /* ---------- 模式切换（可视化编辑 <-> HTML 源码） ---------- */
   function switchMode(mode) {
     var isHtml = mode === 'html';
-    if (isHtml) {
-      htmlCm.setValue(getHTML() || '');
-      window.setTimeout(function () { htmlCm.refresh(); }, 10);
-    } else {
-      vditor.setValue(htmlCm.getValue() || '');
-    }
     $('#modeTabs .mtab').removeClass('active')
       .filter('[data-mode="' + mode + '"]').addClass('active');
     $('#paneTui, #paneHtml').removeClass('active');
     $('#pane' + (isHtml ? 'Html' : 'Tui')).addClass('active');
+
+    if (isHtml) {
+      htmlCm.setValue(getHTML() || '');
+      window.setTimeout(function () { htmlCm.refresh(); }, 10);
+    } else {
+      /* 先显示可视化面板，再渲染内容，避免在 display:none 下初始化 */
+      var src = htmlCm.getValue() || '';
+      vditor.setValue(src ? htmlToMd(src) : '');
+      updateStats();
+      scheduleSave();
+      window.setTimeout(function () { vditor.focus(); }, 60);
+    }
   }
 
   /* ---------- 复制 ---------- */
