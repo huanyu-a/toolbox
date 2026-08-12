@@ -1,8 +1,92 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.random.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.random.keywords}" /><meta name="description" content="{$Think.config.web.random.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/bootstrap.min.css" rel="stylesheet" type="text/css" /><link href="/static/style/tool.css" rel="stylesheet" type="text/css" />
-<link href="/static/style/app.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}</head><body>{include file="header" /}
-<div class="container"><div class="row"><div class="col-md-12 col10main"><div class="accordion" id="accordion2"><div class="accordion-group"><!-- <div><a href="https://www.aliyun.com/minisite/goods?userCode=eaborev5" target="_blank" rel="nofollow"><img src="http://zxgj.16400.cn/static/images/ali.jpg"></a></div> -->
-<ul class="nav nav-tabs hbflag"><li role="presentation"><a href="/enlower/">英文字母大小写转换</a></li><li role="presentation"><a href="/rmbdaxie/">人民币大写转换工具</a></li><li role="presentation" class="active"><a href="/random/">随机数生成器</a></li><li role="presentation"><a href="/unixtime/"> Unix时间戳在线转换</a></li><li role="presentation"><a href="/hexconvert/">常用进制转换工具</a></li></ul><div class="panel"><form id="form1" class="form-horizontal"><div class="form-group"><div class="col-sm-6 col-md-offset-3"><div class="input-group"><label>快速生成随机数，请先设定要生成的随机数个数，以及最小值和最大值：</label> </div><div class="form-group input-group"> <span class="input-group-addon">随机数个数：</span> <input type="text" id="randomCount" class="form-control bj1" value="10"> </div><div class="form-group input-group"> <span class="input-group-addon">随机最小值：</span> <input type="text" id="randomMinimum" class="form-control bj1" value="0"> <span class="input-group-addon">随机最大值：</span> <input type="text" id="randomMaximum" class="form-control bj1" value="100"> </div><div class="form-group input-group"> <span class="input-group-addon">是否唯一：</span> <select id="randomType" class="form-control"><option value="unique">唯一</option><option value="open">可重复</option></select> </div></div></div><div class="form-group"><div class="col-sm-12 text-center"><button class="btn btn-success" type="button" id="randomGenerate">生成随机数</button><span id="copyallcode" class="btn btn-default" data-clipboard-target="#randomNumbers">复制生成结果</span></div></div><div class="form-group"><div class="col-sm-12"><div id="randomNumbers" class="alert blue alert-info f14">生成的随机数显示区域</div></div></div></form></div></div><div class="alert alert-success alert-dismissible"><h4>随机数生成器介绍</h4><p>可以根据您的要求和设置,随机生成您设定的随机数，可以是唯一的或者重复的随机数，生成的随机数可以应用于统计学,密码学,dota2roll点器,数据排列组合,魔兽roll点辅助工具,随机顺序的数字,抽奖,需要随机数字的各种应用场景中。</p></div> <div class="accordion-group"> </div></div></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/pcjs/random.js" type="text/javascript"></script>{include file="nav" /}
-{include file="link" /}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.random.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.random.keywords}" /><meta name="description" content="{$Think.config.web.random.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🎲</span>随机数生成器</h2>
+        <p class="tool-desc">生成指定范围、数量的随机数，支持整数 / 小数 / 随机字符串。</p>
+        <div class="t-row" style="margin-bottom:14px">
+            <div class="t-col" style="flex:1;min-width:120px">
+                <label class="t-label">最小值</label>
+                <input class="t-input" style="width:100%" type="number" id="rndMin" value="1">
+            </div>
+            <div class="t-col" style="flex:1;min-width:120px">
+                <label class="t-label">最大值</label>
+                <input class="t-input" style="width:100%" type="number" id="rndMax" value="100">
+            </div>
+            <div class="t-col" style="flex:1;min-width:120px">
+                <label class="t-label">生成数量</label>
+                <input class="t-input" style="width:100%" type="number" id="rndCount" value="10" min="1" max="1000">
+            </div>
+            <div class="t-col" style="flex:1;min-width:120px">
+                <label class="t-label">类型</label>
+                <select class="t-input" style="width:100%" id="rndType">
+                    <option value="int">整数</option>
+                    <option value="float">小数（2位）</option>
+                    <option value="str">随机字符串</option>
+                </select>
+            </div>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="rndRun">生成</button>
+            <button class="t-btn t-btn-ghost" type="button" data-copy="#rndOutput">复制结果</button>
+            <button class="t-btn t-btn-ghost" type="button" id="rndClear">清空</button>
+        </div>
+        <div class="t-result" id="rndResult"><textarea class="t-area t-area-readonly" id="rndOutput" rows="8" readonly></textarea></div>
+        <div class="t-error" id="rndError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 使用说明</h2>
+        <p class="tool-desc">整数：在最小值和最大值之间生成随机整数（含两端）。小数：保留两位小数。随机字符串：生成由字母和数字组成的随机串。本工具使用浏览器密码学级随机源（crypto.getRandomValues）。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var error = document.getElementById('rndError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    function randInt(min, max) {
+        var range = max - min + 1;
+        var arr = new Uint32Array(1);
+        window.crypto.getRandomValues(arr);
+        return min + (arr[0] % range);
+    }
+    function randStr(len) {
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var out = '';
+        var arr = new Uint32Array(len);
+        window.crypto.getRandomValues(arr);
+        for (var i = 0; i < len; i++) out += chars[arr[i] % chars.length];
+        return out;
+    }
+    document.getElementById('rndRun').addEventListener('click', function () {
+        hideErr();
+        var min = parseFloat(document.getElementById('rndMin').value);
+        var max = parseFloat(document.getElementById('rndMax').value);
+        var count = parseInt(document.getElementById('rndCount').value, 10);
+        var type = document.getElementById('rndType').value;
+        if (isNaN(min) || isNaN(max)) { showErr('请填写有效的数值范围'); return; }
+        if (min > max) { showErr('最小值不能大于最大值'); return; }
+        if (isNaN(count) || count < 1) count = 1;
+        if (count > 1000) count = 1000;
+        var list = [];
+        for (var i = 0; i < count; i++) {
+            if (type === 'int') list.push(randInt(Math.ceil(min), Math.floor(max)));
+            else if (type === 'float') list.push((Math.random() * (max - min) + min).toFixed(2));
+            else list.push(randStr(randInt(6, 16)));
+        }
+        document.getElementById('rndOutput').value = list.join('\n');
+        document.getElementById('rndResult').classList.add('show');
+    });
+    document.getElementById('rndClear').addEventListener('click', function () {
+        document.getElementById('rndOutput').value = '';
+        document.getElementById('rndResult').classList.remove('show');
+        hideErr();
+    });
+})();
+</script>
 </body></html>

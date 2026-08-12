@@ -1,8 +1,92 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.json.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.json.keywords}" /><meta name="description" content="{$Think.config.web.json.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/bootstrap.min.css" rel="stylesheet" type="text/css" /><link href="/static/style/tool.css" rel="stylesheet" type="text/css" />
-<link href="/static/style/app.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}</head><body>{include file="header" /}
-<div class="container"><div class="row"><div class="col-md-12 col10main"><div class="accordion" id="accordion2"><div class="accordion-group"><!-- <div><a href="https://www.aliyun.com/minisite/goods?userCode=eaborev5" target="_blank" rel="nofollow"><img src="http://zxgj.16400.cn/static/images/ali.jpg"></a></div> -->
-<ul class="nav nav-tabs hbflag"><li role="presentation" class="active"><a href="/json/">Json格式化</a></li><li role="presentation"><a href="/jsonudview/"> Json格式化(上下)</a></li><li role="presentation"><a href="/jsonlrview/">Json格式化(左右)</a></li><li role="presentation"><a href="/jsonzip/">Json在线压缩转义</a></li><li role="presentation"><a href="/json2cs/">Json生成C#实体类</a></li><li role="presentation"><a href="/json2java/"> Json生成Java实体类</a></li><li role="presentation"><a href="/json2go/">Json生成Go结构体</a></li><li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false">更多工具<span class="caret"> </span></a><ul class="dropdown-menu"><li role="presentation"><a href="/sql2java/">SQL转Java实体类</a></li><li role="presentation"><a href="/json2xml/">XML和Json在线互转</a></li><li role="presentation"><a href="/excel2json/">Excel/CSV转Json格式</a></li><li role="presentation"><a href="/json2excel/">Json转Excel/CSV格式</a></li><li role="presentation"><a href="/json2get/">JSON和GET参数互转</a></li><li role="presentation"><a href="/json2yaml/">JSON转YAML</a></li></ul></li></ul><div class="panel panel-defaul"><form id="form1" class="form-horizontal" method="post"> <div class="input-group mb5"><input class="form-control" type="text" id="txt_url" placeholder="输入远程Json网址" /><span class="input-group-btn"><button class="btn btn-default" type="button" id="get_remote">远程获取Json</button></span> </div><div class="form-group"><div class="col-sm-12"><textarea id="content" name="content" class="form-control" rows="14" placeholder="请输入Json，Json格式化的时候要去除所有转义，转义存在可能导致Json校验不通过"></textarea></div></div><div class="form-group"><div class="col-sm-12 text-center"><input type="button" class="btn btn-default" onclick="jsonzip(2);" value="Json转义"><input type="button" class="btn btn-default" onclick="jsonzip(4);" value="去除转义"><input type="button" class="btn btn-default" onclick="jsonzip(3);" value="压缩并转义"><input type="button" class="btn btn-info" onclick="jsonzip(1);" value="Json压缩"><input type="button" class="btn btn-success" name="validate" id="validate" value="Json格式化" /><input type="button" class="btn btn-default" onclick="JsonToGet(1);" value="转GET参数"><input type="button" class="btn btn-default" onclick="h2u()" value="中文转Unicode"><input type="button" class="btn btn-default" onclick="u2h()" value="Unicode转中文"><span id="copyallcode" class="btn btn-default" data-clipboard-target="#content">复制</span><input type="button" class="btn btn-default" onclick="content.value=''" value="清空"></div></div><div class="form-group"><div class="col-sm-12"><div class="alert alert-warning alert-dismissible text-left" role="alert" id="results"><span>请输入要压缩的Json字符串</span></div></div></div></form></div></div><div class="alert alert alert-success alert-dismissible"><h2 class="f20">json在线解析及格式化工具介绍</h2><p>JSON 可以将程序语言对象中表示的一组数据转换为字符串，然后就可以在网络或者程序之间轻松地传递这个字符串，并在需要的时候将它还原为各编程语言所支持的数据格式，例如在 PHP 中，可以将 JSON还原为数组或者一个基本对象。在用到AJAX时，如果需要用到数组传值，这时就需要用JSON将数组转化为字符串</div> <div class="accordion-group"> </div></div></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/json/jsonformat.js" type="text/javascript"></script><script type="text/javascript">setJS(["/static/script/json/jsonzip.js"]);</script></div>{include file="nav" /}
-{include file="link" /}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.json.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.json.keywords}" /><meta name="description" content="{$Think.config.web.json.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🪄</span>JSON 格式化 / 压缩 / 校验</h2>
+        <p class="tool-desc">粘贴 JSON 内容自动实时格式化，支持压缩与错误定位提示，全程本地解析。</p>
+        <label class="t-label" for="jsonInput">JSON 内容</label>
+        <textarea class="t-area" id="jsonInput" rows="10" placeholder='{"name":"在线工具箱","tools":162}'></textarea>
+        <div class="t-options" style="margin-top:12px">
+            <label><input type="radio" name="jsonMode" value="format" checked> 格式化</label>
+            <label><input type="radio" name="jsonMode" value="compress"> 压缩</label>
+            <label><input type="checkbox" id="jsonSort"> 键名排序</label>
+            <label><input type="checkbox" id="jsonEscape"> 转义为字符串</label>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="jsonRun">格式化</button>
+            <button class="t-btn t-btn-ghost" type="button" data-copy="#jsonOutput">复制结果</button>
+            <button class="t-btn t-btn-ghost" type="button" id="jsonClear">清空</button>
+        </div>
+        <div class="t-result" id="jsonResult"><textarea class="t-area t-area-readonly" id="jsonOutput" rows="12" readonly></textarea></div>
+        <div class="t-error" id="jsonError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 JSON</h2>
+        <p class="tool-desc">JSON（JavaScript Object Notation）是一种轻量级数据交换格式，广泛用于前后端通信与配置文件。本站的 JSON 工具支持格式化、压缩、键排序、转义，并可准确定位语法错误位置。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var input = document.getElementById('jsonInput');
+    var output = document.getElementById('jsonOutput');
+    var result = document.getElementById('jsonResult');
+    var error = document.getElementById('jsonError');
+    function getMode() {
+        var m = document.querySelector('input[name="jsonMode"]:checked');
+        return m ? m.value : 'format';
+    }
+    function sortKeys(obj) {
+        if (Array.isArray(obj)) return obj.map(sortKeys);
+        if (obj && typeof obj === 'object') {
+            var out = {};
+            Object.keys(obj).sort().forEach(function (k) { out[k] = sortKeys(obj[k]); });
+            return out;
+        }
+        return obj;
+    }
+    function run() {
+        error.classList.remove('show');
+        result.classList.remove('show');
+        var raw = input.value.trim();
+        if (!raw) { error.textContent = '请输入 JSON 内容'; error.classList.add('show'); return; }
+        var data;
+        try {
+            data = JSON.parse(raw);
+        } catch (e) {
+            var m = e.message;
+            error.textContent = 'JSON 解析失败：' + m;
+            error.classList.add('show');
+            return;
+        }
+        if (document.getElementById('jsonSort').checked) data = sortKeys(data);
+        var out;
+        if (getMode() === 'compress') {
+            out = JSON.stringify(data);
+        } else {
+            out = JSON.stringify(data, null, 4);
+        }
+        if (document.getElementById('jsonEscape').checked) {
+            out = JSON.stringify(out);
+        }
+        output.value = out;
+        result.classList.add('show');
+    }
+    document.getElementById('jsonRun').addEventListener('click', run);
+    document.getElementById('jsonClear').addEventListener('click', function () {
+        input.value = ''; output.value = '';
+        error.classList.remove('show'); result.classList.remove('show');
+        input.focus();
+    });
+    var timer = null;
+    input.addEventListener('input', function () {
+        clearTimeout(timer);
+        timer = setTimeout(run, 500);
+    });
+})();
+</script>
 </body></html>

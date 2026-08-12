@@ -1,47 +1,22 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>清除缓存</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.7.6/css/layui.css">
-    <link rel="stylesheet" href="/static/admin/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/layui/2.7.6/layui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>清除缓存 - 在线工具箱后台</title>
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
 </head>
-<body class="p20">
-
-
-
-
-
-<button id="del" target="_blank" class="layui-btn">清除缓存
-</button>
-    <script type="text/javascript">
-        $(function() {
-            $('#del').click(function() {
-                layui.use('layer', function() {
-                    $.post('',{type:'ok'},function () {
-                        layer.msg('<h2>清除成功</h2> <p id="">页面自动  <a id="href" href="web_cache.html">跳转</a> 等待时间： <b id="wait">3</b></p> ', {
-                            icon: 1,
-                            shade: 0.5,
-                        });
-                        !(function run(wait) {
-                            if (wait <= 0) {
-                                location.href = 'web_cache.html';
-                            } else {
-                                wait--;
-                                setTimeout(function() {
-                                    document.getElementById('wait').innerHTML = wait;
-                                    run(wait);
-                                }, 1000);
-                            }
-                        })(3);
-                    });
-                });
-            });
-        });
-    </script>
+<body>
+<div class="page">
+    <h1 class="page-title">🧹 清除缓存</h1>
+    <div class="card">
+        <h3>运行时缓存</h3>
+        <p class="card-desc">清除 runtime 目录下的模板编译缓存与数据缓存，站点会重新生成。</p>
+        <form data-ajax data-reload="1" method="post" action="">
+            <button class="btn" type="submit">清除缓存</button>
+        </form>
+    </div>
+</div>
+<script src="/static/admin/js/admin.js"></script>
 </body>
 </html>

@@ -1,61 +1,43 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>后台首页</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.7.6/css/layui.css">
-    <link rel="stylesheet" href="/static/admin/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/layui/2.7.6/layui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
-    <script src="/static/admin/js/config.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>后台管理 - 在线工具箱</title>
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
 </head>
 <body>
-
-<div id="app">
-    <!--顶栏-->
-    <header>
-        <h1 v-text="webname"></h1>
-        <div class="breadcrumb">
-            <i class="layui-icon">&#xe715;</i>
-            <ul>
-                <li v-for="vo in address">
-                    <a v-text="vo.name" :href="vo.url"></a> <span>/</span>
-                </li>
-            </ul>
-        </div>
-    </header>
-
-    <div class="main">
-        <!--左栏-->
-        <div class="left">
-            <ul class="cl">
-                <!--顶级分类-->
-                <li v-for="vo,index in menu" :class="{hidden:vo.hidden}">
-                    <a href="javascript:;" :class="{active:vo.active}" @click="onActive(index)">
-                        <i class="layui-icon" v-html="vo.icon"></i>
-                        <span v-text="vo.name"></span>
-                        <i class="layui-icon arrow" v-show="vo.url.length==0">&#xe61a;</i> <i v-show="vo.active"
-                                                                                              class="layui-icon active">&#xe623;</i>
-                    </a>
-                    <!--子级分类-->
-                    <div v-for="vo2,index2 in vo.list">
-                        <a :href="vo2.url" target="main" :class="{active:vo2.active}" v-text="vo2.name"></a>
-                        <i v-show="vo2.active" class="layui-icon active">&#xe623;</i>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <!--右侧-->
-        <div class="right">
-            <iframe src="./main.html" name="main" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" target="_self"></iframe>
-        </div>
+<header class="admin-topbar">
+    <button class="btn btn-sm btn-ghost menu-toggle" id="menuToggle" type="button">☰</button>
+    <a class="brand" href="/" target="_blank"><span class="logo">🔧</span>在线工具箱后台</a>
+    <div class="topbar-right">
+        <a href="/" target="_blank">查看前台 ↗</a>
+        <a href="/admin/index/logout" onclick="return confirm('确定退出登录吗？')">退出登录</a>
     </div>
-</div>
-
-<script src="/static/admin/js/script.js"></script>
+</header>
+<aside class="admin-side" id="adminSide">
+    <nav>
+        <div class="menu-group">
+            <a class="menu-item" href="/admin/index/main.html" target="main">🏠 系统信息</a>
+        </div>
+        <div class="menu-group open">
+            <a class="menu-item" href="javascript:;">⚙️ 系统设置<span class="arrow">▶</span></a>
+            <div class="sub-menu">
+                <a href="/admin/web/index.html" target="main">全局 head 配置</a>
+                <a href="/admin/web/header.html" target="main">全局顶部导航</a>
+                <a href="/admin/web/nav.html" target="main">页脚导航管理</a>
+                <a href="/admin/web/footer.html" target="main">全局底部</a>
+                <a href="/admin/web/link.html" target="main">友情链接</a>
+                <a href="/admin/index/web_cache.html" target="main">清除缓存</a>
+                <a href="/admin/file/index.html" target="main">文件管理</a>
+                <a href="/admin/index/account.html" target="main">修改密码</a>
+            </div>
+        </div>
+    </nav>
+</aside>
+<main class="admin-main">
+    <iframe src="/admin/index/main.html" name="main" id="mainFrame" frameborder="0" scrolling="auto"></iframe>
+</main>
+<script src="/static/admin/js/admin.js"></script>
 </body>
 </html>

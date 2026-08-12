@@ -32,7 +32,7 @@ class Index extends Base
         $this->checkLogin();
         if(request()->isPost()) {
             deleteDir(app()->getRootPath().'runtime');
-            return 'ok';
+            return json(['code'=>0, 'msg'=>'缓存已清除']);
         }
         return $this->fetch();
     }
@@ -60,7 +60,7 @@ class Index extends Base
             }
             if($username == $config['username'] && $password == $config['password']){
                 session('admin', $this->getSession());
-                return json(['code'=>0]);
+                return json(['code'=>0, 'msg'=>'登录成功']);
             }else{
                 return json(['code'=>-1, 'msg'=>'用户名或密码错误']);
             }

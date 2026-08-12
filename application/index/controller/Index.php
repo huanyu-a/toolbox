@@ -18,12 +18,13 @@ class Index extends Controller
             $toolCount += isset($cat['items']) ? count($cat['items']) : 0;
         }
         $data['homeCount'] = $toolCount;
-        // 当前工具信息（面包屑 + 导航高亮）
+        // 当前工具信息（面包屑 + 导航高亮 + SEO）
         $act = input('act', 'index');
+        $data['act'] = $act;
         $data['current_act'] = $act;
         $data['current_cat'] = '';
         $data['current_tool_name'] = '';
-        $data['current_url'] = '/' . trim($act, '/') . '/';
+        $data['current_url'] = $act === 'index' ? '/' : '/' . trim($act, '/') . '/';
         foreach ((array)$data['tools'] as $cat) {
             foreach ((array)$cat['items'] as $item) {
                 if (rtrim($item['url'], '/') === '/' . trim($act, '/')) {
@@ -32,6 +33,48 @@ class Index extends Controller
                     break 2;
                 }
             }
+        }
+        // 页面 SEO 元信息（来自 web 配置）
+        $webCfg = config('web.');
+        $pageCfg = (isset($webCfg[$act]) && is_array($webCfg[$act])) ? $webCfg[$act] : array();
+        $data['page_title'] = isset($pageCfg['title']) ? $pageCfg['title'] : '在线工具箱';
+        $data['page_desc'] = isset($pageCfg['description']) ? $pageCfg['description'] : '';
+        $data['page_keywords'] = isset($pageCfg['keywords']) ? $pageCfg['keywords'] : '';
+        // JSON-LD 结构化数据（控制器拼接，避免模板解析 JSON 花括号冲突）
+        $domain = request()->domain();
+        if ($act === 'index') {
+            $data['jsonld'] = json_encode(array(
+                '@context' => 'https://schema.org',
+                '@type' => 'WebSite',
+                'name' => '在线工具箱',
+                'url' => $domain . '/',
+                'potentialAction' => array(
+                    '@type' => 'SearchAction',
+                    'target' => $domain . '/?s={search_term_string}',
+                    'query-input' => 'required name=search_term_string',
+                ),
+            ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        } else {
+            $breadcrumb = array(
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => array(
+                    array('@type' => 'ListItem', 'position' => 1, 'name' => '首页', 'item' => $domain . '/'),
+                    array('@type' => 'ListItem', 'position' => 2, 'name' => $data['current_cat'], 'item' => $domain . '/#cat-' . $data['current_cat']),
+                    array('@type' => 'ListItem', 'position' => 3, 'name' => $data['current_tool_name'], 'item' => $domain . $data['current_url']),
+                ),
+            );
+            $app = array(
+                '@context' => 'https://schema.org',
+                '@type' => 'WebApplication',
+                'name' => $data['page_title'],
+                'description' => $data['page_desc'],
+                'url' => $domain . $data['current_url'],
+                'applicationCategory' => 'UtilitiesApplication',
+                'operatingSystem' => 'Any',
+            );
+            $data['jsonld'] = json_encode($breadcrumb, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+                . "\n" . json_encode($app, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
         switch ($act) {
             case 'uuid':
@@ -327,6 +370,34 @@ class Index extends Controller
                 break;
         }
         return $this->fetch($act, $data);
+    }
+
+    // 站点地图
+    public function sitemap()
+    {
+        $tools = config('tools.');
+        $domain = request()->domain();
+        $urls = array(array($domain . '/', '1.0', 'daily'));
+        foreach ((array)$tools as $cat) {
+            foreach ((array)$cat['items'] as $item) {
+                $urls[] = array($domain . $item['url'], '0.8', 'weekly');
+            }
+        }
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        foreach ($urls as $u) {
+            $xml .= "  <url>\n    <loc>{$u[0]}</loc>\n    <changefreq>{$u[2]}</changefreq>\n    <priority>{$u[1]}</priority>\n  </url>\n";
+        }
+        $xml .= '</urlset>';
+        return response($xml, 200, array('Content-Type' => 'application/xml; charset=utf-8'));
+    }
+
+    // robots.txt
+    public function robots()
+    {
+        $domain = request()->domain();
+        $txt = "User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {$domain}/sitemap.xml\n";
+        return response($txt, 200, array('Content-Type' => 'text/plain; charset=utf-8'));
     }
 
     public function api()

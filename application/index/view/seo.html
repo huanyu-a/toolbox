@@ -1,0 +1,8 @@
+<link rel="canonical" href="{:request()->domain()}{$current_url|default='/'}" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="在线工具箱" />
+<meta property="og:title" content="{$page_title|default='在线工具箱'}" />
+<meta property="og:description" content="{$page_desc|default='在线工具箱'}" />
+<meta property="og:url" content="{:request()->domain()}{$current_url|default='/'}" />
+{if condition="isset($jsonld) && $jsonld != ''"}<script type="application/ld+json">{$jsonld|raw}</script>{/if}

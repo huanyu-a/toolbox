@@ -21,5 +21,7 @@ Route::rule('404', 'index/e404');
 Route::rule('doapi', 'index/api');
 Route::rule('api', 'index/api');
 //静态页面
+Route::rule('sitemap.xml', 'index/sitemap');
+Route::rule('robots.txt', 'index/robots');
 Route::rule('ip/:ip', 'index/index?act=ip')->pattern(['ip' => '.*']);
 Route::rule(':act','index/index');
