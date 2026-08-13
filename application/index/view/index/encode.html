@@ -1,45 +1,372 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.urlthunder.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.urlthunder.keywords}" /><meta name="description" content="{$Think.config.web.urlthunder.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.encode.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.encode.keywords}" /><meta name="description" content="{$Think.config.web.encode.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
-        <h2 class="tool-title"><span class="t-ico">⚡</span>迅雷/快车/旋风 URL 加解密</h2>
-        <p class="tool-desc">下载地址加解密工具：将普通下载地址加密为迅雷（thunder://）、快车（flashget://）、旋风（qqdl://）专用链接，也支持将三种加密链接解密还原出原始地址。</p>
-        <label class="t-label" for="thunderInput">下载地址</label>
-        <div class="t-row">
-            <input class="t-input t-flex1" id="thunderInput" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="请输入地址，例如：http://zxgj.16400.cn" />
-        </div>
-        <div class="tool-actions">
-            <button class="t-btn" type="button" id="thunderEncrypt">加密 URL</button>
-            <button class="t-btn t-btn-ok" type="button" id="thunderDecrypt">解密 URL</button>
-            <button class="t-btn t-btn-ghost" type="button" id="thunderDemo">示例</button>
-            <button class="t-btn t-btn-ghost" type="button" id="thunderClear">清空</button>
-        </div>
-        <div class="t-result" id="thunderSrcBox">
-            <button class="t-copy" type="button" data-copy="#thunderSrcText">复制</button>
-            <div id="thunderSrcText"></div>
-        </div>
-        <div id="thunderEncWrap" style="display:none;margin-top:14px">
-            <div class="t-row" style="margin-bottom:10px">
-                <span class="t-result-label">迅雷</span>
-                <input class="t-input t-flex1" id="thunderXun" type="text" readonly value="" />
-                <button class="t-btn t-btn-sm" type="button" data-copy="#thunderXun">复制</button>
+        <h2 class="tool-title"><span class="t-ico">🔡</span>编码转换</h2>
+        <p class="tool-desc">Base64、URL、Escape、Unicode、UTF-8、ASCII、摩尔斯电码、迅雷/旋风链接、图片转 Base64 九种编码转换工具合集，全程浏览器本地运算。</p>
+        <ul class="t-tabs" id="encTabs">
+            <li><button type="button" class="t-tab active" data-panel="encB64">Base64</button></li>
+            <li><button type="button" class="t-tab" data-panel="encUrl">URL</button></li>
+            <li><button type="button" class="t-tab" data-panel="encEsc">Escape</button></li>
+            <li><button type="button" class="t-tab" data-panel="encUni">Unicode</button></li>
+            <li><button type="button" class="t-tab" data-panel="encUtf">UTF-8</button></li>
+            <li><button type="button" class="t-tab" data-panel="encAsc">ASCII</button></li>
+            <li><button type="button" class="t-tab" data-panel="encMorse">摩尔斯</button></li>
+            <li><button type="button" class="t-tab" data-panel="encThunder">迅雷/旋风</button></li>
+            <li><button type="button" class="t-tab" data-panel="encImg">图片Base64</button></li>
+        </ul>
+
+        <!-- Base64 -->
+        <div id="encB64" class="t-panel enc-panel active">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="b64Input">明文 / 密文</label>
+                    <textarea class="t-area" id="b64Input" rows="8" placeholder="输入要编码或解码的内容…"></textarea>
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="b64Output">结果</label>
+                    <textarea class="t-area t-area-readonly" id="b64Output" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+                </div>
             </div>
-            <div class="t-row" style="margin-bottom:10px">
-                <span class="t-result-label">快车</span>
-                <input class="t-input t-flex1" id="thunderKuai" type="text" readonly value="" />
-                <button class="t-btn t-btn-sm" type="button" data-copy="#thunderKuai">复制</button>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="b64Encode">编码 →</button>
+                <button class="t-btn t-btn-ok" type="button" id="b64Decode">解码 ←</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#b64Output">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="b64Swap">⇄ 交换</button>
+                <button class="t-btn t-btn-ghost" type="button" id="b64Clear">清空</button>
             </div>
+            <div class="t-error" id="b64Error"></div>
+        </div>
+
+        <!-- URL -->
+        <div id="encUrl" class="t-panel enc-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="urlInput">原始内容</label>
+                    <textarea class="t-area" id="urlInput" rows="7" placeholder="输入要编码或解码的内容…"></textarea>
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="urlOutput">结果</label>
+                    <textarea class="t-area t-area-readonly" id="urlOutput" rows="7" readonly placeholder="结果将显示在这里…"></textarea>
+                </div>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="urlEncode">编码 →</button>
+                <button class="t-btn t-btn-ok" type="button" id="urlDecode">解码 ←</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#urlOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="urlClear">清空</button>
+            </div>
+            <div class="t-error" id="urlError"></div>
+        </div>
+
+        <!-- Escape -->
+        <div id="encEsc" class="t-panel enc-panel">
+            <label class="t-label" for="escInput">请输入要转换的字符串</label>
+            <textarea class="t-area" id="escInput" rows="8" spellcheck="false" placeholder="请输入要Escape加密、解密的字符串"></textarea>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="escEncode">Escape 加密</button>
+                <button class="t-btn t-btn-ok" type="button" id="escDecode">Escape 解密</button>
+                <button class="t-btn t-btn-ghost" type="button" id="escDemo">示例</button>
+                <button class="t-btn t-btn-ghost" type="button" id="escClear">清空</button>
+            </div>
+            <div class="t-result" id="escResult">
+                <button class="t-copy" type="button" data-copy="#escResultText">复制</button>
+                <div id="escResultText"></div>
+            </div>
+            <div class="t-error" id="escError" role="alert"></div>
+        </div>
+
+        <!-- Unicode -->
+        <div id="encUni" class="t-panel enc-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="ucInput">原文</label>
+                    <textarea class="t-area" id="ucInput" rows="8" placeholder="请输入要转换的文本…"></textarea>
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="ucOutput">结果</label>
+                    <textarea class="t-area t-area-readonly" id="ucOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+                </div>
+            </div>
+            <div class="t-options" style="margin-top:12px">
+                <span style="font-weight:600">转换格式：</span>
+                <label><input type="radio" name="ucMode" value="u" checked> \uXXXX</label>
+                <label><input type="radio" name="ucMode" value="xh"> &#xXXXX;（十六进制）</label>
+                <label><input type="radio" name="ucMode" value="d"> &#XXXX;（十进制）</label>
+            </div>
+            <div class="tool-actions" style="margin-top:12px">
+                <button class="t-btn" type="button" id="ucToCode">中文 → 编码</button>
+                <button class="t-btn t-btn-ok" type="button" id="ucToText">编码 → 中文</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#ucOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="ucSwap">⇄ 交换</button>
+                <button class="t-btn t-btn-ghost" type="button" id="ucDemo">示例</button>
+                <button class="t-btn t-btn-ghost" type="button" id="ucClear">清空</button>
+            </div>
+            <div class="t-error" id="ucError"></div>
+        </div>
+
+        <!-- UTF-8 -->
+        <div id="encUtf" class="t-panel enc-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="utfInput">原文（中文 / 字符串）</label>
+                    <textarea class="t-area" id="utfInput" rows="8" placeholder="请输入要转换的字符，例如：中文"></textarea>
+                    <div class="tool-actions">
+                        <button class="t-btn" type="button" id="utfToCode">中文转 UTF-8 →</button>
+                    </div>
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="utfOutput">UTF-8 编码（十六进制字节）</label>
+                    <textarea class="t-area" id="utfOutput" rows="8" placeholder="例如：E4 B8 AD 或 %E4%B8%AD"></textarea>
+                    <div class="tool-actions">
+                        <button class="t-btn t-btn-ok" type="button" id="utfToText">UTF-8 转中文 ←</button>
+                    </div>
+                </div>
+            </div>
+            <div class="t-options" style="margin-top:16px">
+                <label><input type="radio" name="utfFmt" value="hex" checked> 十六进制（E4 B8 AD）</label>
+                <label><input type="radio" name="utfFmt" value="pct"> URL 编码（%E4%B8%AD）</label>
+                <label><input type="radio" name="utfFmt" value="esc"> \x 转义（\xE4\xB8\xAD）</label>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#utfOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="utfSwap">⇄ 交换</button>
+                <button class="t-btn t-btn-ghost" type="button" id="utfClear">清空</button>
+            </div>
+            <div class="t-error" id="utfError"></div>
+        </div>
+
+        <!-- ASCII -->
+        <div id="encAsc" class="t-panel enc-panel">
+            <ul class="t-tabs" id="ascTabs">
+                <li><button type="button" class="t-tab active" data-panel="ascPanel1">ASCII 转换</button></li>
+                <li><button type="button" class="t-tab" data-panel="ascPanel2">ASCII 对照表</button></li>
+            </ul>
+            <div id="ascPanelWrap">
+                <div id="ascPanel1" class="t-panel active">
+                    <label class="t-label" for="ascInput">输入文本</label>
+                    <textarea class="t-area" id="ascInput" rows="6" placeholder="输入要转换的字符或文本"></textarea>
+                    <div class="t-options" style="margin-top:10px">
+                        <label><input type="radio" name="ascMode" value="dec" checked> 转十进制</label>
+                        <label><input type="radio" name="ascMode" value="hex"> 转十六进制</label>
+                        <label><input type="radio" name="ascMode" value="revert"> 编码还原</label>
+                        <label><input type="checkbox" id="ascSpace"> 编码间加空格</label>
+                    </div>
+                    <div class="tool-actions">
+                        <button class="t-btn" type="button" id="ascRun">转换</button>
+                        <button class="t-btn t-btn-ghost" type="button" data-copy="#ascOutput">复制结果</button>
+                        <button class="t-btn t-btn-ghost" type="button" id="ascClear">清空</button>
+                    </div>
+                    <div class="t-result" id="ascResult"><textarea class="t-area t-area-readonly" id="ascOutput" rows="6" readonly></textarea></div>
+                    <div class="t-error" id="ascError"></div>
+                </div>
+                <div id="ascPanel2" class="t-panel">
+                    <div style="overflow-x:auto">
+                <h3 class="t-label" style="margin-top:6px">标准 ASCII（0~127）</h3>
+                <table class="table table-bordered table-striped" style="margin:0 0 18px"><thead><tr><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th></tr></thead><tbody>
+<tr><td>NUL</td><td>0</td><td>0x00</td><td>&amp;#0;</td><td>SOH</td><td>1</td><td>0x01</td><td>&amp;#1;</td></tr>
+<tr><td>STX</td><td>2</td><td>0x02</td><td>&amp;#2;</td><td>ETX</td><td>3</td><td>0x03</td><td>&amp;#3;</td></tr>
+<tr><td>EOT</td><td>4</td><td>0x04</td><td>&amp;#4;</td><td>ENQ</td><td>5</td><td>0x05</td><td>&amp;#5;</td></tr>
+<tr><td>ACK</td><td>6</td><td>0x06</td><td>&amp;#6;</td><td>BEL</td><td>7</td><td>0x07</td><td>&amp;#7;</td></tr>
+<tr><td>BS</td><td>8</td><td>0x08</td><td>&amp;#8;</td><td>TAB</td><td>9</td><td>0x09</td><td>&amp;#9;</td></tr>
+<tr><td>LF</td><td>10</td><td>0x0A</td><td>&amp;#10;</td><td>VT</td><td>11</td><td>0x0B</td><td>&amp;#11;</td></tr>
+<tr><td>FF</td><td>12</td><td>0x0C</td><td>&amp;#12;</td><td>CR</td><td>13</td><td>0x0D</td><td>&amp;#13;</td></tr>
+<tr><td>SO</td><td>14</td><td>0x0E</td><td>&amp;#14;</td><td>SI</td><td>15</td><td>0x0F</td><td>&amp;#15;</td></tr>
+<tr><td>DLE</td><td>16</td><td>0x10</td><td>&amp;#16;</td><td>DC1</td><td>17</td><td>0x11</td><td>&amp;#17;</td></tr>
+<tr><td>DC2</td><td>18</td><td>0x12</td><td>&amp;#18;</td><td>DC3</td><td>19</td><td>0x13</td><td>&amp;#19;</td></tr>
+<tr><td>DC4</td><td>20</td><td>0x14</td><td>&amp;#20;</td><td>NAK</td><td>21</td><td>0x15</td><td>&amp;#21;</td></tr>
+<tr><td>SYN</td><td>22</td><td>0x16</td><td>&amp;#22;</td><td>ETB</td><td>23</td><td>0x17</td><td>&amp;#23;</td></tr>
+<tr><td>CAN</td><td>24</td><td>0x18</td><td>&amp;#24;</td><td>EM</td><td>25</td><td>0x19</td><td>&amp;#25;</td></tr>
+<tr><td>SUB</td><td>26</td><td>0x1A</td><td>&amp;#26;</td><td>ESC</td><td>27</td><td>0x1B</td><td>&amp;#27;</td></tr>
+<tr><td>FS</td><td>28</td><td>0x1C</td><td>&amp;#28;</td><td>GS</td><td>29</td><td>0x1D</td><td>&amp;#29;</td></tr>
+<tr><td>RS</td><td>30</td><td>0x1E</td><td>&amp;#30;</td><td>US</td><td>31</td><td>0x1F</td><td>&amp;#31;</td></tr>
+<tr><td>(space)</td><td>32</td><td>0x20</td><td>&amp;#32;</td><td>!</td><td>33</td><td>0x21</td><td>&amp;#33;</td></tr>
+<tr><td>&quot;</td><td>34</td><td>0x22</td><td>&amp;#34;</td><td>#</td><td>35</td><td>0x23</td><td>&amp;#35;</td></tr>
+<tr><td>$</td><td>36</td><td>0x24</td><td>&amp;#36;</td><td>%</td><td>37</td><td>0x25</td><td>&amp;#37;</td></tr>
+<tr><td>&amp;</td><td>38</td><td>0x26</td><td>&amp;#38;</td><td>&#39;</td><td>39</td><td>0x27</td><td>&amp;#39;</td></tr>
+<tr><td>(</td><td>40</td><td>0x28</td><td>&amp;#40;</td><td>)</td><td>41</td><td>0x29</td><td>&amp;#41;</td></tr>
+<tr><td>*</td><td>42</td><td>0x2A</td><td>&amp;#42;</td><td>+</td><td>43</td><td>0x2B</td><td>&amp;#43;</td></tr>
+<tr><td>,</td><td>44</td><td>0x2C</td><td>&amp;#44;</td><td>-</td><td>45</td><td>0x2D</td><td>&amp;#45;</td></tr>
+<tr><td>.</td><td>46</td><td>0x2E</td><td>&amp;#46;</td><td>/</td><td>47</td><td>0x2F</td><td>&amp;#47;</td></tr>
+<tr><td>0</td><td>48</td><td>0x30</td><td>&amp;#48;</td><td>1</td><td>49</td><td>0x31</td><td>&amp;#49;</td></tr>
+<tr><td>2</td><td>50</td><td>0x32</td><td>&amp;#50;</td><td>3</td><td>51</td><td>0x33</td><td>&amp;#51;</td></tr>
+<tr><td>4</td><td>52</td><td>0x34</td><td>&amp;#52;</td><td>5</td><td>53</td><td>0x35</td><td>&amp;#53;</td></tr>
+<tr><td>6</td><td>54</td><td>0x36</td><td>&amp;#54;</td><td>7</td><td>55</td><td>0x37</td><td>&amp;#55;</td></tr>
+<tr><td>8</td><td>56</td><td>0x38</td><td>&amp;#56;</td><td>9</td><td>57</td><td>0x39</td><td>&amp;#57;</td></tr>
+<tr><td>:</td><td>58</td><td>0x3A</td><td>&amp;#58;</td><td>;</td><td>59</td><td>0x3B</td><td>&amp;#59;</td></tr>
+<tr><td>&lt;</td><td>60</td><td>0x3C</td><td>&amp;#60;</td><td>=</td><td>61</td><td>0x3D</td><td>&amp;#61;</td></tr>
+<tr><td>&gt;</td><td>62</td><td>0x3E</td><td>&amp;#62;</td><td>?</td><td>63</td><td>0x3F</td><td>&amp;#63;</td></tr>
+<tr><td>@</td><td>64</td><td>0x40</td><td>&amp;#64;</td><td>A</td><td>65</td><td>0x41</td><td>&amp;#65;</td></tr>
+<tr><td>B</td><td>66</td><td>0x42</td><td>&amp;#66;</td><td>C</td><td>67</td><td>0x43</td><td>&amp;#67;</td></tr>
+<tr><td>D</td><td>68</td><td>0x44</td><td>&amp;#68;</td><td>E</td><td>69</td><td>0x45</td><td>&amp;#69;</td></tr>
+<tr><td>F</td><td>70</td><td>0x46</td><td>&amp;#70;</td><td>G</td><td>71</td><td>0x47</td><td>&amp;#71;</td></tr>
+<tr><td>H</td><td>72</td><td>0x48</td><td>&amp;#72;</td><td>I</td><td>73</td><td>0x49</td><td>&amp;#73;</td></tr>
+<tr><td>J</td><td>74</td><td>0x4A</td><td>&amp;#74;</td><td>K</td><td>75</td><td>0x4B</td><td>&amp;#75;</td></tr>
+<tr><td>L</td><td>76</td><td>0x4C</td><td>&amp;#76;</td><td>M</td><td>77</td><td>0x4D</td><td>&amp;#77;</td></tr>
+<tr><td>N</td><td>78</td><td>0x4E</td><td>&amp;#78;</td><td>O</td><td>79</td><td>0x4F</td><td>&amp;#79;</td></tr>
+<tr><td>P</td><td>80</td><td>0x50</td><td>&amp;#80;</td><td>Q</td><td>81</td><td>0x51</td><td>&amp;#81;</td></tr>
+<tr><td>R</td><td>82</td><td>0x52</td><td>&amp;#82;</td><td>S</td><td>83</td><td>0x53</td><td>&amp;#83;</td></tr>
+<tr><td>T</td><td>84</td><td>0x54</td><td>&amp;#84;</td><td>U</td><td>85</td><td>0x55</td><td>&amp;#85;</td></tr>
+<tr><td>V</td><td>86</td><td>0x56</td><td>&amp;#86;</td><td>W</td><td>87</td><td>0x57</td><td>&amp;#87;</td></tr>
+<tr><td>X</td><td>88</td><td>0x58</td><td>&amp;#88;</td><td>Y</td><td>89</td><td>0x59</td><td>&amp;#89;</td></tr>
+<tr><td>Z</td><td>90</td><td>0x5A</td><td>&amp;#90;</td><td>[</td><td>91</td><td>0x5B</td><td>&amp;#91;</td></tr>
+<tr><td>\</td><td>92</td><td>0x5C</td><td>&amp;#92;</td><td>]</td><td>93</td><td>0x5D</td><td>&amp;#93;</td></tr>
+<tr><td>^</td><td>94</td><td>0x5E</td><td>&amp;#94;</td><td>_</td><td>95</td><td>0x5F</td><td>&amp;#95;</td></tr>
+<tr><td>`</td><td>96</td><td>0x60</td><td>&amp;#96;</td><td>a</td><td>97</td><td>0x61</td><td>&amp;#97;</td></tr>
+<tr><td>b</td><td>98</td><td>0x62</td><td>&amp;#98;</td><td>c</td><td>99</td><td>0x63</td><td>&amp;#99;</td></tr>
+<tr><td>d</td><td>100</td><td>0x64</td><td>&amp;#100;</td><td>e</td><td>101</td><td>0x65</td><td>&amp;#101;</td></tr>
+<tr><td>f</td><td>102</td><td>0x66</td><td>&amp;#102;</td><td>g</td><td>103</td><td>0x67</td><td>&amp;#103;</td></tr>
+<tr><td>h</td><td>104</td><td>0x68</td><td>&amp;#104;</td><td>i</td><td>105</td><td>0x69</td><td>&amp;#105;</td></tr>
+<tr><td>j</td><td>106</td><td>0x6A</td><td>&amp;#106;</td><td>k</td><td>107</td><td>0x6B</td><td>&amp;#107;</td></tr>
+<tr><td>l</td><td>108</td><td>0x6C</td><td>&amp;#108;</td><td>m</td><td>109</td><td>0x6D</td><td>&amp;#109;</td></tr>
+<tr><td>n</td><td>110</td><td>0x6E</td><td>&amp;#110;</td><td>o</td><td>111</td><td>0x6F</td><td>&amp;#111;</td></tr>
+<tr><td>p</td><td>112</td><td>0x70</td><td>&amp;#112;</td><td>q</td><td>113</td><td>0x71</td><td>&amp;#113;</td></tr>
+<tr><td>r</td><td>114</td><td>0x72</td><td>&amp;#114;</td><td>s</td><td>115</td><td>0x73</td><td>&amp;#115;</td></tr>
+<tr><td>t</td><td>116</td><td>0x74</td><td>&amp;#116;</td><td>u</td><td>117</td><td>0x75</td><td>&amp;#117;</td></tr>
+<tr><td>v</td><td>118</td><td>0x76</td><td>&amp;#118;</td><td>w</td><td>119</td><td>0x77</td><td>&amp;#119;</td></tr>
+<tr><td>x</td><td>120</td><td>0x78</td><td>&amp;#120;</td><td>y</td><td>121</td><td>0x79</td><td>&amp;#121;</td></tr>
+<tr><td>z</td><td>122</td><td>0x7A</td><td>&amp;#122;</td><td>{</td><td>123</td><td>0x7B</td><td>&amp;#123;</td></tr>
+<tr><td>|</td><td>124</td><td>0x7C</td><td>&amp;#124;</td><td>}</td><td>125</td><td>0x7D</td><td>&amp;#125;</td></tr>
+<tr><td>~</td><td>126</td><td>0x7E</td><td>&amp;#126;</td><td>DEL</td><td>127</td><td>0x7F</td><td>&amp;#127;</td></tr>
+</tbody></table>
+                <h3 class="t-label">扩展 ASCII（128~255，Windows-1252 常用）</h3>
+                <table class="table table-bordered table-striped" style="margin:0"><thead><tr><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th></tr></thead><tbody>
+<tr><td>€</td><td>128</td><td>0x80</td><td>&amp;#128;</td><td>&nbsp;</td><td>129</td><td>0x81</td><td>&amp;#129;</td></tr>
+<tr><td>‚</td><td>130</td><td>0x82</td><td>&amp;#130;</td><td>ƒ</td><td>131</td><td>0x83</td><td>&amp;#131;</td></tr>
+<tr><td>„</td><td>132</td><td>0x84</td><td>&amp;#132;</td><td>…</td><td>133</td><td>0x85</td><td>&amp;#133;</td></tr>
+<tr><td>†</td><td>134</td><td>0x86</td><td>&amp;#134;</td><td>‡</td><td>135</td><td>0x87</td><td>&amp;#135;</td></tr>
+<tr><td>ˆ</td><td>136</td><td>0x88</td><td>&amp;#136;</td><td>‰</td><td>137</td><td>0x89</td><td>&amp;#137;</td></tr>
+<tr><td>Š</td><td>138</td><td>0x8A</td><td>&amp;#138;</td><td>‹</td><td>139</td><td>0x8B</td><td>&amp;#139;</td></tr>
+<tr><td>Œ</td><td>140</td><td>0x8C</td><td>&amp;#140;</td><td>&nbsp;</td><td>141</td><td>0x8D</td><td>&amp;#141;</td></tr>
+<tr><td>Ž</td><td>142</td><td>0x8E</td><td>&amp;#142;</td><td>&nbsp;</td><td>143</td><td>0x8F</td><td>&amp;#143;</td></tr>
+<tr><td>&nbsp;</td><td>144</td><td>0x90</td><td>&amp;#144;</td><td>‘</td><td>145</td><td>0x91</td><td>&amp;#145;</td></tr>
+<tr><td>’</td><td>146</td><td>0x92</td><td>&amp;#146;</td><td>“</td><td>147</td><td>0x93</td><td>&amp;#147;</td></tr>
+<tr><td>”</td><td>148</td><td>0x94</td><td>&amp;#148;</td><td>•</td><td>149</td><td>0x95</td><td>&amp;#149;</td></tr>
+<tr><td>–</td><td>150</td><td>0x96</td><td>&amp;#150;</td><td>—</td><td>151</td><td>0x97</td><td>&amp;#151;</td></tr>
+<tr><td>˜</td><td>152</td><td>0x98</td><td>&amp;#152;</td><td>™</td><td>153</td><td>0x99</td><td>&amp;#153;</td></tr>
+<tr><td>š</td><td>154</td><td>0x9A</td><td>&amp;#154;</td><td>›</td><td>155</td><td>0x9B</td><td>&amp;#155;</td></tr>
+<tr><td>œ</td><td>156</td><td>0x9C</td><td>&amp;#156;</td><td>&nbsp;</td><td>157</td><td>0x9D</td><td>&amp;#157;</td></tr>
+<tr><td>ž</td><td>158</td><td>0x9E</td><td>&amp;#158;</td><td>Ÿ</td><td>159</td><td>0x9F</td><td>&amp;#159;</td></tr>
+<tr><td>(nbsp)</td><td>160</td><td>0xA0</td><td>&amp;#160;</td><td>¡</td><td>161</td><td>0xA1</td><td>&amp;#161;</td></tr>
+<tr><td>¢</td><td>162</td><td>0xA2</td><td>&amp;#162;</td><td>£</td><td>163</td><td>0xA3</td><td>&amp;#163;</td></tr>
+<tr><td>¤</td><td>164</td><td>0xA4</td><td>&amp;#164;</td><td>¥</td><td>165</td><td>0xA5</td><td>&amp;#165;</td></tr>
+<tr><td>¦</td><td>166</td><td>0xA6</td><td>&amp;#166;</td><td>§</td><td>167</td><td>0xA7</td><td>&amp;#167;</td></tr>
+<tr><td>¨</td><td>168</td><td>0xA8</td><td>&amp;#168;</td><td>©</td><td>169</td><td>0xA9</td><td>&amp;#169;</td></tr>
+<tr><td>ª</td><td>170</td><td>0xAA</td><td>&amp;#170;</td><td>«</td><td>171</td><td>0xAB</td><td>&amp;#171;</td></tr>
+<tr><td>¬</td><td>172</td><td>0xAC</td><td>&amp;#172;</td><td>(shy)</td><td>173</td><td>0xAD</td><td>&amp;#173;</td></tr>
+<tr><td>®</td><td>174</td><td>0xAE</td><td>&amp;#174;</td><td>¯</td><td>175</td><td>0xAF</td><td>&amp;#175;</td></tr>
+<tr><td>°</td><td>176</td><td>0xB0</td><td>&amp;#176;</td><td>±</td><td>177</td><td>0xB1</td><td>&amp;#177;</td></tr>
+<tr><td>²</td><td>178</td><td>0xB2</td><td>&amp;#178;</td><td>³</td><td>179</td><td>0xB3</td><td>&amp;#179;</td></tr>
+<tr><td>´</td><td>180</td><td>0xB4</td><td>&amp;#180;</td><td>µ</td><td>181</td><td>0xB5</td><td>&amp;#181;</td></tr>
+<tr><td>¶</td><td>182</td><td>0xB6</td><td>&amp;#182;</td><td>·</td><td>183</td><td>0xB7</td><td>&amp;#183;</td></tr>
+<tr><td>¸</td><td>184</td><td>0xB8</td><td>&amp;#184;</td><td>¹</td><td>185</td><td>0xB9</td><td>&amp;#185;</td></tr>
+<tr><td>º</td><td>186</td><td>0xBA</td><td>&amp;#186;</td><td>»</td><td>187</td><td>0xBB</td><td>&amp;#187;</td></tr>
+<tr><td>¼</td><td>188</td><td>0xBC</td><td>&amp;#188;</td><td>½</td><td>189</td><td>0xBD</td><td>&amp;#189;</td></tr>
+<tr><td>¾</td><td>190</td><td>0xBE</td><td>&amp;#190;</td><td>¿</td><td>191</td><td>0xBF</td><td>&amp;#191;</td></tr>
+<tr><td>À</td><td>192</td><td>0xC0</td><td>&amp;#192;</td><td>Á</td><td>193</td><td>0xC1</td><td>&amp;#193;</td></tr>
+<tr><td>Â</td><td>194</td><td>0xC2</td><td>&amp;#194;</td><td>Ã</td><td>195</td><td>0xC3</td><td>&amp;#195;</td></tr>
+<tr><td>Ä</td><td>196</td><td>0xC4</td><td>&amp;#196;</td><td>Å</td><td>197</td><td>0xC5</td><td>&amp;#197;</td></tr>
+<tr><td>Æ</td><td>198</td><td>0xC6</td><td>&amp;#198;</td><td>Ç</td><td>199</td><td>0xC7</td><td>&amp;#199;</td></tr>
+<tr><td>È</td><td>200</td><td>0xC8</td><td>&amp;#200;</td><td>É</td><td>201</td><td>0xC9</td><td>&amp;#201;</td></tr>
+<tr><td>Ê</td><td>202</td><td>0xCA</td><td>&amp;#202;</td><td>Ë</td><td>203</td><td>0xCB</td><td>&amp;#203;</td></tr>
+<tr><td>Ì</td><td>204</td><td>0xCC</td><td>&amp;#204;</td><td>Í</td><td>205</td><td>0xCD</td><td>&amp;#205;</td></tr>
+<tr><td>Î</td><td>206</td><td>0xCE</td><td>&amp;#206;</td><td>Ï</td><td>207</td><td>0xCF</td><td>&amp;#207;</td></tr>
+<tr><td>Ð</td><td>208</td><td>0xD0</td><td>&amp;#208;</td><td>Ñ</td><td>209</td><td>0xD1</td><td>&amp;#209;</td></tr>
+<tr><td>Ò</td><td>210</td><td>0xD2</td><td>&amp;#210;</td><td>Ó</td><td>211</td><td>0xD3</td><td>&amp;#211;</td></tr>
+<tr><td>Ô</td><td>212</td><td>0xD4</td><td>&amp;#212;</td><td>Õ</td><td>213</td><td>0xD5</td><td>&amp;#213;</td></tr>
+<tr><td>Ö</td><td>214</td><td>0xD6</td><td>&amp;#214;</td><td>×</td><td>215</td><td>0xD7</td><td>&amp;#215;</td></tr>
+<tr><td>Ø</td><td>216</td><td>0xD8</td><td>&amp;#216;</td><td>Ù</td><td>217</td><td>0xD9</td><td>&amp;#217;</td></tr>
+<tr><td>Ú</td><td>218</td><td>0xDA</td><td>&amp;#218;</td><td>Û</td><td>219</td><td>0xDB</td><td>&amp;#219;</td></tr>
+<tr><td>Ü</td><td>220</td><td>0xDC</td><td>&amp;#220;</td><td>Ý</td><td>221</td><td>0xDD</td><td>&amp;#221;</td></tr>
+<tr><td>Þ</td><td>222</td><td>0xDE</td><td>&amp;#222;</td><td>ß</td><td>223</td><td>0xDF</td><td>&amp;#223;</td></tr>
+<tr><td>à</td><td>224</td><td>0xE0</td><td>&amp;#224;</td><td>á</td><td>225</td><td>0xE1</td><td>&amp;#225;</td></tr>
+<tr><td>â</td><td>226</td><td>0xE2</td><td>&amp;#226;</td><td>ã</td><td>227</td><td>0xE3</td><td>&amp;#227;</td></tr>
+<tr><td>ä</td><td>228</td><td>0xE4</td><td>&amp;#228;</td><td>å</td><td>229</td><td>0xE5</td><td>&amp;#229;</td></tr>
+<tr><td>æ</td><td>230</td><td>0xE6</td><td>&amp;#230;</td><td>ç</td><td>231</td><td>0xE7</td><td>&amp;#231;</td></tr>
+<tr><td>è</td><td>232</td><td>0xE8</td><td>&amp;#232;</td><td>é</td><td>233</td><td>0xE9</td><td>&amp;#233;</td></tr>
+<tr><td>ê</td><td>234</td><td>0xEA</td><td>&amp;#234;</td><td>ë</td><td>235</td><td>0xEB</td><td>&amp;#235;</td></tr>
+<tr><td>ì</td><td>236</td><td>0xEC</td><td>&amp;#236;</td><td>í</td><td>237</td><td>0xED</td><td>&amp;#237;</td></tr>
+<tr><td>î</td><td>238</td><td>0xEE</td><td>&amp;#238;</td><td>ï</td><td>239</td><td>0xEF</td><td>&amp;#239;</td></tr>
+<tr><td>ð</td><td>240</td><td>0xF0</td><td>&amp;#240;</td><td>ñ</td><td>241</td><td>0xF1</td><td>&amp;#241;</td></tr>
+<tr><td>ò</td><td>242</td><td>0xF2</td><td>&amp;#242;</td><td>ó</td><td>243</td><td>0xF3</td><td>&amp;#243;</td></tr>
+<tr><td>ô</td><td>244</td><td>0xF4</td><td>&amp;#244;</td><td>õ</td><td>245</td><td>0xF5</td><td>&amp;#245;</td></tr>
+<tr><td>ö</td><td>246</td><td>0xF6</td><td>&amp;#246;</td><td>÷</td><td>247</td><td>0xF7</td><td>&amp;#247;</td></tr>
+<tr><td>ø</td><td>248</td><td>0xF8</td><td>&amp;#248;</td><td>ù</td><td>249</td><td>0xF9</td><td>&amp;#249;</td></tr>
+<tr><td>ú</td><td>250</td><td>0xFA</td><td>&amp;#250;</td><td>û</td><td>251</td><td>0xFB</td><td>&amp;#251;</td></tr>
+<tr><td>ü</td><td>252</td><td>0xFC</td><td>&amp;#252;</td><td>ý</td><td>253</td><td>0xFD</td><td>&amp;#253;</td></tr>
+<tr><td>þ</td><td>254</td><td>0xFE</td><td>&amp;#254;</td><td>ÿ</td><td>255</td><td>0xFF</td><td>&amp;#255;</td></tr>
+</tbody></table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 摩尔斯 -->
+        <div id="encMorse" class="t-panel enc-panel">
+            <label class="t-label" for="mcInput">输入内容</label>
+            <textarea class="t-area" id="mcInput" rows="6" placeholder="请输入要加密、解密的内容，例如：今天见"></textarea>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="mcEncode">摩尔斯加密</button>
+                <button class="t-btn t-btn-ok" type="button" id="mcDecode">摩尔斯解密</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#mcResult">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="mcClear">清空</button>
+            </div>
+            <div class="t-result" id="mcResultBox"><pre class="t-pre" id="mcResult" style="white-space:pre-wrap;word-break:break-all;margin:0"></pre></div>
+            <div class="t-error" id="mcError"></div>
+        </div>
+
+        <!-- 迅雷/旋风 -->
+        <div id="encThunder" class="t-panel enc-panel">
+            <label class="t-label" for="thunderInput">下载地址</label>
             <div class="t-row">
-                <span class="t-result-label">旋风</span>
-                <input class="t-input t-flex1" id="thunderXuan" type="text" readonly value="" />
-                <button class="t-btn t-btn-sm" type="button" data-copy="#thunderXuan">复制</button>
+                <input class="t-input t-flex1" id="thunderInput" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="请输入地址，例如：http://zxgj.16400.cn" />
             </div>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="thunderEncrypt">加密 URL</button>
+                <button class="t-btn t-btn-ok" type="button" id="thunderDecrypt">解密 URL</button>
+                <button class="t-btn t-btn-ghost" type="button" id="thunderDemo">示例</button>
+                <button class="t-btn t-btn-ghost" type="button" id="thunderClear">清空</button>
+            </div>
+            <div class="t-result" id="thunderSrcBox">
+                <button class="t-copy" type="button" data-copy="#thunderSrcText">复制</button>
+                <div id="thunderSrcText"></div>
+            </div>
+            <div id="thunderEncWrap" style="display:none;margin-top:14px">
+                <div class="t-row" style="margin-bottom:10px">
+                    <span class="t-result-label">迅雷</span>
+                    <input class="t-input t-flex1" id="thunderXun" type="text" readonly value="" />
+                    <button class="t-btn t-btn-sm" type="button" data-copy="#thunderXun">复制</button>
+                </div>
+                <div class="t-row" style="margin-bottom:10px">
+                    <span class="t-result-label">快车</span>
+                    <input class="t-input t-flex1" id="thunderKuai" type="text" readonly value="" />
+                    <button class="t-btn t-btn-sm" type="button" data-copy="#thunderKuai">复制</button>
+                </div>
+                <div class="t-row">
+                    <span class="t-result-label">旋风</span>
+                    <input class="t-input t-flex1" id="thunderXuan" type="text" readonly value="" />
+                    <button class="t-btn t-btn-sm" type="button" data-copy="#thunderXuan">复制</button>
+                </div>
+            </div>
+            <div class="t-error" id="thunderError" role="alert"></div>
         </div>
-        <div class="t-error" id="thunderError" role="alert"></div>
-    </div>
-    <div class="tool-card">
-        <h2 class="tool-title">📖 关于下载地址加解密</h2>
-        <p class="tool-desc">迅雷/快车/旋风链接本质是 Base64 编码：thunder:// 内为"AA + 地址 + ZZ"，flashget:// 内为"[FLASHGET] + 地址 + [FLASHGET]"（末尾附 &abc），qqdl:// 内为地址本身。含中文等非 ASCII 字符时按 GBK（GB2312）双字节编码后再 Base64，与旧版工具生成的链接完全互解；解密时先去掉协议前缀，再 Base64 解码并剥掉包裹标记即可还原原始地址。本站转换完全在本地完成。</p>
+
+        <!-- 图片 Base64 -->
+        <div id="encImg" class="t-panel enc-panel">
+            <div class="t-options" style="margin-bottom:12px">
+                <span style="font-weight:600">选择图片：</span>
+                <input type="file" accept="image/*" id="miFile" style="display:inline-block" />
+                <span id="miFileName" style="margin-left:8px;color:var(--text-2);font-size:13px"></span>
+            </div>
+            <label class="t-label" for="miResult">Base64 编码</label>
+            <textarea class="t-area" id="miResult" rows="8" placeholder="点击选择图片后自动生成 Base64 编码；也可在此粘贴 Base64 编码（含 data:image/...;base64,）后点击还原图片"></textarea>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="miToImg">Base64 转图片</button>
+                <button class="t-btn t-btn-ghost" type="button" id="miImgTag">追加 img 标签</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#miResult">复制</button>
+                <button class="t-btn t-btn-ghost" type="button" id="miClear">清空</button>
+            </div>
+            <div id="miImgArea" style="margin-top:10px"></div>
+            <div class="t-error" id="miError"></div>
+        </div>
     </div>
 </div></div>
 {include file="nav" /}
@@ -47,7 +374,397 @@
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
 <script src="/static/script/toolbox.js"></script>
+<script src="/static/script/pcjs/morsejs.js" type="text/javascript"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var tabs = document.querySelectorAll('#encTabs .t-tab');
+    var panels = document.querySelectorAll('.enc-panel');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            panels.forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+})();
+</script>
+<script>
+(function () {
+    var input = document.getElementById('b64Input');
+    var output = document.getElementById('b64Output');
+    var error = document.getElementById('b64Error');
+    function showErr(msg) {
+        error.textContent = msg;
+        error.classList.add('show');
+    }
+    function hideErr() { error.classList.remove('show'); }
+    document.getElementById('b64Encode').addEventListener('click', function () {
+        hideErr();
+        if (!input.value) { showErr('请输入要编码的内容'); return; }
+        output.value = Tools.base64Encode(input.value);
+    });
+    document.getElementById('b64Decode').addEventListener('click', function () {
+        hideErr();
+        if (!input.value) { showErr('请输入要解码的内容'); return; }
+        try {
+            output.value = Tools.base64Decode(input.value);
+        } catch (e) {
+            showErr('解码失败：不是合法的 Base64 内容');
+        }
+    });
+    document.getElementById('b64Swap').addEventListener('click', function () {
+        var t = input.value; input.value = output.value; output.value = t;
+    });
+    document.getElementById('b64Clear').addEventListener('click', function () {
+        input.value = ''; output.value = ''; hideErr(); input.focus();
+    });
+})();
+</script>
+<script>
+(function () {
+    var input = document.getElementById('urlInput');
+    var output = document.getElementById('urlOutput');
+    var error = document.getElementById('urlError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    document.getElementById('urlEncode').addEventListener('click', function () {
+        hideErr();
+        if (!input.value) { showErr('请输入要编码的内容'); return; }
+        try {
+            output.value = encodeURIComponent(input.value);
+        } catch (e) { showErr('编码失败'); }
+    });
+    document.getElementById('urlDecode').addEventListener('click', function () {
+        hideErr();
+        if (!input.value) { showErr('请输入要解码的内容'); return; }
+        try {
+            output.value = decodeURIComponent(input.value.replace(/\+/g, '%20'));
+        } catch (e) { showErr('解码失败：不是合法的 URL 编码内容'); }
+    });
+    document.getElementById('urlClear').addEventListener('click', function () {
+        input.value = ''; output.value = ''; hideErr(); input.focus();
+    });
+})();
+</script>
+<script>
+(function () {
+    var input = document.getElementById('escInput');
+    var result = document.getElementById('escResult');
+    var resultText = document.getElementById('escResultText');
+    var error = document.getElementById('escError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+
+    // 与经典 escape() 语义一致：字母数字及 @*_+-./ 原样保留，
+    // 字符码 <= 0xFF 输出 %XX，否则输出 %uXXXX（十六进制大写）
+    function jsEscape(str) {
+        var keep = /[A-Za-z0-9@*_+\-./]/;
+        var out = [], i, code, hex, ch;
+        for (i = 0; i < str.length; i++) {
+            ch = str.charAt(i);
+            code = str.charCodeAt(i);
+            if (keep.test(ch)) { out.push(ch); continue; }
+            hex = code.toString(16).toUpperCase();
+            if (code <= 0xFF) out.push('%' + (hex.length < 2 ? '0' + hex : hex));
+            else out.push('%u' + ('000' + hex).slice(-4));
+        }
+        return out.join('');
+    }
+
+    // 与经典 unescape() 语义一致：解析 %XX 与 %uXXXX，
+    // %u 高代理 + %u 低代理自动合并为完整字符，非法 % 序列原样保留
+    function jsUnescape(str) {
+        var out = [], k = 0, len = str.length, c;
+        while (k < len) {
+            c = str.charAt(k);
+            if (c !== '%') { out.push(c); k++; continue; }
+            if (k <= len - 6 && str.charAt(k + 1) === 'u' && /^[0-9a-fA-F]{4}$/.test(str.substr(k + 2, 4))) {
+                var hi = parseInt(str.substr(k + 2, 4), 16);
+                if (hi >= 0xD800 && hi <= 0xDBFF && k <= len - 12 &&
+                    str.charAt(k + 6) === '%' && str.charAt(k + 7) === 'u' &&
+                    /^[0-9a-fA-F]{4}$/.test(str.substr(k + 8, 4))) {
+                    var lo = parseInt(str.substr(k + 8, 4), 16);
+                    if (lo >= 0xDC00 && lo <= 0xDFFF) {
+                        out.push(String.fromCharCode(hi, lo));
+                        k += 12;
+                        continue;
+                    }
+                }
+                out.push(String.fromCharCode(hi));
+                k += 6;
+                continue;
+            }
+            if (k <= len - 3 && /^[0-9a-fA-F]{2}$/.test(str.substr(k + 1, 2))) {
+                out.push(String.fromCharCode(parseInt(str.substr(k + 1, 2), 16)));
+                k += 3;
+                continue;
+            }
+            out.push('%');
+            k++;
+        }
+        return out.join('');
+    }
+
+    function encode() {
+        hideErr();
+        var v = input.value;
+        if (!v.trim()) { showErr('请输入要加密的字符串'); return; }
+        resultText.textContent = jsEscape(v);
+        result.classList.add('show');
+    }
+    function decode() {
+        hideErr();
+        var v = input.value;
+        if (!v.trim()) { showErr('请输入要解密的字符串'); return; }
+        resultText.textContent = jsUnescape(v);
+        result.classList.add('show');
+    }
+    document.getElementById('escEncode').addEventListener('click', encode);
+    document.getElementById('escDecode').addEventListener('click', decode);
+    document.getElementById('escClear').addEventListener('click', function () {
+        input.value = '';
+        result.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') encode();
+    });
+    input.addEventListener('input', hideErr);
+    document.getElementById('escDemo').addEventListener('click', function () {
+        input.value = '中文测试 Escape 100% ok @toolbox';
+        result.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+})();
+</script>
+<script>
+(function () {
+    var input = document.getElementById('ucInput');
+    var output = document.getElementById('ucOutput');
+    var err = document.getElementById('ucError');
+    function showErr(m) { err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function getMode() {
+        var m = document.querySelector('input[name="ucMode"]:checked');
+        return m ? m.value : 'u';
+    }
+    function pad4(hex) {
+        while (hex.length < 4) hex = '0' + hex;
+        return hex;
+    }
+    function toCode() {
+        hideErr();
+        var v = input.value;
+        if (!v.trim()) { showErr('请输入要转换的文本'); return; }
+        var mode = getMode();
+        var out = [];
+        for (var i = 0; i < v.length; i++) {
+            var code = v.charCodeAt(i);
+            if (mode === 'u') out.push('\\u' + pad4(code.toString(16)));
+            else if (mode === 'xh') out.push('&#x' + pad4(code.toString(16)) + ';');
+            else out.push('&#' + code + ';');
+        }
+        output.value = out.join('');
+    }
+    function toText() {
+        hideErr();
+        var v = input.value;
+        if (!v.trim()) { showErr('请输入编码内容'); return; }
+        var out = v
+            .replace(/\\u([0-9a-fA-F]{1,4})/g, function (m, h) { return String.fromCharCode(parseInt(h, 16)); })
+            .replace(/&#x([0-9a-fA-F]{1,6});/g, function (m, h) { return String.fromCharCode(parseInt(h, 16)); })
+            .replace(/&#(\d{1,7});/g, function (m, d) { return String.fromCharCode(parseInt(d, 10)); });
+        output.value = out;
+    }
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') toCode();
+    });
+    input.addEventListener('input', hideErr);
+    document.getElementById('ucToCode').addEventListener('click', toCode);
+    document.getElementById('ucToText').addEventListener('click', toText);
+    document.getElementById('ucSwap').addEventListener('click', function () { var t = input.value; input.value = output.value; output.value = t; });
+    document.getElementById('ucDemo').addEventListener('click', function () { input.value = '你好，世界！Hello 😀'; output.value = ''; hideErr(); input.focus(); });
+    document.getElementById('ucClear').addEventListener('click', function () { input.value = ''; output.value = ''; hideErr(); input.focus(); });
+})();
+</script>
+<script>
+(function () {
+    var input = document.getElementById('utfInput');
+    var output = document.getElementById('utfOutput');
+    var error = document.getElementById('utfError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    function getFmt() {
+        var m = document.querySelector('input[name="utfFmt"]:checked');
+        return m ? m.value : 'hex';
+    }
+    document.getElementById('utfToCode').addEventListener('click', function () {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要转换的字符'); return; }
+        var bytes = new TextEncoder().encode(v);
+        var parts = [];
+        for (var i = 0; i < bytes.length; i++) parts.push((bytes[i] < 16 ? '0' : '') + bytes[i].toString(16).toUpperCase());
+        var fmt = getFmt();
+        if (fmt === 'hex') output.value = parts.join(' ');
+        else if (fmt === 'pct') output.value = '%' + parts.join('%');
+        else output.value = '\\x' + parts.join('\\x');
+    });
+    document.getElementById('utfToText').addEventListener('click', function () {
+        hideErr();
+        var v = output.value.trim();
+        if (!v) { showErr('请输入 UTF-8 编码内容'); return; }
+        v = v.replace(/\\x/gi, ' ').replace(/%/g, ' ').replace(/[^0-9a-fA-F\s]/g, '');
+        var parts = v.split(/\s+/).filter(function (s) { return s; });
+        if (parts.length % 2 !== 0) { showErr('十六进制字节数应为偶数（每个字节两位）'); return; }
+        var bytes = new Uint8Array(parts.length);
+        for (var i = 0; i < parts.length; i++) {
+            var n = parseInt(parts[i], 16);
+            if (isNaN(n)) { showErr('存在无效的十六进制段：' + parts[i]); return; }
+            bytes[i] = n;
+        }
+        try {
+            input.value = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+        } catch (e) {
+            showErr('解码失败：不是合法的 UTF-8 字节序列');
+        }
+    });
+    document.getElementById('utfSwap').addEventListener('click', function () {
+        var t = input.value; input.value = output.value; output.value = t;
+    });
+    document.getElementById('utfClear').addEventListener('click', function () {
+        input.value = ''; output.value = ''; hideErr(); input.focus();
+    });
+})();
+</script>
+<script>
+(function () {
+    'use strict';
+    var tabs = document.querySelectorAll('#ascTabs .t-tab');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            document.getElementById('ascPanelWrap').querySelectorAll('.t-panel').forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+    var err = document.getElementById('ascError');
+    document.getElementById('ascRun').addEventListener('click', function () {
+        err.classList.remove('show');
+        var raw = document.getElementById('ascInput').value;
+        if (!raw) { err.textContent = '请输入内容'; err.classList.add('show'); return; }
+        var mode = document.querySelector('input[name="ascMode"]:checked').value;
+        var space = document.getElementById('ascSpace').checked ? ' ' : '';
+        var out;
+        if (mode === 'revert') {
+            out = raw.replace(/(?:\x)?([0-9A-Fa-f]{2})/g, function (m, h) { return String.fromCharCode(parseInt(h, 16)); });
+        } else {
+            var parts = [];
+            for (var i = 0; i < raw.length; i++) {
+                var c = raw.charCodeAt(i);
+                parts.push(mode === 'hex' ? c.toString(16).toUpperCase() : c.toString(10));
+            }
+            out = parts.join(space);
+        }
+        document.getElementById('ascOutput').value = out;
+        document.getElementById('ascResult').classList.add('show');
+    });
+    document.getElementById('ascClear').addEventListener('click', function () {
+        document.getElementById('ascInput').value = '';
+        document.getElementById('ascOutput').value = '';
+        document.getElementById('ascResult').classList.remove('show');
+        err.classList.remove('show');
+        document.getElementById('ascInput').focus();
+    });
+})();
+</script>
+<script>
+(function () {
+    var input = document.getElementById('mcInput');
+    var result = document.getElementById('mcResult');
+    var error = document.getElementById('mcError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    function decToHex(str) { var res = []; for (var i = 0; i < str.length; i++) res[i] = ('00' + str.charCodeAt(i).toString(16)).slice(-4); return '\\u' + res.join('\\u'); }
+    function hexToDec(str) { str = str.replace(/\\/g, '%'); return unescape(str); }
+    var ss = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_@';
+    function v10toX(n, m) { m = String(m).replace(/ /gi, ''); if (m == '') return ''; if (parseInt(m) != m) return false; var t = '', a = ss.substr(0, n); while (m != 0) { var b = m % n; t = a.charAt(b) + t; m = (m - b) / n; } return t; }
+    function vXto10(n, m) { m = String(m).replace(/ /gi, ''); if (m == '') return ''; var a = ss.substr(0, n); if (m.replace(new RegExp('[' + a + ']', 'gi'), '') != '') return false; var t = 0, c = 1; for (var x = m.length - 1; x > -1; x--) { t += c * (a.indexOf(m.charAt(x))); c *= n; } return t; }
+    function vXtoY(n, m, y) { var a = vXto10(n * 1, m); if (a == '' || a === false) return false; a = v10toX(y, a); return a; }
+    morjs.modes.custom = { charSpacer: '', letterSpacer: ' ', longString: '-', shortString: '.', wordSpacer: ' ' };
+    var options = { mode: 'custom' };
+    var morse_char_re = /[a-zA-Z0-9.:,;?='\/!_\"()$&@]/;
+    function encode() {
+        hideErr();
+        var v = input.value;
+        if (!v.trim()) { showErr('请输入要加密的字符串'); return; }
+        var matchs = v.match(/[\u0000-\uffff]/g);
+        var out = '';
+        if (matchs != null) {
+            for (var i = 0; i < matchs.length; i++) {
+                var match = matchs[i];
+                if (match.trim() != '') {
+                    if (morse_char_re.test(match)) {
+                        out = out + morjs.encode(match, options) + morjs.modes.custom.letterSpacer;
+                    } else {
+                        var unicode = decToHex(match);
+                        if (unicode && unicode.substring(0, 2) == '\\u') {
+                            unicode = unicode.substring(2);
+                            var hx = vXtoY(16, unicode, 2);
+                            if (hx === false) { showErr('编码失败：无法转换该字符'); return; }
+                            hx = hx.replace(/1/g, morjs.modes.custom.longString);
+                            hx = hx.replace(/0/g, morjs.modes.custom.shortString);
+                            out = out + hx + morjs.modes.custom.letterSpacer;
+                        }
+                    }
+                }
+            }
+        }
+        if (out.length > 0 && out.substring(out.length - 1) === morjs.modes.custom.letterSpacer) {
+            out = out.substring(0, out.length - 1);
+        }
+        result.textContent = out;
+    }
+    function decode() {
+        hideErr();
+        var v = input.value;
+        if (!v.trim()) { showErr('请输入要解密的摩尔斯码'); return; }
+        var out = '';
+        var arr = v.split(morjs.modes.custom.letterSpacer);
+        var re_1 = new RegExp('\\' + morjs.modes.custom.longString, 'g');
+        var re_0 = new RegExp('\\' + morjs.modes.custom.shortString, 'g');
+        for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if (item != null && item.length >= 1) {
+                if (item.length <= 5) {
+                    out = out + morjs.decode(item, options) + ' ';
+                } else {
+                    item = item.replace(re_1, '1');
+                    item = item.replace(re_0, '0');
+                    var hx = vXtoY(2, item, 16);
+                    if (hx === false || hx === '') {
+                        out = '输入的摩尔斯码不符合要求！';
+                    } else {
+                        out = out + hexToDec('\\u' + hx) + ' ';
+                    }
+                }
+            }
+        }
+        result.textContent = out;
+    }
+    document.getElementById('mcEncode').addEventListener('click', encode);
+    document.getElementById('mcDecode').addEventListener('click', decode);
+    document.getElementById('mcClear').addEventListener('click', function () { input.value = ''; result.textContent = ''; hideErr(); input.focus(); });
+    input.addEventListener('keydown', function (e) { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') encode(); });
+})();
+</script>
 <script>
 /* 迅雷/快车/旋风 URL 加解密核心
  * 与旧版 pcjs/urlthunder.js 逐字节兼容：
@@ -271,6 +988,46 @@ if (typeof module !== 'undefined' && module.exports) {
         encWrap.style.display = 'none';
         hideErr();
         input.focus();
+    });
+})();
+</script>
+<script>
+(function () {
+    var fileInput = document.getElementById('miFile');
+    var result = document.getElementById('miResult');
+    var imgArea = document.getElementById('miImgArea');
+    var error = document.getElementById('miError');
+    var fileName = document.getElementById('miFileName');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    fileInput.addEventListener('change', function () {
+        hideErr();
+        var f = this.files[0];
+        if (!f) return;
+        if (!/image\/\w+/.test(f.type)) { showErr('请确保文件为图片类型'); return; }
+        fileName.textContent = f.name;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            result.value = e.target.result;
+            imgArea.innerHTML = '<img src="' + e.target.result + '" alt="图片Base64编码" style="margin:auto;max-width:99%;max-height:1000px;"/>';
+        };
+        reader.readAsDataURL(f);
+    });
+    function toImg(tagOnly) {
+        hideErr();
+        var v = result.value.trim();
+        if (!v) { showErr('请输入 Base64 编码'); return; }
+        if (v.indexOf('base64') < 0) { showErr('请输入正确的 Base64 图片编码（包含 data:image/...;base64,）'); return; }
+        if (v.indexOf('<img') < 0) {
+            result.value = '<img src="' + v + '" alt="图片Base64编码" style="margin:auto;max-width:99%;max-height:1000px;" />';
+        }
+        imgArea.innerHTML = result.value;
+    }
+    document.getElementById('miToImg').addEventListener('click', function () { toImg(false); });
+    document.getElementById('miImgTag').addEventListener('click', function () { toImg(true); });
+    document.getElementById('miClear').addEventListener('click', function () {
+        result.value = ''; imgArea.innerHTML = ''; fileName.textContent = ''; fileInput.value = '';
+        hideErr(); result.focus();
     });
 })();
 </script>

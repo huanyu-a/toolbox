@@ -86,12 +86,7 @@ return array (
     'keywords' => '键盘按键,KeyCode码,KeyAscii值,KeyCode值在线获取工具',
     'description' => '键盘按键KeyCode码提供KeyCode键盘按键码在线获取,在线获取KeyCode键盘按键码,KeyAscii码对照值获取,在线提取键盘KeyCode码和KeyAscii码',
   ),
-  'morse' => 
-  array (
-    'title' => '在线摩尔斯电码加密解密工具-在线工具箱',
-    'keywords' => '摩尔斯电码加密,摩尔斯电码解密',
-    'description' => '在线摩尔斯电码加密解密工具为您提供摩尔斯电码加密,摩尔斯电码解密,支持中文的摩尔斯电码加密、解密工具,SOS的摩尔编码为：··· －－－ ··· ，按照上面的规定即可进行灯光编码。这个编码其实非常简单：三短、三长、三短等',
-  ),
+  
   'calculator' => 
   array (
     'title' => '在线科学计算器-在线工具箱',
@@ -225,12 +220,7 @@ return array (
     'keywords' => 'C语言代码格式化,C语言代码美化,C语言代码在线格式化',
     'description' => 'C语言格式化工具为您提供C语言格式化,C语言代码美化,C语言代码格式化,C语言代码格式化美化排版处理,,C语言代码格式化美化在线工具,需要将C语言代码美化时,输入您需要格式化的C语言代码,点击C语言代码格式化,即可转换成功,并自动将C语言语法高亮着色,方便阅读查看C语言语法是否正确等',
   ),
-  'base64' => 
-  array (
-    'title' => 'base64在线解码,base64编码,base64加密解密-在线工具箱',
-    'keywords' => 'base64编码,base64在线解码,base64加密解密',
-    'description' => 'base64在线解码工具为您提供base64编码,base64在线解码,base64加密解密,对字符串进行Base64格式的加密处理,对已加密Base64在线解码解密显示为明文',
-  ),
+  
   'gzip' => 
   array (
     'title' => '网页Gzip压缩检测-在线工具箱',
@@ -357,12 +347,7 @@ return array (
     'keywords' => 'html在线转义工具,html在线转义,html转义,转义工具,html转义字符工具,html转码工具,在线转义工具,html转义字符表',
     'description' => 'HTML转义工具为您提供 HTML转义,html在线转义,html转义,转义工具,html转义字符工具,html转码工具,在线转义工具,html转义字符表,把HTML代码转义后输出，提供html转义字符表对照等',
   ),
-  'escape' => 
-  array (
-    'title' => 'Escape在线解码编码,Escape加密,unescape解密-在线工具箱',
-    'keywords' => 'Escape编码,Escape在线解码,Escape加密,unescape解密',
-    'description' => 'Escape在线解码工具为您提供Escape编码,Escape在线解码,Escape加密,unescape解密,对字符串进行Escape的加密处理,可在线对字符串进行Escape编码解码,Escape在线编码解码器Escape加密,escape可对字符串进行编码,这样就可以在所有的计算机上读取该字符串',
-  ),
+  
   'contenttype' => 
   array (
     'title' => 'HTTP Mime-Type对照表,Content-type(Mime-Type)文件类型扩展名-在线工具箱',
@@ -417,12 +402,7 @@ return array (
     'keywords' => '网页Meta,Meta标签优化,Meta标签优化分析工具,keywords,description',
     'description' => 'Meta标签优化分析工具为您提供在线网站Meta标签信息检测查询,检测关键词的长度，检测网页描述的长度,可以快速检测网页的META标签，分析标题、关键词、描述等是否符合搜索引擎收录规范并给出建议',
   ),
-  'urlcode' => 
-  array (
-    'title' => 'URL网址16进制加密工具,URL加密工具,URL16进制加密-在线工具箱',
-    'keywords' => 'URL网址16进制加密工具,URL加密工具,URL16进制加密',
-    'description' => 'URL网址16进制加密工具为您提供把URL网址转换成16进制代码形式,URL网址16进制加密工具,URL加密工具,URL16进制加密,URL地址转换为URL16进制码,在线把URL网址转换成16进制代码形式,加密后可直接复制到地址栏访问',
-  ),
+  
   'txtreplace' => 
   array (
     'title' => '文字内容批量替换工具,在线替换工具-在线工具箱',
@@ -657,12 +637,7 @@ return array (
     'keywords' => 'RC4加解密工具,可逆加密算法在线测试,RC4加密,RC4解密	',
     'description' => 'RC4加解密工具为您提供RC4加解密工具,RC4可逆加密算法在线测试,RC4算法,可自定义RC4加密解密秘钥,实现RC4在线加密,RC4在线解密,RC4可逆加密解密的在线工具	',
   ),
-  'urlthunder' => 
-  array (
-    'title' => '迅雷,快车,旋风URL加密/解密工具,下载地址加解密-在线工具箱',
-    'keywords' => '迅雷URL加密,快车URL加密,旋风URL加密,迅雷url解密工具,下载地址加解密	',
-    'description' => '下载地址加解密工具为您提供迅雷URL加密,快车URL加密,旋风URL加密,迅雷url解密工具,下载地址加解密,迅雷快车旋风URL加密解密工具,迅雷Url加密,快车Url加密工具,迅雷Url解密,旋风下载Url解密	',
-  ),
+  
   'refresh' => 
   array (
     'title' => '在线定时自动刷新网页-在线工具箱',
@@ -795,12 +770,7 @@ return array (
     'keywords' => '文章采集,数据信息采集,内容在线采集器	',
     'description' => '文章采集器为您提供文章采集,网页无法复制工具,数据采集,信息采集,在线采集器,在线采集网页内容,采集文章内容,采集文章,采集内容,采集信息等,只要输入网址,点击采集网页,即可采集到目标网页的文章内容和标题	',
   ),
-  'img2base64' => 
-  array (
-    'title' => '在线图片转base64,在线base64转图片,图片base64编码-在线工具箱',
-    'keywords' => '在线图片转base64,在线base64转图片,图片base64编码	',
-    'description' => '在线图片转base64工具为您提供图片img在线转换Base64,base64与图片互转工具,图片编码base64,image转base64,base64图片编码,base64图片转换,DataURI,PNG转换Base64,GIF转换Base64,JPEG转换Data64,Base64在线转换,图片转DataURI,图片编码base64等	',
-  ),
+  
   'calcpressure' => 
   array (
     'title' => '在线压力换算器,压力单位换算-在线工具箱',
@@ -867,12 +837,7 @@ return array (
     'keywords' => '键盘测试,键盘按键测试,在线键盘测试工具,键盘按键失灵	',
     'description' => '在线键盘测试工具:测试您键盘按键的好坏,在线键盘测试工具帮助您测试键盘哪个按键失灵，新买键盘是否完好测试，测试您键盘按键的好坏，有了它你快速测试键盘上的按键是否好用，在线检测免下载版，希望对大家有帮助	',
   ),
-  'utf8' => 
-  array (
-    'title' => 'UTF-8编码与中文互转工具,utf8转gbk,utf8转gb2312-在线工具箱',
-    'keywords' => 'UTF-8编码,utf8编码转换,utf-8编码转换,utf8转gbk,UTF-8编码与中文互转工具,utf8转gb2312	',
-    'description' => 'UTF-8编码在线转换工具提供UTF-8编码,utf8编码转换,utf-8编码转换,utf8转gbk,utf8转gb2312,UTF-8编码与中文互转工具,把中文转换成UTF-8编码形式,同时也支持把UTF-8编码过的字符还原成中文，将字符串转换为UTF-8形式,解决在网络传输过程中出现的字符乱码,同时可跨平台使用	',
-  ),
+  
   'regexcode' => 
   array (
     'title' => '正则表达式在线代码生成工具-在线工具箱',
@@ -892,12 +857,7 @@ return array (
     'description' => 'Html转C#/JSP代码工具为您提供在线Html转换为Jsp和C#代码,Jsp代码,Html转C#,Html转.Net,Html转Jsp,在线Html转Jsp代码,HTML与JSP和C#,.Net代码在线转换,使用这个Html在线转换工具,能得到拼接好代码等',
   ),
   
-  'unicode' => 
-  array (
-    'title' => 'Unicode编码转换工具,ASCII与Unicode互转-在线工具箱',
-    'keywords' => 'Unicode编码转换工具,ASCII与Unicode互转，Unicode与中文互转,中文转换为&#XXXX形式',
-    'description' => 'Unicode编码转换工具提供Unicode编码转换工具,ASCII与Unicode互转，Unicode与中文互转,中文转换为&#XXXX形式,实现Unicode与中文互转,Unicode转ASCII,ASCII转Unicode,中文转Unicode,Unicode转中文,Unicode与任意字符之间相互转换等',
-  ),
+  
   'subnetmask' => 
   array (
     'title' => '子网掩码计算器-在线工具箱',
@@ -916,12 +876,7 @@ return array (
     'keywords' => 'html格式化,html美化,html排版,html在线格式化,html在线压缩,html格式,html5格式化',
     'description' => 'html格式化工具为您提供html格式化,html美化,html排版,html压缩工具,html在线格式化,html代码在线格式化,html在线压缩,html5格式化,html格式,html编码,格式化html,格式化html代码,压缩html,压缩html代码,在线格式化html代码,在线压缩html代码,html代码在线压缩等',
   ),
-  'ascii' => 
-  array (
-    'title' => '在线Ascii编码解码工具,ASCII与中文互转-在线工具箱',
-    'keywords' => '在线Ascii编码解码工具,ASCII与中文互转,Ascii,Ascii转中文,中文转Ascii',
-    'description' => '在线Ascii编码解码工具提供在线Ascii编码解码工具,ASCII与中文互转,Ascii转中文,中文转Ascii编码在线转换,快速实现Ascii在线编码解码,实现Ascii与任意字符之间快速编码/解码等',
-  ),
+  
   'formatcss' => 
   array (
     'title' => 'css格式化,代码压缩及样式美化-在线工具箱',
