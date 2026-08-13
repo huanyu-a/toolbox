@@ -1,16 +1,11 @@
 <?php
-// 工具注册表（由 nav.html 提取生成，勿手改结构）
+// 工具注册表（导航数据源，按功能/使用场景划分为 7 个分类）
 // 结构: [ ['cat'=>分类名, 'items'=>[['url'=>..., 'name'=>..., 'accent'=>...], ...]], ... ]
 return [
     [
-        'cat' => 'JSON工具',
+        'cat' => '开发编程',
         'items' => [
             ['url' => '/json/', 'name' => 'JSON 工具箱', 'accent' => ''],
-        ],
-    ],
-    [
-        'cat' => '格式化转换',
-        'items' => [
             ['url' => '/format/', 'name' => '代码格式化', 'accent' => ''],
             ['url' => '/html2js/', 'name' => 'HTML 转 JS', 'accent' => ''],
             ['url' => '/htmlescape/', 'name' => 'HTML 转义', 'accent' => ''],
@@ -19,10 +14,13 @@ return [
             ['url' => '/confundirjs/', 'name' => 'JS 混合加密', 'accent' => ''],
             ['url' => '/runjs/', 'name' => '在线运行 JS/HTML', 'accent' => ''],
             ['url' => '/xpath/', 'name' => 'XPath 工具', 'accent' => ''],
+            ['url' => '/camelcase/', 'name' => '驼峰/下划线', 'accent' => ''],
+            ['url' => '/bootstrapicon/', 'name' => 'Bootstrap 图标', 'accent' => ''],
+            ['url' => '/androidmanifest/', 'name' => 'Android 权限大全', 'accent' => ''],
         ],
     ],
     [
-        'cat' => '加解密编码',
+        'cat' => '编码加解密',
         'items' => [
             ['url' => '/deencrypt/', 'name' => '对称加密/解密', 'accent' => ''],
             ['url' => '/allencrypt/', 'name' => '散列/哈希加密', 'accent' => ''],
@@ -34,9 +32,9 @@ return [
             ['url' => '/utf8/', 'name' => 'UTF-8 转换', 'accent' => ''],
             ['url' => '/unicode/', 'name' => 'Unicode 转换', 'accent' => ''],
             ['url' => '/ascii/', 'name' => 'ASCII 转换', 'accent' => ''],
+            ['url' => '/img2base64/', 'name' => '图片转 Base64', 'accent' => ''],
             ['url' => '/htpasswd/', 'name' => 'htpasswd 生成', 'accent' => ''],
             ['url' => '/barcode/', 'name' => '条形码生成', 'accent' => ''],
-            ['url' => '/uuid/', 'name' => 'UUID/GUID 生成', 'accent' => ''],
         ],
     ],
     [
@@ -56,15 +54,13 @@ return [
             ['url' => '/quchong/', 'name' => '内容去重', 'accent' => ''],
             ['url' => '/wenzitexiao/', 'name' => '文字特效', 'accent' => ''],
             ['url' => '/zipstringtext/', 'name' => '字符串压缩', 'accent' => ''],
-            ['url' => '/camelcase/', 'name' => '驼峰/下划线', 'accent' => ''],
             ['url' => '/quanbaojiao/', 'name' => '全角半角', 'accent' => ''],
             ['url' => '/capital/', 'name' => '英文大小写', 'accent' => ''],
             ['url' => '/rmbdaxie/', 'name' => '人民币大写', 'accent' => ''],
-            ['url' => '/keyboardcode/', 'name' => '按键码/键盘测试', 'accent' => ''],
         ],
     ],
     [
-        'cat' => '数字计算',
+        'cat' => '计算换算',
         'items' => [
             ['url' => '/calculator/', 'name' => '科学计算器', 'accent' => ''],
             ['url' => '/calc/', 'name' => '单位换算', 'accent' => ''],
@@ -74,59 +70,53 @@ return [
             ['url' => '/unixtime/', 'name' => '时间戳转换', 'accent' => ''],
             ['url' => '/hexconvert/', 'name' => '进制转换', 'accent' => ''],
             ['url' => '/hexrgb/', 'name' => '颜色转换', 'accent' => ''],
+            ['url' => '/px2rem/', 'name' => 'rem/px 转换', 'accent' => ''],
+            ['url' => '/currency/', 'name' => '世界货币查询', 'accent' => ''],
         ],
     ],
     [
-        'cat' => '网络工具',
+        'cat' => '网络运维',
         'items' => [
             ['url' => '/ip/', 'name' => 'IP 查询', 'accent' => ''],
             ['url' => '/dns/', 'name' => 'DNS 大全', 'accent' => ''],
             ['url' => '/websocket/', 'name' => 'WebSocket 测试', 'accent' => ''],
             ['url' => '/browserinfo/', 'name' => '浏览器信息', 'accent' => ''],
             ['url' => '/checkweixin/', 'name' => '微信域名检测', 'accent' => ''],
-        ],
-    ],
-    [
-        'cat' => '站长工具',
-        'items' => [
-            ['url' => '/createmeta/', 'name' => 'Meta 标签', 'accent' => ''],
-            ['url' => '/pagecode/', 'name' => 'HTTP 状态码', 'accent' => ''],
-            ['url' => '/htaccess2nginx/', 'name' => 'htaccess 转 nginx', 'accent' => ''],
-            ['url' => '/shortcut/', 'name' => '桌面快捷方式', 'accent' => ''],
-            ['url' => '/px2rem/', 'name' => 'rem/px 转换', 'accent' => ''],
-            ['url' => '/favicon/', 'name' => 'ico 图标制作', 'accent' => ''],
-            ['url' => '/refresh/', 'name' => '定时刷新', 'accent' => ''],
             ['url' => '/gzip/', 'name' => 'Gzip 检测', 'accent' => ''],
             ['url' => '/checkurl/', 'name' => '死链检测', 'accent' => ''],
             ['url' => '/whois/', 'name' => 'Whois 查询', 'accent' => ''],
             ['url' => '/chaicp/', 'name' => 'ICP 备案查询', 'accent' => ''],
-            ['url' => '/checkkeyword/', 'name' => '关键词密度', 'accent' => ''],
+            ['url' => '/refresh/', 'name' => '定时刷新', 'accent' => ''],
+            ['url' => '/ports/', 'name' => '常见端口大全', 'accent' => ''],
+            ['url' => '/linuxcmd/', 'name' => 'Linux 命令大全', 'accent' => ''],
+            ['url' => '/htaccess2nginx/', 'name' => 'htaccess 转 nginx', 'accent' => ''],
         ],
     ],
     [
-        'cat' => '其他工具',
+        'cat' => '站长辅助',
+        'items' => [
+            ['url' => '/createmeta/', 'name' => 'Meta 标签', 'accent' => ''],
+            ['url' => '/pagecode/', 'name' => 'HTTP 状态码', 'accent' => ''],
+            ['url' => '/shortcut/', 'name' => '桌面快捷方式', 'accent' => ''],
+            ['url' => '/favicon/', 'name' => 'ico 图标制作', 'accent' => ''],
+            ['url' => '/checkkeyword/', 'name' => '关键词密度', 'accent' => ''],
+            ['url' => '/useragent/', 'name' => 'User-Agent 大全', 'accent' => ''],
+            ['url' => '/contenttype/', 'name' => 'Content-Type 对照表', 'accent' => ''],
+            ['url' => '/httpheader/', 'name' => 'HTTP 请求头', 'accent' => ''],
+            ['url' => '/uuid/', 'name' => 'UUID/GUID 生成', 'accent' => ''],
+        ],
+    ],
+    [
+        'cat' => '生活趣味',
         'items' => [
             ['url' => '/tuya/', 'name' => '在线涂鸦', 'accent' => ''],
-            ['url' => '/img2base64/', 'name' => '图片转 Base64', 'accent' => ''],
-            ['url' => '/currency/', 'name' => '世界货币查询', 'accent' => ''],
             ['url' => '/areacode/', 'name' => '区号时差查询', 'accent' => ''],
             ['url' => '/jieri/', 'name' => '世界节日查询', 'accent' => ''],
             ['url' => '/chaodai/', 'name' => '历史朝代查询', 'accent' => ''],
             ['url' => '/shaoshuminzu/', 'name' => '少数民族分布', 'accent' => ''],
             ['url' => '/tesufuhao/', 'name' => '特殊符号大全', 'accent' => ''],
             ['url' => '/lishishangdejintian/', 'name' => '历史上的今天', 'accent' => ''],
-        ],
-    ],
-    [
-        'cat' => '对照列表',
-        'items' => [
-            ['url' => '/useragent/', 'name' => 'User-Agent 大全', 'accent' => ''],
-            ['url' => '/contenttype/', 'name' => 'Content-Type 对照表', 'accent' => ''],
-            ['url' => '/httpheader/', 'name' => 'HTTP 请求头', 'accent' => ''],
-            ['url' => '/ports/', 'name' => '常见端口大全', 'accent' => ''],
-            ['url' => '/bootstrapicon/', 'name' => 'Bootstrap 图标', 'accent' => ''],
-            ['url' => '/androidmanifest/', 'name' => 'Android 权限大全', 'accent' => ''],
-            ['url' => '/linuxcmd/', 'name' => 'Linux 命令大全', 'accent' => ''],
+            ['url' => '/keyboardcode/', 'name' => '按键码/键盘测试', 'accent' => ''],
         ],
     ],
 ];
