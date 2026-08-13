@@ -323,6 +323,66 @@
     }
   }
 
+  /* ---------- 智能粘贴：粘贴的 markdown 不被 Vditor 自动转义 ----------
+     Vditor 在所见即所得模式下，纯文本粘贴遇到 markdown 符号会转义
+     （** → \*\*），导致粘贴的 markdown 变成字面符号。这里在捕获阶段
+     拦截：检测到 markdown 语法时，先经 Lute 渲染成 HTML 再插入，
+     让粘贴的 markdown 直接成为格式而非转义后的字面符号。 */
+  function isMarkdownish(text) {
+    return /(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d{1,3}[.)]\s|>\s|```)/.test(text) ||
+      /\*\*|__|~~|`|!\[[^\]]*\]\([^)]*\)|\[[^\]]*\]\([^)]*\)/.test(text);
+  }
+
+  function bindSmartPaste() {
+    if (!vditor || !vditor.element) {
+      return;
+    }
+    vditor.element.addEventListener('paste', function (e) {
+      var cd = e.clipboardData;
+      if (!cd) {
+        return;
+      }
+      var types = cd.types || [];
+      var hasHtml = false;
+      for (var i = 0; i < types.length; i++) {
+        if (types[i] === 'text/html') {
+          hasHtml = true;
+          break;
+        }
+      }
+      /* 带 HTML 的富文本粘贴交给 Vditor 默认处理（不会转义 markdown 符号） */
+      if (hasHtml) {
+        return;
+      }
+      var text = cd.getData('text/plain');
+      if (!text || !isMarkdownish(text)) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      var mode = vditor.getCurrentMode();
+      if (mode === 'wysiwyg') {
+        /* 所见即所得：markdown 渲染成 HTML 后插入 */
+        var html = '';
+        try {
+          html = window.Lute.New().Md2HTML(text);
+        } catch (err) {
+          html = '';
+        }
+        if (html) {
+          vditor.insertValue(html, false);
+        } else {
+          vditor.insertValue(text);
+        }
+      } else {
+        /* 即时渲染/分屏：直接插入 markdown 原文，由 Vditor 自行渲染 */
+        vditor.insertValue(text);
+      }
+      updateStats();
+      scheduleSave();
+    }, true);
+  }
+
   /* ---------- 初始化 ---------- */
   $(function () {
     if (!window.Vditor) {
@@ -381,6 +441,7 @@
       },
       after: function () {
         updateStats();
+        bindSmartPaste();
       }
     });
 
