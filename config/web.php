@@ -378,12 +378,6 @@ return array (
     'keywords' => '执行Js代码,网页代码调试器,Html在线预览工具,代码编辑器	',
     'description' => 'HTML/CSS/JS在线运行代码工具为您提供在在线执行Js代码工具,网页代码调试器,Html在线预览工具,可以把Html页面代码进行在线调试,在线预览 ,代码编辑器,代码在线编辑器,支持Jquery和Js	',
   ),
-  'confundirjs' => 
-  array (
-    'title' => 'JS混合加密,JS混淆加密,js混合加密工具-在线工具箱',
-    'keywords' => 'JS混合加密,js混合加密工具,JS在线混合加密,js在线混合加密,js混合加密,javascript混合加密	',
-    'description' => 'JS混合加密工具为您提供JS混合加密,js混淆加密,JS在线混合加密,JS代码在线加密,JS地址在线加密,js在线混合加密,javascript混合加密,js混合加密,js编码混合加密,混合加密Js,混合加密js代码,混合加密js,混合加密js代码,在线混合加密js代码,在线混合加密js代码,js代码在线混合加密等	',
-  ),
   'camelcase' => 
   array (
     'title' => '在线驼峰转下划线,下划线转驼峰-在线工具箱',
@@ -643,12 +637,6 @@ return array (
     'keywords' => '条形码在线生成器,条形码在线生成工具	',
     'description' => '条形码在线生成工具为您提供可在线生成条形码扫描查询条形码,条形码生成器支持ean8,ean13,std25,int25,code11,code39,code93,code128,codabar,msi,datamatrix类型条形码生成,条形码用于一般商品扫描使用等	',
   ),
-  'endecodejs' => 
-  array (
-    'title' => 'JS加密,JS解密,js加解密工具-在线工具箱',
-    'keywords' => 'JS加密解密,js加解密工具,JS在线加解密,js在线加解密,js加解密,javascript加解密	',
-    'description' => 'JS加密解密工具为您提供JS加密解密,js加解密工具,JS在线加解密,JS代码在线加解密,js在线加解密,javascript加解密,js加解密,js编码加解密,加解密Js,加解密js代码,加解密js,加解密js代码,在线加解密js代码,在线加解密js代码,js代码在线加解密等	',
-  ),
   'aesencrypt' => 
   array (
     'title' => 'AES加解密工具,AES加密解密在线工具-在线工具箱',
@@ -837,6 +825,11 @@ return array (
         'title' => '数值转换,时间戳/进制/颜色/rem转换-在线工具箱',
         'keywords' => '数值转换,时间戳转换,Unix时间戳,世界时间,在线时钟,进制转换,二进制,八进制,十六进制,颜色转换,HEX,RGB,调色板,rem转换,px转换',
         'description' => '数值与单位转换工具合集：Unix 时间戳与日期互转、世界主要城市实时时间、在线时钟、二进制/八进制/十进制/十六进制互转、HEX 与 RGB 颜色互转及调色板、rem/px 转换，全部在浏览器本地完成。',
+    ),
+    'jsencrypt' => array (
+        'title' => 'JS加密解密,JS混合加密混淆-在线工具箱',
+        'keywords' => 'JS加密,JS解密,JS在线加解密,JS混淆加密,JS代码混合加密,js混合加密,javascript加密,js加密解密工具',
+        'description' => 'JS 加密解密在线工具：提供 Packer 式 JS 代码加密与解密、JS 代码混合加密（变量名混淆）等功能，全部在浏览器本地完成，支持在线加密、在线解密、在线混淆。',
     ),
 
 );
