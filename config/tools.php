@@ -10,6 +10,8 @@ return [
             ['url' => '/html2js/', 'name' => 'HTML 转 JS', 'accent' => ''],
             ['url' => '/regex/', 'name' => '正则表达式', 'accent' => ''],
             ['url' => '/jsencrypt/', 'name' => 'JS 加密混淆', 'accent' => ''],
+            ['url' => '/encrypt/', 'name' => '加密解密', 'accent' => ''],
+            ['url' => '/encode/', 'name' => '编码转换', 'accent' => ''],
             ['url' => '/runjs/', 'name' => '在线运行 JS/HTML', 'accent' => ''],
             ['url' => '/xpath/', 'name' => 'XPath 工具', 'accent' => ''],
             ['url' => '/bootstrapicon/', 'name' => 'Bootstrap 图标', 'accent' => ''],
@@ -20,8 +22,6 @@ return [
     [
         'cat' => '文本处理',
         'items' => [
-            ['url' => '/encrypt/', 'name' => '加密解密', 'accent' => ''],
-            ['url' => '/encode/', 'name' => '编码转换', 'accent' => ''],
             ['url' => '/editor/', 'name' => '在线编辑器', 'accent' => ''],
             ['url' => '/autoformat/', 'name' => '文章排版', 'accent' => ''],
             ['url' => '/caiji/', 'name' => '文章采集', 'accent' => ''],

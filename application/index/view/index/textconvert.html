@@ -2,10 +2,9 @@
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico">🔤</span>文本转换</h2>
-        <p class="tool-desc">简繁转换、汉字拼音、火星文、文字竖排、文字翻转、文字特效、全角半角、英文大小写、人民币大写九种文本转换工具合集，全程浏览器本地运算。</p>
+        <p class="tool-desc">汉字拼音、火星文、文字竖排、文字翻转、文字特效、全角半角、英文大小写、人民币大写、命名转换九种文本转换工具合集，全程浏览器本地运算。</p>
         <ul class="t-tabs" id="tcTabs">
-            <li><button type="button" class="t-tab active" data-panel="tcJf">简繁转换</button></li>
-            <li><button type="button" class="t-tab" data-panel="tcPy">汉字拼音</button></li>
+            <li><button type="button" class="t-tab active" data-panel="tcPy">汉字拼音</button></li>
             <li><button type="button" class="t-tab" data-panel="tcHx">火星文</button></li>
             <li><button type="button" class="t-tab" data-panel="tcSp">文字竖排</button></li>
             <li><button type="button" class="t-tab" data-panel="tcFlip">文字翻转</button></li>
@@ -16,23 +15,8 @@
             <li><button type="button" class="t-tab" data-panel="tcName">命名转换</button></li>
         </ul>
 
-        <!-- 简繁转换 -->
-        <div id="tcJf" class="t-panel tc-panel active">
-            <label class="t-label" for="jfInput">输入文字</label>
-            <textarea class="t-area" id="jfInput" rows="8" placeholder="请输入要转换的文字"></textarea>
-            <div class="tool-actions">
-                <button class="t-btn t-btn-ok" type="button" id="jfSimple">转为简体</button>
-                <button class="t-btn" type="button" id="jfTrad">转为繁体</button>
-                <button class="t-btn t-btn-ghost" type="button" data-copy="#jfOut">复制结果</button>
-                <button class="t-btn t-btn-ghost" type="button" id="jfClear">清空</button>
-            </div>
-            <label class="t-label" for="jfOut">转换结果</label>
-            <textarea class="t-area t-area-readonly" id="jfOut" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
-            <div class="t-error" id="jfError"></div>
-        </div>
-
         <!-- 汉字拼音 -->
-        <div id="tcPy" class="t-panel tc-panel">
+        <div id="tcPy" class="t-panel tc-panel active">
             <label class="t-label" for="pyContent">输入汉字</label>
             <textarea class="t-area" id="pyContent" rows="6" placeholder="请输入要转换的汉字"></textarea>
             <div class="t-options" style="margin-top:12px">
@@ -228,18 +212,6 @@
 (function () {
     function showErr(el, m) { el.textContent = m; el.classList.add('show'); }
     function hideErr(el) { el.classList.remove('show'); }
-
-    /* 简繁转换：jianfan.js 纯函数 simplized/traditionalized */
-    var jfInput = document.getElementById('jfInput'), jfOut = document.getElementById('jfOut'), jfError = document.getElementById('jfError');
-    function jfRun(fn) {
-        hideErr(jfError);
-        var v = jfInput.value;
-        if (!v) { showErr(jfError, '请输入要转换的文字'); return; }
-        jfOut.value = fn(v);
-    }
-    document.getElementById('jfSimple').addEventListener('click', function () { jfRun(simplized); });
-    document.getElementById('jfTrad').addEventListener('click', function () { jfRun(traditionalized); });
-    document.getElementById('jfClear').addEventListener('click', function () { jfInput.value = ''; jfOut.value = ''; hideErr(jfError); jfInput.focus(); });
 
     /* 汉字拼音：pinyin.js 的 toPinyin + pydic（读音） */
     var pyContent = document.getElementById('pyContent'), pyResult = document.getElementById('pyResultText'), pyError = document.getElementById('pyError');

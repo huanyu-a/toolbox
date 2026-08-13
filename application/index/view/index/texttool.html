@@ -2,34 +2,15 @@
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico">🧮</span>文本工具</h2>
-        <p class="tool-desc">字数统计、内容去重、文本替换、字符串压缩、文本对比五种文本处理工具合集，全程浏览器本地运算。</p>
+        <p class="tool-desc">内容去重、字符串压缩、文本对比三种文本处理工具合集，全程浏览器本地运算。</p>
         <ul class="t-tabs" id="ttTabs">
-            <li><button type="button" class="t-tab active" data-panel="ttCount">字数统计</button></li>
-            <li><button type="button" class="t-tab" data-panel="ttUnique">内容去重</button></li>
-            <li><button type="button" class="t-tab" data-panel="ttReplace">文本替换</button></li>
+            <li><button type="button" class="t-tab active" data-panel="ttUnique">内容去重</button></li>
             <li><button type="button" class="t-tab" data-panel="ttZip">字符串压缩</button></li>
             <li><button type="button" class="t-tab" data-panel="ttDiff">文本对比</button></li>
         </ul>
 
-        <!-- 字数统计 -->
-        <div id="ttCount" class="t-panel tt-panel active">
-            <label class="t-label" for="tcInput">请输入要统计的字符串</label>
-            <textarea class="t-area" id="tcInput" rows="10" placeholder="输入内容后实时统计，无需点击按钮"></textarea>
-            <div class="tool-actions">
-                <button class="t-btn t-btn-ghost" type="button" id="tcClear">清空输入框</button>
-            </div>
-            <div class="t-result" id="tcResultBox">
-                <div><span class="t-result-label">汉字：</span><span id="tcZh">0</span> 个</div>
-                <div><span class="t-result-label">中文标点：</span><span id="tcPunct">0</span> 个</div>
-                <div><span class="t-result-label">汉字+标点：</span><span id="tcZhPunct">0</span> 个</div>
-                <div><span class="t-result-label">英文（含英文状态下的数字、符号、标点）：</span><span id="tcEn">0</span> 个</div>
-                <div><span class="t-result-label">数字：</span><span id="tcNum">0</span> 个</div>
-                <div><span class="t-result-label">字符总数：</span><span id="tcTotal">0</span> 个字符</div>
-            </div>
-        </div>
-
         <!-- 内容去重 -->
-        <div id="ttUnique" class="t-panel tt-panel">
+        <div id="ttUnique" class="t-panel tt-panel active">
             <label class="t-label" for="uqInput">待去重内容（每行一条）</label>
             <textarea class="t-area" id="uqInput" rows="8" placeholder="请输入要去重的内容，每行一条"></textarea>
             <div class="tool-actions">
@@ -42,27 +23,6 @@
                 <div id="uqResultText"></div>
             </div>
             <div class="t-error" id="uqError"></div>
-        </div>
-
-        <!-- 文本替换 -->
-        <div id="ttReplace" class="t-panel tt-panel">
-            <label class="t-label" for="rpInput">原文内容</label>
-            <textarea class="t-area" id="rpInput" rows="6" placeholder="请输入要替换的内容"></textarea>
-            <label class="t-label" for="rpFrom">想替换的字符</label>
-            <input class="t-input" id="rpFrom" type="text" placeholder="请输入替换前的字符" />
-            <label class="t-label" for="rpTo">替换后的字符</label>
-            <input class="t-input" id="rpTo" type="text" placeholder="请输入替换后的字符（留空表示删除）" />
-            <div class="tool-actions">
-                <button class="t-btn t-btn-ok" type="button" id="rpBtn">立即替换</button>
-                <button class="t-btn t-btn-ghost" type="button" id="rpDemo">示例</button>
-                <button class="t-btn t-btn-ghost" type="button" id="rpClear">清空</button>
-            </div>
-            <label class="t-label" for="rpResult">替换结果</label>
-            <div class="t-result" id="rpResultBox">
-                <button class="t-copy" type="button" data-copy="#rpResultText">复制</button>
-                <div id="rpResultText"></div>
-            </div>
-            <div class="t-error" id="rpError"></div>
         </div>
 
         <!-- 字符串压缩 -->
@@ -126,31 +86,6 @@
     function showErr(el, m) { el.textContent = m; el.classList.add('show'); }
     function hideErr(el) { el.classList.remove('show'); }
 
-    /* 字数统计（实时） */
-    var tcInput = document.getElementById('tcInput'), tcResultBox = document.getElementById('tcResultBox');
-    function tcCount() {
-        var Words = tcInput.value;
-        var iTotal = 0, sTotal = 0, eTotal = 0, inum = 0, i;
-        for (i = 0; i < Words.length; i++) {
-            if (/[\u4e00-\u9fa5]/.test(Words.charAt(i))) { iTotal++; }
-        }
-        for (i = 0; i < Words.length; i++) {
-            var c2 = Words.charAt(i);
-            if (/[^\x00-\xff]/.test(c2)) { sTotal++; } else { eTotal++; }
-            if (/[0-9]/.test(c2)) inum++;
-        }
-        document.getElementById('tcZh').textContent = iTotal;
-        document.getElementById('tcPunct').textContent = sTotal - iTotal;
-        document.getElementById('tcZhPunct').textContent = sTotal;
-        document.getElementById('tcEn').textContent = eTotal;
-        document.getElementById('tcNum').textContent = inum;
-        document.getElementById('tcTotal').textContent = iTotal * 2 + (sTotal - iTotal) * 2 + eTotal;
-        tcResultBox.classList.add('show');
-    }
-    tcInput.addEventListener('input', tcCount);
-    tcCount();
-    document.getElementById('tcClear').addEventListener('click', function () { tcInput.value = ''; tcCount(); tcInput.focus(); });
-
     /* 内容去重 */
     var uqInput = document.getElementById('uqInput'), uqResultBox = document.getElementById('uqResultBox'), uqResultText = document.getElementById('uqResultText'), uqError = document.getElementById('uqError');
     document.getElementById('uqGo').addEventListener('click', function () {
@@ -167,30 +102,6 @@
     });
     document.getElementById('uqClear').addEventListener('click', function () {
         uqInput.value = ''; uqResultText.textContent = ''; uqResultBox.classList.remove('show'); hideErr(uqError); uqInput.focus();
-    });
-
-    /* 文本替换 */
-    var rpInput = document.getElementById('rpInput'), rpFrom = document.getElementById('rpFrom'), rpTo = document.getElementById('rpTo');
-    var rpResultBox = document.getElementById('rpResultBox'), rpResultText = document.getElementById('rpResultText'), rpError = document.getElementById('rpError');
-    function rpEscape(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-    document.getElementById('rpBtn').addEventListener('click', function () {
-        hideErr(rpError);
-        var text = rpInput.value, from = rpFrom.value, to = rpTo.value;
-        if (!text) { showErr(rpError, '请输入要替换的内容文本'); return; }
-        if (!from) { showErr(rpError, '请输入替换前的字符'); return; }
-        var out = text.replace(new RegExp(rpEscape(from), 'g'), to);
-        rpInput.value = out;
-        rpResultText.textContent = out;
-        rpResultBox.classList.add('show');
-    });
-    document.getElementById('rpDemo').addEventListener('click', function () {
-        hideErr(rpError);
-        rpInput.value = 'hello world, hello toolbox!\n今天天气不错，今天心情很好。';
-        rpFrom.value = 'hello'; rpTo.value = '你好';
-        rpResultText.textContent = ''; rpResultBox.classList.remove('show'); rpInput.focus();
-    });
-    document.getElementById('rpClear').addEventListener('click', function () {
-        rpInput.value = ''; rpFrom.value = ''; rpTo.value = ''; rpResultText.textContent = ''; rpResultBox.classList.remove('show'); hideErr(rpError); rpInput.focus();
     });
 
     /* 字符串压缩 */
