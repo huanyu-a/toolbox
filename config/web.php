@@ -14,61 +14,61 @@ return array (
     'keywords' => 'json格式化,json代码压缩,json校验解析,json数组',
     'description' => '在线工具箱为您提供json格式化,json代码压缩,json校验解析,json数组解析,json转xml,xml转json,json解析,json在线解析,json在线解析及格式化,unix时间戳转换,CSS美化压缩,json美化,json格式化输出,json数组,json实体类,json视图等',
   ),
-  'jsonudview' => 
+
   array (
     'title' => '在线Json解析视图查看器,Json在线格式化工具-在线工具箱',
     'keywords' => 'json格式化,在线Json解析视图查看器,Json在线格式化工具',
     'description' => '在线Json解析视图格式化查看器为您提供json解析视图查看器工具:提供json解析工具,json视图查看器,json在线视图,视图支持json解析,json格式化校验,可控制缩进量的Json在线解析工具,json视图工具大全,Json字符串在线格式化解析校验等',
   ),
-  'jsonlrview' => 
+
   array (
     'title' => 'Json高亮显示在线解析工具,Json格式化校验-在线工具箱',
     'keywords' => 'json格式化,Json高亮显示在线解析工具,Json格式化校验',
     'description' => '在线Json解析视图格式化查看器为您提供Json高亮显示在线解析工具,提供json解析工具,json视图查看器,json在线视图,视图支持json解析,json格式化校验,可控制缩进量的Json在线解析工具,json视图工具大全,Json字符串在线格式化解析校验等',
   ),
-  'jsonzip' => 
+
   array (
     'title' => 'Json压缩转义,在线Json压缩格式化,json代码压缩-在线工具箱',
     'keywords' => 'json格式化,json代码压缩,在线Json压缩格式化,json代码压缩',
     'description' => '在线Json压缩格式化为您提供json格式化,json代码压缩,json校验解析,json格式化,json代码压缩,在线Json压缩格式化,json代码压缩,在线压缩Json字符串,压缩Json可以减少在传输过程中消耗的流量，提高传输速度等',
   ),
-  'json2cs' => 
+
   array (
     'title' => 'Json在线生成C#实体类,Json生成C# Model类工具-在线工具箱',
     'keywords' => 'Json在线生成C#实体类,Json生成C# Model类',
     'description' => 'Json在线生成C#实体类工具为您提供json在线生成C#实体类,根据json生成实体类,json怎么生成实体类,json生成C#实体类,自动校验Json格式,将Json字符串解析为C#.Net所使用的Model实体类,可提取Json字符串中的注释等',
   ),
-  'json2java' => 
+
   array (
     'title' => 'Json在线生成C#实体类,Json生成C# Model类工具-在线工具箱',
     'keywords' => 'Json在线生成C#实体类,Json生成C# Model类',
     'description' => 'Json生成Java实体类工具工具为您提供json在线生成Java实体类,提供json生成java类,json转javabean,json转pojo,json生成pojo文件,javabean生成器,json字符串转成Java实体类pojo等',
   ),
-  'json2go' => 
+
   array (
     'title' => 'Json转Go,Json生成Golang结构体-在线工具箱',
     'keywords' => 'Json转Go,Json生成Golang结构体,Json生成struct',
     'description' => 'Json转Go工具为您提供Json转Go,Json生成Golang结构体,Json生成struct,json转golang struct,json转go结构体,json生成go struct结构,可以勾选是否内联类型定义,快速将json转为可用的go结构体等',
   ),
-  'sql2java' => 
+
   array (
     'title' => '在线SQL转Java实体类-在线工具箱',
     'keywords' => 'SQL转Java实体类,SQL生成Java实体类',
     'description' => 'SQL转Java实体类工具为您提供将SQL转为java实体类,mysql数据转Java实体类,oracle转Java实体类,在线SQL生成Java实体类等',
   ),
-  'json2xml' => 
+
   array (
     'title' => 'Xml与Json在线转换工具,Xml和Json互转-在线工具箱',
     'keywords' => 'Xml转为Json格式,Json转为Xml格式,Xml与Json在线转换工具',
     'description' => '在线Json解析视图格式化查看器为您提供Xml与Json在线转换工具,Xml转为Json格式,Json转为Xml格式,Xml与Json在线转换等',
   ),
-  'calcpower' => 
+
   array (
     'title' => '在线功率换算器,功率单位换算-在线工具箱',
     'keywords' => '换算器,功率换算器,在线功率换算器,功率单位换算',
     'description' => '在线功率换算器工具为您提供功率在线计算,任意功率单位之间可以直接转换,在线瓦(W)转千瓦(kW),功率换算电流,英制马力(HP)转米制马力(PS),千卡/秒(kcal/s),焦耳/秒(J/s),牛顿·米/秒(N·m/s)间的换算,在线功率换算器可以帮您快速进行功率计算',
   ),
-  'enlower' => 
+
   array (
     'title' => '英文字母大小写转换工具-在线工具箱',
     'keywords' => '大小写转换,英文大小写转换,英文字母大小写转换,在线大小写转换',
@@ -93,25 +93,25 @@ return array (
     'keywords' => '计算器,科学计算器,在线科学计算器',
     'description' => '在线科学计算器工具为您提供计算器在线计算,计算器在线使用,科学计算器,在线计算器,计算器使用,计算器在线计算使用,计算器使用方法,科学计算器在线计算,科学计算器使用方法,科学计算器在线使用,在线科学计算器',
   ),
-  'formatjava' => 
+
   array (
     'title' => 'JAVA格式化,JAVA代码美化-在线工具箱',
     'keywords' => 'JAVA格式化,JAVA在线格式化,JAVA代码美化,JAVA代码排版,JAVA格式化',
     'description' => 'JAVA格式化工具为您提供JAVA格式化,JAVA代码排版,JAVA在线格式化,JAVA代码美化,输入混乱、压缩或混淆的JAVA代码，点击JAVA代码格式化按钮即可实现代码的格式化与美化功能,该该工具使JAVA代码看起来更加漂亮且可读性更强也更容易编辑',
   ),
-  'dnsyd' => 
+
   array (
     'title' => '移动DNS服务器大全,移动dns服务器地址-在线工具箱',
     'keywords' => '移动DNS服务器大全,移动dns服务器地址',
     'description' => '中国移动公共DNS解析服务大全:移动DNS服务器地址大全,移动DNS地址库,移动DNS解析,移动免费DNS地址,国内最快的移动公共DNS解析IP库,移动公共DNS解析服务器IP地址',
   ),
-  'formatcsql' => 
+
   array (
     'title' => 'SQL代码格式化,SQL代码美化-在线工具箱',
     'keywords' => 'SQL代码格式化,SQL代码在线格式化,SQL代码美化,SQL代码排版,SQL代码格式化',
     'description' => 'SQL代码格式化工具为您提供SQL代码格式化,SQL代码排版,SQL代码在线格式化,SQL代码在线格式化美化整理,SQL代码美化格式化功能,Orcale,MySql,SqlServer等Sql语句在线美化,SQL个性化代码美化显示,可控制代码缩进大小与代码格式,点击SQL代码格式化按钮即可实现代码的格式化与美化功能',
   ),
-  'formatcs' => 
+
   array (
     'title' => 'C#格式化,C#代码美化-在线工具箱',
     'keywords' => 'C#格式化,C#在线格式化,C#代码美化,C#代码排版,C#格式化',
@@ -124,7 +124,7 @@ return array (
     'keywords' => 'User-Agent,浏览器,浏览器user-agent,PC浏览器user-agent,手机浏览器user-agent',
     'description' => '常见浏览器User-Agent大全为您收集常见常用浏览器User-Agent,提供PC浏览器user-agent,手机浏览器user-agent,360浏览器user-agent,Android手机user-agent,safari iOS 4.33手机user-agent',
   ),
-  'calctemperature' => 
+
   array (
     'title' => '摄氏度温度换算,华氏温度转换,温度单位在线换算-在线工具箱',
     'keywords' => '摄氏度温度换算,华氏温度转换,温度单位在线换算',
@@ -142,19 +142,19 @@ return array (
     'keywords' => 'Websocket在线测试工具,Websocket在线模拟请求,在线websocket测试',
     'description' => 'Websocket在线测试工具为您提供Websocket在线检测,在线websocket测试,Websocket在线测试服务端Websocket功能是否可用,支持内网和外网Websocket测试：测试连接格式为 ws://IP或域名:端口（示例ws://127.0.0.1:8080）,通过Html5的Websocket去连接服务端的Websocket',
   ),
-  'ip2long' => 
+
   array (
     'title' => 'IP转Int整形数字,IP地址与数字地址互转工具-在线工具箱',
     'keywords' => 'IP转Int整形数字,ip2long,long2ip整形转IP',
     'description' => 'IP地址与数字地址互转工具提供IP与整形数字互转,IP转Int整形数字,ip2long,ip地址转换为十进制数字,在线IP地址转Int数字、Int数字转IP地址,复制在浏览器中访问就和访问IP一样，数字地址指某一地点在国际数字地址网上的数字化地理位置',
   ),
-  'dnslt' => 
+
   array (
     'title' => '联通DNS服务器大全,联通dns服务器地址-在线工具箱',
     'keywords' => '联通DNS服务器大全,联通dns服务器地址',
     'description' => '联通免费联通DNS服务器大全为您提供在线免费公共免费联通DNS服务器IP地址,免费联通DNS地址库,免费联通DNS解析,Open免费联通DNS地址库,114免费联通DNS地址库,国内最快的公共免费联通DNS解析IP,公共免费联通DNS解析服务器IP地址',
   ),
-  'androidkeycode' => 
+
   array (
     'title' => 'Android KeyCode对照表-在线工具箱',
     'keywords' => 'Android,Android按键码,KeyCode码,KeyCode值在线获取工具',
@@ -166,13 +166,13 @@ return array (
     'keywords' => '全国少数民族分布表,少数民族,民族分布,民族分布查询,少数民族分布,少数民族地区分布,中国少数民族分布图',
     'description' => '中国少数民族地区分布查询工具为您提供全国少数民族分布表,少数民族,民族分布,民族分布查询,少数民族分布,少数民族地区分布,中国少数民族分布图等查询',
   ),
-  'html2all' => 
+
   array (
     'title' => 'Html转ASP,Html转PERL,Html转SWS,Html转VB.NET-在线工具箱',
     'keywords' => 'Html转ASP,Html转PERL,Html转SWS,Html转VB.NET',
     'description' => 'Html转程序代码工具为您提供在线Html转程序代码,Html转ASP,Html转PERL,Html转SWS,Html转VB.NET,能得到拼接好的程序代码等快速转换工具,实现Html在线转换成各种程序,脚本语言',
   ),
-  'json2get' => 
+
   array (
     'title' => 'json转url,JSON和GET参数转换工具-在线工具箱',
     'keywords' => 'JSON和GET参数转换工具,json转url,JSON和GET请求互相转换工具',
@@ -184,13 +184,13 @@ return array (
     'keywords' => 'IP地址查询,服务器IP地理位置查询,域名查IP',
     'description' => 'IP地址查询,服务器IP地理位置查询,域名IP查询,本机IP地址查询" /><meta name="description" content="IP地址查询工具，可以根据您输入的IP地址，查询到对应IP所处的地理位置，还能根据您输入的域名，可以解析域名出真实IP地址和服务器的地理位置以及本机真实ip地址，希望对大家有帮助',
   ),
-  'formatvbs' => 
+
   array (
     'title' => 'Vbscript格式化,在线美化Vbscript代码,VBS格式化-在线工具箱',
     'keywords' => 'Vbscript代码格式化,Vbscript代码美化,VBS格式化,Vbscript代码在线格式化',
     'description' => 'Vbscript格式化工具为您提供Vbscript格式化,Vbscript代码美化,VBS格式化,Vbscript代码格式化,Vbscript代码格式化美化排版处理,,Vbscript代码格式化美化在线工具,需要将Vbscript代码美化时,输入您需要格式化的Vbscript代码,点击Vbscript代码格式化,即可转换成功,并自动将Vbscript语法高亮着色,方便阅读查看Vbscript语法是否正确等',
   ),
-  'formatc' => 
+
   array (
     'title' => 'C语言格式化,在线美化C语言代码-在线工具箱',
     'keywords' => 'C语言代码格式化,C语言代码美化,C语言代码在线格式化',
@@ -209,7 +209,7 @@ return array (
     'keywords' => 'Linux命令大全,linux常用命令,linux命令查询,shell命令,服务器命令',
     'description' => 'Linux常用命令大全为您提供Linux命令在线查询,涵盖文件操作、目录管理、权限设置、进程管理、网络配置、系统监控等常用Linux命令及其参数说明,适合运维人员和开发者在日常工作中快速查阅',
   ),
-  'alldns' => 
+
   array (
     'title' => '各地区DNS大全,美国dns-在线工具箱',
     'keywords' => '各地区DNS大全,美国dns',
@@ -227,13 +227,13 @@ return array (
     'keywords' => 'Cache-Control" content="no-siteapp" /><meta name="keywords" content="Xpath,Xpath工具,xpath提取html',
     'description' => 'Xpath工具为您提供Xpath解析,Xpath在线工具,xpath提取html,xpath定位测试,根据xpath寻找网页图片、html超链接等元素,根据标签名,属性寻找元素,可在实时测试的xpath在线工具',
   ),
-  'formatruby' => 
+
   array (
     'title' => 'Ruby格式化,Ruby代码美化-在线工具箱',
     'keywords' => 'Ruby格式化,Ruby在线格式化,Ruby代码美化,Ruby代码排版,Ruby格式化',
     'description' => 'Ruby格式化工具为您提供Ruby格式化,Ruby代码排版,Ruby在线格式化,Ruby代码美化,输入混乱,压缩或混淆的Ruby代码,点击Ruby代码格式化按钮即可实现代码的格式化与美化功能,该该工具使Ruby代码看起来更加漂亮且可读性更强也更容易编辑',
   ),
-  'guid' => 
+
   array (
     'title' => 'GUID在线生成器-在线工具箱',
     'keywords' => 'GUID,GUID在线生成器,guid生成,在线guid',
@@ -257,19 +257,19 @@ return array (
     'keywords' => 'favicon,ico,ico图标在线制作,favicon图标制作',
     'description' => 'ico图标在线制作工具为您提供松制作ico图标,在线提供ico图标转换工具,可以将jpg、jpeg、gif、png等图像转换成ico图像,方便浏览器制作并生成favicon.ico图标,提供ico图标下载,png转ico,jpg转ico,gif转ico等',
   ),
-  'shaencrypt' => 
+
   array (
     'title' => '散列哈希/HASH加密,所有不可逆HASH在线加密工具-在线工具箱',
     'keywords' => '散列,哈希,HASH,MD5加密,sha加密',
     'description' => '散列哈希HASH加密工具为您提供MD5、HmacMD5在线加密,SHA加密算法:SHA1加密，SHA224加密，SHA256加密，SHA384加密，SHA512加密,HmacSHA1加密，HmacSHA224加密，HmacSHA256加密，HmacSHA384加密，HmacSHA512加密等在线加密工具',
   ),
-  'calcangle' => 
+
   array (
     'title' => '在线角度换算,弧度换算,毫弧度换算-在线工具箱',
     'keywords' => '在线角度换算,弧度换算,毫弧度换算',
     'description' => '在线角度弧度换算器工具为您提供角度弧度在线计算,角度计算弧度计算,毫弧度转换,在线圆周,弧度,毫弧度,度,直角,百分度,秒,分角度之间的转换,角度计算,在线角度弧度换算器可以帮您快速进行角度弧度计算',
   ),
-  'formatsql' => 
+
   array (
     'title' => 'SQL格式化,SQL查询语句压缩工具-在线工具箱',
     'keywords' => 'SQL格式化,SQL语句压缩工具,SQL语句在线格式化,SQL语句在线压缩,SQL格式,SQL语句格式化',
@@ -293,13 +293,13 @@ return array (
     'keywords' => '微信域名检测工具,微信域名封禁,微信域名防封,域名拦截检测',
     'description' => '微信域名检测工具为您提供在线检测域名在微信中是否被封,域名拦截检测，使用微信域名检测工具可以实时检测域名是否被微信屏蔽，检测您的域名在微信是否被封禁屏蔽等。',
   ),
-  'calcspeed' => 
+
   array (
     'title' => '在线速度换算器,速度单位换算-在线工具箱',
     'keywords' => '换算器,速度换算器,在线速度换算器,速度单位换算',
     'description' => '在线速度换算器工具为您提供速度在线计算,速度单位换算器,米/秒转千米/时,英寸/秒换算,千米/秒转光速,马赫换算,英里/时换算器,在线速度换算器可以帮您快速进行速度计算',
   ),
-  'calcthickness' => 
+
   array (
     'title' => '在线密度换算器,密度单位换算-在线工具箱',
     'keywords' => '换算器,密度换算器,在线密度换算器,密度单位换算',
@@ -312,13 +312,13 @@ return array (
     'keywords' => 'content-type,HTTP Mime-Type,content type,http content,contenttype类型',
     'description' => 'HTTP Content-type对照表:HTTP Mime-Type,Content-type文件扩展名Content-Type(Mime-Type)文件类型扩展名,Content-type对照表,在线对照表大全',
   ),
-  'dnsusa' => 
+
   array (
     'title' => '美国DNS服务器大全,Google Dns,美国dns服务器地址-在线工具箱',
     'keywords' => '美国DNS服务器大全,美国dns服务器地址',
     'description' => '美国公共DNS解析服务大全:美国DNS服务器地址大全,美国DNS地址库,美国DNS解析,美国免费DNS地址,最快的美国公共DNS解析IP库,美国公共DNS解析服务器IP地址',
   ),
-  'requestmethod' => 
+
   array (
     'title' => 'HTTP请求方法对照表,HTTP请求method大全-在线工具箱',
     'keywords' => 'GET,POST,HEAD方法,OPTIONS,PUT,DELETE,TRACE,CONNECT方法,method,http请求方法,http请求方式',
@@ -330,13 +330,13 @@ return array (
     'keywords' => '世界节日查询,阳历农历节日查询',
     'description' => '世界节日查询为您提供在线提历节日,农历节日,世界节日在线查询,中国农历节日查询,中国阳历节日查询,世界节日活动在线查询表等',
   ),
-  'shizhong' => 
+
   array (
     'title' => '在线时钟,网络时钟,现在几点钟-在线工具箱',
     'keywords' => '在线时钟调色板工具,现在几点钟',
     'description' => '在线时钟为您提供查看现在几点钟,查看当前时、分、秒,当前时间,传统时钟,现在是几点几时几分,星期几,当前日期',
   ),
-  'formatperl' => 
+
   array (
     'title' => 'perl格式化,perl代码美化-在线工具箱',
     'keywords' => 'perl格式化,perl在线格式化,perl代码美化,perl代码排版,perl格式化',
@@ -348,19 +348,19 @@ return array (
     'keywords' => 'WHOIS查询,域名持有人,注册商,注册人,域名注册日期,过期日期',
     'description' => '查询WHOIS信息，查询域名是否已经被注册，以及注册域名的域名持有人，注册商，注册人，域名注册日期和过期日期，DNS等域名的详细信息。通过域名Whois服务器查询，可以查询域名归属者联系方式，以及注册和到期时间',
   ),
-  'chameta' => 
+
   array (
     'title' => '网页Meta标签优化分析工具-在线工具箱',
     'keywords' => '网页Meta,Meta标签优化,Meta标签优化分析工具,keywords,description',
     'description' => 'Meta标签优化分析工具为您提供在线网站Meta标签信息检测查询,检测关键词的长度，检测网页描述的长度,可以快速检测网页的META标签，分析标题、关键词、描述等是否符合搜索引擎收录规范并给出建议',
   ),
-  'calcarea' => 
+
   array (
     'title' => '在线面积换算器-在线工具箱',
     'keywords' => '换算器,面积换算器,在线面积换算器	',
     'description' => '在线面积换算器工具为您提供面积在线换算,任意面积之间可以直接转换,面积换算器在线使用,面积转换换算器,在线面积换算器,面积换算器使用,面积换算器在线换算面积使用,面积换算器使用方法,在线面积换算器可以帮您快速进行面积换算	',
   ),
-  'htmltable' => 
+
   array (
     'title' => '在线生成html表格,Html表格在线制作,table生成器-在线工具箱',
     'keywords' => '在线生成html表格,html表格,html table,table生成器,Html表格在线制作	',
@@ -372,7 +372,7 @@ return array (
     'keywords' => '执行Js代码,网页代码调试器,Html在线预览工具,代码编辑器	',
     'description' => 'HTML/CSS/JS在线运行代码工具为您提供在在线执行Js代码工具,网页代码调试器,Html在线预览工具,可以把Html页面代码进行在线调试,在线预览 ,代码编辑器,代码在线编辑器,支持Jquery和Js	',
   ),
-  'desencrypt' => 
+
   array (
     'title' => '在线DES加密,DES解密工具-在线工具箱',
     'keywords' => 'DES加解密工具,可逆加密算法在线测试,DES加密,DES解密	',
@@ -384,7 +384,7 @@ return array (
     'keywords' => 'Manifest,Android Manifest,安卓权限描述	',
     'description' => 'Android Manifest权限描述对照表为您收集Android Manifest安卓权限描述大全对照表:提供在线Android Manifest对照表,安卓权限描述大全,在线对照表大全,方便的查看安卓权限描述功能	',
   ),
-  'calctime' => 
+
   array (
     'title' => '在线时间换算,年月周天换算,时间单位换算工具-在线工具箱',
     'keywords' => '在线时间换算,年月周天换算,时间单位换算工具	',
@@ -414,7 +414,7 @@ return array (
     'keywords' => 'ICP备案查询,网站ICP备案号查询	',
     'description' => 'ICP备案查询工具为您提供网站域名备案查询,通过域名可查询该域名是否有备案及相关的ICP备案许可信息,可直接查询该域名工业和信息化部ICP/IP地址备案详细信息	',
   ),
-  'calclength' => 
+
   array (
     'title' => '在线长度换算器,长度单位换算-在线工具箱',
     'keywords' => '换算器,长度换算器,在线长度换算器,长度单位换算	',
@@ -426,7 +426,7 @@ return array (
     'keywords' => '年利率计算,年利率计算器,年利率计算器在线	',
     'description' => '年利率计算器在线帮您计算年率利,可计算利息收益,计算年化收益率,只要输入年利率,存款天数,存款本金,即可计算出相应的利息	',
   ),
-  'htmlescapechar' => 
+
   array (
     'title' => 'HTML转义字符大全,HTML特殊符号对照表-在线工具箱',
     'keywords' => 'HTML转义字符对照表,HTML转义字符大全,Html转义字符表对照表	',
@@ -438,19 +438,19 @@ return array (
     'keywords' => '在线涂鸦画板,在线画板,随手涂鸦	',
     'description' => '在线涂鸦画板为您提供在线画画,在线涂鸦,在线画布涂鸦,涂鸦自定义颜色,调色功能,涂鸦颜色选择功能,在这里您可以尽情的发挥您的画画艺术天赋,画出您想要的涂鸦之作,涂鸦完成后可以保持到本地。	',
   ),
-  'password' => 
+
   array (
     'title' => '密码生成器,随机密码在线生成-在线工具箱',
     'keywords' => '随机密码,密码生成器,随机密码生成器	',
     'description' => '随机密码生成器为您提供随机密码生成,使用内置随机数发生器产生随机序列,避免人的主观意识产生的有序排列字符串,在用作密码或信息识别时强度更高,在允许时数字、大小写字母、标点符号都应该用上生成组合密码以增加安全性等	',
   ),
-  'dnsedu' => 
+
   array (
     'title' => '教育网DNS服务器大全,教育网dns服务器地址-在线工具箱',
     'keywords' => '教育网DNS服务器大全,教育网dns服务器地址	',
     'description' => '中国教育网公共DNS解析服务大全:教育网DNS服务器地址大全,教育网DNS地址库,教育网DNS解析,教育网免费DNS地址,国内最快的教育网公共DNS解析IP库,教育网公共DNS解析服务器IP地址	',
   ),
-  'dnsdx' => 
+
   array (
     'title' => '电信DNS服务器大全,电信dns服务器地址-在线工具箱',
     'keywords' => '电信DNS服务器大全,电信dns服务器地址	',
@@ -462,7 +462,7 @@ return array (
     'keywords' => '世界各国货币,货币名称,货币符号表示,货币进位制,货币查询表,货币查询,世界各地区货币名称	',
     'description' => '世界各地货币单位查询为您提供在线世界各国地区货币查询表,提供世界各国或地区对应的货币名称,符号表示,进位制信息查询,港元美元人民欧元币世界货币查询等	',
   ),
-  'worldtime' => 
+
   array (
     'title' => '当前世界各地时间,世界时间,世界实时时间,美国时间-在线工具箱',
     'keywords' => '当前世界各地时间,世界时间,世界实时时间,美国时间	',
@@ -474,49 +474,49 @@ return array (
     'keywords' => '编码转换,Base64编码,URL编码,URL解码,Escape编码,Unicode转换,UTF-8转换,ASCII转换,摩尔斯电码,HTML转义,html转义字符,迅雷链接加密',
     'description' => '编码转换工具大全提供Base64编码解码,URL编码解码,Escape编码解码,Unicode转换,UTF-8编码转换,ASCII编码转换,摩尔斯电码加密解密,HTML转义字符转换,迅雷快车旋风链接加密解密,图片转Base64等常用编码转换功能',
   ),
-  'asciicode' => 
+
   array (
     'title' => 'ascii码表,Ascii码对照表,ascii编码-在线工具箱',
     'keywords' => 'Ascii对照表,ascii码表,ascii码转换器,ascii码,ascii怎么读,ascii编码,ascii转换	',
     'description' => 'ASCII码对照表提供ASCII转换对照表,Ascii码对比表,Ascii码转换器,字符编码Ascii转换,ASCII编码是国际通用的,通过将这些字符使用的值标准化,ASCII允许计算机和计算机程序交换信息,7位字符集广泛用于代表标准美国键盘上的字符或符号,ASCII字符集是与ANSI字符集中的前面128个(0-127)字符相同	',
   ),
-  'calcheat' => 
+
   array (
     'title' => '在线热量换算器,热量单位换算-在线工具箱',
     'keywords' => '换算器,热量换算器,在线热量换算器,热量单位换算	',
     'description' => '在线热量换算器工具为您提供热量在线计算,任意热量之间可以直接转换,热量换算器在线使用,热量转换换算器,在线热量换算器,热量换算器使用,热量换算器在线计算热量使用,热量换算器使用方法,卡转千瓦时,千卡转卡换算,在线热量换算器可以帮您快速进行热量计算	',
   ),
-  'calcvolume' => 
+
   array (
     'title' => '在线体积容量换算器,体积单位换算-在线工具箱',
     'keywords' => '换算器,体积换算器,在线体积换算器,体积单位换算	',
     'description' => '在线体积换算器工具为您提供体积在线计算,在线立方米转立方厘米,公石换算十升,立方分米换算升,分升换算厘升,立方厘米毫升,立方毫米,桶,蒲式耳,配克,夸脱,品脱,加仑,盎司,打兰,量滴,立方码,立方英尺,在线体积换算器可以帮您快速进行体积计算	',
   ),
-  'md5' => 
+
   array (
     'title' => 'MD5在线加密,MD5加密工具,16位32位不可逆加密-在线工具箱',
     'keywords' => 'MD5在线加密,MD5加密工具,不可逆加密,16位及32位加密工具	',
     'description' => 'MD5在线加密工具为您提供MD5在线加密,MD5加密工具,不可逆加密,16位及32位加密工具,实现32位大小写加密和16位大小写加密,可根据不同md5加密需求,选择不同的加密算法,MD5在线加密算法工具等	',
   ),
-  'html2php' => 
+
   array (
     'title' => 'Html转PHP,Html与PHP互转工具-在线工具箱',
     'keywords' => 'Html转PHP,Html转.net,Html转.Net,Html转Jsp	',
     'description' => 'Html转C#/JSP代码工具为您提供在线Html转换为Jsp和C#代码,Jsp代码,Html转C#,Html转.Net,Html转Jsp,在线Html转Jsp代码,HTML与JSP和C#,.Net代码在线转换,使用这个Html在线转换工具,能得到拼接好代码等	',
   ),
-  'htmloutjs' => 
+
   array (
     'title' => 'Js代码转HTML,Html转Js,Js和Html在线转换工具-在线工具箱',
     'keywords' => 'Js代码转HTML,Html转Js,Js和Html在线转换工具	',
     'description' => 'Js转Html代码工具为您提供在线Js转为HTML代码,Html转为Js脚本,Js转为HTML脚本,Js和Html在线转换,Js在线转换,Html在线转换工具,Javascript转成Html脚本语言,Js在线转为Html工具,能够轻松的得到拼接前的Html页面代码等	',
   ),
-  'formatjs' => 
+
   array (
     'title' => 'JS格式化,js压缩工具-在线工具箱',
     'keywords' => 'JS格式化,js压缩工具,JS在线格式化,js在线压缩,js格式,javascript格式化	',
     'description' => 'JS格式化工具为您提供JS格式化,js压缩工具,JS在线格式化,JS代码在线格式化,js在线压缩,javascript格式化,js格式,js编码,格式化Js,格式化js代码,压缩js,压缩js代码,在线格式化js代码,在线压缩js代码,js代码在线压缩等	',
   ),
-  'htmlfromcsv' => 
+
   array (
     'title' => 'excel格式转换,excel转html表格,cvs与txt,html表格转换工具-在线工具箱',
     'keywords' => 'excel转table,html表,表格,xls,cvs,转换工具	',
@@ -528,7 +528,7 @@ return array (
     'keywords' => 'Bootstrap字体图标	',
     'description' => 'Bootstrap前端框架Glyphicons字体图标库对照表:Bootstrap前端UI,Glyphicons字体图标调用,Bootstrap按钮字体图标对照表,包括250多个来自Glyphicon Halflings的字体图标.项目中引用Bootstrap相关文件后即可直接调用bootstrap图标	',
   ),
-  'rc4encrypt' => 
+
   array (
     'title' => '在线RC4加密,RC4解密工具-在线工具箱',
     'keywords' => 'RC4加解密工具,可逆加密算法在线测试,RC4加密,RC4解密	',
@@ -541,19 +541,19 @@ return array (
     'keywords' => '定时刷新Url,在线定时刷新,定时刷新网址,刷新网址,定时自动刷新网址	',
     'description' => '在线定时自动刷新网页工具为您提供定时刷新Url,在线定时刷新,定时刷新网址,刷新网址,定时自动刷新网址,可自定义刷新间隔时间,快速增加网站真实PV请求访问等	',
   ),
-  'excel2json' => 
+
   array (
     'title' => 'Excel/Csv/xls转Json工具-在线工具箱',
     'keywords' => 'Csv转Json,Excel转Json格式,在线Excel转Json,在线csv转Json,Excel/Csv/xls转Json	',
     'description' => 'Excel/Csv/xls转Json工具为您提供Csv转Json,Excel转Json格式,在线Excel转Json,在线csv转Json,Excel/Csv/xls/电子表格转Json等	',
   ),
-  'formatphp' => 
+
   array (
     'title' => 'PHP格式化,在线美化PHP代码-在线工具箱',
     'keywords' => 'PHP代码格式化,PHP代码美化,PHP代码在线格式化	',
     'description' => 'PHP格式化工具为您提供PHP格式化,PHP代码美化,PHP代码格式化,PHP代码格式化美化排版处理,,PHP代码格式化美化在线工具,需要将PHP代码美化时,输入您需要格式化的PHP代码,点击PHP代码格式化,即可转换成功,并自动将PHP语法高亮着色,方便阅读查看PHP语法是否正确等	',
   ),
-  'json2yaml' => 
+
   array (
     'title' => 'json转yaml,在线yaml转json-在线工具箱',
     'keywords' => 'JSON转yaml,yaml转json	',
@@ -565,19 +565,19 @@ return array (
     'keywords' => '特殊符号大全,表情符号,爱心符号	',
     'description' => '特殊符号大全为您收集了特殊符号大全,网名符号,表情符号,特殊符号,十二星座符号,笑脸符号,特殊符号,编号序号,数学符号,爱心符号,标点符号,单位符号,货币符号,箭头符号,符号图案,希腊字母,俄语字母,汉语拼音,中文字符,日语字符,制表符,皇冠符号,表情符号	',
   ),
-  'formatxml' => 
+
   array (
     'title' => 'xml格式化,Xml格式化解析,xml压缩工具-在线工具箱',
     'keywords' => 'xml格式化,Xml格式化解析,xml在线格式化,xml压缩,xml格式,xml格式化	',
     'description' => 'xml格式化工具为您提供xml格式化,xml压缩工具,Xml格式化解析,xml在线格式化,xml在线压缩,xml格式化,xml编码,格式化xml,格式化xml代码,压缩xml,在线格式化xml代码,在线压缩xml代码,xml代码在线压缩等实现了Xml数据的压缩和Xml格式化,整齐的显示格式化之后的Xml数据,实现了Xml压缩解析	',
   ),
-  'formatfilter' => 
+
   array (
     'title' => 'html过滤工具,Js,Css标签样式过滤-在线工具箱',
     'keywords' => 'Html过滤,Js过滤,Css过滤,script过滤	',
     'description' => 'html过滤工具提供Html过滤,Js过滤,Css过滤,script过滤,自定义过滤 过滤HTML 过滤JS 过滤CSS ,将想替换的字符替换自定义字符,可以把html代码过滤掉,过滤成单纯的文本,该工具还可以对指定字符进行替换,生成干净的纯文本或代码等	',
   ),
-  'calcdata' => 
+
   array (
     'title' => 'bit,bytes,KB,MB,GB,TB换算与转换器-在线工具箱	',
     'keywords' => 'bit,bytes,KB,MB,GB,TB，换算器,数据大小换算器,在线数据大小换算器,数据大小单位换算	',
@@ -589,7 +589,7 @@ return array (
     'keywords' => '在线Markdown编辑器,Markdown在线编辑器,Html在线编辑器,富文本编辑器,Markdown转Html,Html转Markdown,Markdown与Html互转,在线文章编辑器,所见即所得编辑器',
     'description' => '在线Markdown编辑器与Html富文本编辑器，基于Vditor引擎，支持所见即所得、即时渲染、分屏预览三种编辑模式，可视化编辑与HTML源码一键切换，实现Markdown与Html双向互转；内置代码块语法高亮、自动保存草稿、一键复制、下载html/md文件、全屏编辑与字数统计，适用于文章撰写、网站编辑、微信公众号排版、程序员笔记等场景在线使用',
   ),
-  'regexdso' => 
+
   array (
     'title' => '常用正则表达式,正则表达式数字-在线工具箱	',
     'keywords' => '常用正则表达式,常用正则表达式大全	',
@@ -601,13 +601,13 @@ return array (
     'keywords' => '世界各国区号查询,世界各国时差查询,世界各国域名后缀查询	',
     'description' => '世界各国区号时差查询为您提供在线世界各国各地区时差区号查询表,世界各国域名后缀查询,世界各国时差查询,在线国际电话代码查询,国际域名缩写查询,国际区号查询,世界时差查询,国际电话区号查询,世界各国区号代码等	',
   ),
-  'webstatus' => 
+
   array (
     'title' => 'HTTP状态查询工具-在线工具箱',
     'keywords' => 'HTTP状态查询,HTTP状态码查询	',
     'description' => 'HTTP状态查询工具为您提供查询页面返回的状态，比如返回404表示页面不存在，返回500表示内部服务出错，返回301表示资源永久性跳转，返回302代表暂时性转移。	',
   ),
-  'tiaoseban' => 
+
   array (
     'title' => '在线调色板,调色板工具,颜色选择器-在线工具箱',
     'keywords' => '在线调色板调色板工具,颜色选择器	',
@@ -625,13 +625,13 @@ return array (
     'keywords' => '条形码在线生成器,条形码在线生成工具	',
     'description' => '条形码在线生成工具为您提供可在线生成条形码扫描查询条形码,条形码生成器支持ean8,ean13,std25,int25,code11,code39,code93,code128,codabar,msi,datamatrix类型条形码生成,条形码用于一般商品扫描使用等	',
   ),
-  'aesencrypt' => 
+
   array (
     'title' => 'AES加解密工具,AES加密解密在线工具-在线工具箱',
     'keywords' => 'AES加解密工具,可逆加密算法在线测试,AES加密,AES解密	',
     'description' => 'AES加解密工具为您提供AES加解密工具,AES可逆加密算法在线测试,aes算法,可自定义AES加密解密秘钥,实现AES在线加密,AES在线解密,AES可逆加密解密的在线工具	',
   ),
-  'formatcpp' => 
+
   array (
     'title' => 'C++格式化,在线美化C++代码,CPP格式化-在线工具箱',
     'keywords' => 'C++代码格式化,C++代码美化,CPP格式化,C++代码在线格式化	',
@@ -644,19 +644,19 @@ return array (
     'description' => '文章采集器为您提供文章采集,网页无法复制工具,数据采集,信息采集,在线采集器,在线采集网页内容,采集文章内容,采集文章,采集内容,采集信息等,只要输入网址,点击采集网页,即可采集到目标网页的文章内容和标题	',
   ),
   
-  'calcpressure' => 
+
   array (
     'title' => '在线压力换算器,压力单位换算-在线工具箱',
     'keywords' => '换算器,压力换算器,在线压力换算器,压力单位换算	',
     'description' => '在线压力换算器工具为您提供压力在线计算,压力单位换算器,实现巴转兆帕,标准大气压换算,兆帕换算千帕,百帕(hPa)换算毫巴(mbar),帕斯卡换算,毫米汞柱(托),磅力/英尺,英吋汞柱,公斤力/厘米,公斤力/米,毫米水柱,在线压力换算器可以帮您快速进行压力计算	',
   ),
-  'json2excel' => 
+
   array (
     'title' => 'Json转Excel/Csv/xls工具-在线工具箱',
     'keywords' => 'Json转Csv,Json转Excel格式,在线Json转Excel,在线Json转Csv,Excel/Csv/xls转Json	',
     'description' => 'Json转Excel/Csv/xls工具为您提供Json转Csv,Json转Excel格式,在线Json转Excel,在线Json转Csv,Json转Excel/Csv/xls/电子表格,可快速将Json转换成Excel,Csv数据格式,支持Json数组和Json对象的转换等	',
   ),
-  'calcforce' => 
+
   array (
     'title' => '在线力换算器,力单位换算-在线工具箱',
     'keywords' => '换算器,力换算器,在线力换算器,力单位换算	',
@@ -674,7 +674,7 @@ return array (
     'keywords' => '关键词密度, 网页关键词密度检测工具,keywords,关键词密度结果计算	',
     'description' => '网页关键词密度检测工具为您提供在线关键词密度检测查询,检测关键词的密度百分比，可以快速检测页面关键词出现的数量和密度，更适合蜘蛛的搜索,检测关键词密度是否符合搜索引擎收录规范并给出建议	',
   ),
-  'tripledes' => 
+
   array (
     'title' => '在线TripleDES加密,TripleDES解密工具-在线工具箱',
     'keywords' => 'TripleDES加解密工具,可逆加密算法在线测试,TripleDES加密,TripleDES解密	',
@@ -686,26 +686,26 @@ return array (
     'keywords' => '一键排版,文章自动排版编辑器,在线自动排版工具	',
     'description' => '在线自动排版工具为您提供文章一键排版,文章自动排版编辑器,在线自动排版工具,可用于小说,论文排版,自动排版,实现纯文本文章的在线排版服务,一键排版让杂乱的文字按指定排版格式显示,使文章更漂亮,更易读等	',
   ),
-  'formatpy' => 
+
   array (
     'title' => 'Python格式化,Python代码美化-在线工具箱',
     'keywords' => 'Python格式化,Python在线格式化,Python代码美化,Python代码排版,Python格式化	',
     'description' => 'Python格式化工具为您提供Python格式化,Python代码排版,Python在线格式化,Python代码美化,输入混乱,压缩或混淆的Python代码,点击Python代码格式化按钮即可实现代码的格式化与美化功能,该该工具使Python代码看起来更加漂亮且可读性更强也更容易编辑	',
   ),
-  'regexsucha' => 
+
   array (
     'title' => '正则表达式语法,正则表达式速查表-在线工具箱',
     'keywords' => '正则表达式速查表,正则表达式语法	',
     'description' => '正则表达式语法为您常用正则表达式速查表,正则表达式语法查询,常用正则表达式语法,正则表达式基本语法,子表达式语法,正则表达式修饰符,正则表达式贪婪模式,正则表达式非贪婪模式,通过简单快速的方法达到对于字符串的控制	',
   ),
-  'keyboardtest' => 
+
   array (
     'title' => '键盘按键测试,按键失灵检测-在线工具箱',
     'keywords' => '键盘测试,键盘按键测试,在线键盘测试工具,键盘按键失灵	',
     'description' => '在线键盘测试工具:测试您键盘按键的好坏,在线键盘测试工具帮助您测试键盘哪个按键失灵，新买键盘是否完好测试，测试您键盘按键的好坏，有了它你快速测试键盘上的按键是否好用，在线检测免下载版，希望对大家有帮助	',
   ),
   
-  'regexcode' => 
+
   array (
     'title' => '正则表达式在线代码生成工具-在线工具箱',
     'keywords' => '正则表达式,JS,PHP,Golang,Java,Ruby,Python,C#代码	',
@@ -717,7 +717,7 @@ return array (
     'keywords' => '公共DNS,阿里DNS,百度DNS,Google免费DNS',
     'description' => '国内外免费公共DNS解析服务大全为您提供在线免费公共DNS服务器IP地址,阿里DNS地址库,百度DNS解析,Google免费DNS地址,OpenDNS地址库,114DNS地址库,国内最快的公共DNS解析IP,公共DNS解析服务器IP地址',
   ),
-  'html2cj' => 
+
   array (
     'title' => 'Html转C#,Jsp代码,Html与C#,.Net,Jsp在线转换工具-在线工具箱',
     'keywords' => 'Html转C#,Jsp代码,Html转.net,Html转.Net,Html转Jsp',
@@ -731,33 +731,33 @@ return array (
     'keywords' => '子网掩码计算器,TCP/IP,子网掩码计算换算',
     'description' => '子网掩码计算器可以为您提供局域网规划工具,子网计算划分,子网掩码各个进制表示换算,IP地址进制表示换算',
   ),
-  'dnstt' => 
+
   array (
     'title' => '铁通DNS服务器大全,铁通dns服务器地址-在线工具箱',
     'keywords' => '铁通DNS服务器大全,铁通dns服务器地址',
     'description' => '中国铁通公共DNS解析服务大全:铁通DNS服务器地址大全,铁通DNS地址库,铁通DNS解析,铁通免费DNS地址,国内最快的铁通公共DNS解析IP库,铁通公共DNS解析服务器IP地址',
   ),
-  'formathtml' => 
+
   array (
     'title' => 'html格式化,html美化,html排版-在线工具箱',
     'keywords' => 'html格式化,html美化,html排版,html在线格式化,html在线压缩,html格式,html5格式化',
     'description' => 'html格式化工具为您提供html格式化,html美化,html排版,html压缩工具,html在线格式化,html代码在线格式化,html在线压缩,html5格式化,html格式,html编码,格式化html,格式化html代码,压缩html,压缩html代码,在线格式化html代码,在线压缩html代码,html代码在线压缩等',
   ),
   
-  'formatcss' => 
+
   array (
     'title' => 'css格式化,代码压缩及样式美化-在线工具箱',
     'keywords' => 'css格式化,css代码压缩,css样式美化,css在线压缩工具',
     'description' => 'CSS代码压缩使得体积减小,传输速度快，css格式化在线转换成易编辑样式、css样式美化让css易读,我们定制提供的这个CSS代码格式化和css在线压缩工具，希望对大家有帮助',
   ),
-  'rabbitencrypt' => 
+
   array (
     'title' => '在线Rabbit加密,Rabbit解密工具-在线工具箱',
     'keywords' => 'Rabbit加解密工具,可逆加密算法在线测试,Rabbit加密,Rabbit解密',
     'description' => 'Rabbit加解密工具为您提供Rabbit加解密工具,Rabbit可逆加密算法在线测试,Rabbit算法,可自定义Rabbit加密解密秘钥,实现Rabbit在线加密,Rabbit在线解密,Rabbit可逆加密解密的在线工具',
   ),
   
-  'navtiveunicode' => 
+
   array (
     'title' => 'Native/Unicode编码在线转换工具-在线工具箱',
     'keywords' => 'Native编码,Unicode编码',
@@ -775,7 +775,7 @@ return array (
     'keywords' => 'HTML转JS,Html拼接JS,Html和JS互换工具	',
     'description' => 'HTML转JS工具为您提供TML转JS,在线Html和Js代码互相转换工具:Js转Html,Javascript转Html,HTML转为Js,Html拼接为Js,Js脚本转为Html代码,Html代码转换,Js基本转换为HTML,Js在线转换,Html和Js脚本在线互转等	',
   ),
-  'html2ubb' => 
+
   array (
     'title' => 'UBB与HTML互转工具-在线工具箱',
     'keywords' => 'UBB与HTML互转工具,Html转UBB,Html转UBB,UBB和HTML在线转换工具	',
