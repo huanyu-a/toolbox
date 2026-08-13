@@ -114,6 +114,46 @@
     });
   }
 
+  /* ---------- markdown 符号兜底清理（复制 TXT 用） ----------
+     可视化编辑中粘贴的字面 markdown 符号会被 Vditor 转义（如 ** → \*\*），
+     Lute 渲染后转义符号原样呈现为字面字符。此处对最终纯文本再做一层
+     markdown 语法符号清理，只保留正文文字。 */
+  function stripMdSymbols(t) {
+    if (!t) {
+      return '';
+    }
+    return t
+      /* 解除 Vditor 转义（\* → *、\# → # 等），再统一清理 */
+      .replace(/\\([`*_{}[\]()#+\-.!>|\\])/g, '$1')
+      /* 图片 ![alt](url) → alt（先于链接处理，避免 ! 残留） */
+      .replace(/!\[([^\]]*)\]\([^)\s]*\)/g, '$1')
+      /* 链接 [text](url) → text */
+      .replace(/\[([^\]]*)\]\([^)\s]*\)/g, '$1')
+      /* 代码块围栏（须先于行内代码处理，避免反引号跨行吞并） */
+      .replace(/^[ \t]{0,3}(?:```|~~~)[a-zA-Z0-9_+-]*[ \t]*$/gm, '')
+      /* 水平线（须先于加粗/斜体，避免 *** 被斜体吃掉） */
+      .replace(/^[ \t]{0,3}(?:[-*_]){3,}[ \t]*$/gm, '')
+      /* 成对加粗 **text** / __text__ → text */
+      .replace(/(\*\*|__)(?=\S)([\s\S]*?\S)\1/g, '$2')
+      /* 成对斜体 *text* / _text_ → text（两侧数字或字母包围时不处理，避免误伤 5*6、snake_case） */
+      .replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\*)/g, '$1$2')
+      .replace(/(^|[^_\w])_([^_\n]+?)_(?!_)/g, '$1$2')
+      /* 行内代码 `code` → code（不跨行） */
+      .replace(/`([^`\n]*)`/g, '$1')
+      /* 标题行 # xxx → xxx */
+      .replace(/^[ \t]{0,3}#{1,6}[ \t]+/gm, '')
+      /* 列表 - / * / + / 1. */
+      .replace(/^[ \t]{0,3}(?:[-*+]|\d{1,3}[.)])[ \t]+/gm, '')
+      /* 引用 > */
+      .replace(/^[ \t]{0,3}>[ \t]?/gm, '')
+      /* 删除线 ~~text~~ → text */
+      .replace(/~~([^~]+)~~/g, '$1')
+      /* 清理行尾空白与连续空行 */
+      .replace(/[ \t]+$/gm, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
   /* ---------- 纯文本提取（复制 TXT 用） ---------- */
   function getText() {
     /* 优先基于 markdown 源码经 Lute 渲染，确保未渲染的字面 markdown 符号（# ** - 等）
@@ -145,7 +185,7 @@
     document.body.appendChild(d);
     var t = (d.innerText || d.textContent || '');
     document.body.removeChild(d);
-    return t
+    return stripMdSymbols(t)
       .replace(/[\u200b\u200c\u200d]/g, '')
       .replace(/[ \t]+\n/g, '\n')
       .replace(/\n{3,}/g, '\n\n')
