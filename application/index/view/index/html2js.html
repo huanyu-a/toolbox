@@ -143,7 +143,7 @@
 
     /* ============ HTML↔C#/JSP ============ */
     function toJsp(s) {
-        if (s === '') return '<%\n%>';
+        if (s === '') return '<' + '%\n%' + '>';
         var out = 'out.println("';
         for (var c = 0; c < s.length; c++) {
             if (s.charAt(c) === '\n' || s.charAt(c) === '\r') {
@@ -159,7 +159,7 @@
                 if (c === s.length - 1) out += '");';
             }
         }
-        return '<%\n' + out + '\n%>';
+        return '<' + '%\n' + out + '\n%' + '>';
     }
     function toCSharp(s) {
         var body = s
@@ -176,7 +176,7 @@
 
     /* ============ HTML↔PHP ============ */
     function toPhp(s) {
-        if (s === '') return '<?php\n?>';
+        if (s === '') return '<' + '?php\n?' + '>';
         var out = 'echo "';
         for (var c = 0; c < s.length; c++) {
             if (s.charAt(c) === '\n' || s.charAt(c) === '\r') {
@@ -192,13 +192,13 @@
                 if (c === s.length - 1) out += '\\n";';
             }
         }
-        return '<?php\n' + out + '\n?>';
+        return '<' + '?php\n' + out + '\n?' + '>';
     }
     $id('phpRun').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toPhp($id('h2j-in').value)); });
 
     /* ============ HTML↔ASP/Perl ============ */
     function toAsp(s) {
-        if (s === '') return '<%\n%>';
+        if (s === '') return '<' + '%\n%' + '>';
         var out = 'Response.Write "';
         for (var c = 0; c < s.length; c++) {
             if (s.charAt(c) === '\n' || s.charAt(c) === '\r') {
@@ -214,10 +214,10 @@
                 if (c === s.length - 1) out += '"';
             }
         }
-        return '<%\n' + out + '\n%>';
+        return '<' + '%\n' + out + '\n%' + '>';
     }
     function toVbnet(s) {
-        if (s === '') return '<%\n%>';
+        if (s === '') return '<' + '%\n%' + '>';
         var out = 'Response.Write ("';
         for (var c = 0; c < s.length; c++) {
             if (s.charAt(c) === '\n' || s.charAt(c) === '\r') {
@@ -233,7 +233,7 @@
                 if (c === s.length - 1) out += '");';
             }
         }
-        return '<%\n' + out + '\n%>';
+        return '<' + '%\n' + out + '\n%' + '>';
     }
     function toPerl(s) {
         if (s === '') return 'hello world!';

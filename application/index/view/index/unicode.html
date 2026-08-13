@@ -7,51 +7,41 @@
             <li><button type="button" class="t-tab active" data-panel="ucPanel1">🔣 Unicode 转换</button></li>
             <li><button type="button" class="t-tab" data-panel="ucPanel2">🌐 Native 编码</button></li>
         </ul>
-<div class="t-grid">
-                <div class="t-col">
-                    <label class="t-label" for="ucInput">原文</label>
-                    <textarea class="t-area" id="ucInput" rows="8" placeholder="请输入要转换的文本…"></textarea>
-                </div>
-                <div class="t-col">
-                    <label class="t-label" for="ucOutput">结果</label>
-                    <textarea class="t-area t-area-readonly" id="ucOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
-                </div>
+        <div class="t-grid">
+            <div class="t-col">
+                <label class="t-label" for="ucInput">原文</label>
+                <textarea class="t-area" id="ucInput" rows="8" placeholder="请输入要转换的文本…"></textarea>
             </div>
+            <div class="t-col">
+                <label class="t-label" for="ucOutput">结果</label>
+                <textarea class="t-area t-area-readonly" id="ucOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+            </div>
+        </div>
         <div id="ucPanel1" class="t-panel active">
-            
             <div class="t-options" style="margin-top:12px">
                 <span style="font-weight:600">转换格式：</span>
                 <label><input type="radio" name="ucMode" value="u" checked> \uXXXX</label>
                 <label><input type="radio" name="ucMode" value="xh"> &#xXXXX;（十六进制）</label>
                 <label><input type="radio" name="ucMode" value="d"> &#XXXX;（十进制）</label>
             </div>
-            <div class="tool-actions">
-                <button class="t-btn" type="button" id="ucToCode">中文 → 编码</button>
-                <button class="t-btn t-btn-ok" type="button" id="ucToText">编码 → 中文</button>
-                <button class="t-btn t-btn-ghost" type="button" data-copy="#ucOutput">复制结果</button>
-                <button class="t-btn t-btn-ghost" type="button" id="ucSwap">⇄ 交换</button>
-                <button class="t-btn t-btn-ghost" type="button" id="ucDemo">示例</button>
-                <button class="t-btn t-btn-ghost" type="button" id="ucClear">清空</button>
-            </div>
             <div class="t-error" id="ucError"></div>
         </div>
         <div id="ucPanel2" class="t-panel">
-            
             <div class="t-options" style="margin-top:12px">
                 <span style="font-weight:600">转换格式：</span>
                 <label><input type="radio" name="nuMode" value="u" checked> \uXXXX</label>
                 <label><input type="radio" name="nuMode" value="xh"> &#xHHHH;（十六进制）</label>
                 <label><input type="radio" name="nuMode" value="d"> &#DDDDD;（十进制）</label>
             </div>
-            <div class="tool-actions">
-                <button class="t-btn" type="button" id="nuToCode">中文 → 编码</button>
-                <button class="t-btn t-btn-ok" type="button" id="nuToText">编码 → 中文</button>
-                <button class="t-btn t-btn-ghost" type="button" data-copy="#ucOutput">复制结果</button>
-                <button class="t-btn t-btn-ghost" type="button" id="nuSwap">⇄ 交换</button>
-                <button class="t-btn t-btn-ghost" type="button" id="nuDemo">示例</button>
-                <button class="t-btn t-btn-ghost" type="button" id="nuClear">清空</button>
-            </div>
             <div class="t-error" id="nuError" role="alert"></div>
+        </div>
+        <div class="tool-actions" style="margin-top:12px">
+            <button class="t-btn" type="button" id="ucToCode">中文 → 编码</button>
+            <button class="t-btn t-btn-ok" type="button" id="ucToText">编码 → 中文</button>
+            <button class="t-btn t-btn-ghost" type="button" data-copy="#ucOutput">复制结果</button>
+            <button class="t-btn t-btn-ghost" type="button" id="ucSwap">⇄ 交换</button>
+            <button class="t-btn t-btn-ghost" type="button" id="ucDemo">示例</button>
+            <button class="t-btn t-btn-ghost" type="button" id="ucClear">清空</button>
         </div>
     </div>
     <div class="tool-card">
@@ -67,11 +57,13 @@
 <script src="/static/script/app.js" type="text/javascript"></script>
 <script>
 (function () {
-    // Tab 切换
+    // Tab 切换（同时切换当前模式：uc / nu）
+    var currentMode = 'uc';
     var tabs = document.querySelectorAll('.t-tab');
     for (var i = 0; i < tabs.length; i++) {
         tabs[i].addEventListener('click', function () {
             var target = this.getAttribute('data-panel');
+            currentMode = (target === 'ucPanel1') ? 'uc' : 'nu';
             for (var j = 0; j < tabs.length; j++) {
                 tabs[j].classList.toggle('active', tabs[j] === this);
             }
@@ -81,15 +73,15 @@
             }
         });
     }
-    // 通用工具函数
-    function bind(inputId, outputId, errId, modeName) {
+    // 通用工具函数（输入输出共享，模式随 tab 切换）
+    function bind(inputId, outputId) {
         var input = document.getElementById(inputId);
         var output = document.getElementById(outputId);
-        var error = document.getElementById(errId);
-        function showErr(m) { error.textContent = m; error.classList.add('show'); }
-        function hideErr() { error.classList.remove('show'); }
+        function getErr() { return document.getElementById(currentMode === 'uc' ? 'ucError' : 'nuError'); }
+        function showErr(m) { var e = getErr(); e.textContent = m; e.classList.add('show'); }
+        function hideErr() { var e = getErr(); e.classList.remove('show'); }
         function getMode() {
-            var m = document.querySelector('input[name="' + modeName + '"]:checked');
+            var m = document.querySelector('input[name="' + currentMode + 'Mode"]:checked');
             return m ? m.value : 'u';
         }
         function pad4(hex) {
@@ -126,18 +118,12 @@
         input.addEventListener('input', hideErr);
         return { toCode: toCode, toText: toText, swap: function () { var t = input.value; input.value = output.value; output.value = t; }, demo: function () { input.value = '你好，世界！Hello 😀'; output.value = ''; hideErr(); input.focus(); }, clear: function () { input.value = ''; output.value = ''; hideErr(); input.focus(); } };
     }
-    var uc = bind('ucInput', 'ucOutput', 'ucError', 'ucMode');
+    var uc = bind('ucInput', 'ucOutput');
     document.getElementById('ucToCode').addEventListener('click', uc.toCode);
     document.getElementById('ucToText').addEventListener('click', uc.toText);
     document.getElementById('ucSwap').addEventListener('click', uc.swap);
     document.getElementById('ucDemo').addEventListener('click', uc.demo);
     document.getElementById('ucClear').addEventListener('click', uc.clear);
-    var nu = bind('ucInput', 'ucOutput', 'nuError', 'nuMode');
-    document.getElementById('nuToCode').addEventListener('click', nu.toCode);
-    document.getElementById('nuToText').addEventListener('click', nu.toText);
-    document.getElementById('nuSwap').addEventListener('click', nu.swap);
-    document.getElementById('nuDemo').addEventListener('click', nu.demo);
-    document.getElementById('nuClear').addEventListener('click', nu.clear);
 })();
 </script>
 </body></html>
