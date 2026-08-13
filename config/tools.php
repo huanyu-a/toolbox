@@ -59,7 +59,6 @@ return [
         'cat' => '站长辅助',
         'items' => [
             ['url' => '/createmeta/', 'name' => 'Meta 标签', 'accent' => ''],
-            ['url' => '/pagecode/', 'name' => 'HTTP 状态码', 'accent' => ''],
             ['url' => '/shortcut/', 'name' => '桌面快捷方式', 'accent' => ''],
             ['url' => '/favicon/', 'name' => 'ico 图标制作', 'accent' => ''],
             ['url' => '/useragent/', 'name' => 'User-Agent 大全', 'accent' => ''],
