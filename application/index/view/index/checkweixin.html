@@ -64,7 +64,6 @@
                         </div>
                     </div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/tool.js" type="text/javascript"></script>
 <script>
     function check_meta() {
         $('#chameta').text('正在检测，请稍候……');
@@ -79,7 +78,7 @@
                     $("#check_result").html("<img src='/static/images/ok.png'> <font color='green'>" + datas.msg + "</font>")
                 }
             } else {
-                pcjson_com_msg($("#txt_url"), datas.msg)
+                $("#check_result").html("<font color='orange'>" + datas.msg + "</font>")
             }
             $('#chameta').text('立即检测')
         })

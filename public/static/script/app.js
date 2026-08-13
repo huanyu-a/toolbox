@@ -393,11 +393,27 @@
         recordHistory();
     }
 
+    /* ---------- 返回顶部 ---------- */
+    var gotop = document.querySelector('.gotop');
+    if (gotop) {
+        var onScroll = function () {
+            var show = (window.pageYOffset || document.documentElement.scrollTop) > 300;
+            gotop.style.display = show ? 'block' : 'none';
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        gotop.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
     /* ---------- 工具栏页内增强：复制按钮 ---------- */
     document.addEventListener('click', function (e) {
         var btn = e.target.closest ? e.target.closest('[data-copy]') : null;
         if (!btn) return;
         var target = document.querySelector(btn.getAttribute('data-copy'));
+        if (!target) return;
         if (!target) return;
         var text = target.value !== undefined ? target.value : target.textContent;
         var done = function () {
