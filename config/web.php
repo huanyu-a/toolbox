@@ -735,9 +735,9 @@ return array (
   ),
   'lishishangdejintian' => 
   array (
-    'title' => 'json在线解析及格式化-在线工具箱',
-    'keywords' => 'json在线解析及格式化,json格式化,格式化美化压缩',
-    'description' => '在线工具箱为您提供json格式化,json代码压缩,json校验解析,json数组解析,json转xml,xml转json,json解析,json在线解析,json在线解析及格式化,unix时间戳转换,CSS美化压缩,json美化,json格式化输出,json数组,json实体类,json视图等',
+    'title' => '历史上的今天-在线工具箱',
+    'keywords' => '历史上的今天,今天发生的大事,历史事件查询,今日历史',
+    'description' => '历史上的今天为您呈现今日历史上的重大事件、名人诞生与逝世等历史记录，每天更新，一键查看历史上今天发生过的大事。',
   ),
   'html2js' => 
   array (
