@@ -128,12 +128,7 @@ return array (
     'keywords' => 'C#格式化,C#在线格式化,C#代码美化,C#代码排版,C#格式化',
     'description' => 'C#格式化工具为您提供C#格式化,C#代码排版,C#在线格式化,C#代码美化,输入混乱、压缩或混淆的C#代码，点击C#代码格式化按钮即可实现代码的格式化与美化功能,该该工具使C#代码看起来更加漂亮且可读性更强也更容易编辑',
   ),
-  'deencrypt' => 
-  array (
-    'title' => '对称加密算法工具,可逆加密算法在线测试-在线工具箱',
-    'keywords' => '对称加密算法工具,可逆加密算法在线测试,aes算法,desc算法,rc4算法,rabbit算法,TripleDes算法',
-    'description' => '对称加密算法工具为您提供对称加密算法工具,可逆加密算法在线测试,aes算法,desc算法,rc4算法,rabbit算法,TripleDes算法,算法在线加密解密,可自定义加密解密密码,对文字在线加密解密,TripleDes加密解密,Rabbit加密解密,RC4加密解密,DES加密解密,AES在线加密解密,可自定义加密密码的在线工具',
-  ),
+  
   'useragent' => 
   array (
     'title' => '常见浏览器User-Agent大全,PC移动浏览器User-Agent-在线工具箱',
@@ -896,12 +891,7 @@ return array (
     'keywords' => 'Html转C#,Jsp代码,Html转.net,Html转.Net,Html转Jsp',
     'description' => 'Html转C#/JSP代码工具为您提供在线Html转换为Jsp和C#代码,Jsp代码,Html转C#,Html转.Net,Html转Jsp,在线Html转Jsp代码,HTML与JSP和C#,.Net代码在线转换,使用这个Html在线转换工具,能得到拼接好代码等',
   ),
-  'allencrypt' => 
-  array (
-    'title' => '散列哈希/HASH加密,所有不可逆加密算法在线加密工具-在线工具箱',
-    'keywords' => '散列,哈希,HASH,MD5加密,sha加密',
-    'description' => '散列哈希HASH加密工具为您提供MD5、HmacMD5在线加密,SHA加密算法:SHA1加密，SHA224加密，SHA256加密，SHA384加密，SHA512加密,HmacSHA1加密，HmacSHA224加密，HmacSHA256加密，HmacSHA384加密，HmacSHA512加密等在线加密工具',
-  ),
+  
   'unicode' => 
   array (
     'title' => 'Unicode编码转换工具,ASCII与Unicode互转-在线工具箱',
@@ -944,12 +934,7 @@ return array (
     'keywords' => 'Rabbit加解密工具,可逆加密算法在线测试,Rabbit加密,Rabbit解密',
     'description' => 'Rabbit加解密工具为您提供Rabbit加解密工具,Rabbit可逆加密算法在线测试,Rabbit算法,可自定义Rabbit加密解密秘钥,实现Rabbit在线加密,Rabbit在线解密,Rabbit可逆加密解密的在线工具',
   ),
-  'htpasswd' => 
-  array (
-    'title' => 'htpasswd在线生成器-在线工具箱',
-    'keywords' => 'htpasswd在线生成器,htpasswd',
-    'description' => 'htpasswd在线生成器为您提供htpasswd在线生成器,htpasswd,htpasswd是开源Http服务器apache httpd的一个命令工具,用于生成Http基本认证的密码文件',
-  ),
+  
   'navtiveunicode' => 
   array (
     'title' => 'Native/Unicode编码在线转换工具-在线工具箱',
@@ -986,5 +971,12 @@ return array (
     'keywords' => '代码格式化,JS格式化,CSS格式化,HTML格式化,PHP格式化,Java格式化,SQL格式化,Python格式化,代码美化',
     'description' => '在线代码格式化工具为您提供 C/C++/C#/Java/PHP/Python/Ruby/Perl/VBScript/SQL/XML/CSS/JS/HTML 共 14 种语言的格式化与美化排版，JS/CSS/HTML 支持压缩输出，全程本地处理。',
   ),
+'encrypt' => 
+  array (
+    'title' => '加密解密工具大全,对称加密/哈希/htpasswd在线工具-在线工具箱',
+    'keywords' => '加密解密,对称加密,AES,DES,RC4,Rabbit,TripleDES,MD5,SHA,哈希,散列,htpasswd',
+    'description' => '在线加密解密工具大全,提供AES、DES、RC4、Rabbit、TripleDES对称加密解密,MD5、SHA1、SHA224、SHA256、SHA384、SHA512、RIPEMD160、SHA3哈希加密,HMAC消息认证码,htpasswd密码文件生成,全程浏览器本地运算,数据不离开浏览器',
+  ),
+
 );
 ?>

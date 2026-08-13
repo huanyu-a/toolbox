@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>{$Think.config.web.encrypt.title}</title>
+    <meta name="applicable-device" content="pc,mobile"/>
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" content="{$Think.config.web.encrypt.keywords}"/>
+    <meta name="description" content="{$Think.config.web.encrypt.description}"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
+    <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if lt IE 9]>
+    <script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {:$Think.config.web.header}{include file="seo" /}
+</head>
+<body>
+{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔐</span>加密解密</h2>
+        <p class="tool-desc">对称加密 / 解密、哈希散列、htpasswd 密码文件生成三合一，支持 AES、DES、RC4、Rabbit、TripleDES、MD5、SHA 系列、SHA3、HMAC，全程浏览器本地运算。</p>
+        <ul class="t-tabs">
+            <li><button type="button" class="t-tab active" data-panel="dePanel">🔐 对称加密/解密</button></li>
+            <li><button type="button" class="t-tab" data-panel="haPanel">🔑 哈希/散列</button></li>
+            <li><button type="button" class="t-tab" data-panel="hpPanel">🔒 htpasswd 生成</button></li>
+        </ul>
+        <!-- 对称加密 / 解密 -->
+        <div id="dePanel" class="t-panel active">
+            <label class="t-label" for="deInput">输入内容</label>
+            <textarea class="t-area" id="deInput" rows="6" placeholder="请输入要加密或解密的内容"></textarea>
+            <div class="t-grid" style="margin-top:12px">
+                <div class="t-col">
+                    <label class="t-label" for="deAlgo">加密算法</label>
+                    <select class="t-input" style="width:100%" id="deAlgo">
+                        <option value="AES">AES</option>
+                        <option value="DES">DES</option>
+                        <option value="RC4">RC4</option>
+                        <option value="Rabbit">Rabbit</option>
+                        <option value="TripleDES">TripleDES</option>
+                    </select>
+                </div>
+                <div class="t-col" style="flex:2">
+                    <label class="t-label" for="dePwd">密钥</label>
+                    <input class="t-input" style="width:100%" type="text" id="dePwd" placeholder="请输入加密密钥">
+                </div>
+            </div>
+            <div class="tool-actions" style="margin-top:14px">
+                <button class="t-btn" type="button" id="deEncrypt">加密</button>
+                <button class="t-btn t-btn-ok" type="button" id="deDecrypt">解密</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#deOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="deClear">清空</button>
+            </div>
+            <div class="t-result" id="deResult"><textarea class="t-area t-area-readonly" id="deOutput" rows="6" readonly></textarea></div>
+            <div class="t-error" id="deError"></div>
+        </div>
+        <!-- 哈希 / 散列 -->
+        <div id="haPanel" class="t-panel">
+            <label class="t-label" for="haInput">输入内容</label>
+            <textarea class="t-area" id="haInput" rows="6" placeholder="请输入要计算哈希的内容"></textarea>
+            <div class="t-grid" style="margin-top:12px">
+                <div class="t-col">
+                    <label class="t-label" for="haAlgo">哈希算法</label>
+                    <select class="t-input" style="width:100%" id="haAlgo">
+                        <optgroup label="普通哈希">
+                            <option value="MD5">MD5</option>
+                            <option value="SHA1">SHA1</option>
+                            <option value="SHA224">SHA224</option>
+                            <option value="SHA256">SHA256</option>
+                            <option value="SHA384">SHA384</option>
+                            <option value="SHA512">SHA512</option>
+                            <option value="RIPEMD160">RIPEMD160</option>
+                            <option value="SHA3">SHA3 (256)</option>
+                        </optgroup>
+                        <optgroup label="HMAC 消息认证码（需密钥）">
+                            <option value="HmacMD5">HmacMD5</option>
+                            <option value="HmacSHA1">HmacSHA1</option>
+                            <option value="HmacSHA224">HmacSHA224</option>
+                            <option value="HmacSHA256">HmacSHA256</option>
+                            <option value="HmacSHA384">HmacSHA384</option>
+                            <option value="HmacSHA512">HmacSHA512</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="haCase">输出格式</label>
+                    <select class="t-input" style="width:100%" id="haCase">
+                        <option value="lower">十六进制（小写）</option>
+                        <option value="upper">十六进制（大写）</option>
+                    </select>
+                </div>
+            </div>
+            <div id="haPwdWrap" class="t-row" style="margin-top:12px;display:none">
+                <div class="t-col" style="flex:1">
+                    <label class="t-label" for="haPwd">HMAC 密钥</label>
+                    <input class="t-input" style="width:100%" type="text" id="haPwd" placeholder="请输入 HMAC 密钥">
+                </div>
+            </div>
+            <div class="tool-actions" style="margin-top:14px">
+                <button class="t-btn" type="button" id="haRun">开始加密</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#haOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="haClear">清空</button>
+            </div>
+            <div class="t-result" id="haResult"><textarea class="t-area t-area-readonly" id="haOutput" rows="4" readonly></textarea></div>
+            <div class="t-error" id="haError"></div>
+        </div>
+        <!-- htpasswd 生成 -->
+        <div id="hpPanel" class="t-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="hpUser">用户名</label>
+                    <input class="t-input" style="width:100%" type="text" id="hpUser" placeholder="请输入用户名">
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="hpPwd">密码</label>
+                    <input class="t-input" style="width:100%" type="text" id="hpPwd" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="t-grid" style="margin-top:12px">
+                <div class="t-col">
+                    <label class="t-label" for="hpAlg">加密算法</label>
+                    <select class="t-input" style="width:100%" id="hpAlg">
+                        <option value="0">plain (Windows &amp; TPF servers)</option>
+                        <option value="1">Crypt (all Unix servers)</option>
+                        <option selected="selected" value="2">MD5 (Apache servers only)</option>
+                        <option value="3">SHA-1 (Netscape-LDIF / Apache servers)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tool-actions" style="margin-top:14px">
+                <button class="t-btn" type="button" id="hpGen">点击生成</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#hpResult">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="hpClear">清空</button>
+            </div>
+            <div class="t-result" id="hpResultWrap"><input class="t-input" style="width:100%" type="text" id="hpResult" readonly placeholder="生成结果将显示在这里…"></div>
+        </div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于加密与哈希</h2>
+        <p class="tool-desc">对称加密使用同一密钥加解密，AES 为目前最主流标准，DES/TripleDES 为历史经典算法，RC4 与 Rabbit 为流密码。哈希是单向函数，同一输入永远得到同一输出，但无法反推原文，常用于密码存储与数据校验；MD5 与 SHA1 已被证实存在碰撞风险，安全场景建议使用 SHA256 及以上；HMAC 需额外密钥，用于消息完整性认证。htpasswd 用于生成 Apache HTTP 基本认证的密码文件。本工具基于 CryptoJS 实现，数据不离开浏览器。</p>
+    </div>
+</div></div>
+{include file="nav" /}
+{include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-aes.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/tripledes.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/rabbit.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/rc4.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-md5.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-sha1.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-sha224.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-sha256.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-sha384.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-sha512.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-ripemd160.js" type="text/javascript"></script>
+<script src="/static/script/encrypt/pcjson-sha3.js" type="text/javascript"></script>
+<script src="/static/script/pcjs/htpasswd/htpsha1.js"></script>
+<script src="/static/script/pcjs/htpasswd/htpasswd.js"></script>
+<script src="/static/script/pcjs/htpasswd/jsnote.js"></script>
+<script src="/static/script/pcjs/htpasswd/htpmd5.js"></script>
+<script>
+/* tab 切换 */
+(function () {
+    var tabs = document.querySelectorAll('.t-tab');
+    var panels = document.querySelectorAll('.t-panel');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            panels.forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+        });
+    });
+})();
+/* 对称加密 / 解密 */
+(function () {
+    var err = document.getElementById('deError');
+    function showErr(m) { err.textContent = m; err.classList.add('show'); }
+    function getAlgo() { return document.getElementById('deAlgo').value; }
+    function doRun(enc) {
+        err.classList.remove('show');
+        var content = document.getElementById('deInput').value;
+        var pwd = document.getElementById('dePwd').value;
+        if (!content) { showErr('请输入内容'); return; }
+        if (!pwd) { showErr('请输入密钥'); return; }
+        var algo = getAlgo();
+        var ret;
+        try {
+            if (enc) {
+                ret = CryptoJS[algo].encrypt(content, pwd).toString();
+            } else {
+                var dec = CryptoJS[algo].decrypt(content, pwd);
+                ret = dec.toString(CryptoJS.enc.Utf8);
+                if (!ret) { showErr('解密失败：密钥错误或密文格式不正确'); return; }
+            }
+        } catch (e) {
+            showErr('处理出错：' + e.message);
+            return;
+        }
+        document.getElementById('deOutput').value = ret;
+        document.getElementById('deResult').classList.add('show');
+    }
+    document.getElementById('deEncrypt').addEventListener('click', function () { doRun(true); });
+    document.getElementById('deDecrypt').addEventListener('click', function () { doRun(false); });
+    document.getElementById('deClear').addEventListener('click', function () {
+        document.getElementById('deInput').value = '';
+        document.getElementById('dePwd').value = '';
+        document.getElementById('deOutput').value = '';
+        document.getElementById('deResult').classList.remove('show');
+        err.classList.remove('show');
+        document.getElementById('deInput').focus();
+    });
+})();
+/* 哈希 / 散列 */
+(function () {
+    var err = document.getElementById('haError');
+    var pwdWrap = document.getElementById('haPwdWrap');
+    var algoSel = document.getElementById('haAlgo');
+    function showErr(m) { err.textContent = m; err.classList.add('show'); }
+    function isHmac() { return algoSel.value.indexOf('Hmac') === 0; }
+    algoSel.addEventListener('change', function () {
+        pwdWrap.style.display = isHmac() ? '' : 'none';
+    });
+    document.getElementById('haRun').addEventListener('click', function () {
+        err.classList.remove('show');
+        var content = document.getElementById('haInput').value;
+        if (!content) { showErr('请输入内容'); return; }
+        var algo = algoSel.value;
+        var pwd = document.getElementById('haPwd').value;
+        if (isHmac() && !pwd) { showErr('请输入 HMAC 密钥'); return; }
+        var ret;
+        try {
+            if (isHmac()) {
+                ret = CryptoJS[algo](content, pwd).toString();
+            } else if (algo === 'SHA3') {
+                ret = CryptoJS.SHA3(content, { outputLength: 256 }).toString();
+            } else {
+                ret = CryptoJS[algo](content).toString();
+            }
+        } catch (e) {
+            showErr('处理出错：' + e.message);
+            return;
+        }
+        if (document.getElementById('haCase').value === 'upper') {
+            ret = ret.toUpperCase();
+        }
+        document.getElementById('haOutput').value = ret;
+        document.getElementById('haResult').classList.add('show');
+    });
+    document.getElementById('haClear').addEventListener('click', function () {
+        document.getElementById('haInput').value = '';
+        document.getElementById('haPwd').value = '';
+        document.getElementById('haOutput').value = '';
+        document.getElementById('haResult').classList.remove('show');
+        err.classList.remove('show');
+        document.getElementById('haInput').focus();
+    });
+})();
+/* htpasswd 生成 */
+(function () {
+    function getVal(id) { return document.getElementById(id).value; }
+    document.getElementById('hpGen').addEventListener('click', function () {
+        var u = getVal('hpUser');
+        var p = getVal('hpPwd');
+        if (!u) { showHpErr('请输入用户名'); return; }
+        if (!p) { showHpErr('请输入密码'); return; }
+        try {
+            document.getElementById('hpResult').value = htpasswd(u, p, +getVal('hpAlg'));
+            hideHpErr();
+        } catch (e) {
+            showHpErr('生成失败：' + e.message);
+        }
+    });
+    document.getElementById('hpClear').addEventListener('click', function () {
+        document.getElementById('hpUser').value = '';
+        document.getElementById('hpPwd').value = '';
+        document.getElementById('hpResult').value = '';
+        hideHpErr();
+        document.getElementById('hpUser').focus();
+    });
+    function showHpErr(m) {
+        var e = document.getElementById('hpError');
+        if (!e) {
+            e = document.createElement('div');
+            e.className = 't-error';
+            e.id = 'hpError';
+            document.getElementById('hpPanel').appendChild(e);
+        }
+        e.textContent = m;
+        e.classList.add('show');
+    }
+    function hideHpErr() {
+        var e = document.getElementById('hpError');
+        if (e) e.classList.remove('show');
+    }
+})();
+</script>
+</body>
+</html>

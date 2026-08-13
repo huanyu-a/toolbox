@@ -22,8 +22,7 @@ return [
     [
         'cat' => '编码加解密',
         'items' => [
-            ['url' => '/deencrypt/', 'name' => '对称加密/解密', 'accent' => ''],
-            ['url' => '/allencrypt/', 'name' => '散列/哈希加密', 'accent' => ''],
+            ['url' => '/encrypt/', 'name' => '加密解密', 'accent' => ''],
             ['url' => '/base64/', 'name' => 'Base64 编码', 'accent' => ''],
             ['url' => '/escape/', 'name' => 'Escape 编码', 'accent' => ''],
             ['url' => '/urlcode/', 'name' => 'URL 编码', 'accent' => ''],
@@ -33,7 +32,6 @@ return [
             ['url' => '/unicode/', 'name' => 'Unicode 转换', 'accent' => ''],
             ['url' => '/ascii/', 'name' => 'ASCII 转换', 'accent' => ''],
             ['url' => '/img2base64/', 'name' => '图片转 Base64', 'accent' => ''],
-            ['url' => '/htpasswd/', 'name' => 'htpasswd 生成', 'accent' => ''],
             ['url' => '/barcode/', 'name' => '条形码生成', 'accent' => ''],
         ],
     ],
