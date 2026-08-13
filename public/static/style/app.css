@@ -185,7 +185,7 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
     outline: none;
 }
 
-/* 移动端悬浮按钮组：右下角分类按钮 + 右上角搜索/主题按钮 */
+/* 移动端悬浮按钮组：右下角垂直排列 分类/搜索/主题 */
 .fab {
     position: fixed;
     display: none;
@@ -208,12 +208,11 @@ a:hover, a:focus { color: var(--brand-strong); text-decoration: none; }
     background: var(--brand); border-color: var(--brand); color: #fff;
 }
 .fab-cat.active { background: var(--brand-strong); }
-.fab-search, .fab-theme { right: 14px; top: calc(50px + 14px); }
-.fab-theme { top: calc(50px + 14px + 54px); }
+/* 三按钮垂直排列：分类(24) 搜索(80) 主题(136)，间距 10px */
+.fab-search { right: 16px; bottom: 80px; }
+.fab-theme  { right: 16px; bottom: 136px; }
 @media (max-width: 991px) {
     .fab { display: flex; }
-    .fab-search, .fab-theme { top: 14px; }
-    .fab-theme { top: 68px; }
 }
 .fab-mask {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -615,8 +614,8 @@ pre { padding: 12px 14px; }
     .topbar .navbar-header { height: 50px; }
     .topbar .navbar-brand { height: 50px; line-height: 50px; padding: 0 12px; font-size: 16px; }
     .crumb-bar { display: none; }
-    /* 悬浮按钮让位：返回顶部按钮上移，避免与右下角分类按钮重叠 */
-    .gotop { bottom: 82px; }
+    /* 悬浮按钮组让位：返回顶部按钮移到三按钮上方（分类24/搜索80/主题136，按钮高46+间距10） */
+    .gotop { bottom: 192px; }
     .topbar .navbar-nav > li > a { height: 44px; line-height: 44px; }
     .topbar .nav-search { display: none; }
     .search-pop { padding: 12px 0 6px; }
