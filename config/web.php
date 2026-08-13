@@ -154,12 +154,6 @@ return array (
     'keywords' => '联通DNS服务器大全,联通dns服务器地址',
     'description' => '联通免费联通DNS服务器大全为您提供在线免费公共免费联通DNS服务器IP地址,免费联通DNS地址库,免费联通DNS解析,Open免费联通DNS地址库,114免费联通DNS地址库,国内最快的公共免费联通DNS解析IP,公共免费联通DNS解析服务器IP地址',
   ),
-  'px2rem' => 
-  array (
-    'title' => 'rem与px转换工具,px和rem换算-在线工具箱',
-    'keywords' => 'Px和rem转换工具,px像素转rem,px和rem换算',
-    'description' => 'rem与px转换工具为您提供Px和rem转换工具,rem与px的转换, px与rem转换,px转换rem自适应手机样式,px和rem单位的自动换算,px和rem换算公式,px像素转rem,px和rem换算等',
-  ),
   'androidkeycode' => 
   array (
     'title' => 'Android KeyCode对照表-在线工具箱',
@@ -420,12 +414,6 @@ return array (
     'keywords' => '随机数生成器,随机数,在线生成随机数,数字生成器	',
     'description' => '随机数生成器可以为您快速生成随机数,随机数字,roll,在线生成随机数时,设定数字最小值,数字最大值,再输入要生成的数字个数,数字是否唯一即可生成您想要的随机数	',
   ),
-  'hexconvert' => 
-  array (
-    'title' => '所有进制互转工具,任意进制间相互转换-在线工具箱',
-    'keywords' => '所有进制互转工具,常用进制转换工具,任意进制相互转换,在线编码,在线工具,进制转换,进制转换工具,10进制转2进制,2进制转10进制,10进制转62进制,62进制转10进制	',
-    'description' => '常用进制转换工具:实现任意进制相互转换,10进制转2进制,2进制转10进制,10进制转62进制,62进制转10进制,二进制,十进制,八进制,十六进制以及各种自定义的进制之间的转换等	',
-  ),
   'browserinfo' => 
   array (
     'title' => '浏览器信息在线查看,获取客户端操作系统信息-在线工具箱',
@@ -570,12 +558,6 @@ return array (
     'title' => '在线定时自动刷新网页-在线工具箱',
     'keywords' => '定时刷新Url,在线定时刷新,定时刷新网址,刷新网址,定时自动刷新网址	',
     'description' => '在线定时自动刷新网页工具为您提供定时刷新Url,在线定时刷新,定时刷新网址,刷新网址,定时自动刷新网址,可自定义刷新间隔时间,快速增加网站真实PV请求访问等	',
-  ),
-  'unixtime' => 
-  array (
-    'title' => 'Unix时间戳,DateTime,在线时间戳,Timestamp时间戳转换工具-在线工具箱',
-    'keywords' => 'Unix时间戳,Unix timestamp转换工具,datetime日期转时间戳	',
-    'description' => 'Unix时间戳转换工具(Unix timestamp)，把Unix时间戳转成北京时间,datetime转换为时间戳,不同程序语言中实现Unix时间戳(Unix timestamp) → 转换成北京时间,Unix时间戳在线转换成现在时间，希望对大家有帮助	',
   ),
   'excel2json' => 
   array (
@@ -722,12 +704,6 @@ return array (
     'keywords' => 'TripleDES加解密工具,可逆加密算法在线测试,TripleDES加密,TripleDES解密	',
     'description' => 'TripleDES加解密工具为您提供TripleDES加解密工具,TripleDES可逆加密算法在线测试,TripleDES算法,可自定义TripleDES加密解密秘钥,实现TripleDES在线加密,TripleDES在线解密,TripleDES可逆加密解密的在线工具	',
   ),
-  'hexrgb' => 
-  array (
-    'title' => 'RGB颜色在线转换,十六进制颜色与RGB互转-在线工具箱',
-    'keywords' => 'RGB颜色在线转换,十六进制颜色,RGB,十六进制颜色与RGB互转	',
-    'description' => 'HEX16色转换为RGB为您提供把RGB颜色在线转换,HEX16色转换为RGB,十六进制颜色,RGB,十六进制颜色与RGB互转,在线RGB三原色,HEX16色转换rgb	',
-  ),
   'autoformat' => 
   array (
     'title' => '在线自动排版工具,文章自动排版编辑器-在线工具箱',
@@ -856,6 +832,11 @@ return array (
         'title' => '文本工具,字数统计/内容去重/文本替换/字符串压缩/文本对比-在线工具箱',
         'keywords' => '文本工具,字数统计,在线字数统计,内容去重,去重复行,文本替换,字符串压缩,去空格,文本对比,文本比较',
         'description' => '文本工具合集，提供在线字数统计（汉字、标点、英文、数字）、按行内容去重、文本批量查找替换、字符串压缩（去空格换行）、文本内容差异对比等功能，全部在浏览器本地完成。',
+    ),
+    'convert' => array (
+        'title' => '数值转换,时间戳/进制/颜色/rem转换-在线工具箱',
+        'keywords' => '数值转换,时间戳转换,Unix时间戳,世界时间,在线时钟,进制转换,二进制,八进制,十六进制,颜色转换,HEX,RGB,调色板,rem转换,px转换',
+        'description' => '数值与单位转换工具合集：Unix 时间戳与日期互转、世界主要城市实时时间、在线时钟、二进制/八进制/十进制/十六进制互转、HEX 与 RGB 颜色互转及调色板、rem/px 转换，全部在浏览器本地完成。',
     ),
 
 );
