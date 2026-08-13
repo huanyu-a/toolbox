@@ -96,6 +96,42 @@
     return vditor ? vditor.getHTML() : '';
   }
 
+  /* ---------- HTML 属性净化（保留功能属性，去掉自动生成的装饰属性） ---------- */
+  var KEEP_ATTRS = /^(?:href|src|alt|title|width|height|target|rel|colspan|rowspan|start|type|checked|disabled|value|name|for|placeholder|rows|cols)$/i;
+  function cleanHtml(html) {
+    if (!html) {
+      return '';
+    }
+    return String(html).replace(/<([a-zA-Z][a-zA-Z0-9]*)([^>]*)>/g, function (m, tag, attrs) {
+      if (!attrs) {
+        return m;
+      }
+      var cleaned = attrs.replace(/([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/g, function (a, name) {
+        return KEEP_ATTRS.test(name) ? a : '';
+      });
+      cleaned = cleaned.replace(/\s{2,}/g, ' ').replace(/\s+$/g, '');
+      return '<' + tag + cleaned + '>';
+    });
+  }
+
+  /* ---------- 纯文本提取（复制 TXT 用） ---------- */
+  function getText() {
+    var html = getHTML() || '';
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;left:-9999px;top:0;visibility:hidden;';
+    d.innerHTML = html
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ');
+    document.body.appendChild(d);
+    var t = (d.innerText || d.textContent || '');
+    document.body.removeChild(d);
+    return t
+      .replace(/[\u200b\u200c\u200d]/g, '')
+      .replace(/[ \t]+\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
   /* ---------- 统计 ---------- */
   function updateStats() {
     var html = getHTML() || '';
@@ -171,7 +207,7 @@
     $('#pane' + (isHtml ? 'Html' : 'Tui')).addClass('active');
 
     if (isHtml) {
-      htmlCm.setValue(getHTML() || '');
+      htmlCm.setValue(cleanHtml(getHTML()) || '');
       window.setTimeout(function () { htmlCm.refresh(); }, 10);
     } else {
       /* 先显示可视化面板，再渲染内容，避免在 display:none 下初始化 */
@@ -342,7 +378,16 @@
     });
 
     $('#btnCopyHtml').on('click', function () {
-      copyText(getHTML() || '', 'HTML 已复制到剪贴板');
+      copyText(cleanHtml(getHTML()) || '', 'HTML 已复制到剪贴板');
+    });
+
+    $('#btnCopyTxt').on('click', function () {
+      var t = getText();
+      if (!t) {
+        flash('暂无可复制的文本内容');
+        return;
+      }
+      copyText(t, '纯文本已复制到剪贴板');
     });
 
     $('#btnCopyMd').on('click', function () {
@@ -350,7 +395,7 @@
     });
 
     $('#btnDlHtml').on('click', function () {
-      var body = getHTML() || '';
+      var body = cleanHtml(getHTML()) || '';
       var doc = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="utf-8">\n'
         + '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         + '<title>在线编辑器导出</title>\n</head>\n<body>\n' + body + '\n</body>\n</html>';
