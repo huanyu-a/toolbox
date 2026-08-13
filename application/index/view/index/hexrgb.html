@@ -1,6 +1,218 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.hexrgb.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.hexrgb.keywords}" /><meta name="description" content="{$Think.config.web.hexrgb.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🎨</span>RGB颜色在线转换</h2><p class="tool-desc">HEX16色转换为RGB为您提供把RGB颜色在线转换,HEX16色转换为RGB,十六进制颜色,RGB,十六进制颜色与RGB互转,在线RGB三原色,HEX16色转换rgb</p><div class="row"><div class="col-md-4"><div class="input-group input1"><span class="input-group-addon">HEX</span><input type="text" class="form-control " id="hexInp" placeholder="请输入HEX值 如:#FFFFFF" aria-describedby="basic-addon1"></div></div><div class="col-md-1"><div style="float: center; line-height: 34px; width: 50px; padding-left: 5px;">转为</div></div><div class="col-md-4"><div class="input-group input1"><span class="input-group-addon">RGB</span><input type="text" class="form-control" id="outRgb" placeholder="" readonly="readonly" style="background: transparent;" aria-describedby="basic-addon1"></div></div><div class="col-md-2"><div style="float: left; margin-left: 10px;"><label class="checkbox-inline"><input type="checkbox" id="appendRgb"> 添加RGB前缀</label></div></div></div><br /><div class="row"><div class="col-md-4"><div class="input-group input1"><span class="input-group-addon">RGB</span><input type="text" class="form-control " id="rgbInp" placeholder="请输入RGB值 如:255,255,255" aria-describedby="basic-addon1"></div></div><div class="col-md-1"><div style="float: center; line-height: 34px; width: 50px; padding-left: 5px;">转为</div></div><div class="col-md-4"><div class="input-group input1"><span class="input-group-addon">HEX</span><input type="text" class="form-control" id="outHex" placeholder="" readonly="readonly" style="background: transparent;" aria-describedby="basic-addon1"></div></div><div class="col-md-2"></div></div></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/hightout.js"></script><script src="/static/script/pcjs/rgb.js" type="text/javascript"></script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🎨</span>颜色转换 / 调色板</h2>
+        <p class="tool-desc">HEX 与 RGB 颜色在线互转、实时预览，并内置在线调色板：色相滑块、常用色板网格取色与系统取色器，取色结果可一键联动到颜色转换。</p>
+        <ul class="t-tabs" id="rgbTabs">
+            <li><button type="button" class="t-tab active" data-panel="rgbPanel1">颜色转换</button></li>
+            <li><button type="button" class="t-tab" data-panel="rgbPanel2">调色板</button></li>
+        </ul>
+        <div id="rgbPanel1" class="t-panel active">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="hexInp">HEX 颜色值</label>
+                    <input class="t-input" id="hexInp" type="text" placeholder="请输入HEX值 如:#FFFFFF" />
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="outRgb">RGB 颜色值</label>
+                    <input class="t-input" id="outRgb" type="text" readonly placeholder="如：255,255,255" />
+                </div>
+            </div>
+            <div class="t-options">
+                <label><input type="checkbox" id="appendRgb" /> 添加 rgb() 前缀</label>
+            </div>
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="rgbInp">RGB 颜色值</label>
+                    <input class="t-input" id="rgbInp" type="text" placeholder="请输入RGB值 如:255,255,255" />
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="outHex">HEX 颜色值</label>
+                    <input class="t-input" id="outHex" type="text" readonly placeholder="如：#FFFFFF" />
+                </div>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ghost" type="button" id="rgbClear">清空</button>
+            </div>
+            <div class="t-result">
+                <button class="t-copy" type="button" data-copy="#outRgb">复制 RGB</button>
+                <button class="t-copy" type="button" data-copy="#outHex">复制 HEX</button>
+                <div class="t-row" style="margin-top:10px">
+                    <span class="t-result-label">颜色预览：</span>
+                    <span id="previewText" class="t-result-label" style="font-weight:400"></span>
+                </div>
+                <div id="previewBox" style="width:100%;height:44px;border-radius:6px;border:1px solid rgba(128,128,128,.35);margin-top:8px"></div>
+            </div>
+            <div class="t-error" id="rgbError"></div>
+        </div>
+        <div id="rgbPanel2" class="t-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="pickColor">取色器</label>
+                    <input type="color" id="pickColor" value="#4f6ef2" style="width:100%;height:44px;border:1px solid var(--border);border-radius:8px;background:var(--surface);cursor:pointer">
+                </div>
+                <div class="t-col">
+                    <label class="t-label">当前颜色</label>
+                    <input class="t-input" id="pickResult" type="text" readonly value="#4F6EF2  |  rgb(79,110,242)">
+                    <div class="t-options" style="margin-top:8px">
+                        <button class="t-btn t-btn-sm" type="button" id="pickApply">应用到转换</button>
+                        <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-copy="#pickResult">复制</button>
+                    </div>
+                </div>
+            </div>
+            <label class="t-label" for="hueSlider" style="margin-top:14px">色相滑块（Hue）</label>
+            <input type="range" id="hueSlider" min="0" max="360" value="220" style="width:100%">
+            <div id="hueStrip" style="width:100%;height:36px;border-radius:6px;margin-top:8px;background:linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)"></div>
+            <label class="t-label" style="margin-top:14px">常用色板</label>
+            <div id="paletteGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin-top:6px"></div>
+            <div class="t-error" id="palErr"></div>
+        </div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 HEX / RGB 转换</h2>
+        <p class="tool-desc">RGB 颜色由红、绿、蓝三个通道组成，每个通道取值 0~255；HEX 则是用两位十六进制数表示一个通道（如 #FF0000 = rgb(255,0,0)）。转换支持 #RRGGBB 与 #RGB 简写两种 HEX 格式，以及 255,255,255 或 rgb(255,255,255) 形式的 RGB 输入，结果实时显示并可复制。调色板支持系统取色器、色相滑块与常用色板，点击「应用到转换」或色板色块可联动到转换面板。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    'use strict';
+    var tabs = document.querySelectorAll('#rgbTabs .t-tab');
+    var panels = document.querySelectorAll('.tool-card .t-panel');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            panels.forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+
+    // ===== 面板1：HEX/RGB 互转 =====
+    var hexInp = document.getElementById('hexInp');
+    var outRgb = document.getElementById('outRgb');
+    var rgbInp = document.getElementById('rgbInp');
+    var outHex = document.getElementById('outHex');
+    var appendRgb = document.getElementById('appendRgb');
+    var errorEl = document.getElementById('rgbError');
+    var previewText = document.getElementById('previewText');
+    var previewBox = document.getElementById('previewBox');
+
+    function showErr(m) { errorEl.textContent = m; errorEl.classList.add('show'); }
+    function hideErr() { errorEl.classList.remove('show'); }
+    function clearPreview() { previewText.textContent = ''; previewBox.style.backgroundColor = 'transparent'; }
+    function showPreview(text, color) { previewText.textContent = text; previewBox.style.backgroundColor = color; }
+    function hexVal(ch) { return parseInt(ch || '0', 16); }
+    function hexToRgb(hex) {
+        hex = String(hex).toUpperCase();
+        return (hexVal(hex.charAt(0)) * 16 + hexVal(hex.charAt(1))) + ',' + (hexVal(hex.charAt(2)) * 16 + hexVal(hex.charAt(3))) + ',' + (hexVal(hex.charAt(4)) * 16 + hexVal(hex.charAt(5)));
+    }
+    function pad2(n) { var h = n.toString(16).toUpperCase(); return h.length < 2 ? '0' + h : h; }
+    function rgbToHex(parts) { return pad2(parseInt(parts[0], 10)) + pad2(parseInt(parts[1], 10)) + pad2(parseInt(parts[2], 10)); }
+
+    function convertHex() {
+        hideErr(); clearPreview();
+        var hex = hexInp.value.trim();
+        if (hex.charAt(0) === '#') hex = hex.slice(1);
+        if (hex.length === 3) hex = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) + hex.charAt(2) + hex.charAt(2);
+        if (!/^[0-9A-Fa-f]{6}$/.test(hex)) { outRgb.value = ''; showErr('请输入正确的 HEX 颜色值，如 #FFFFFF 或 #FFF'); return; }
+        var rgb = hexToRgb(hex);
+        var display = appendRgb.checked ? 'rgb(' + rgb + ')' : rgb;
+        outRgb.value = display;
+        showPreview('#' + hex.toUpperCase() + ' → ' + display, '#' + hex.toUpperCase());
+    }
+    function convertRgb() {
+        hideErr(); clearPreview();
+        var raw = rgbInp.value.toUpperCase();
+        if (raw.indexOf('RGB') === 0) raw = raw.replace('RGB(', '').replace(')', '');
+        var parts = raw.indexOf(',') !== -1 ? raw.split(',') : (raw.indexOf(' ') !== -1 ? raw.split(' ') : [raw]);
+        if (parts.length !== 3 || parts.some(function (p) { return !/^\d+$/.test(p.trim()) || parseInt(p.trim(), 10) < 0 || parseInt(p.trim(), 10) > 255; })) {
+            outHex.value = ''; showErr('请输入正确的 RGB 值，如 255,255,255 或 rgb(255,255,255)'); return;
+        }
+        var nums = parts.map(function (p) { return parseInt(p.trim(), 10); });
+        var hex = rgbToHex(nums);
+        outHex.value = '#' + hex;
+        showPreview('rgb(' + nums.join(',') + ') → #' + hex, '#' + hex);
+    }
+    hexInp.addEventListener('input', convertHex);
+    rgbInp.addEventListener('input', convertRgb);
+    appendRgb.addEventListener('change', function () {
+        var old = outRgb.value.trim();
+        if (old === '') return;
+        if (appendRgb.checked) outRgb.value = 'rgb(' + old + ')';
+        else outRgb.value = old.replace('rgb(', '').replace(')', '');
+    });
+    document.getElementById('rgbClear').addEventListener('click', function () {
+        hexInp.value = ''; outRgb.value = ''; rgbInp.value = ''; outHex.value = '';
+        clearPreview(); hideErr(); hexInp.focus();
+    });
+
+    // ===== 面板2：调色板（色相滑块 / 色板网格 / 取色器） =====
+    var pickColor = document.getElementById('pickColor');
+    var pickResult = document.getElementById('pickResult');
+    var palErr = document.getElementById('palErr');
+
+    function updatePick() {
+        var hex = pickColor.value.toUpperCase();
+        var r = parseInt(hex.substr(1, 2), 16), g = parseInt(hex.substr(3, 2), 16), b = parseInt(hex.substr(5, 2), 16);
+        pickResult.value = hex + '  |  rgb(' + r + ',' + g + ',' + b + ')';
+        palErr.classList.remove('show');
+    }
+    pickColor.addEventListener('input', updatePick);
+
+    function applyToConvert(hex) {
+        hexInp.value = hex;
+        convertHex();
+        tabs[0].click();
+    }
+    document.getElementById('pickApply').addEventListener('click', function () {
+        applyToConvert(pickColor.value);
+    });
+
+    function hslToHex(h) {
+        h = ((h % 360) + 360) % 360;
+        var s = 100 / 100, l = 50 / 100;
+        var c = (1 - Math.abs(2 * l - 1)) * s;
+        var x = c * (1 - Math.abs((h / 60) % 2 - 1));
+        var m = l - c / 2;
+        var r, g, b;
+        if (h < 60) { r = c; g = x; b = 0; }
+        else if (h < 120) { r = x; g = c; b = 0; }
+        else if (h < 180) { r = 0; g = c; b = x; }
+        else if (h < 240) { r = 0; g = x; b = c; }
+        else if (h < 300) { r = x; g = 0; b = c; }
+        else { r = c; g = 0; b = x; }
+        return '#' + [r, g, b].map(function (v) { return pad2(Math.round((v + m) * 255)); }).join('');
+    }
+    document.getElementById('hueSlider').addEventListener('input', function () {
+        var hex = hslToHex(parseInt(this.value, 10));
+        pickColor.value = hex;
+        updatePick();
+    });
+
+    var common = ['#000000','#444444','#888888','#cccccc','#eeeeee','#ffffff','#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4caf50','#8bc34a','#cddc39','#ffeb3b','#ffc107','#ff9800','#ff5722','#795548','#607d8b','#fce4ec','#f3e5f5','#e8eaf6','#e3f2fd','#e0f7fa','#e0f2f1','#e8f5e9','#fff9c4','#fff3e0','#ffebee','#d32f2f','#c2185b','#7b1fa2','#512da8','#303f9f','#1976d2','#0288d1','#0097a7','#00796b','#388e3c','#689f38','#afb42b','#fbc02d','#f57c00','#e64a19','#5d4037','#455a64'];
+    function buildPalette() {
+        var grid = document.getElementById('paletteGrid');
+        common.forEach(function (c) {
+            var sw = document.createElement('div');
+            sw.style.cssText = 'height:44px;border-radius:6px;cursor:pointer;background:' + c + ';border:1px solid rgba(128,128,128,.3)';
+            sw.title = c;
+            sw.addEventListener('click', function () {
+                pickColor.value = c;
+                updatePick();
+                applyToConvert(c);
+            });
+            grid.appendChild(sw);
+        });
+    }
+    buildPalette();
+})();
+</script>
 </body></html>

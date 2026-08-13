@@ -5,13 +5,22 @@
         <h2 class="tool-title"><span class="t-ico">🔢</span>在线统计字数工具</h2>
         <p class="tool-desc">在线字数统计工具为您提供文字个数实时统计,汉字和中文标点算两个字符,数字,空格,英文字母,英文标点算做一个字符,在线字数统计工具,在线字数统计,在线字数统计工具,</p>
         <label class="t-label" for="content">请输入要统计的字符串</label>
-        <textarea class="t-area" id="content" rows="12" placeholder="请输入要统计的字符串"></textarea>
+        <textarea class="t-area" id="content" rows="12" placeholder="输入内容后实时统计，无需点击按钮"></textarea>
         <div class="tool-actions">
             <button class="t-btn t-btn-ghost" type="button" id="empty">清空输入框</button>
         </div>
-        <div class="t-result">
-            <p>汉字：<span id="zhongwen">0</span> 个，中文标点：<span id="zbiaodian">0</span> 个，汉字+标点：<span id="zhongwenbiaodian">0</span> 个，英文（含英文状态下的数字、符号、标点）：<span id="yingwen">0</span> 个，数字：<span id="shuzi">0</span> 个，字符总数：<span id="totalwords">0</span> 个字符</p>
+        <div class="t-result" id="resultBox">
+            <div><span class="t-result-label">汉字：</span><span id="zhongwen">0</span> 个</div>
+            <div><span class="t-result-label">中文标点：</span><span id="zbiaodian">0</span> 个</div>
+            <div><span class="t-result-label">汉字+标点：</span><span id="zhongwenbiaodian">0</span> 个</div>
+            <div><span class="t-result-label">英文（含英文状态下的数字、符号、标点）：</span><span id="yingwen">0</span> 个</div>
+            <div><span class="t-result-label">数字：</span><span id="shuzi">0</span> 个</div>
+            <div><span class="t-result-label">字符总数：</span><span id="totalwords">0</span> 个字符</div>
         </div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于字数统计</h2>
+        <p class="tool-desc">统计规则与原版完全一致：汉字按 \u4e00-\u9fa5 判定；中文标点指汉字以外的双字节字符；英文（含数字、符号、标点）指单字节字符；字符总数按"汉字和中文标点算 2 个字符、英文数字算 1 个字符"折算。输入即统计，全程在本地完成。</p>
     </div>
 </div></div>
 {include file="nav" /}
@@ -23,7 +32,9 @@
 <script>
 (function () {
     var content = document.getElementById('content');
+    var resultBox = document.getElementById('resultBox');
     function $(id) { return document.getElementById(id); }
+    // 统计口径与原 txtcount.js 完全一致
     function count() {
         var Words = content.value;
         var W = {};
@@ -50,6 +61,7 @@
         $('yingwen').textContent = eTotal;
         $('shuzi').textContent = inum;
         $('totalwords').textContent = iTotal * 2 + (sTotal - iTotal) * 2 + eTotal;
+        resultBox.classList.add('show');
     }
     content.addEventListener('input', count);
     count();

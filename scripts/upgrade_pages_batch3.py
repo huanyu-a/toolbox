@@ -10,7 +10,7 @@ BASE = r"C:\project\wwwroot\toolbox\application\index\view\index"
 CFG = r"C:\project\wwwroot\toolbox\config"
 DONE = {"ascii","base64","hexconvert","json","md5","random","unixtime","urlcode",
         "guid","uuid","password","ip2long","shaencrypt","htmlescape","utf8","unicode",
-        "subnetmask","formatfilter","index","editor"}
+        "subnetmask","formatfilter","index","editor","autoformat"}
 
 TAG_RE = re.compile(r"</?\s*([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>", re.S)
 COMMENT_RE = re.compile(r"<!--.*?-->", re.S)

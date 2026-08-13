@@ -1,33 +1,171 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.ascii.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.ascii.keywords}" /><meta name="description" content="{$Think.config.web.ascii.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.ascii.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.ascii.keywords}" /><meta name="description" content="{$Think.config.web.ascii.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
-        <h2 class="tool-title"><span class="t-ico">🔠</span>ASCII 码转换工具</h2>
-        <p class="tool-desc">字符与 ASCII 十进制 / 十六进制编码互转，支持批量转换整段文本。</p>
-        <div class="t-grid">
-            <div class="t-col">
-                <label class="t-label" for="ascInput">文本</label>
-                <textarea class="t-area" id="ascInput" rows="6" placeholder="输入字符或文本…"></textarea>
-                <div class="tool-actions">
-                    <button class="t-btn" type="button" id="ascToCode">转为 ASCII 码</button>
-                </div>
+        <h2 class="tool-title"><span class="t-ico">🔠</span>ASCII 转换 / 对照表</h2>
+        <p class="tool-desc">字符与 ASCII 十进制 / 十六进制编码互转，支持批量转换整段文本，并附 0~255 完整 ASCII 对照表（含 HTML 实体）。</p>
+        <ul class="t-tabs" id="ascTabs">
+            <li><button type="button" class="t-tab active" data-panel="ascPanel1">ASCII 转换</button></li>
+            <li><button type="button" class="t-tab" data-panel="ascPanel2">ASCII 对照表</button></li>
+        </ul>
+        <div id="ascPanel1" class="t-panel active">
+            <label class="t-label" for="ascInput">输入文本</label>
+            <textarea class="t-area" id="ascInput" rows="6" placeholder="输入要转换的字符或文本"></textarea>
+            <div class="t-options" style="margin-top:10px">
+                <label><input type="radio" name="ascMode" value="dec" checked> 转十进制</label>
+                <label><input type="radio" name="ascMode" value="hex"> 转十六进制</label>
+                <label><input type="radio" name="ascMode" value="revert"> 编码还原</label>
+                <label><input type="checkbox" id="ascSpace"> 编码间加空格</label>
             </div>
-            <div class="t-col">
-                <label class="t-label" for="ascOutput">ASCII 码（十进制，空格分隔）</label>
-                <textarea class="t-area" id="ascOutput" rows="6" placeholder="例如：65 66 67"></textarea>
-                <div class="tool-actions">
-                    <button class="t-btn t-btn-ok" type="button" id="ascToText">转为文本</button>
-                </div>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="ascRun">转换</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#ascOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="ascClear">清空</button>
+            </div>
+            <div class="t-result" id="ascResult"><textarea class="t-area t-area-readonly" id="ascOutput" rows="6" readonly></textarea></div>
+            <div class="t-error" id="ascError"></div>
+        </div>
+        <div id="ascPanel2" class="t-panel">
+            <div style="overflow-x:auto">
+                <h3 class="t-label" style="margin-top:6px">标准 ASCII（0~127）</h3>
+                <table class="table table-bordered table-striped" style="margin:0 0 18px"><thead><tr><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th></tr></thead><tbody>
+<tr><td>NUL</td><td>0</td><td>0x00</td><td>&amp;#0;</td><td>SOH</td><td>1</td><td>0x01</td><td>&amp;#1;</td></tr>
+<tr><td>STX</td><td>2</td><td>0x02</td><td>&amp;#2;</td><td>ETX</td><td>3</td><td>0x03</td><td>&amp;#3;</td></tr>
+<tr><td>EOT</td><td>4</td><td>0x04</td><td>&amp;#4;</td><td>ENQ</td><td>5</td><td>0x05</td><td>&amp;#5;</td></tr>
+<tr><td>ACK</td><td>6</td><td>0x06</td><td>&amp;#6;</td><td>BEL</td><td>7</td><td>0x07</td><td>&amp;#7;</td></tr>
+<tr><td>BS</td><td>8</td><td>0x08</td><td>&amp;#8;</td><td>TAB</td><td>9</td><td>0x09</td><td>&amp;#9;</td></tr>
+<tr><td>LF</td><td>10</td><td>0x0A</td><td>&amp;#10;</td><td>VT</td><td>11</td><td>0x0B</td><td>&amp;#11;</td></tr>
+<tr><td>FF</td><td>12</td><td>0x0C</td><td>&amp;#12;</td><td>CR</td><td>13</td><td>0x0D</td><td>&amp;#13;</td></tr>
+<tr><td>SO</td><td>14</td><td>0x0E</td><td>&amp;#14;</td><td>SI</td><td>15</td><td>0x0F</td><td>&amp;#15;</td></tr>
+<tr><td>DLE</td><td>16</td><td>0x10</td><td>&amp;#16;</td><td>DC1</td><td>17</td><td>0x11</td><td>&amp;#17;</td></tr>
+<tr><td>DC2</td><td>18</td><td>0x12</td><td>&amp;#18;</td><td>DC3</td><td>19</td><td>0x13</td><td>&amp;#19;</td></tr>
+<tr><td>DC4</td><td>20</td><td>0x14</td><td>&amp;#20;</td><td>NAK</td><td>21</td><td>0x15</td><td>&amp;#21;</td></tr>
+<tr><td>SYN</td><td>22</td><td>0x16</td><td>&amp;#22;</td><td>ETB</td><td>23</td><td>0x17</td><td>&amp;#23;</td></tr>
+<tr><td>CAN</td><td>24</td><td>0x18</td><td>&amp;#24;</td><td>EM</td><td>25</td><td>0x19</td><td>&amp;#25;</td></tr>
+<tr><td>SUB</td><td>26</td><td>0x1A</td><td>&amp;#26;</td><td>ESC</td><td>27</td><td>0x1B</td><td>&amp;#27;</td></tr>
+<tr><td>FS</td><td>28</td><td>0x1C</td><td>&amp;#28;</td><td>GS</td><td>29</td><td>0x1D</td><td>&amp;#29;</td></tr>
+<tr><td>RS</td><td>30</td><td>0x1E</td><td>&amp;#30;</td><td>US</td><td>31</td><td>0x1F</td><td>&amp;#31;</td></tr>
+<tr><td>(space)</td><td>32</td><td>0x20</td><td>&amp;#32;</td><td>!</td><td>33</td><td>0x21</td><td>&amp;#33;</td></tr>
+<tr><td>&quot;</td><td>34</td><td>0x22</td><td>&amp;#34;</td><td>#</td><td>35</td><td>0x23</td><td>&amp;#35;</td></tr>
+<tr><td>$</td><td>36</td><td>0x24</td><td>&amp;#36;</td><td>%</td><td>37</td><td>0x25</td><td>&amp;#37;</td></tr>
+<tr><td>&amp;</td><td>38</td><td>0x26</td><td>&amp;#38;</td><td>&#39;</td><td>39</td><td>0x27</td><td>&amp;#39;</td></tr>
+<tr><td>(</td><td>40</td><td>0x28</td><td>&amp;#40;</td><td>)</td><td>41</td><td>0x29</td><td>&amp;#41;</td></tr>
+<tr><td>*</td><td>42</td><td>0x2A</td><td>&amp;#42;</td><td>+</td><td>43</td><td>0x2B</td><td>&amp;#43;</td></tr>
+<tr><td>,</td><td>44</td><td>0x2C</td><td>&amp;#44;</td><td>-</td><td>45</td><td>0x2D</td><td>&amp;#45;</td></tr>
+<tr><td>.</td><td>46</td><td>0x2E</td><td>&amp;#46;</td><td>/</td><td>47</td><td>0x2F</td><td>&amp;#47;</td></tr>
+<tr><td>0</td><td>48</td><td>0x30</td><td>&amp;#48;</td><td>1</td><td>49</td><td>0x31</td><td>&amp;#49;</td></tr>
+<tr><td>2</td><td>50</td><td>0x32</td><td>&amp;#50;</td><td>3</td><td>51</td><td>0x33</td><td>&amp;#51;</td></tr>
+<tr><td>4</td><td>52</td><td>0x34</td><td>&amp;#52;</td><td>5</td><td>53</td><td>0x35</td><td>&amp;#53;</td></tr>
+<tr><td>6</td><td>54</td><td>0x36</td><td>&amp;#54;</td><td>7</td><td>55</td><td>0x37</td><td>&amp;#55;</td></tr>
+<tr><td>8</td><td>56</td><td>0x38</td><td>&amp;#56;</td><td>9</td><td>57</td><td>0x39</td><td>&amp;#57;</td></tr>
+<tr><td>:</td><td>58</td><td>0x3A</td><td>&amp;#58;</td><td>;</td><td>59</td><td>0x3B</td><td>&amp;#59;</td></tr>
+<tr><td>&lt;</td><td>60</td><td>0x3C</td><td>&amp;#60;</td><td>=</td><td>61</td><td>0x3D</td><td>&amp;#61;</td></tr>
+<tr><td>&gt;</td><td>62</td><td>0x3E</td><td>&amp;#62;</td><td>?</td><td>63</td><td>0x3F</td><td>&amp;#63;</td></tr>
+<tr><td>@</td><td>64</td><td>0x40</td><td>&amp;#64;</td><td>A</td><td>65</td><td>0x41</td><td>&amp;#65;</td></tr>
+<tr><td>B</td><td>66</td><td>0x42</td><td>&amp;#66;</td><td>C</td><td>67</td><td>0x43</td><td>&amp;#67;</td></tr>
+<tr><td>D</td><td>68</td><td>0x44</td><td>&amp;#68;</td><td>E</td><td>69</td><td>0x45</td><td>&amp;#69;</td></tr>
+<tr><td>F</td><td>70</td><td>0x46</td><td>&amp;#70;</td><td>G</td><td>71</td><td>0x47</td><td>&amp;#71;</td></tr>
+<tr><td>H</td><td>72</td><td>0x48</td><td>&amp;#72;</td><td>I</td><td>73</td><td>0x49</td><td>&amp;#73;</td></tr>
+<tr><td>J</td><td>74</td><td>0x4A</td><td>&amp;#74;</td><td>K</td><td>75</td><td>0x4B</td><td>&amp;#75;</td></tr>
+<tr><td>L</td><td>76</td><td>0x4C</td><td>&amp;#76;</td><td>M</td><td>77</td><td>0x4D</td><td>&amp;#77;</td></tr>
+<tr><td>N</td><td>78</td><td>0x4E</td><td>&amp;#78;</td><td>O</td><td>79</td><td>0x4F</td><td>&amp;#79;</td></tr>
+<tr><td>P</td><td>80</td><td>0x50</td><td>&amp;#80;</td><td>Q</td><td>81</td><td>0x51</td><td>&amp;#81;</td></tr>
+<tr><td>R</td><td>82</td><td>0x52</td><td>&amp;#82;</td><td>S</td><td>83</td><td>0x53</td><td>&amp;#83;</td></tr>
+<tr><td>T</td><td>84</td><td>0x54</td><td>&amp;#84;</td><td>U</td><td>85</td><td>0x55</td><td>&amp;#85;</td></tr>
+<tr><td>V</td><td>86</td><td>0x56</td><td>&amp;#86;</td><td>W</td><td>87</td><td>0x57</td><td>&amp;#87;</td></tr>
+<tr><td>X</td><td>88</td><td>0x58</td><td>&amp;#88;</td><td>Y</td><td>89</td><td>0x59</td><td>&amp;#89;</td></tr>
+<tr><td>Z</td><td>90</td><td>0x5A</td><td>&amp;#90;</td><td>[</td><td>91</td><td>0x5B</td><td>&amp;#91;</td></tr>
+<tr><td>\</td><td>92</td><td>0x5C</td><td>&amp;#92;</td><td>]</td><td>93</td><td>0x5D</td><td>&amp;#93;</td></tr>
+<tr><td>^</td><td>94</td><td>0x5E</td><td>&amp;#94;</td><td>_</td><td>95</td><td>0x5F</td><td>&amp;#95;</td></tr>
+<tr><td>`</td><td>96</td><td>0x60</td><td>&amp;#96;</td><td>a</td><td>97</td><td>0x61</td><td>&amp;#97;</td></tr>
+<tr><td>b</td><td>98</td><td>0x62</td><td>&amp;#98;</td><td>c</td><td>99</td><td>0x63</td><td>&amp;#99;</td></tr>
+<tr><td>d</td><td>100</td><td>0x64</td><td>&amp;#100;</td><td>e</td><td>101</td><td>0x65</td><td>&amp;#101;</td></tr>
+<tr><td>f</td><td>102</td><td>0x66</td><td>&amp;#102;</td><td>g</td><td>103</td><td>0x67</td><td>&amp;#103;</td></tr>
+<tr><td>h</td><td>104</td><td>0x68</td><td>&amp;#104;</td><td>i</td><td>105</td><td>0x69</td><td>&amp;#105;</td></tr>
+<tr><td>j</td><td>106</td><td>0x6A</td><td>&amp;#106;</td><td>k</td><td>107</td><td>0x6B</td><td>&amp;#107;</td></tr>
+<tr><td>l</td><td>108</td><td>0x6C</td><td>&amp;#108;</td><td>m</td><td>109</td><td>0x6D</td><td>&amp;#109;</td></tr>
+<tr><td>n</td><td>110</td><td>0x6E</td><td>&amp;#110;</td><td>o</td><td>111</td><td>0x6F</td><td>&amp;#111;</td></tr>
+<tr><td>p</td><td>112</td><td>0x70</td><td>&amp;#112;</td><td>q</td><td>113</td><td>0x71</td><td>&amp;#113;</td></tr>
+<tr><td>r</td><td>114</td><td>0x72</td><td>&amp;#114;</td><td>s</td><td>115</td><td>0x73</td><td>&amp;#115;</td></tr>
+<tr><td>t</td><td>116</td><td>0x74</td><td>&amp;#116;</td><td>u</td><td>117</td><td>0x75</td><td>&amp;#117;</td></tr>
+<tr><td>v</td><td>118</td><td>0x76</td><td>&amp;#118;</td><td>w</td><td>119</td><td>0x77</td><td>&amp;#119;</td></tr>
+<tr><td>x</td><td>120</td><td>0x78</td><td>&amp;#120;</td><td>y</td><td>121</td><td>0x79</td><td>&amp;#121;</td></tr>
+<tr><td>z</td><td>122</td><td>0x7A</td><td>&amp;#122;</td><td>{</td><td>123</td><td>0x7B</td><td>&amp;#123;</td></tr>
+<tr><td>|</td><td>124</td><td>0x7C</td><td>&amp;#124;</td><td>}</td><td>125</td><td>0x7D</td><td>&amp;#125;</td></tr>
+<tr><td>~</td><td>126</td><td>0x7E</td><td>&amp;#126;</td><td>DEL</td><td>127</td><td>0x7F</td><td>&amp;#127;</td></tr>
+</tbody></table>
+                <h3 class="t-label">扩展 ASCII（128~255，Windows-1252 常用）</h3>
+                <table class="table table-bordered table-striped" style="margin:0"><thead><tr><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th><th>字符</th><th>十进制</th><th>十六进制</th><th>HTML 实体</th></tr></thead><tbody>
+<tr><td>€</td><td>128</td><td>0x80</td><td>&amp;#128;</td><td>&nbsp;</td><td>129</td><td>0x81</td><td>&amp;#129;</td></tr>
+<tr><td>‚</td><td>130</td><td>0x82</td><td>&amp;#130;</td><td>ƒ</td><td>131</td><td>0x83</td><td>&amp;#131;</td></tr>
+<tr><td>„</td><td>132</td><td>0x84</td><td>&amp;#132;</td><td>…</td><td>133</td><td>0x85</td><td>&amp;#133;</td></tr>
+<tr><td>†</td><td>134</td><td>0x86</td><td>&amp;#134;</td><td>‡</td><td>135</td><td>0x87</td><td>&amp;#135;</td></tr>
+<tr><td>ˆ</td><td>136</td><td>0x88</td><td>&amp;#136;</td><td>‰</td><td>137</td><td>0x89</td><td>&amp;#137;</td></tr>
+<tr><td>Š</td><td>138</td><td>0x8A</td><td>&amp;#138;</td><td>‹</td><td>139</td><td>0x8B</td><td>&amp;#139;</td></tr>
+<tr><td>Œ</td><td>140</td><td>0x8C</td><td>&amp;#140;</td><td>&nbsp;</td><td>141</td><td>0x8D</td><td>&amp;#141;</td></tr>
+<tr><td>Ž</td><td>142</td><td>0x8E</td><td>&amp;#142;</td><td>&nbsp;</td><td>143</td><td>0x8F</td><td>&amp;#143;</td></tr>
+<tr><td>&nbsp;</td><td>144</td><td>0x90</td><td>&amp;#144;</td><td>‘</td><td>145</td><td>0x91</td><td>&amp;#145;</td></tr>
+<tr><td>’</td><td>146</td><td>0x92</td><td>&amp;#146;</td><td>“</td><td>147</td><td>0x93</td><td>&amp;#147;</td></tr>
+<tr><td>”</td><td>148</td><td>0x94</td><td>&amp;#148;</td><td>•</td><td>149</td><td>0x95</td><td>&amp;#149;</td></tr>
+<tr><td>–</td><td>150</td><td>0x96</td><td>&amp;#150;</td><td>—</td><td>151</td><td>0x97</td><td>&amp;#151;</td></tr>
+<tr><td>˜</td><td>152</td><td>0x98</td><td>&amp;#152;</td><td>™</td><td>153</td><td>0x99</td><td>&amp;#153;</td></tr>
+<tr><td>š</td><td>154</td><td>0x9A</td><td>&amp;#154;</td><td>›</td><td>155</td><td>0x9B</td><td>&amp;#155;</td></tr>
+<tr><td>œ</td><td>156</td><td>0x9C</td><td>&amp;#156;</td><td>&nbsp;</td><td>157</td><td>0x9D</td><td>&amp;#157;</td></tr>
+<tr><td>ž</td><td>158</td><td>0x9E</td><td>&amp;#158;</td><td>Ÿ</td><td>159</td><td>0x9F</td><td>&amp;#159;</td></tr>
+<tr><td>(nbsp)</td><td>160</td><td>0xA0</td><td>&amp;#160;</td><td>¡</td><td>161</td><td>0xA1</td><td>&amp;#161;</td></tr>
+<tr><td>¢</td><td>162</td><td>0xA2</td><td>&amp;#162;</td><td>£</td><td>163</td><td>0xA3</td><td>&amp;#163;</td></tr>
+<tr><td>¤</td><td>164</td><td>0xA4</td><td>&amp;#164;</td><td>¥</td><td>165</td><td>0xA5</td><td>&amp;#165;</td></tr>
+<tr><td>¦</td><td>166</td><td>0xA6</td><td>&amp;#166;</td><td>§</td><td>167</td><td>0xA7</td><td>&amp;#167;</td></tr>
+<tr><td>¨</td><td>168</td><td>0xA8</td><td>&amp;#168;</td><td>©</td><td>169</td><td>0xA9</td><td>&amp;#169;</td></tr>
+<tr><td>ª</td><td>170</td><td>0xAA</td><td>&amp;#170;</td><td>«</td><td>171</td><td>0xAB</td><td>&amp;#171;</td></tr>
+<tr><td>¬</td><td>172</td><td>0xAC</td><td>&amp;#172;</td><td>(shy)</td><td>173</td><td>0xAD</td><td>&amp;#173;</td></tr>
+<tr><td>®</td><td>174</td><td>0xAE</td><td>&amp;#174;</td><td>¯</td><td>175</td><td>0xAF</td><td>&amp;#175;</td></tr>
+<tr><td>°</td><td>176</td><td>0xB0</td><td>&amp;#176;</td><td>±</td><td>177</td><td>0xB1</td><td>&amp;#177;</td></tr>
+<tr><td>²</td><td>178</td><td>0xB2</td><td>&amp;#178;</td><td>³</td><td>179</td><td>0xB3</td><td>&amp;#179;</td></tr>
+<tr><td>´</td><td>180</td><td>0xB4</td><td>&amp;#180;</td><td>µ</td><td>181</td><td>0xB5</td><td>&amp;#181;</td></tr>
+<tr><td>¶</td><td>182</td><td>0xB6</td><td>&amp;#182;</td><td>·</td><td>183</td><td>0xB7</td><td>&amp;#183;</td></tr>
+<tr><td>¸</td><td>184</td><td>0xB8</td><td>&amp;#184;</td><td>¹</td><td>185</td><td>0xB9</td><td>&amp;#185;</td></tr>
+<tr><td>º</td><td>186</td><td>0xBA</td><td>&amp;#186;</td><td>»</td><td>187</td><td>0xBB</td><td>&amp;#187;</td></tr>
+<tr><td>¼</td><td>188</td><td>0xBC</td><td>&amp;#188;</td><td>½</td><td>189</td><td>0xBD</td><td>&amp;#189;</td></tr>
+<tr><td>¾</td><td>190</td><td>0xBE</td><td>&amp;#190;</td><td>¿</td><td>191</td><td>0xBF</td><td>&amp;#191;</td></tr>
+<tr><td>À</td><td>192</td><td>0xC0</td><td>&amp;#192;</td><td>Á</td><td>193</td><td>0xC1</td><td>&amp;#193;</td></tr>
+<tr><td>Â</td><td>194</td><td>0xC2</td><td>&amp;#194;</td><td>Ã</td><td>195</td><td>0xC3</td><td>&amp;#195;</td></tr>
+<tr><td>Ä</td><td>196</td><td>0xC4</td><td>&amp;#196;</td><td>Å</td><td>197</td><td>0xC5</td><td>&amp;#197;</td></tr>
+<tr><td>Æ</td><td>198</td><td>0xC6</td><td>&amp;#198;</td><td>Ç</td><td>199</td><td>0xC7</td><td>&amp;#199;</td></tr>
+<tr><td>È</td><td>200</td><td>0xC8</td><td>&amp;#200;</td><td>É</td><td>201</td><td>0xC9</td><td>&amp;#201;</td></tr>
+<tr><td>Ê</td><td>202</td><td>0xCA</td><td>&amp;#202;</td><td>Ë</td><td>203</td><td>0xCB</td><td>&amp;#203;</td></tr>
+<tr><td>Ì</td><td>204</td><td>0xCC</td><td>&amp;#204;</td><td>Í</td><td>205</td><td>0xCD</td><td>&amp;#205;</td></tr>
+<tr><td>Î</td><td>206</td><td>0xCE</td><td>&amp;#206;</td><td>Ï</td><td>207</td><td>0xCF</td><td>&amp;#207;</td></tr>
+<tr><td>Ð</td><td>208</td><td>0xD0</td><td>&amp;#208;</td><td>Ñ</td><td>209</td><td>0xD1</td><td>&amp;#209;</td></tr>
+<tr><td>Ò</td><td>210</td><td>0xD2</td><td>&amp;#210;</td><td>Ó</td><td>211</td><td>0xD3</td><td>&amp;#211;</td></tr>
+<tr><td>Ô</td><td>212</td><td>0xD4</td><td>&amp;#212;</td><td>Õ</td><td>213</td><td>0xD5</td><td>&amp;#213;</td></tr>
+<tr><td>Ö</td><td>214</td><td>0xD6</td><td>&amp;#214;</td><td>×</td><td>215</td><td>0xD7</td><td>&amp;#215;</td></tr>
+<tr><td>Ø</td><td>216</td><td>0xD8</td><td>&amp;#216;</td><td>Ù</td><td>217</td><td>0xD9</td><td>&amp;#217;</td></tr>
+<tr><td>Ú</td><td>218</td><td>0xDA</td><td>&amp;#218;</td><td>Û</td><td>219</td><td>0xDB</td><td>&amp;#219;</td></tr>
+<tr><td>Ü</td><td>220</td><td>0xDC</td><td>&amp;#220;</td><td>Ý</td><td>221</td><td>0xDD</td><td>&amp;#221;</td></tr>
+<tr><td>Þ</td><td>222</td><td>0xDE</td><td>&amp;#222;</td><td>ß</td><td>223</td><td>0xDF</td><td>&amp;#223;</td></tr>
+<tr><td>à</td><td>224</td><td>0xE0</td><td>&amp;#224;</td><td>á</td><td>225</td><td>0xE1</td><td>&amp;#225;</td></tr>
+<tr><td>â</td><td>226</td><td>0xE2</td><td>&amp;#226;</td><td>ã</td><td>227</td><td>0xE3</td><td>&amp;#227;</td></tr>
+<tr><td>ä</td><td>228</td><td>0xE4</td><td>&amp;#228;</td><td>å</td><td>229</td><td>0xE5</td><td>&amp;#229;</td></tr>
+<tr><td>æ</td><td>230</td><td>0xE6</td><td>&amp;#230;</td><td>ç</td><td>231</td><td>0xE7</td><td>&amp;#231;</td></tr>
+<tr><td>è</td><td>232</td><td>0xE8</td><td>&amp;#232;</td><td>é</td><td>233</td><td>0xE9</td><td>&amp;#233;</td></tr>
+<tr><td>ê</td><td>234</td><td>0xEA</td><td>&amp;#234;</td><td>ë</td><td>235</td><td>0xEB</td><td>&amp;#235;</td></tr>
+<tr><td>ì</td><td>236</td><td>0xEC</td><td>&amp;#236;</td><td>í</td><td>237</td><td>0xED</td><td>&amp;#237;</td></tr>
+<tr><td>î</td><td>238</td><td>0xEE</td><td>&amp;#238;</td><td>ï</td><td>239</td><td>0xEF</td><td>&amp;#239;</td></tr>
+<tr><td>ð</td><td>240</td><td>0xF0</td><td>&amp;#240;</td><td>ñ</td><td>241</td><td>0xF1</td><td>&amp;#241;</td></tr>
+<tr><td>ò</td><td>242</td><td>0xF2</td><td>&amp;#242;</td><td>ó</td><td>243</td><td>0xF3</td><td>&amp;#243;</td></tr>
+<tr><td>ô</td><td>244</td><td>0xF4</td><td>&amp;#244;</td><td>õ</td><td>245</td><td>0xF5</td><td>&amp;#245;</td></tr>
+<tr><td>ö</td><td>246</td><td>0xF6</td><td>&amp;#246;</td><td>÷</td><td>247</td><td>0xF7</td><td>&amp;#247;</td></tr>
+<tr><td>ø</td><td>248</td><td>0xF8</td><td>&amp;#248;</td><td>ù</td><td>249</td><td>0xF9</td><td>&amp;#249;</td></tr>
+<tr><td>ú</td><td>250</td><td>0xFA</td><td>&amp;#250;</td><td>û</td><td>251</td><td>0xFB</td><td>&amp;#251;</td></tr>
+<tr><td>ü</td><td>252</td><td>0xFC</td><td>&amp;#252;</td><td>ý</td><td>253</td><td>0xFD</td><td>&amp;#253;</td></tr>
+<tr><td>þ</td><td>254</td><td>0xFE</td><td>&amp;#254;</td><td>ÿ</td><td>255</td><td>0xFF</td><td>&amp;#255;</td></tr>
+</tbody></table>
             </div>
         </div>
-        <div class="tool-actions" style="margin-top:16px">
-            <button class="t-btn t-btn-ghost" type="button" data-copy="#ascOutput">复制结果</button>
-            <button class="t-btn t-btn-ghost" type="button" id="ascClear">清空</button>
-        </div>
-        <div class="t-error" id="ascError"></div>
     </div>
     <div class="tool-card">
-        <h2 class="tool-title">📖 ASCII 对照表（常用）</h2>
-        <p class="tool-desc">常用 ASCII 码：空格 32，数字 0-9 为 48-57，大写字母 A-Z 为 65-90，小写字母 a-z 为 97-122。回车 13，换行 10。</p>
+        <h2 class="tool-title">📖 关于 ASCII</h2>
+        <p class="tool-desc">ASCII（American Standard Code for Information Interchange）用 7 位二进制表示 128 个字符：0~31 为控制字符，32~126 为可打印字符（含数字、大小写字母与标点），127 为 DEL。扩展 ASCII（128~255）在不同编码中含义不同，本表按 Windows-1252 常用字符列出。</p>
     </div>
 </div></div>
 {include file="nav" /}
@@ -38,34 +176,44 @@
 <script src="/static/script/app.js" type="text/javascript"></script>
 <script>
 (function () {
-    var error = document.getElementById('ascError');
-    function showErr(m) { error.textContent = m; error.classList.add('show'); }
-    function hideErr() { error.classList.remove('show'); }
-    document.getElementById('ascToCode').addEventListener('click', function () {
-        hideErr();
-        var v = document.getElementById('ascInput').value;
-        if (!v) { showErr('请输入文本'); return; }
-        var codes = [];
-        for (var i = 0; i < v.length; i++) codes.push(v.charCodeAt(i));
-        document.getElementById('ascOutput').value = codes.join(' ');
+    'use strict';
+    var tabs = document.querySelectorAll('#ascTabs .t-tab');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            document.querySelectorAll('.tool-card .t-panel').forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
     });
-    document.getElementById('ascToText').addEventListener('click', function () {
-        hideErr();
-        var v = document.getElementById('ascOutput').value.trim();
-        if (!v) { showErr('请输入 ASCII 码'); return; }
-        var parts = v.split(/\s+/);
-        var out = '';
-        for (var i = 0; i < parts.length; i++) {
-            var n = parseInt(parts[i], 10);
-            if (isNaN(n) || n < 0 || n > 65535) { showErr('存在无效的 ASCII 码：' + parts[i]); return; }
-            out += String.fromCharCode(n);
+    var err = document.getElementById('ascError');
+    document.getElementById('ascRun').addEventListener('click', function () {
+        err.classList.remove('show');
+        var raw = document.getElementById('ascInput').value;
+        if (!raw) { err.textContent = '请输入内容'; err.classList.add('show'); return; }
+        var mode = document.querySelector('input[name="ascMode"]:checked').value;
+        var space = document.getElementById('ascSpace').checked ? ' ' : '';
+        var out;
+        if (mode === 'revert') {
+            out = raw.replace(/(?:\x)?([0-9A-Fa-f]{2})/g, function (m, h) { return String.fromCharCode(parseInt(h, 16)); });
+        } else {
+            var parts = [];
+            for (var i = 0; i < raw.length; i++) {
+                var c = raw.charCodeAt(i);
+                parts.push(mode === 'hex' ? c.toString(16).toUpperCase() : c.toString(10));
+            }
+            out = parts.join(space);
         }
-        document.getElementById('ascInput').value = out;
+        document.getElementById('ascOutput').value = out;
+        document.getElementById('ascResult').classList.add('show');
     });
     document.getElementById('ascClear').addEventListener('click', function () {
         document.getElementById('ascInput').value = '';
         document.getElementById('ascOutput').value = '';
-        hideErr();
+        document.getElementById('ascResult').classList.remove('show');
+        err.classList.remove('show');
+        document.getElementById('ascInput').focus();
     });
 })();
 </script>

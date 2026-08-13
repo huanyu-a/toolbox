@@ -1,26 +1,440 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.regex.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.regex.keywords}" /><meta name="description" content="{$Think.config.web.regex.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔍</span>正则表达式测试工具</h2><p class="tool-desc">正则表达式测试工具为您提供js正则表达式验证,java正则表达式,正则表达式数字,正则表达式验证,正则表达式校验,正则表达式测试工具,可在线自定义正则表达式提取文本内容,</p><form id="form1" class="form-horizontal" method="post">                <div class="form-group">
-                    <div class="col-sm-12" id="regCommon">
-                        <a href="javascript:" t="[\u4e00-\u9fa5]" class="label label-primary">中文字符</a> <a
-                            href="javascript:" t="[^\x00-\xff]" class="label label-primary">双字节字符</a> <a href="javascript:"
-                                t="\n\s*\r" class="label label-primary">空白行</a> <a href="javascript:" t="^\s*|\s*$" class="label label-primary">首尾空白</a> <a href="javascript:" t="\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}"
-                                    class="label label-primary">Email</a> <a href="javascript:" t="[a-zA-z]+://[^\s]*"
-                                        class="label label-primary">网址URL</a> <a href="javascript:" t="0?(13|14|15|17|18|19)[0-9]{9}"
-                                            class="label label-primary">手机号码</a> <a href="javascript:" t="[0-9-()（）]{7,18}"
-                                                class="label label-primary">固话号码(国内)</a> <a href="javascript:" t="-([1-9]\d*.\d*|0.\d*[1-9]\d*)"
-                                                    class="label label-primary">负浮点数</a><p></p> <a href="javascript:" t="-?[1-9]\d*" class="label label-primary">匹配整数</a> <a href="javascript:" t="[1-9]\d*.\d*|0.\d*[1-9]\d*" class="label label-primary">正浮点数</a>
-                        <a href="javascript:" t="[1-9]([0-9]{5,11})" class="label label-primary">QQ号码</a>
-                        <a href="javascript:" t="\d{6}" class="label label-primary">邮政编码</a> <a href="javascript:"
-                            t="(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)"
-                            class="label label-primary">IP地址</a> <a href="javascript:" t="\d{17}[\d|x]|\d{15}"
-                                class="label label-primary">身份证号</a> <a href="javascript:" t="\d{4}(\-|\/|.)\d{1,2}\1\d{1,2}"
-                                    class="label label-primary">日期格式</a> <a href="javascript:" t="[1-9]\d*" class="label label-primary">
-                                        正整数</a> <a href="javascript:" t="-[1-9]\d*" class="label label-primary">负整数</a>
-                        <a href="javascript:" t="[A-Za-z0-9_\-\u4e00-\u9fa5]+" class="label label-primary">用户名</a>
-						
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔍</span>正则表达式工具</h2>
+        <p class="tool-desc">在线正则表达式测试（匹配 / 高亮 / 分组 / 替换）、一键生成 JS / PHP / Python / Java 正则代码、常用正则表达式表与语法速查。</p>
+        <ul class="t-tabs" id="rgTabs">
+            <li><button type="button" class="t-tab active" data-panel="rgPanel1">🧪 正则测试</button></li>
+            <li><button type="button" class="t-tab" data-panel="rgPanel2">💻 生成代码</button></li>
+            <li><button type="button" class="t-tab" data-panel="rgPanel3">📋 常用正则表</button></li>
+            <li><button type="button" class="t-tab" data-panel="rgPanel4">📖 语法速查</button></li>
+        </ul>
+
+        <div id="rgPanel1" class="t-panel active">
+            <div class="t-grid">
+                <div class="t-col" style="flex:2">
+                    <label class="t-label" for="rgExpr">正则表达式</label>
+                    <input class="t-input" style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #d9dee7;border-radius:6px" type="text" id="rgExpr" placeholder="例如：\d{4}-\d{2}-\d{2}">
+                </div>
+                <div class="t-col" style="flex:1">
+                    <label class="t-label" for="rgFg">修饰符</label>
+                    <div class="t-options">
+                        <label><input type="checkbox" id="rgFg" checked> g 全局</label>
+                        <label><input type="checkbox" id="rgFi"> i 忽略大小写</label>
+                        <label><input type="checkbox" id="rgFm"> m 多行</label>
+                        <label><input type="checkbox" id="rgFs"> s 点匹配换行</label>
                     </div>
-                </div><div class="form-group"><div class="col-sm-12"><textarea class="form-control" onmouseover="this.focus();" id="textSource" name="textSource" rows="10" placeholder="请输入要验证的内容"></textarea></div></div><div class="form-group"><div class="col-sm-12"><div class="input-group"><span class="input-group-addon" id="basic-addon1">正则表达式</span><input type="text" class="form-control" id="textPattern" name="textPattern" placeholder="请输入自定义正则表达式 例如：\d{6}" aria-describedby="basic-addon1"></div></div></div><div class="form-group"><div class="col-sm-12 text-center"><label class="checkbox-inline"><input type="checkbox" value="global" checked="checked" id="optionGlobal" name="optionGlobl">全局搜索</label><label class="checkbox-inline"><input type="checkbox" value="ignoreCase" id="optionIgnoreCase" name="optionIgnoreCase">忽略大小写</label><input type="button" onclick="return onMatch();" value="验证匹配内容" class="btn btn-success"><input type="button" onclick="Empty();" value="清空" class="btn btn-default"></div></div><div class="form-group"><div class="col-sm-12"><textarea onmouseover="this.focus();" id="textMatchResult" class="form-control" rows="10" placeholder="得到验证后内容，内容为空为验证失败" readonly="readonly"></textarea></div></div><div class="form-group"><div class="col-sm-4"><div class="input-group" style="width: 98%;"><span class="input-group-addon" id="replaceSpan1">替换文本</span><input type="text" class="form-control" id="textReplace" name="textReplace" placeholder="请输入替换内容"  aria-describedby="replaceSpan1"></div></div><div class="col-sm-2"><div class="input-group"><a onclick="return onReplace()" class="btn btn-success"><i class="icon-chevron-down icon-white"></i>替换匹配内容</a></div></div><div class="col-sm-6"></div></div><div class="form-group"><div class="col-sm-12"><textarea readonly="readonly" id="textReplaceResult" class="form-control" rows="10" placeholder="此处为替换后内容"></textarea></div></div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/pcjs/regex.js" type="text/javascript"></script>{include file="nav" /}
-{include file="link" /}
+                </div>
+            </div>
+            <label class="t-label" for="rgText" style="margin-top:12px;display:block">测试文本</label>
+            <textarea class="t-area" id="rgText" rows="6" style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #d9dee7;border-radius:6px" placeholder="在此粘贴要匹配的文本"></textarea>
+            <div class="t-options" style="margin-top:10px">
+                <label><input type="checkbox" id="rgReplaceMode"> 替换模式</label>
+                <span id="rgReplaceWrap" style="display:none">
+                    <label class="t-label" style="display:inline">替换为：<input class="t-input" type="text" id="rgReplace" style="width:200px;padding:6px 10px;border:1px solid #d9dee7;border-radius:6px" placeholder="$1"></label>
+                </span>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="rgRun">测试匹配</button>
+                <button class="t-btn t-btn-ghost" type="button" id="rgCopyRes" data-copy="#rgCopySrc">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="rgClear">清空</button>
+            </div>
+            <textarea id="rgCopySrc" style="position:absolute;left:-9999px;top:0;width:1px;height:1px" readonly></textarea>
+            <div class="t-result" id="rgResult" style="display:none;margin-top:14px"></div>
+            <div class="t-error" id="rgError" style="display:none;margin-top:10px;color:#c0392b;background:#fdecea;border:1px solid #f5c6c2;border-radius:6px;padding:8px 10px"></div>
+        </div>
+
+        <div id="rgPanel2" class="t-panel">
+            <label class="t-label" for="rgCodeIn" style="display:block">正则表达式</label>
+            <input class="t-input" style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #d9dee7;border-radius:6px" type="text" id="rgCodeIn" placeholder="例如：^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+            <label class="t-label" for="rgCodeLang" style="margin-top:12px;display:block">目标语言</label>
+            <select class="t-input" style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #d9dee7;border-radius:6px" id="rgCodeLang">
+                <option value="js">JavaScript</option>
+                <option value="php">PHP</option>
+                <option value="py">Python</option>
+                <option value="java">Java</option>
+            </select>
+            <div class="tool-actions" style="margin-top:12px">
+                <button class="t-btn" type="button" id="rgCodeRun">生成代码</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#rgCodeOut">复制代码</button>
+            </div>
+            <div class="t-result" id="rgCodeResult" style="display:none;margin-top:12px">
+                <textarea class="t-area t-area-readonly" id="rgCodeOut" rows="10" readonly style="width:100%;box-sizing:border-box;padding:10px;border:1px solid #d9dee7;border-radius:6px;background:#f8fafc;font-family:Consolas,Menlo,monospace;font-size:12px"></textarea>
+            </div>
+            <div class="t-error" id="rgCodeError" style="display:none;margin-top:10px;color:#c0392b;background:#fdecea;border:1px solid #f5c6c2;border-radius:6px;padding:8px 10px"></div>
+        </div>
+
+        <div id="rgPanel3" class="t-panel">
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th>说明</th><th>正则表达式</th><th style="width:120px">操作</th></tr></thead>
+                    <tbody>
+                        <tr><td>网址（URL）</td><td><code>[a-zA-z]+://[^\s]*</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="[a-zA-z]+://[^\s]*">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="[a-zA-z]+://[^\s]*">测试</button></td></tr>
+                        <tr><td>IP地址(IP Address)</td><td><code>((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)">测试</button></td></tr>
+                        <tr><td>Email地址</td><td><code>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">测试</button></td></tr>
+                        <tr><td>QQ号码</td><td><code>[1-9]\d{4,}</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="[1-9]\d{4,}">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="[1-9]\d{4,}">测试</button></td></tr>
+                        <tr><td>HTML标记(包含内容或自闭合)</td><td><code>&lt;(.*)(.*)&gt;.*&lt;\/\1&gt;|&lt;(.*) \/&gt;</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="&lt;(.*)(.*)&gt;.*&lt;\/\1&gt;|&lt;(.*) \/&gt;">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="&lt;(.*)(.*)&gt;.*&lt;\/\1&gt;|&lt;(.*) \/&gt;">测试</button></td></tr>
+                        <tr><td>密码(由数字/大写字母/小写字母/标点符号组成，四种都必有，8位以上)</td><td><code>(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\n).*$</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\n).*$">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\n).*$">测试</button></td></tr>
+                        <tr><td>日期(年-月-日)</td><td><code>(\d{4}|\d{2})-((1[0-2])|(0?[1-9]))-(([12][0-9])|(3[01])|(0?[1-9]))</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="(\d{4}|\d{2})-((1[0-2])|(0?[1-9]))-(([12][0-9])|(3[01])|(0?[1-9]))">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="(\d{4}|\d{2})-((1[0-2])|(0?[1-9]))-(([12][0-9])|(3[01])|(0?[1-9]))">测试</button></td></tr>
+                        <tr><td>日期(月/日/年)</td><td><code>((1[0-2])|(0?[1-9]))/(([12][0-9])|(3[01])|(0?[1-9]))/(\d{4}|\d{2})</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="((1[0-2])|(0?[1-9]))/(([12][0-9])|(3[01])|(0?[1-9]))/(\d{4}|\d{2})">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="((1[0-2])|(0?[1-9]))/(([12][0-9])|(3[01])|(0?[1-9]))/(\d{4}|\d{2})">测试</button></td></tr>
+                        <tr><td>时间(小时:分钟, 24小时制)</td><td><code>((1|0?)[0-9]|2[0-3]):([0-5][0-9])</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="((1|0?)[0-9]|2[0-3]):([0-5][0-9])">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="((1|0?)[0-9]|2[0-3]):([0-5][0-9])">测试</button></td></tr>
+                        <tr><td>汉字(字符)</td><td><code>[\u4e00-\u9fa5]</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="[\u4e00-\u9fa5]">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="[\u4e00-\u9fa5]">测试</button></td></tr>
+                        <tr><td>中文及全角标点符号(字符)</td><td><code>[\u3000-\u301e\ufe10-\ufe19\ufe30-\ufe44\ufe50-\ufe6b\uff01-\uffee]</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="[\u3000-\u301e\ufe10-\ufe19\ufe30-\ufe44\ufe50-\ufe6b\uff01-\uffee]">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="[\u3000-\u301e\ufe10-\ufe19\ufe30-\ufe44\ufe50-\ufe6b\uff01-\uffee]">测试</button></td></tr>
+                        <tr><td>中国大陆固定电话号码</td><td><code>(\d{4}-|\d{3}-)?(\d{8}|\d{7})</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="(\d{4}-|\d{3}-)?(\d{8}|\d{7})">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="(\d{4}-|\d{3}-)?(\d{8}|\d{7})">测试</button></td></tr>
+                        <tr><td>中国大陆手机号码</td><td><code>1\d{10}</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="1\d{10}">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="1\d{10}">测试</button></td></tr>
+                        <tr><td>中国大陆邮政编码</td><td><code>[1-9]\d{5}</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="[1-9]\d{5}">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="[1-9]\d{5}">测试</button></td></tr>
+                        <tr><td>中国大陆身份证号(15位或18位)</td><td><code>\d{15}(\d\d[0-9xX])?</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="\d{15}(\d\d[0-9xX])?">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="\d{15}(\d\d[0-9xX])?">测试</button></td></tr>
+                        <tr><td>非负整数(正整数或零)</td><td><code>\d+</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="\d+">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="\d+">测试</button></td></tr>
+                        <tr><td>正整数</td><td><code>[0-9]*[1-9][0-9]*</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="[0-9]*[1-9][0-9]*">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="[0-9]*[1-9][0-9]*">测试</button></td></tr>
+                        <tr><td>负整数</td><td><code>-[0-9]*[1-9][0-9]*</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="-[0-9]*[1-9][0-9]*">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="-[0-9]*[1-9][0-9]*">测试</button></td></tr>
+                        <tr><td>整数</td><td><code>-?\d+</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="-?\d+">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="-?\d+">测试</button></td></tr>
+                        <tr><td>小数</td><td><code>(-?\d+)(\.\d+)?</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="(-?\d+)(\.\d+)?">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="(-?\d+)(\.\d+)?">测试</button></td></tr>
+                        <tr><td>不包含abc的单词</td><td><code>\b((?!abc)\w)+\b</code></td><td><button class="t-btn t-btn-sm t-btn-ghost" type="button" data-re="\b((?!abc)\w)+\b">复制</button> <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-test="\b((?!abc)\w)+\b">测试</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="rgPanel4" class="t-panel">
+            <h4 class="t-sub" style="margin:0 0 8px">一、元字符</h4>
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th style="width:120px">正则字符</th><th>描述</th></tr></thead>
+                    <tbody>
+                        <tr><td style="white-space:nowrap"><code>\</code></td><td>将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”；“\n”匹配一个换行符；“\\”匹配“\”；“\(”则匹配“(”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>^</code></td><td>匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配“\n”或“\r”之后的位置。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>$</code></td><td>匹配输入字符串的结束位置。如果设置了 RegExp 对象的 Multiline 属性，$ 也匹配“\n”或“\r”之前的位置。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>.</code></td><td>匹配除“\n”之外的任何单个字符。要匹配包括“\n”在内的任何字符，请使用像“(.|\n)”的模式。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>x|y</code></td><td>匹配 x 或 y。例如，“z|food”能匹配“z”或“food”；“(z|f)ood”则匹配“zood”或“food”。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="t-sub" style="margin:14px 0 8px">二、量词</h4>
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th style="width:120px">正则字符</th><th>描述</th></tr></thead>
+                    <tbody>
+                        <tr><td style="white-space:nowrap"><code>*</code></td><td>匹配前面的子表达式零次或多次。例如，zo* 能匹配“z”以及“zoo”。* 等价于 {0,}。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>+</code></td><td>匹配前面的子表达式一次或多次。例如，“zo+”能匹配“zo”以及“zoo”，但不能匹配“z”。+ 等价于 {1,}。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>?</code></td><td>匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。? 等价于 {0,1}。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>{n}</code></td><td>n 是一个非负整数。匹配确定的 n 次。例如，“o{2}”不能匹配“Bob”中的“o”，但是能匹配“food”中的两个 o。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>{n,}</code></td><td>n 是一个非负整数。至少匹配 n 次。例如，“o{2,}”不能匹配“Bob”中的“o”，但能匹配“foooood”中的所有 o。“o{1,}”等价于“o+”，“o{0,}”则等价于“o*”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>{n,m}</code></td><td>m 和 n 均为非负整数，其中 n ≤ m。最少匹配 n 次且最多匹配 m 次。例如，“o{1,3}”将匹配“fooooood”中的前三个 o。“o{0,1}”等价于“o?”。请注意在逗号和两个数之间不能有空格。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>?（非贪婪）</code></td><td>当该字符紧跟在任何一个其他限制符（*、+、?、{n}、{n,}、{n,m}）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少地匹配所搜索的字符串，而默认的贪婪模式则尽可能多地匹配所搜索的字符串。例如，对于字符串“oooo”，“o+?”将匹配单个“o”，而“o+”将匹配所有“o”。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="t-sub" style="margin:14px 0 8px">三、字符类</h4>
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th style="width:120px">正则字符</th><th>描述</th></tr></thead>
+                    <tbody>
+                        <tr><td style="white-space:nowrap"><code>[xyz]</code></td><td>字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>[^xyz]</code></td><td>负值字符集合。匹配未包含的任意字符。例如，“[^abc]”可以匹配“plain”中的“p”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>[a-z]</code></td><td>字符范围。匹配指定范围内的任意字符。例如，“[a-z]”可以匹配“a”到“z”范围内的任意小写字母字符。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>[^a-z]</code></td><td>负值字符范围。匹配任何不在指定范围内的任意字符。例如，“[^a-z]”可以匹配任何不在“a”到“z”范围内的任意字符。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="t-sub" style="margin:14px 0 8px">四、分组与捕获</h4>
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th style="width:120px">正则字符</th><th>描述</th></tr></thead>
+                    <tbody>
+                        <tr><td style="white-space:nowrap"><code>(pattern)</code></td><td>匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到。要匹配圆括号字符，请使用“\(”或“\)”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>(?:pattern)</code></td><td>匹配 pattern 但不获取匹配结果，即非获取匹配，不进行存储供以后使用。这在使用或字符“(|)”组合模式的各个部分时很有用。例如“industr(?:y|ies)”就是一个比“industry|industries”更简略的表达式。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\num</code></td><td>匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，“(.)\1”匹配两个连续的相同字符。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\n（引用）</code></td><td>标识一个八进制转义值或一个向后引用。如果 \n 之前至少 n 个获取的子表达式，则 n 为向后引用；否则，如果 n 为八进制数字（0-7），则 n 为一个八进制转义值。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\nm</code></td><td>标识一个八进制转义值或一个向后引用。如果 \nm 之前至少有 nm 个获得子表达式，则 nm 为向后引用；如果 \nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的向后引用；若 n 和 m 均为八进制数字（0-7），则 \nm 将匹配八进制转义值 nm。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\nml</code></td><td>如果 n 为八进制数字（0-3），且 m 和 l 均为八进制数字（0-7），则匹配八进制转义值 nml。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="t-sub" style="margin:14px 0 8px">五、断言（预查与边界）</h4>
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th style="width:120px">正则字符</th><th>描述</th></tr></thead>
+                    <tbody>
+                        <tr><td style="white-space:nowrap"><code>(?=pattern)</code></td><td>正向肯定预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。这是非获取匹配，不消耗字符。例如，“Windows(?=95|98|NT|2000)”能匹配“Windows2000”中的“Windows”，但不能匹配“Windows3.1”中的“Windows”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>(?!pattern)</code></td><td>正向否定预查，在任何不匹配 pattern 的字符串开始处匹配查找字符串。这是非获取匹配，不消耗字符。例如“Windows(?!95|98|NT|2000)”能匹配“Windows3.1”中的“Windows”，但不能匹配“Windows2000”中的“Windows”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>(?&lt;=pattern)</code></td><td>反向肯定预查，与正向肯定预查类似，只是方向相反。例如，“(?&lt;=95|98|NT|2000)Windows”能匹配“2000Windows”中的“Windows”，但不能匹配“3.1Windows”中的“Windows”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>(?&lt;!pattern)</code></td><td>反向否定预查，与正向否定预查类似，只是方向相反。例如“(?&lt;!95|98|NT|2000)Windows”能匹配“3.1Windows”中的“Windows”，但不能匹配“2000Windows”中的“Windows”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\b</code></td><td>匹配一个单词边界，即单词和空格间的位置。例如，“er\b”可以匹配“never”中的“er”，但不能匹配“verb”中的“er”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\B</code></td><td>匹配非单词边界。“er\B”能匹配“verb”中的“er”，但不能匹配“never”中的“er”。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="t-sub" style="margin:14px 0 8px">六、特殊转义序列</h4>
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <thead><tr><th style="width:120px">正则字符</th><th>描述</th></tr></thead>
+                    <tbody>
+                        <tr><td style="white-space:nowrap"><code>\cx</code></td><td>匹配由 x 指明的控制字符。例如，\cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一，否则将 c 视为一个原义的“c”字符。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\d</code></td><td>匹配一个数字字符。等价于 [0-9]。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\D</code></td><td>匹配一个非数字字符。等价于 [^0-9]。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\f</code></td><td>匹配一个换页符。等价于 \x0c 和 \cL。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\n</code></td><td>匹配一个换行符。等价于 \x0a 和 \cJ。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\r</code></td><td>匹配一个回车符。等价于 \x0d 和 \cM。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\s</code></td><td>匹配任何空白字符，包括空格、制表符、换页符等。等价于 [ \f\n\r\t\v]。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\S</code></td><td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\t</code></td><td>匹配一个制表符。等价于 \x09 和 \cI。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\v</code></td><td>匹配一个垂直制表符。等价于 \x0b 和 \cK。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\w</code></td><td>匹配包括下划线的任何单词字符。等价于“[A-Za-z0-9_]”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\W</code></td><td>匹配任何非单词字符。等价于“[^A-Za-z0-9_]”。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\xn</code></td><td>匹配 n，其中 n 为十六进制转义值，必须为确定的两个数字长。例如，“\x41”匹配“A”。“\x041”则等价于“\x04&amp;1”。正则表达式中可以使用 ASCII 编码。</td></tr>
+                        <tr><td style="white-space:nowrap"><code>\un</code></td><td>匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如，\u00A9 匹配版权符号（©）。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
-</body></html>
+<script>
+(function () {
+    var doc = document;
+
+    /* ===== 通用：HTML 转义 ===== */
+    function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    /* ===== Tab 切换 ===== */
+    var tabs = doc.querySelectorAll('#rgTabs .t-tab');
+    var panels = doc.querySelectorAll('.tool-card .t-panel');
+    function switchTab(id) {
+        var btn = doc.querySelector('#rgTabs .t-tab[data-panel="' + id + '"]');
+        var i, p;
+        if (!btn) { return; }
+        for (i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
+        for (i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+        p = doc.getElementById(id);
+        if (p) { p.classList.add('active'); }
+        btn.classList.add('active');
+    }
+    for (var ti = 0; ti < tabs.length; ti++) {
+        (function (btn) {
+            btn.addEventListener('click', function () {
+                switchTab(btn.getAttribute('data-panel'));
+            });
+        })(tabs[ti]);
+    }
+
+    /* ===== 复制 ===== */
+    function copyText(v, btn) {
+        var done = false;
+        var old = btn ? btn.textContent : '';
+        if (window.clipboardData && window.clipboardData.setData) {
+            try { done = window.clipboardData.setData('Text', v); } catch (e) { done = false; }
+        } else {
+            var ta = doc.createElement('textarea');
+            ta.value = v;
+            ta.setAttribute('readonly', 'readonly');
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            ta.style.top = '0';
+            doc.body.appendChild(ta);
+            ta.select();
+            try { done = doc.execCommand('copy'); } catch (e) { done = false; }
+            doc.body.removeChild(ta);
+        }
+        if (btn) {
+            btn.textContent = done ? '已复制' : '复制失败';
+            setTimeout(function () { btn.textContent = old; }, 1200);
+        }
+    }
+    function copyFromSelector(sel, btn) {
+        var el = doc.querySelector(sel);
+        if (!el) { return; }
+        var v = (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') ? el.value : (el.textContent || '');
+        copyText(v, btn);
+    }
+    var cps = doc.querySelectorAll('[data-copy]');
+    for (var ci = 0; ci < cps.length; ci++) {
+        (function (b) {
+            b.addEventListener('click', function () {
+                copyFromSelector(b.getAttribute('data-copy'), b);
+            });
+        })(cps[ci]);
+    }
+
+    /* ===== 常用正则表：复制 / 一键测试 ===== */
+    var res = doc.querySelectorAll('[data-re]');
+    for (var ri = 0; ri < res.length; ri++) {
+        (function (b) {
+            b.addEventListener('click', function () {
+                copyText(b.getAttribute('data-re'), b);
+            });
+        })(res[ri]);
+    }
+    var tes = doc.querySelectorAll('[data-test]');
+    for (var tj = 0; tj < tes.length; tj++) {
+        (function (b) {
+            b.addEventListener('click', function () {
+                doc.getElementById('rgExpr').value = b.getAttribute('data-test');
+                doc.getElementById('rgFg').checked = true;
+                doc.getElementById('rgFi').checked = false;
+                doc.getElementById('rgFm').checked = false;
+                doc.getElementById('rgFs').checked = false;
+                switchTab('rgPanel1');
+                doc.getElementById('rgExpr').focus();
+            });
+        })(tes[tj]);
+    }
+
+    /* ===== 面板1：正则测试 ===== */
+    var err1 = doc.getElementById('rgError');
+    function showErr(el, msg) {
+        el.textContent = msg;
+        el.style.display = 'block';
+        el.classList.add('show');
+    }
+    function hideErr(el) {
+        el.style.display = 'none';
+        el.classList.remove('show');
+    }
+    function showResult(el) {
+        el.style.display = 'block';
+        el.classList.add('show');
+    }
+    function getFlags() {
+        var s = '';
+        if (doc.getElementById('rgFg').checked) { s += 'g'; }
+        if (doc.getElementById('rgFi').checked) { s += 'i'; }
+        if (doc.getElementById('rgFm').checked) { s += 'm'; }
+        if (doc.getElementById('rgFs').checked) { s += 's'; }
+        return s;
+    }
+    doc.getElementById('rgReplaceMode').addEventListener('change', function () {
+        doc.getElementById('rgReplaceWrap').style.display = this.checked ? '' : 'none';
+    });
+    doc.getElementById('rgRun').addEventListener('click', function () {
+        hideErr(err1);
+        var expr = doc.getElementById('rgExpr').value;
+        var flags = getFlags();
+        var text = doc.getElementById('rgText').value;
+        var out = doc.getElementById('rgResult');
+        var copy = doc.getElementById('rgCopySrc');
+        var i;
+        if (!expr) { showErr(err1, '请输入正则表达式'); return; }
+        var re;
+        try { re = new RegExp(expr, flags); } catch (e) { showErr(err1, '表达式错误：' + e.message); return; }
+
+        /* 替换测试 */
+        if (doc.getElementById('rgReplaceMode').checked) {
+            var rep = doc.getElementById('rgReplace').value;
+            var replaced;
+            try { replaced = text.replace(re, rep); } catch (e) { showErr(err1, '替换出错：' + e.message); return; }
+            out.innerHTML = '<p class="t-result-label" style="font-weight:600;margin:0 0 8px">替换结果（' + replaced.length + ' 字符）</p>' +
+                '<pre style="white-space:pre-wrap;word-break:break-all;background:#fff;border:1px solid #d9dee7;border-radius:8px;padding:10px;max-height:260px;overflow:auto;margin:0">' + esc(replaced) + '</pre>';
+            copy.value = '替换结果：\n' + replaced;
+            showResult(out);
+            return;
+        }
+
+        /* 匹配测试：单次遍历 = 命中列表 + 高亮 + 分组捕获 */
+        var g = flags.indexOf('g') >= 0 ? flags : flags + 'g';
+        var reG;
+        try { reG = new RegExp(expr, g); } catch (e) { showErr(err1, '表达式错误：' + e.message); return; }
+        var items = [];
+        var hl = '';
+        var last = 0;
+        var m;
+        var guard = 0;
+        reG.lastIndex = 0;
+        while ((m = reG.exec(text)) !== null) {
+            if (++guard > 5000) { break; }
+            if (m.index > last) { hl += esc(text.slice(last, m.index)); }
+            if (m[0] === '') {
+                hl += '<mark class="t-hl t-hl-empty" style="background:#ffe58f;color:#8a6d1a;border-radius:2px;padding:0 2px">∅</mark>';
+            } else {
+                hl += '<mark class="t-hl" style="background:#ffe58f;color:#333;border-radius:2px;padding:0 1px">' + esc(m[0]) + '</mark>';
+            }
+            last = m.index + m[0].length;
+            var groups = [];
+            for (i = 0; i < m.length; i++) { groups.push(m[i] === undefined ? null : m[i]); }
+            items.push({ index: m.index, value: m[0], groups: groups });
+            if (m[0] === '') { reG.lastIndex++; }
+        }
+        if (last < text.length) { hl += esc(text.slice(last)); }
+
+        var rows = '';
+        var copyLines = [];
+        for (i = 0; i < items.length; i++) {
+            var it = items[i];
+            var ghtml = '';
+            for (var gi = 1; gi < it.groups.length; gi++) {
+                ghtml += '<span style="display:inline-block;margin:0 6px 2px 0;background:#f0f4fa;border:1px solid #d9dee7;border-radius:4px;padding:0 6px">$' + gi + '=' + (it.groups[gi] === null ? '—' : esc(it.groups[gi])) + '</span>';
+            }
+            rows += '<tr><td>' + (i + 1) + '</td><td style="word-break:break-all">' + esc(it.value) + '</td><td style="word-break:break-all">' + (ghtml || '<span style="color:#999">无</span>') + '</td></tr>';
+            var gtxt = it.groups.length > 1 ? ' | 分组:' + it.groups.slice(1).join(',') : '';
+            copyLines.push('#' + (i + 1) + ' ' + it.value + gtxt);
+        }
+        out.innerHTML = '<p class="t-result-label" style="font-weight:600;margin:0 0 8px">共匹配 ' + items.length + ' 处' + (items.length >= 5000 ? '（已达上限，仅展示前 5000 个）' : '') + '</p>' +
+            (items.length ? '<pre style="white-space:pre-wrap;word-break:break-all;background:#fff;border:1px solid #d9dee7;border-radius:8px;padding:10px;max-height:200px;overflow:auto;margin:0 0 10px">' + hl + '</pre>' : '') +
+            '<div style="overflow-x:auto"><table class="table table-bordered table-striped" style="margin:0">' +
+            '<thead><tr><th style="width:44px">#</th><th>匹配内容</th><th>分组捕获</th></tr></thead>' +
+            '<tbody>' + (rows || '<tr><td colspan="3" style="color:#999">无匹配结果</td></tr>') + '</tbody></table></div>';
+        copy.value = '共匹配 ' + items.length + ' 处\n' + copyLines.join('\n') + '\n\n测试文本：\n' + text;
+        showResult(out);
+    });
+    doc.getElementById('rgClear').addEventListener('click', function () {
+        doc.getElementById('rgExpr').value = '';
+        doc.getElementById('rgText').value = '';
+        doc.getElementById('rgResult').innerHTML = '';
+        doc.getElementById('rgResult').style.display = 'none';
+        doc.getElementById('rgResult').classList.remove('show');
+        hideErr(err1);
+    });
+
+    /* ===== 面板2：生成代码 ===== */
+    var codeErr = doc.getElementById('rgCodeError');
+    doc.getElementById('rgCodeRun').addEventListener('click', function () {
+        hideErr(codeErr);
+        var expr = doc.getElementById('rgCodeIn').value;
+        var lang = doc.getElementById('rgCodeLang').value;
+        var code = '';
+        if (!expr) { showErr(codeErr, '请输入正则表达式'); return; }
+        if (lang === 'js') {
+            code = '// JavaScript 正则匹配示例\n' +
+                'var regex = /' + expr.replace(/\//g, '\\/') + '/g;\n' +
+                'var text = "待匹配文本";\n' +
+                'var matches = text.match(regex);\n' +
+                'console.log(matches);';
+        } else if (lang === 'php') {
+            code = '<\x3fphp\n' +
+                '// PHP 正则匹配示例\n' +
+                '$pattern = \'/' + expr.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + '/\';\n' +
+                '$text = "待匹配文本";\n' +
+                'preg_match_all($pattern, $text, $matches);\n' +
+                'print_r($matches);';
+        } else if (lang === 'py') {
+            code = '# Python 正则匹配示例\n' +
+                'import re\n' +
+                'pattern = \'' + expr.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + '\'\n' +
+                'text = "待匹配文本"\n' +
+                'matches = re.findall(pattern, text)\n' +
+                'print(matches)';
+        } else {
+            code = '// Java 正则匹配示例\n' +
+                'import java.util.regex.*;\n\n' +
+                'String pattern = "' + expr.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '";\n' +
+                'String text = "待匹配文本";\n' +
+                'Pattern p = Pattern.compile(pattern);\n' +
+                'Matcher m = p.matcher(text);\n' +
+                'while (m.find()) System.out.println(m.group());';
+        }
+        doc.getElementById('rgCodeOut').value = code;
+        showResult(doc.getElementById('rgCodeResult'));
+    });
+})();
+</script>
+</body>
+</html>

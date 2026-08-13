@@ -1,26 +1,28 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.camelcase.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.camelcase.keywords}" /><meta name="description" content="{$Think.config.web.camelcase.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap">
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico">🐫</span>驼峰与下划线互转</h2>
-        <p class="tool-desc">驼峰与下划线互转工具为您提供在线驼峰转下划线,变量，类名,属性名,函数等命名的驼峰与下划线相互转换,下划线转驼峰;建议一般普通的函数、类名和变量用驼峰命名，私有的函数方法使用下划线</p>
-        <div class="t-row">
-            <label class="t-label" for="content">原文（驼峰 / 下划线命名）</label>
-            <textarea class="t-area" id="content" rows="8" placeholder="输入要转换的内容，例如：order_id 或 orderId"></textarea>
+        <p class="tool-desc">驼峰与下划线互转工具为您提供在线驼峰转下划线，变量、类名、属性名、函数等命名的驼峰与下划线相互转换，下划线转驼峰；建议一般普通的函数、类名和变量用驼峰命名，私有的函数方法使用下划线。</p>
+        <label class="t-label" for="content">原文（驼峰 / 下划线命名）</label>
+        <textarea class="t-area" id="content" rows="8" placeholder="输入要转换的内容，例如：order_id 或 orderId"></textarea>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ok" type="button" id="btnToCamel">下划线转驼峰</button>
+            <button class="t-btn t-btn-ok" type="button" id="btnToUnder">驼峰转下划线</button>
         </div>
         <div class="tool-actions">
-            <button class="t-btn" type="button" id="toCamel">下划线转驼峰 →</button>
-            <button class="t-btn t-btn-ok" type="button" id="toUnder">驼峰转下划线 →</button>
+            <button class="t-btn t-btn-ghost" type="button" id="btnDemo">示例</button>
+            <button class="t-btn t-btn-ghost" type="button" id="btnClear">清空</button>
         </div>
-        <div class="t-result">
-            <label class="t-label" for="result">转换结果</label>
-            <textarea class="t-area" id="result" rows="8" readonly placeholder="转换结果将显示在这里"></textarea>
-            <div class="tool-actions">
-                <button class="t-btn t-btn-ghost t-copy" type="button" data-copy="#result">复制结果</button>
-                <button class="t-btn t-btn-ghost" type="button" id="camelDemo">示例</button>
-                <button class="t-btn t-btn-ghost" type="button" id="camelClear">清空</button>
-            </div>
+        <div class="t-result" id="resultBox">
+            <button class="t-copy" type="button" data-copy="#resultText">复制</button>
+            <div id="resultText"></div>
         </div>
-        <div class="t-error" id="camelError"></div>
+        <div class="t-error" id="err"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 驼峰与下划线互转</h2>
+        <p class="tool-desc">驼峰命名（camelCase / PascalCase）与下划线命名（snake_case）是编程中最常见的两种命名风格。本工具按原站算法实现：下划线转驼峰时识别分隔符后的单词首字母并转为大写；驼峰转下划线时在大写字母边界插入下划线并统一转为小写。转换全程在本地完成。</p>
     </div>
 </div></div>
 {include file="nav" /}
@@ -32,36 +34,49 @@
 <script>
 (function () {
     var input = document.getElementById('content');
-    var output = document.getElementById('result');
-    var error = document.getElementById('camelError');
-    function showErr(m) { error.textContent = m; error.classList.add('show'); }
-    function hideErr() { error.classList.remove('show'); }
-    // 下划线转驼峰：把 _x 替换为大写 X（等价原 PHP 正则算法）
+    var resultBox = document.getElementById('resultBox');
+    var resultText = document.getElementById('resultText');
+    var err = document.getElementById('err');
+    function showErr(m) { resultBox.classList.remove('show'); err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function showResult(v) { hideErr(); resultText.textContent = v; resultBox.classList.add('show'); }
+    function ucfirst(s) { return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function escapeRe(ch) { return ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    // 下划线转驼峰：等价原 PHP 算法 preg_replace_callback('/([^a-zA-Z][a-z])/', ucfirst(strtoupper(str_replace('_','',$m))), ucfirst($text))
     function toCamel(str) {
-        return str.replace(/_([a-zA-Z0-9])/g, function (m, c) { return c.toUpperCase(); });
+        return ucfirst(str).replace(/([^a-zA-Z][a-z])/g, function (m) {
+            return m.replace(/_/g, '').toUpperCase();
+        });
     }
-    // 驼峰转下划线：每个大写字母前加 _ 并转小写，连续大写按单词处理（等价原 PHP 正则算法）
+    // 驼峰转下划线：等价原 PHP 算法，先按 /(([A-Z]).*?([A-Z]))/ 在大写边界插入 _，再整体转小写
     function toUnder(str) {
-        return str
-            .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
-            .replace(/([A-Z])([A-Z][a-z])/g, '$1_$2')
-            .toLowerCase();
+        var t = ucfirst(str).replace(/([A-Z]).*?([A-Z])/g, function (m) {
+            var last = m.charAt(m.length - 1);
+            return m.replace(new RegExp(escapeRe(last), 'g'), '_' + last);
+        });
+        return t.toLowerCase();
     }
     function convert(fn) {
         hideErr();
         var v = input.value;
         if (!v) { showErr('请输入要转换的内容'); return; }
-        output.value = fn(v);
+        showResult(fn(v));
     }
-    document.getElementById('toCamel').addEventListener('click', function () { convert(toCamel); });
-    document.getElementById('toUnder').addEventListener('click', function () { convert(toUnder); });
-    document.getElementById('camelDemo').addEventListener('click', function () {
-        input.value = 'order_id;\nauth_code;\ntotal_amount;';
+    document.getElementById('btnToCamel').addEventListener('click', function () { convert(toCamel); });
+    document.getElementById('btnToUnder').addEventListener('click', function () { convert(toUnder); });
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        input.value = 'order_id;\nauth_code;\ntotal_amount;\nuserName;\nuser_id_card;';
         hideErr();
         input.focus();
     });
-    document.getElementById('camelClear').addEventListener('click', function () {
-        input.value = ''; output.value = ''; hideErr(); input.focus();
+    document.getElementById('btnClear').addEventListener('click', function () {
+        input.value = '';
+        resultBox.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') convert(toCamel);
     });
 })();
 </script>

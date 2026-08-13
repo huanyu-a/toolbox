@@ -1,0 +1,2819 @@
+[
+ {
+  "name": "aesencrypt",
+  "title": "{$Think.config.web.aesencrypt.title}",
+  "h2": "AES加密/解密",
+  "desc": "AES加解密工具为您提供AES加解密工具,AES可逆加密算法在线测试,aes算法,可自定义AES加密解密秘钥,实现AES在线加密,AES在线解密,AES可逆加密解密的在线工具",
+  "ids": [
+   "content",
+   "pwd",
+   "conv",
+   "res"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2936
+ },
+ {
+  "name": "alldns",
+  "title": "{$Think.config.web.alldns.title}",
+  "h2": "各地区公共DNS",
+  "desc": "各地区DNS大全为您提供在线免费网通DNS服务器地址,联通DNS服务器地址,电信DNS服务器地址,铁通DNS服务器地址,教育网DNS服务器地址,美国DNS服务器IP地址,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 31009
+ },
+ {
+  "name": "allencrypt",
+  "title": "{$Think.config.web.allencrypt.title}",
+  "h2": "散列/哈希加密大全",
+  "desc": "散列哈希HASH加密工具为您提供MD5、HmacMD5在线加密,SHA加密算法:SHA1加密，SHA224加密，SHA256加密，SHA384加密，SHA512加密,",
+  "ids": [
+   "content",
+   "pwd"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4671
+ },
+ {
+  "name": "androidkeycode",
+  "title": "{$Think.config.web.androidkeycode.title}",
+  "h2": "Android按键码",
+  "desc": "Android KeyCode对照表提供Android KeyCode对照参考标,Android对照表,Android按键码,KeyCode对照表,对照表",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 15081
+ },
+ {
+  "name": "androidmanifest",
+  "title": "{$Think.config.web.androidmanifest.title}",
+  "h2": "Android Manifest权限大全",
+  "desc": "Android Manifest权限描述对照表为您收集Android Manifest安卓权限描述大全对照表:提供在线Android Manifest对照表,安卓权限描述大全,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 13334
+ },
+ {
+  "name": "areacode",
+  "title": "{$Think.config.web.areacode.title}",
+  "h2": "世界各国区号时差查询",
+  "desc": "世界各国区号时差查询为您提供在线世界各国各地区时差区号查询表,世界各国域名后缀查询,世界各国时差查询,在线国际电话代码查询,国际域名缩写查询,国际区号查询,世界时差查询,",
+  "ids": [
+   "keyword"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2878
+ },
+ {
+  "name": "ascii",
+  "title": "{$Think.config.web.ascii.title}",
+  "h2": "ASCII 码转换工具",
+  "desc": "字符与 ASCII 十进制 / 十六进制编码互转，支持批量转换整段文本。",
+  "ids": [
+   "ascInput",
+   "ascOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4405
+ },
+ {
+  "name": "asciicode",
+  "title": "{$Think.config.web.asciicode.title}",
+  "h2": "ASCII对照表",
+  "desc": "ASCII码对照表提供ASCII转换对照表,Ascii码对比表,Ascii码转换器,字符编码Ascii转换,ASCII编码是国际通用的,通过将这些字符使用的值标准化,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 7232
+ },
+ {
+  "name": "autoformat",
+  "title": "{$Think.config.web.autoformat.title}",
+  "h2": "文章自动排版",
+  "desc": "在线自动排版工具为您提供文章一键排版、文章自动排版编辑器，可用于小说、论文排版，支持段前缩进、段间空行、标点转换、简繁转换、行号、查找替换、错别字检查与配置记忆。",
+  "ids": [
+   "srcText",
+   "indentType",
+   "indentCount",
+   "paraGap",
+   "punctMode",
+   "zhMode",
+   "lineSep",
+   "signText",
+   "lineNo",
+   "signBr",
+   "findStr",
+   "toStr"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/autoformat.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 9474
+ },
+ {
+  "name": "barcode",
+  "title": "{$Think.config.web.barcode.title}",
+  "h2": "条形码生成器",
+  "desc": "条形码在线生成工具为您提供可在线生成条形码扫描查询条形码,条形码生成器支持ean8,ean13,std25,int25,code11,code39,code93,code128,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2999
+ },
+ {
+  "name": "base64",
+  "title": "{$Think.config.web.base64.title}",
+  "h2": "Base64 加密 / 解密",
+  "desc": "支持中文的 Base64 编码与解码，完全本地计算，内容不会上传服务器。",
+  "ids": [
+   "b64Input",
+   "b64Output"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4156
+ },
+ {
+  "name": "bootstrapicon",
+  "title": "{$Think.config.web.bootstrapicon.title}",
+  "h2": "Bootstrap字体图标",
+  "desc": "Bootstrap前端框架Glyphicons字体图标库对照表:Bootstrap前端UI,Glyphicons字体图标调用,Bootstrap按钮字体图标对照表,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 63795
+ },
+ {
+  "name": "browserinfo",
+  "title": "{$Think.config.web.browserinfo.title}",
+  "h2": "获取浏览器信息",
+  "desc": "在线查看获取客户端系统,浏览器信息工具为您提供查看客户端信息,查看浏览器信息,查看浏览类型,查看操作系统,查看浏览器名称,查看浏览器版本信息,显示器高宽度像素,浏览器网络链接状态,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/createmeta.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6064
+ },
+ {
+  "name": "caiji",
+  "title": "{$Think.config.web.caiji.title}",
+  "h2": "文章内容采集",
+  "desc": "文章采集器为您提供文章采集,网页无法复制工具,数据采集,信息采集,在线采集器,在线采集网页内容,采集文章内容,采集文章,采集内容,采集信息等,只要输入网址,点击采集网页,",
+  "ids": [
+   "url",
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3632
+ },
+ {
+  "name": "calcangle",
+  "title": "{$Think.config.web.calcangle.title}",
+  "h2": "角度换算器",
+  "desc": "在线角度弧度换算器工具为您提供角度弧度在线计算,角度计算弧度计算,毫弧度转换,在线圆周,弧度,毫弧度,度,直角,百分度,秒,分角度之间的转换,角度计算,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4893
+ },
+ {
+  "name": "calcarea",
+  "title": "{$Think.config.web.calcarea.title}",
+  "h2": "面积换算器",
+  "desc": "在线面积换算器工具为您提供面积在线换算,任意面积之间可以直接转换,面积换算器在线使用,面积转换换算器,在线面积换算器,面积换算器使用,面积换算器在线换算面积使用,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/calculator.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6600
+ },
+ {
+  "name": "calcdata",
+  "title": "{$Think.config.web.calcdata.title}",
+  "h2": "数据大小换算器",
+  "desc": "在线数据大小换算器工具为您提供数据大小在线bit,bytes,KB,MB,GB,TB换算转换,兆转字节换算,比特转字节,千兆字节转千字节,拍字节转兆字节,太字节的数据存储换算,",
+  "ids": [
+   "bitTxt",
+   "bytesTxt",
+   "kbTxt",
+   "mbTxt",
+   "gbTxt",
+   "tbTxt",
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/dataexchage.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3917
+ },
+ {
+  "name": "calcforce",
+  "title": "{$Think.config.web.calcforce.title}",
+  "h2": "力换算器",
+  "desc": "在线力换算器工具为您提供力在线计算,力单位换算器,在线力换算器可以帮您快速进行力计算",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4655
+ },
+ {
+  "name": "calcheat",
+  "title": "{$Think.config.web.calcheat.title}",
+  "h2": "热量换算器",
+  "desc": "在线热量换算器工具为您提供热量在线计算,任意热量之间可以直接转换,热量换算器在线使用,热量转换换算器,在线热量换算器,热量换算器使用,热量换算器在线计算热量使用,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4930
+ },
+ {
+  "name": "calclength",
+  "title": "{$Think.config.web.calclength.title}",
+  "h2": "长度换算器",
+  "desc": "在线长度换算器工具为您提供长度在线计算,任意长度单位之间可以直接转换,公里换算,米换算,公里转米,分米转厘米,海里,英寻,弗隆,码,英尺,英寸换算,纳米换算,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 9072
+ },
+ {
+  "name": "calcpower",
+  "title": "{$Think.config.web.calcpower.title}",
+  "h2": "功率换算器",
+  "desc": "在线功率换算器工具为您提供功率在线计算,任意功率单位之间可以直接转换,在线瓦(W)转千瓦(kW),功率换算电流,英制马力(HP)转米制马力(PS),千卡/秒(kcal/s),",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 5300
+ },
+ {
+  "name": "calcpressure",
+  "title": "{$Think.config.web.calcpressure.title}",
+  "h2": "压力换算器",
+  "desc": "在线压力换算器工具为您提供压力在线计算,压力单位换算器,实现巴转兆帕,标准大气压换算,兆帕换算千帕,百帕(hPa)换算毫巴(mbar),帕斯卡换算,毫米汞柱(托),磅力/英尺,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6687
+ },
+ {
+  "name": "calcspeed",
+  "title": "{$Think.config.web.calcspeed.title}",
+  "h2": "速度换算器",
+  "desc": "在线速度换算器工具为您提供速度在线计算,速度单位换算器,米/秒转千米/时,英寸/秒换算,千米/秒转光速,马赫换算,英里/时换算器,在线速度换算器可以帮您快速进行速度计算",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4609
+ },
+ {
+  "name": "calctemperature",
+  "title": "{$Think.config.web.calctemperature.title}",
+  "h2": "温度换算器",
+  "desc": "在线温度换算器工具为您提供温度在线计算,温度转换换算器,在线摄氏度(CELSIUS EQUALS)换算,华氏度(FAHENHEIT EQUALS)换算,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4003
+ },
+ {
+  "name": "calcthickness",
+  "title": "{$Think.config.web.calcthickness.title}",
+  "h2": "密度换算器",
+  "desc": "在线密度换算器工具为您提供密度在线计算,克/立方厘米转千克/立方分米,克/立方米转克/立方分米,密度单位转换器,在线密度换算器可以帮您快速进行密度计算",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4318
+ },
+ {
+  "name": "calctime",
+  "title": "{$Think.config.web.calctime.title}",
+  "h2": "时间换算器",
+  "desc": "在线时间换算器工具为您提供时间在线计算,年,周,天,时分秒,毫秒相互之间的时间转换,一天有多少小时,一天有多少分钟,一年有多少分钟,一年有多少周,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4560
+ },
+ {
+  "name": "calculator",
+  "title": "{$Think.config.web.calculator.title}",
+  "h2": "在线科学计算器",
+  "desc": "在线科学计算器工具为您提供计算器在线计算,计算器在线使用,科学计算器,在线计算器,计算器使用,计算器在线计算使用,计算器使用方法,科学计算器在线计算,科学计算器使用方法,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/calculator.js",
+   "/static/script/tool.js"
+  ],
+  "size": 8284
+ },
+ {
+  "name": "calcvolume",
+  "title": "{$Think.config.web.calcvolume.title}",
+  "h2": "体积换算器",
+  "desc": "在线体积换算器工具为您提供体积在线计算,在线立方米转立方厘米,公石换算十升,立方分米换算升,分升换算厘升,立方厘米毫升,立方毫米,桶,蒲式耳,配克,夸脱,品脱,加仑,盎司,打兰,",
+  "ids": [
+   "reset"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 14612
+ },
+ {
+  "name": "camelcase",
+  "title": "{$Think.config.web.camelcase.title}",
+  "h2": "驼峰与下划线互转",
+  "desc": "驼峰与下划线互转工具为您提供在线驼峰转下划线，变量、类名、属性名、函数等命名的驼峰与下划线相互转换，下划线转驼峰；建议一般普通的函数、类名和变量用驼峰命名，私有的函数方法使用下划线。",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5109
+ },
+ {
+  "name": "capital",
+  "title": "{$Think.config.web.capital.title}",
+  "h2": "英文大小写转换",
+  "desc": "英文大小写转换工具，支持全部大写、全部小写、句子首字母大写、单词首字母大写，输入内容即时转换，全程本地完成。",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4840
+ },
+ {
+  "name": "chaicp",
+  "title": "{$Think.config.web.chaicp.title}",
+  "h2": "ICP网站备案查询",
+  "desc": "ICP备案查询工具为您提供网站域名备案查询,通过域名可查询该域名是否有备案及相关的ICP备案许可信息,可直接查询该域名工业和信息化部ICP/IP地址备案详细信息",
+  "ids": [
+   "icp"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3767
+ },
+ {
+  "name": "chameta",
+  "title": "{$Think.config.web.chameta.title}",
+  "h2": "Meta标签优化分析",
+  "desc": "Meta标签优化分析工具为您提供在线网站Meta标签信息检测查询,检测关键词的长度，检测网页描述的长度,可以快速检测网页的META标签，",
+  "ids": [
+   "txt_url"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6697
+ },
+ {
+  "name": "chaodai",
+  "title": "{$Think.config.web.chaodai.title}",
+  "h2": "中国历史朝代时间查询表",
+  "desc": "中国历史朝代都城在线查询工具:中国历史朝代时间查询表,中国历史朝代历经时间,中国历代朝代所处的起始与结束时间,都城所在位置,以及都城现今对应地名查询工具等",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 8224
+ },
+ {
+  "name": "checkkeyword",
+  "title": "{$Think.config.web.checkkeyword.title}",
+  "h2": "网页关键词密度检测",
+  "desc": "网页关键词密度检测工具为您提供在线关键词密度检测查询,检测关键词的密度百分比，可以快速检测页面关键词出现的数量和密度，更适合蜘蛛的搜索,",
+  "ids": [
+   "txt_url",
+   "txt_url"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6734
+ },
+ {
+  "name": "checkurl",
+  "title": "{$Think.config.web.checkurl.title}",
+  "h2": "网站死链检测",
+  "desc": "网站死链检测查询工具为您提供网站死链检查,检测网站有哪些链接是死链,以及网站死链检测,死链查询,网站死链检测查询工具,网站死链检查等，帮您快速找到死链接",
+  "ids": [
+   "TextArea2"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/layer/layer.js",
+   "/static/script/tool.js"
+  ],
+  "size": 5636
+ },
+ {
+  "name": "checkweixin",
+  "title": "{$Think.config.web.checkweixin.title}",
+  "h2": "微信域名检测工具",
+  "desc": "微信域名检测工具为您提供在线检测域名在微信中是否被封,域名拦截检测，使用微信域名检测工具可以实时检测域名是否被微信屏蔽，检测您的域名在微信是否被封禁屏蔽等。",
+  "ids": [
+   "txt_url"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4600
+ },
+ {
+  "name": "confundirjs",
+  "title": "{$Think.config.web.confundirjs.title}",
+  "h2": "JS代码混合加密",
+  "desc": "JS混合加密工具为您提供JS混合加密,js混淆加密,JS在线混合加密,JS代码在线加密,JS地址在线加密,js在线混合加密,javascript混合加密,js混合加密,",
+  "ids": [
+   "content",
+   "BtnCon"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/jsformat/formatjs.js",
+   "/static/script/jsformat/jsendecode.js",
+   "/static/script/jsformat/jsformat.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2671
+ },
+ {
+  "name": "contenttype",
+  "title": "{$Think.config.web.contenttype.title}",
+  "h2": "Content-Type对照表",
+  "desc": "HTTP Content-type对照表:HTTP Mime-Type,Content-type文件扩展名Content-Type(Mime-Type)文件类型扩展名,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 22945
+ },
+ {
+  "name": "createmeta",
+  "title": "{$Think.config.web.createmeta.title}",
+  "h2": "生成网页Meta标签",
+  "desc": "Meta标签在线生成工具为您提供在线生成meta标签元信息,手机移动端和PC端meta生成,meta标签在线生成工具,html5的keywords生成,",
+  "ids": [
+   "title",
+   "keyword",
+   "descript",
+   "charset",
+   "cache",
+   "author",
+   "input10",
+   "input11"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/createmeta.js",
+   "/static/script/tool.js"
+  ],
+  "size": 5052
+ },
+ {
+  "name": "currency",
+  "title": "{$Think.config.web.currency.title}",
+  "h2": "世界各地货币查询",
+  "desc": "世界各地货币单位查询为您提供在线世界各国地区货币查询表,提供世界各国或地区对应的货币名称,符号表示,进位制信息查询,港元美元人民欧元币世界货币查询等",
+  "ids": [
+   "keyword"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2877
+ },
+ {
+  "name": "deencrypt",
+  "title": "{$Think.config.web.deencrypt.title}",
+  "h2": "对称加密/解密",
+  "desc": "对称加密算法工具为您提供对称加密算法工具,可逆加密算法在线测试,aes算法,desc算法,rc4算法,rabbit算法,TripleDes算法,算法在线加密解密,",
+  "ids": [
+   "content",
+   "aes",
+   "des",
+   "rc4",
+   "rabbit",
+   "tripledes",
+   "pwd",
+   "conv",
+   "res"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3573
+ },
+ {
+  "name": "desencrypt",
+  "title": "{$Think.config.web.desencrypt.title}",
+  "h2": "DES加密/解密",
+  "desc": "DES加解密工具为您提供DES加解密工具,DES可逆加密算法在线测试,DES算法,可自定义DES加密解密秘钥,实现DES在线加密,DES在线解密,DES可逆加密解密的在线工具",
+  "ids": [
+   "content",
+   "pwd",
+   "conv",
+   "res"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2960
+ },
+ {
+  "name": "dns",
+  "title": "{$Think.config.web.dns.title}",
+  "h2": "公共DNS",
+  "desc": "国内外免费公共DNS解析服务大全为您提供在线免费公共DNS服务器IP地址,阿里DNS地址库,百度DNS解析,Google免费DNS地址,OpenDNS地址库,114DNS地址库,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3839
+ },
+ {
+  "name": "dnsdx",
+  "title": "{$Think.config.web.dnsdx.title}",
+  "h2": "各地电信DNS",
+  "desc": "电信免费电信DNS服务器大全为您提供在线免费公共免费电信DNS服务器IP地址,免费电信DNS地址库,免费电信DNS解析,Open免费电信DNS地址库,114免费电信DNS地址库,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 7270
+ },
+ {
+  "name": "dnsedu",
+  "title": "{$Think.config.web.dnsedu.title}",
+  "h2": "教育网DNS",
+  "desc": "中国教育网公共DNS解析服务大全:教育网DNS服务器地址大全,教育网DNS地址库,教育网DNS解析,教育网免费DNS地址,国内最快的教育网公共DNS解析IP库,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3355
+ },
+ {
+  "name": "dnslt",
+  "title": "{$Think.config.web.dnslt.title}",
+  "h2": "各地联通DNS",
+  "desc": "联通免费联通DNS服务器大全为您提供在线免费公共免费联通DNS服务器IP地址,免费联通DNS地址库,免费联通DNS解析,Open免费联通DNS地址库,114免费联通DNS地址库,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6458
+ },
+ {
+  "name": "dnstt",
+  "title": "{$Think.config.web.dnstt.title}",
+  "h2": "各地铁通DNS",
+  "desc": "中国铁通公共DNS解析服务大全:铁通DNS服务器地址大全,铁通DNS地址库,铁通DNS解析,铁通免费DNS地址,国内最快的铁通公共DNS解析IP库,铁通公共DNS解析服务器IP地址",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2741
+ },
+ {
+  "name": "dnsusa",
+  "title": "{$Think.config.web.dnsusa.title}",
+  "h2": "美国DNS",
+  "desc": "美国公共DNS解析服务大全:美国DNS服务器地址大全,美国DNS地址库,美国DNS解析,美国免费DNS地址,最快的美国公共DNS解析IP库,美国公共DNS解析服务器IP地址",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 13303
+ },
+ {
+  "name": "dnsyd",
+  "title": "{$Think.config.web.dnsyd.title}",
+  "h2": "各地移动DNS",
+  "desc": "中国移动公共DNS解析服务大全:移动DNS服务器地址大全,移动DNS地址库,移动DNS解析,移动免费DNS地址,国内最快的移动公共DNS解析IP库,移动公共DNS解析服务器IP地址",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6206
+ },
+ {
+  "name": "editor",
+  "title": "{$Think.config.web.editor.title}",
+  "h2": "",
+  "desc": "",
+  "ids": [
+   "htmlSource"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/codemirror/codemirror.min.js",
+   "/static/script/codemirror/css.js",
+   "/static/script/codemirror/htmlmixed.js",
+   "/static/script/codemirror/javascript.js",
+   "/static/script/codemirror/xml.js",
+   "/static/script/editor-app.js",
+   "/static/script/filesave.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 8192
+ },
+ {
+  "name": "endecodejs",
+  "title": "{$Think.config.web.endecodejs.title}",
+  "h2": "JS加密/解密",
+  "desc": "JS加密解密工具为您提供JS加密解密,js加解密工具,JS在线加解密,JS代码在线加解密,js在线加解密,javascript加解密,js加解密,js编码加解密,加解密Js,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 25094
+ },
+ {
+  "name": "enlower",
+  "title": "{$Think.config.web.enlower.title}",
+  "h2": "英文字母大小写转换",
+  "desc": "英文字母大小写转换工具为您提供在线英文字母大小写转换工具，能方便快捷地将英文字母全部转换为大写或小写，或将英文句子转换成首字母大写,在线大小写转换,单词大小写在线转换等",
+  "ids": [
+   "content",
+   "tabsize"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4994
+ },
+ {
+  "name": "escape",
+  "title": "{$Think.config.web.escape.title}",
+  "h2": "Escape 加密/解密",
+  "desc": "Escape 在线编码解码工具：对字符串进行 Escape 加密或 Unescape 解密，字符码不超过 255 输出 %XX，其余输出 %uXXXX，与经典 escape() / unescape() 语义一致。",
+  "ids": [
+   "escInput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 6450
+ },
+ {
+  "name": "excel2json",
+  "title": "{$Think.config.web.excel2json.title}",
+  "h2": "Excel/CSV转Json格式",
+  "desc": "Excel/Csv/xls转Json工具为您提供Csv转Json,Excel转Json格式,在线Excel转Json,在线csv转Json,",
+  "ids": [
+   "content",
+   "fgfstr",
+   "ctype"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3313
+ },
+ {
+  "name": "favicon",
+  "title": "{$Think.config.web.favicon.title}",
+  "h2": "在线制作ico图标",
+  "desc": "ico图标在线制作工具为您提供松制作ico图标,在线提供ico图标转换工具,可以将jpg、jpeg、gif、png等图像转换成ico图像,方便浏览器制作并生成favicon.",
+  "ids": [
+   "demo_input"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3155
+ },
+ {
+  "name": "formatc",
+  "title": "{$Think.config.web.formatc.title}",
+  "h2": "C语言代码格式化工具",
+  "desc": "C语言格式化工具为您提供C语言格式化,C语言代码美化,C语言代码格式化,C语言代码格式化美化排版处理,,C语言代码格式化美化在线工具,需要将C语言代码美化时,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcformat.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2572
+ },
+ {
+  "name": "formatcpp",
+  "title": "{$Think.config.web.formatcpp.title}",
+  "h2": "C++代码格式化工具",
+  "desc": "C++格式化工具为您提供C++格式化,C++代码美化,CPP格式化,C++代码格式化,C++代码格式化美化排版处理,,C++代码格式化美化在线工具,需要将C++代码美化时,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcformat.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2586
+ },
+ {
+  "name": "formatcs",
+  "title": "{$Think.config.web.formatcs.title}",
+  "h2": "C#代码格式化工具",
+  "desc": "C#格式化工具为您提供C#格式化,C#代码排版,C#在线格式化,C#代码美化,输入混乱、压缩或混淆的C#代码，点击C#代码格式化按钮即可实现代码的格式化与美化功能,",
+  "ids": [
+   "code",
+   "tabsize",
+   "max-preserve-newlines",
+   "wrap-line-length",
+   "brace-style"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4663
+ },
+ {
+  "name": "formatcsql",
+  "title": "{$Think.config.web.formatcsql.title}",
+  "h2": "SQL代码格式化工具",
+  "desc": "SQL代码格式化工具为您提供SQL代码格式化,SQL代码排版,SQL代码在线格式化,SQL代码在线格式化美化整理,SQL代码美化格式化功能,Orcale,MySql,",
+  "ids": [
+   "code",
+   "tabsize",
+   "max-preserve-newlines",
+   "wrap-line-length",
+   "brace-style"
+  ],
+  "scripts": [
+   "/static/script/app.js"
+  ],
+  "size": 3309
+ },
+ {
+  "name": "formatcss",
+  "title": "{$Think.config.web.formatcss.title}",
+  "h2": "CSS格式化/压缩",
+  "desc": "CSS代码压缩使得体积减小,传输速度快，css格式化在线转换成易编辑样式、css样式美化让css易读,我们定制提供的这个CSS代码格式化和css在线压缩工具，希望对大家有帮助",
+  "ids": [
+   "content",
+   "delnotes",
+   "tolower",
+   "chk",
+   "BtnClear"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/cssformat.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2846
+ },
+ {
+  "name": "formatfilter",
+  "title": "{$Think.config.web.formatfilter.title}",
+  "h2": "",
+  "desc": "",
+  "ids": [
+   "content",
+   "preplace",
+   "nextplace"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/jquery-1.7.1.min.js",
+   "/static/script/pcjs/htmlfilter.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3960
+ },
+ {
+  "name": "formathtml",
+  "title": "{$Think.config.web.formathtml.title}",
+  "h2": "HTML格式化/压缩",
+  "desc": "html格式化工具为您提供html格式化,html美化,html排版,html压缩工具,html在线格式化,html代码在线格式化,html在线压缩,html5格式化,",
+  "ids": [
+   "content",
+   "tabsize",
+   "beautify"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/jsformat/common.js",
+   "/static/script/jsformat/formatjs.js",
+   "/static/script/jsformat/htmlformat.js",
+   "/static/script/jsformat/jsformat.js",
+   "/static/script/jsformat/jsformat2.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3190
+ },
+ {
+  "name": "formatjava",
+  "title": "{$Think.config.web.formatjava.title}",
+  "h2": "JAVA代码格式化工具",
+  "desc": "JAVA格式化工具为您提供JAVA格式化,JAVA代码排版,JAVA在线格式化,JAVA代码美化,输入混乱、压缩或混淆的JAVA代码，",
+  "ids": [
+   "code",
+   "tabsize",
+   "max-preserve-newlines",
+   "wrap-line-length",
+   "brace-style"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4698
+ },
+ {
+  "name": "formatjs",
+  "title": "{$Think.config.web.formatjs.title}",
+  "h2": "JS格式化/压缩",
+  "desc": "JS格式化工具为您提供JS格式化,js压缩工具,JS在线格式化,JS代码在线格式化,js在线压缩,javascript格式化,js格式,js编码,格式化Js,格式化js代码,",
+  "ids": [
+   "content",
+   "tabsize",
+   "beautify"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/jsformat/common.js",
+   "/static/script/jsformat/formatjs.js",
+   "/static/script/jsformat/htmlformat.js",
+   "/static/script/jsformat/jsformat.js",
+   "/static/script/jsformat/jsformat2.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3252
+ },
+ {
+  "name": "formatperl",
+  "title": "{$Think.config.web.formatperl.title}",
+  "h2": "Perl代码格式化工具",
+  "desc": "perl格式化工具为您提供perl格式化,perl代码排版,perl在线格式化,perl代码美化,输入混乱,压缩或混淆的perl代码,",
+  "ids": [
+   "code",
+   "tabsize",
+   "max-preserve-newlines",
+   "wrap-line-length",
+   "brace-style"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4696
+ },
+ {
+  "name": "formatphp",
+  "title": "{$Think.config.web.formatphp.title}",
+  "h2": "PHP代码格式化工具",
+  "desc": "PHP格式化工具为您提供PHP格式化,PHP代码美化,PHP代码格式化,PHP代码格式化美化排版处理,,PHP代码格式化美化在线工具,需要将PHP代码美化时,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcformat.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2556
+ },
+ {
+  "name": "formatpy",
+  "title": "{$Think.config.web.formatpy.title}",
+  "h2": "Python代码格式化工具",
+  "desc": "Python格式化工具为您提供Python格式化,Python代码排版,Python在线格式化,Python代码美化,输入混乱,压缩或混淆的Python代码,",
+  "ids": [
+   "code",
+   "tabsize",
+   "max-preserve-newlines",
+   "wrap-line-length",
+   "brace-style"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4710
+ },
+ {
+  "name": "formatruby",
+  "title": "{$Think.config.web.formatruby.title}",
+  "h2": "Ruby代码格式化工具",
+  "desc": "Ruby格式化工具为您提供Ruby格式化,Ruby代码排版,Ruby在线格式化,Ruby代码美化,输入混乱,压缩或混淆的Ruby代码,",
+  "ids": [
+   "code",
+   "tabsize",
+   "max-preserve-newlines",
+   "wrap-line-length",
+   "brace-style"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4696
+ },
+ {
+  "name": "formatsql",
+  "title": "{$Think.config.web.formatsql.title}",
+  "h2": "SQL压缩/格式化",
+  "desc": "SQL格式化工具为您提供SQL格式化,SQL查询语句压缩工具,SQL查询语句在线格式化,SQL语句代码在线格式化,SQL语句在线压缩,SQL语句格式化,SQL格式,SQL语句编码,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/json/xmlformat.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2726
+ },
+ {
+  "name": "formatvbs",
+  "title": "{$Think.config.web.formatvbs.title}",
+  "h2": "VBScript格式化工具",
+  "desc": "Vbscript格式化工具为您提供Vbscript格式化,Vbscript代码美化,VBS格式化,Vbscript代码格式化,Vbscript代码格式化美化排版处理,,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js",
+   "/static/script/vbsformat.js"
+  ],
+  "size": 2619
+ },
+ {
+  "name": "formatxml",
+  "title": "{$Think.config.web.formatxml.title}",
+  "h2": "XML压缩/格式化",
+  "desc": "xml格式化工具为您提供xml格式化,xml压缩工具,Xml格式化解析,xml在线格式化,xml在线压缩,xml格式化,xml编码,格式化xml,格式化xml代码,压缩xml,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/json/xmlformat.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2504
+ },
+ {
+  "name": "guid",
+  "title": "{$Think.config.web.guid.title}",
+  "h2": "GUID 在线生成",
+  "desc": "批量生成全局唯一标识符 GUID（128 位），支持大小写与数量自定义，全程本地随机生成。",
+  "ids": [
+   "guidNum",
+   "guidCase",
+   "guidFmt",
+   "guidOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5224
+ },
+ {
+  "name": "gzip",
+  "title": "{$Think.config.web.gzip.title}",
+  "h2": "网站Gzip压缩检测",
+  "desc": "网站Gzip压缩检测工具为您提供测试网站Gzip压缩是否开启成功,网页压缩比例检测,压缩后下载速度检测,网页压缩后大小,原始文件大小,网页gzip压缩后与压缩前对比",
+  "ids": [
+   "url"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6195
+ },
+ {
+  "name": "hexconvert",
+  "title": "{$Think.config.web.hexconvert.title}",
+  "h2": "常用进制转换工具",
+  "desc": "在二进制、八进制、十进制、十六进制之间互转，输入即时转换。",
+  "ids": [
+   "hexInput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4964
+ },
+ {
+  "name": "hexrgb",
+  "title": "{$Think.config.web.hexrgb.title}",
+  "h2": "RGB颜色在线转换",
+  "desc": "HEX16色转换为RGB为您提供把RGB颜色在线转换,HEX16色转换为RGB,十六进制颜色,RGB,十六进制颜色与RGB互转,在线RGB三原色,HEX16色转换rgb",
+  "ids": [
+   "hexInp",
+   "outRgb",
+   "appendRgb",
+   "rgbInp",
+   "outHex"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 8004
+ },
+ {
+  "name": "htaccess2nginx",
+  "title": "{$Think.config.web.htaccess2nginx.title}",
+  "h2": "htaccess转nginx",
+  "desc": "htaccess换nginx工具为您提供htaccess换nginx,apache伪静态文件转为nginx规则,htaccess伪静态规则换nginx,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/htaccess2nginx.js",
+   "/static/script/rewrite-conf.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2598
+ },
+ {
+  "name": "html2all",
+  "title": "{$Think.config.web.html2all.title}",
+  "h2": "Html转ASP/Perl",
+  "desc": "Html转程序代码工具为您提供在线Html转程序代码，Html转ASP、Html转PERL、Html转SWS、Html转VB.NET，能得到拼接好的程序代码等快速转换工具。",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 6860
+ },
+ {
+  "name": "html2cj",
+  "title": "{$Think.config.web.html2cj.title}",
+  "h2": "Html转C#/JSP",
+  "desc": "Html转C#/JSP代码工具为您提供在线Html转换为Jsp和C#代码，Html转C#、Html转.Net、Html转Jsp，使用这个Html在线转换工具，能得到拼接好的代码。",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5062
+ },
+ {
+  "name": "html2js",
+  "title": "{$Think.config.web.html2js.title}",
+  "h2": "Html转JS",
+  "desc": "HTML转JS工具为您提供TML转JS,在线Html和Js代码互相转换工具:Js转Html,Javascript转Html,HTML转为Js,Html拼接为Js,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4307
+ },
+ {
+  "name": "html2php",
+  "title": "{$Think.config.web.html2php.title}",
+  "h2": "Html转PHP代码",
+  "desc": "Html转C#/JSP代码工具为您提供在线Html转换为Jsp和C#代码,Jsp代码,Html转C#,Html转.Net,Html转Jsp,在线Html转Jsp代码,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 3759
+ },
+ {
+  "name": "html2ubb",
+  "title": "{$Think.config.web.html2ubb.title}",
+  "h2": "HTML/UBB互转",
+  "desc": "UBB与HTML互转工具为您提供在线UBB转为HTML代码,Html转为MarkDown格式,UBB转为Html语言,UBB和Html在线转换,UBB在线转换,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 6091
+ },
+ {
+  "name": "htmlescape",
+  "title": "{$Think.config.web.htmlescape.title}",
+  "h2": "HTML 转义工具",
+  "desc": "将 HTML 代码转义为安全字符串，或把转义字符串还原为 HTML，防止 XSS 注入、方便代码展示。",
+  "ids": [
+   "heInput",
+   "heOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4473
+ },
+ {
+  "name": "htmlescapechar",
+  "title": "{$Think.config.web.htmlescapechar.title}",
+  "h2": "HTML特殊字符转义",
+  "desc": "HTML特殊字符转义对照表为您提供Html转义字符表,可查看Html转义字符,十进制转义字符,html转义,转义字符,html转义工具,在线对照表大全,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 21689
+ },
+ {
+  "name": "htmlfromcsv",
+  "title": "{$Think.config.web.htmlfromcsv.title}",
+  "h2": "Excel转HTML表格",
+  "desc": "excel格式转换工具为您提供excel格式转换,excel转table,html表,表格,xls,cvs,转换工具,excel文档在线转换TXT文本文档,",
+  "ids": [
+   "content",
+   "lineSep1",
+   "lineSep2",
+   "lineSep3",
+   "lineSep4",
+   "lineSep5",
+   "lineSep6",
+   "lineSep7"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/csv2table.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3785
+ },
+ {
+  "name": "htmloutjs",
+  "title": "{$Think.config.web.htmloutjs.title}",
+  "h2": "Html/JS互转",
+  "desc": "Js转Html代码工具为您提供在线Js转为HTML代码,Html转为Js脚本,Js转为HTML脚本,Js和Html在线转换,Js在线转换,Html在线转换工具,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 3848
+ },
+ {
+  "name": "htmltable",
+  "title": "{$Think.config.web.htmltable.title}",
+  "h2": "Html表格生成器",
+  "desc": "在线生成html表格可以帮助你快速生成html表格代码，生成不同样式的table,Html表格在线制作,不同大小的表格，不同显示风格html表格，不同颜色的html表格,",
+  "ids": [
+   "tableColor",
+   "tableDesign",
+   "tableHighlight",
+   "sizeCols",
+   "sizeRows",
+   "tableInfo",
+   "newCode"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/htmltable.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4929
+ },
+ {
+  "name": "htpasswd",
+  "title": "{$Think.config.web.htpasswd.title}",
+  "h2": "htpasswd生成",
+  "desc": "htpasswd在线生成器为您提供htpasswd在线生成器,htpasswd,htpasswd是开源Http服务器apache httpd的一个命令工具,",
+  "ids": [
+   "user",
+   "pwd1",
+   "alg",
+   "result"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4729
+ },
+ {
+  "name": "httpheader",
+  "title": "{$Think.config.web.httpheader.title}",
+  "h2": "HTTP请求头大全",
+  "desc": "HTTP请求头对照表为您提供HTTP请求头,HTTP响应头在编写采集器,API接口,模拟登录http头,远程获取内容等是必须要考虑的内容,HTTP Request Header,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 12088
+ },
+ {
+  "name": "huoxingwen",
+  "title": "{$Think.config.web.huoxingwen.title}",
+  "h2": "火星文转换器",
+  "desc": "火星文在线转换器为您提供汉字和火星文之间的互相转换,可以方便快速的把简体字转换为火星文,也可以快速的将火星文转为简体汉字等",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/jianfan.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2567
+ },
+ {
+  "name": "img2base64",
+  "title": "{$Think.config.web.img2base64.title}",
+  "h2": "图片转Base64",
+  "desc": "在线图片转base64工具为您提供图片img在线转换Base64,base64与图片互转工具,图片编码base64,image转base64,base64图片编码,",
+  "ids": [
+   "demo_input",
+   "result"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/img2base64.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3268
+ },
+ {
+  "name": "index",
+  "title": "{$Think.config.web.index.title}",
+  "h2": "",
+  "desc": "",
+  "ids": [
+   "homeSearch"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3140
+ },
+ {
+  "name": "ip",
+  "title": "{$Think.config.web.ip.title}",
+  "h2": "IP地址归属地查询",
+  "desc": "IP地址查询,服务器IP地理位置查询,域名IP查询,本机IP地址查询&quot; /&gt;&lt;meta name=&quot;description&quot; content=&quot;IP地址查询工具，",
+  "ids": [
+   "ip_address",
+   "ut2dt"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/func.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3595
+ },
+ {
+  "name": "ip2long",
+  "title": "{$Think.config.web.ip2long.title}",
+  "h2": "IP 地址与数字地址互转",
+  "desc": "IPv4 地址与 32 位无符号整数互转，复制数字地址到浏览器访问与直接访问 IP 效果相同。",
+  "ids": [
+   "content",
+   "result"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4896
+ },
+ {
+  "name": "jianfan",
+  "title": "{$Think.config.web.jianfan.title}",
+  "h2": "简繁字体转换",
+  "desc": "简繁体互转工具为您提供繁体字在线转换工具可以进行汉字简体转换繁体,可实现简体字转换为繁体字,繁体字转换为简体字,繁体转简体,简繁互转换等",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/jianfan.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2554
+ },
+ {
+  "name": "jieri",
+  "title": "{$Think.config.web.jieri.title}",
+  "h2": "世界节日查询",
+  "desc": "世界节日查询为您提供在线提历节日,农历节日,世界节日在线查询,中国农历节日查询,中国阳历节日查询,世界节日活动在线查询表等",
+  "ids": [
+   "keyword"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2853
+ },
+ {
+  "name": "json",
+  "title": "{$Think.config.web.json.title}",
+  "h2": "JSON 格式化 / 压缩 / 校验",
+  "desc": "粘贴 JSON 内容自动实时格式化，支持压缩与错误定位提示，全程本地解析。",
+  "ids": [
+   "jsonInput",
+   "jsonSort",
+   "jsonEscape",
+   "jsonOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5028
+ },
+ {
+  "name": "json2cs",
+  "title": "{$Think.config.web.json2cs.title}",
+  "h2": "Json生成C#实体类",
+  "desc": "Json在线生成C#实体类工具为您提供json在线生成C#实体类,根据json生成实体类,json怎么生成实体类,json生成C#实体类,自动校验Json格式,",
+  "ids": [
+   "jsonStr"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2667
+ },
+ {
+  "name": "json2excel",
+  "title": "{$Think.config.web.json2excel.title}",
+  "h2": "Json转Excel/CSV格式",
+  "desc": "Json转Excel/Csv/xls工具为您提供Json转Csv,Json转Excel格式,在线Json转Excel,在线Json转Csv,",
+  "ids": [
+   "content",
+   "fgfstr",
+   "ctype"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2956
+ },
+ {
+  "name": "json2get",
+  "title": "{$Think.config.web.json2get.title}",
+  "h2": "JSON和GET参数互转",
+  "desc": "JSON和GET参数转换工具为您提供在线json转url,JSON转GET请求字符串,JSON和GET参数转换,json转get请求参数,自动拼接Url参数,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3044
+ },
+ {
+  "name": "json2go",
+  "title": "{$Think.config.web.json2go.title}",
+  "h2": "Json生成Go结构体",
+  "desc": "Json转Go工具为您提供Json转Go,Json生成Golang结构体,Json生成struct,json转golang struct,json转go结构体,",
+  "ids": [
+   "input",
+   "inline",
+   "json2go",
+   "sample1"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2824
+ },
+ {
+  "name": "json2java",
+  "title": "{$Think.config.web.json2java.title}",
+  "h2": "Json生成Java实体类",
+  "desc": "Json生成Java实体类工具工具为您提供json在线生成Java实体类,提供json生成java类,json转javabean,json转pojo,json生成pojo文件,",
+  "ids": [
+   "json_content",
+   "download_btn",
+   "class_name",
+   "package_name"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3205
+ },
+ {
+  "name": "json2xml",
+  "title": "{$Think.config.web.json2xml.title}",
+  "h2": "XML和Json在线互转",
+  "desc": "在线Json解析视图格式化查看器为您提供Xml与Json在线转换工具,Xml转为Json格式,Json转为Xml格式,Xml与Json在线转换等",
+  "ids": [
+   "input",
+   "pretty_json"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2921
+ },
+ {
+  "name": "json2yaml",
+  "title": "{$Think.config.web.json2yaml.title}",
+  "h2": "JSON转YAML",
+  "desc": "yaml和json相互转换工具为您提供JSON转yaml,yaml转json,json格式化转换为yaml格式,YAML的语法和其他高级语言类似，并且可以简单表达清单、散列表，",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2749
+ },
+ {
+  "name": "jsonlrview",
+  "title": "{$Think.config.web.jsonlrview.title}",
+  "h2": "Json格式化(左右)",
+  "desc": "在线Json解析视图格式化查看器为您提供Json高亮显示在线解析工具,提供json解析工具,json视图查看器,json在线视图,视图支持json解析,json格式化校验,",
+  "ids": [
+   "json-src",
+   "txt-content",
+   "zip",
+   "xml",
+   "clear"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3202
+ },
+ {
+  "name": "jsonudview",
+  "title": "{$Think.config.web.jsonudview.title}",
+  "h2": "Json格式化(上下)",
+  "desc": "在线Json解析视图格式化查看器为您提供json解析视图查看器工具:提供json解析工具,json视图查看器,json在线视图,视图支持json解析,json格式化校验,",
+  "ids": [
+   "content",
+   "TabSize",
+   "QuoteKeys",
+   "CollapsibleView"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4439
+ },
+ {
+  "name": "jsonzip",
+  "title": "{$Think.config.web.jsonzip.title}",
+  "h2": "Json在线压缩转义",
+  "desc": "在线Json压缩格式化为您提供json格式化,json代码压缩,json校验解析,json格式化,json代码压缩,在线Json压缩格式化,json代码压缩,",
+  "ids": [
+   "content",
+   "validate"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2742
+ },
+ {
+  "name": "keyboardcode",
+  "title": "{$Think.config.web.keyboardcode.title}",
+  "h2": "KeyCode键盘按键码",
+  "desc": "键盘按键KeyCode码提供KeyCode键盘按键码在线获取,在线获取KeyCode键盘按键码,KeyAscii码对照值获取,在线提取键盘KeyCode码和KeyAscii码",
+  "ids": [
+   "input"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2196
+ },
+ {
+  "name": "keyboardtest",
+  "title": "{$Think.config.web.keyboardtest.title}",
+  "h2": "键盘测试工具",
+  "desc": "在线键盘测试工具:测试您键盘按键的好坏,在线键盘测试工具帮助您测试键盘哪个按键失灵，新买键盘是否完好测试，测试您键盘按键的好坏，有了它你快速测试键盘上的按键是否好用，",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/keyboard.js"
+  ],
+  "size": 8962
+ },
+ {
+  "name": "linuxcmd",
+  "title": "{$Think.config.web.linuxcmd.title}",
+  "h2": "Linux常用命令大全",
+  "desc": "Linux常用命令大全为您提供Linux命令在线查询,涵盖文件操作、目录管理、权限设置、进程管理、网络配置、系统监控等常用Linux命令及其参数说明,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 126937
+ },
+ {
+  "name": "lishishangdejintian",
+  "title": "{$Think.config.web.lishishangdejintian.title}",
+  "h2": "历史上的今天",
+  "desc": "在线工具箱为您提供json格式化,json代码压缩,json校验解析,json数组解析,json转xml,xml转json,json解析,json在线解析,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2609
+ },
+ {
+  "name": "md5",
+  "title": "{$Think.config.web.md5.title}",
+  "h2": "MD5 加密工具",
+  "desc": "输入内容，实时计算 MD5 32 位 / 16 位大小写哈希值，全程本地计算，不上传服务器。",
+  "ids": [
+   "md5Input"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 3958
+ },
+ {
+  "name": "morse",
+  "title": "{$Think.config.web.morse.title}",
+  "h2": "摩尔斯电码加解密",
+  "desc": "在线摩尔斯电码加密解密工具为您提供摩尔斯电码加密,摩尔斯电码解密,支持中文的摩尔斯电码加密、解密工具,SOS的摩尔编码为：··· －－－ ··· ，按照上面的规定即可进行灯光编码。",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/morseen.js",
+   "/static/script/pcjs/morsejs.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2675
+ },
+ {
+  "name": "navtiveunicode",
+  "title": "{$Think.config.web.navtiveunicode.title}",
+  "h2": "Native / Unicode 编码转换",
+  "desc": "汉字与 Unicode 编码互转，支持 \\uXXXX、&#xHHHH;、&#DDDDD; 三种格式，可批量转换任意字符，全程本地处理。",
+  "ids": [
+   "nuInput",
+   "nuOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 6110
+ },
+ {
+  "name": "nianlvli",
+  "title": "{$Think.config.web.nianlvli.title}",
+  "h2": "利率计算器在线",
+  "desc": "年利率计算器在线帮您计算年率利,可计算利息收益,计算年化收益率,只要输入年利率,存款天数,存款本金,即可计算出相应的利息",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4189
+ },
+ {
+  "name": "pagecode",
+  "title": "{$Think.config.web.pagecode.title}",
+  "h2": "HTTP状态码",
+  "desc": "HTTP状态码详解对照表为您收集HTTP状态码详解对照表,提供在线HTTP状态对照,HTTP响应状态码,在线对照表大全,404,500,200,403,http状态码查询,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 11537
+ },
+ {
+  "name": "password",
+  "title": "{$Think.config.web.password.title}",
+  "h2": "随机密码生成器",
+  "desc": "按自定义字符集、长度与数量生成高强度随机密码，使用浏览器密码学级随机源，本地生成不经过服务器。",
+  "ids": [
+   "use_number",
+   "use_lowercaseletters",
+   "use_uppercaseletters",
+   "use_punctuation",
+   "password_unique",
+   "password_length",
+   "password_quantity",
+   "result"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 6083
+ },
+ {
+  "name": "pinyin",
+  "title": "{$Think.config.web.pinyin.title}",
+  "h2": "汉字转为拼音",
+  "desc": "汉字拼音在线转换工具可进行汉字与拼音互转,汉字拼音读音互转,汉字读音查询,可以将汉字转换成拼音及读音,只要在汉字的文本框内输入或粘贴汉字，然后点击转换为拼音或读音的按钮，",
+  "ids": [
+   "content",
+   "hidesel"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/pinyin.js",
+   "/static/script/tool.js",
+   "/static/script/tools-lib.js"
+  ],
+  "size": 3164
+ },
+ {
+  "name": "ports",
+  "title": "{$Think.config.web.ports.title}",
+  "h2": "常见端口大全",
+  "desc": "TCP/UDP常见端口大全为您提供常用端口号在线查询,涵盖HTTP、HTTPS、FTP、SSH、SMTP、MySQL、Redis等常用服务端口及其用途说明,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 8927
+ },
+ {
+  "name": "px2rem",
+  "title": "{$Think.config.web.px2rem.title}",
+  "h2": "rem与px转换工具",
+  "desc": "rem与px转换工具为您提供Px和rem转换工具,rem与px的转换, px与rem转换,px转换rem自适应手机样式,px和rem单位的自动换算,px和rem换算公式,",
+  "ids": [
+   "content",
+   "chkIgnoreBorder",
+   "txtRemIntalize"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5813
+ },
+ {
+  "name": "quanbaojiao",
+  "title": "{$Think.config.web.quanbaojiao.title}",
+  "h2": "全角半角转换",
+  "desc": "全角半角转换器提供全角与半角互转,全角半角转换工具,很方便的将全角字符和半角字符相互切换,全角指一个字符占用两个标准字符位置,半角指一字符占用一个标准的字符位置,全角半角区别",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4069
+ },
+ {
+  "name": "quchong",
+  "title": "{$Think.config.web.quchong.title}",
+  "h2": "内容去重工具",
+  "desc": "在线去重工具为您提供在线去重工具,去重复行,将列表内容放入文本框内，每行一条，点击去重按钮，即可得到无重复数据的列表,可以实现文本txt去重复,js去重复,java数组去重复,.",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 3930
+ },
+ {
+  "name": "rabbitencrypt",
+  "title": "{$Think.config.web.rabbitencrypt.title}",
+  "h2": "Rabbit加密/解密",
+  "desc": "Rabbit加解密工具为您提供Rabbit加解密工具,Rabbit可逆加密算法在线测试,Rabbit算法,可自定义Rabbit加密解密秘钥,实现Rabbit在线加密,",
+  "ids": [
+   "content",
+   "pwd",
+   "conv",
+   "res"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2983
+ },
+ {
+  "name": "random",
+  "title": "{$Think.config.web.random.title}",
+  "h2": "随机数生成器",
+  "desc": "生成指定范围、数量的随机数，支持整数 / 小数 / 随机字符串。",
+  "ids": [
+   "rndMin",
+   "rndMax",
+   "rndCount",
+   "rndType",
+   "rndOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5577
+ },
+ {
+  "name": "rc4encrypt",
+  "title": "{$Think.config.web.rc4encrypt.title}",
+  "h2": "RC4加密/解密",
+  "desc": "RC4加解密工具为您提供RC4加解密工具,RC4可逆加密算法在线测试,RC4算法,可自定义RC4加密解密秘钥,实现RC4在线加密,RC4在线解密,RC4可逆加密解密的在线工具",
+  "ids": [
+   "content",
+   "pwd",
+   "conv",
+   "res"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2960
+ },
+ {
+  "name": "refresh",
+  "title": "{$Think.config.web.refresh.title}",
+  "h2": "在线定时刷新网址",
+  "desc": "在线定时自动刷新网页工具为您提供定时刷新Url,在线定时刷新,定时刷新网址,刷新网址,定时自动刷新网址,可自定义刷新间隔时间,快速增加网站真实PV请求访问等",
+  "ids": [
+   "url",
+   "frequency",
+   "times",
+   "startButton",
+   "endButton"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/reload.js",
+   "/static/script/tool.js"
+  ],
+  "size": 5121
+ },
+ {
+  "name": "regex",
+  "title": "{$Think.config.web.regex.title}",
+  "h2": "正则表达式测试工具",
+  "desc": "正则表达式测试工具为您提供js正则表达式验证,java正则表达式,正则表达式数字,正则表达式验证,正则表达式校验,正则表达式测试工具,可在线自定义正则表达式提取文本内容,",
+  "ids": [
+   "textSource",
+   "textPattern",
+   "optionGlobal",
+   "optionIgnoreCase",
+   "textMatchResult",
+   "textReplace",
+   "textReplaceResult"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/regex.js",
+   "/static/script/tool.js"
+  ],
+  "size": 6163
+ },
+ {
+  "name": "regexcode",
+  "title": "{$Think.config.web.regexcode.title}",
+  "h2": "正则生成代码",
+  "desc": "正则表达式在线代码生成工具为您提供生成js正则表达式代码,生成java正则表达式代码,生成C#正则表达式代码,生成Go正则表达式代码,生成php正则表达式代码,",
+  "ids": [
+   "searchText",
+   "sllanguagelist"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/regexcode.js",
+   "/static/script/tool.js"
+  ],
+  "size": 5361
+ },
+ {
+  "name": "regexdso",
+  "title": "{$Think.config.web.regexdso.title}",
+  "h2": "常用正则表达式",
+  "desc": "常用正则表达式列表为您收集了网址正则表达式,手机号码正则表达式,字母数字正则表达式,字符串处理正则表达式,表单验证正则表达式,验证字符串是否只含数字与英文,正则表达式验证,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/regex.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3900
+ },
+ {
+  "name": "regexsucha",
+  "title": "{$Think.config.web.regexsucha.title}",
+  "h2": "正则表达式语法速查",
+  "desc": "正则表达式语法为您常用正则表达式速查表,正则表达式语法查询,常用正则表达式语法,正则表达式基本语法,子表达式语法,正则表达式修饰符,正则表达式贪婪模式,正则表达式非贪婪模式,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/regex.js",
+   "/static/script/tool.js"
+  ],
+  "size": 11180
+ },
+ {
+  "name": "requestmethod",
+  "title": "{$Think.config.web.requestmethod.title}",
+  "h2": "Request请求大全",
+  "desc": "HTTP Request请求方法对照表大全为您提供http请求方法大全,http请求方法有哪些,http请求method大全,http请求方式,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3050
+ },
+ {
+  "name": "rmbdaxie",
+  "title": "{$Think.config.web.rmbdaxie.title}",
+  "h2": "人民币大写转换工具",
+  "desc": "数字大写在线转换工具:人民币大写在线转换,人民币金额转换,人民币大写在线转换工具,",
+  "ids": [
+   "Digits",
+   "result"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 7113
+ },
+ {
+  "name": "runjs",
+  "title": "{$Think.config.web.runjs.title}",
+  "h2": "运行Js/html/css",
+  "desc": "HTML/CSS/JS在线运行代码工具为您提供在在线执行Js代码工具,网页代码调试器,Html在线预览工具,可以把Html页面代码进行在线调试,在线预览 ,代码编辑器,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2540
+ },
+ {
+  "name": "shaencrypt",
+  "title": "{$Think.config.web.shaencrypt.title}",
+  "h2": "SHA 加密工具",
+  "desc": "支持 SHA1 / SHA256 / SHA512 三种不可逆哈希算法，内容仅在本机浏览器计算，绝不上传服务器。",
+  "ids": [
+   "shaInput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4581
+ },
+ {
+  "name": "shaoshuminzu",
+  "title": "{$Think.config.web.shaoshuminzu.title}",
+  "h2": "全国少数民族分布查询",
+  "desc": "中国少数民族地区分布查询工具为您提供全国少数民族分布表,少数民族,民族分布,民族分布查询,少数民族分布,少数民族地区分布,中国少数民族分布图等查询",
+  "ids": [
+   "keyword"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2888
+ },
+ {
+  "name": "shizhong",
+  "title": "{$Think.config.web.shizhong.title}",
+  "h2": "在线时钟",
+  "desc": "在线时钟为您提供查看现在几点钟,查看当前时、分、秒,当前时间,传统时钟,现在是几点几时几分,星期几,当前日期",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/shizhong.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2609
+ },
+ {
+  "name": "shortcut",
+  "title": "{$Think.config.web.shortcut.title}",
+  "h2": "生成桌面快捷方式",
+  "desc": "将指定网址一键生成 Windows 桌面快捷方式图标文件，无需安装任何软件。",
+  "ids": [
+   "name",
+   "url"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2737
+ },
+ {
+  "name": "shupai",
+  "title": "{$Think.config.web.shupai.title}",
+  "h2": "文字竖排工具",
+  "desc": "文字竖排工具为您提供文章古文排版,传统中文排版,文字竖排工具,支持转为繁字体排版,将要转换文字输入或者直接复制到文本框中,设置好每页的竖行数、行竖行使用的汉字数以及一个边框风格,",
+  "ids": [
+   "srcText",
+   "iS",
+   "iW",
+   "iH",
+   "tarText"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2927
+ },
+ {
+  "name": "sql2java",
+  "title": "{$Think.config.web.sql2java.title}",
+  "h2": "SQL转Java实体类",
+  "desc": "SQL转Java实体类工具为您提供将SQL转为java实体类,mysql数据转Java实体类,oracle转Java实体类,在线SQL生成Java实体类等",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/sql2java.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3229
+ },
+ {
+  "name": "subnetmask",
+  "title": "",
+  "h2": "",
+  "desc": "",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jq-public.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/subnetmask.js",
+   "/static/script/tool.js"
+  ],
+  "size": 25332
+ },
+ {
+  "name": "tesufuhao",
+  "title": "{$Think.config.web.tesufuhao.title}",
+  "h2": "特殊符号大全",
+  "desc": "特殊符号大全为您收集了特殊符号大全,网名符号,表情符号,特殊符号,十二星座符号,笑脸符号,特殊符号,编号序号,数学符号,爱心符号,标点符号,单位符号,货币符号,箭头符号,符号图案,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 10911
+ },
+ {
+  "name": "textdiff",
+  "title": "{$Think.config.web.textdiff.title}",
+  "h2": "文本内容对比",
+  "desc": "在线文本比较工具为您提供实现内容差异比较工具,文本差异比较工具,在线文本比较工具,可用于比对文件内容的差异,对比代码差异的工具等",
+  "ids": [
+   "baseText",
+   "newText"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2660
+ },
+ {
+  "name": "textflip",
+  "title": "{$Think.config.web.textflip.title}",
+  "h2": "文字翻转工具",
+  "desc": "在线文本翻转顺序工具为您提供文本内容在线倒序翻转排列,针对文本内容进行在线翻转排序的功能,支持中英文字,文字倒序排列工具,将一段文字逆序排列,每行倒序或者全文倒序均可,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4597
+ },
+ {
+  "name": "tiaoseban",
+  "title": "{$Think.config.web.tiaoseban.title}",
+  "h2": "在线调色板",
+  "desc": "在线调色板为您提供颜色选择器等,可以快速查找出相应颜色的编码是多少,单击右边的颜色会得到更多的颜色;单击左边的颜色会固定常用的颜色色码;输入框可以自定义颜色,调色板工具,颜色选择器",
+  "ids": [
+   "full"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/colorpicker/spectrum.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2375
+ },
+ {
+  "name": "tripledes",
+  "title": "{$Think.config.web.tripledes.title}",
+  "h2": "TripleDES加密/解密",
+  "desc": "TripleDES加解密工具为您提供TripleDES加解密工具,TripleDES可逆加密算法在线测试,TripleDES算法,可自定义TripleDES加密解密秘钥,",
+  "ids": [
+   "content",
+   "pwd",
+   "conv",
+   "res"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2967
+ },
+ {
+  "name": "tuya",
+  "title": "{$Think.config.web.tuya.title}",
+  "h2": "在线涂鸦画板",
+  "desc": "在线涂鸦画板为您提供在线画画,在线涂鸦,在线画布涂鸦,涂鸦自定义颜色,调色功能,涂鸦颜色选择功能,在这里您可以尽情的发挥您的画画艺术天赋,画出您想要的涂鸦之作,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/huaban/ga.js",
+   "/static/script/huaban/hotkeys.js",
+   "/static/script/huaban/ocanvas.min.js",
+   "/static/script/huaban/zepto.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4671
+ },
+ {
+  "name": "txtcount",
+  "title": "{$Think.config.web.txtcount.title}",
+  "h2": "在线统计字数工具",
+  "desc": "在线字数统计工具为您提供文字个数实时统计,汉字和中文标点算两个字符,数字,空格,英文字母,英文标点算做一个字符,在线字数统计工具,在线字数统计,在线字数统计工具,",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4329
+ },
+ {
+  "name": "txtreplace",
+  "title": "{$Think.config.web.txtreplace.title}",
+  "h2": "文本内容替换",
+  "desc": "批量查找替换文本中的任意字符，如果不想要某个字符，直接替换为空即可；也可自定义替换前后字符，快速完成内容整理。",
+  "ids": [
+   "content",
+   "preplace",
+   "nextplace"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4816
+ },
+ {
+  "name": "unicode",
+  "title": "{$Think.config.web.unicode.title}",
+  "h2": "Unicode / ASCII 转换工具",
+  "desc": "中文与 Unicode（\\uXXXX）、HTML 实体（&#xXXXX; / &#XXXX;）互转，支持任意字符批量转换，全程本地处理。",
+  "ids": [
+   "ucInput",
+   "ucOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5418
+ },
+ {
+  "name": "unixtime",
+  "title": "{$Think.config.web.unixtime.title}",
+  "h2": "Unix 时间戳在线转换",
+  "desc": "Unix 时间戳是从 1970-01-01 00:00:00 UTC 起经过的秒数（毫秒级为毫秒数）。常用于程序开发、日志分析与接口调试。本站转换完全在本地完成。",
+  "ids": [
+   "utTs",
+   "utDate"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5647
+ },
+ {
+  "name": "urlcode",
+  "title": "{$Think.config.web.urlcode.title}",
+  "h2": "URL 编码 / 解码",
+  "desc": "对 URL 参数进行百分号编码或解码，支持中文与特殊字符，全程本地处理。",
+  "ids": [
+   "urlInput",
+   "urlOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 3936
+ },
+ {
+  "name": "urlencode",
+  "title": "{$Think.config.web.urlencode.title}",
+  "h2": "URL 编码/解码",
+  "desc": "URL 编码解码工具，支持 UrlEncode 编码与 UrlDecode 解码，可将汉字与特殊字符转换为 %XX 形式的 URL 编码，也能一键还原为原文。",
+  "ids": [
+   "urlInput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 4548
+ },
+ {
+  "name": "urlthunder",
+  "title": "{$Think.config.web.urlthunder.title}",
+  "h2": "迅雷/快车/旋风 URL 加解密",
+  "desc": "下载地址加解密工具：将普通下载地址加密为迅雷（thunder://）、快车（flashget://）、旋风（qqdl://）专用链接，也支持将三种加密链接解密还原出原始地址。",
+  "ids": [
+   "thunderInput",
+   "thunderXun",
+   "thunderKuai",
+   "thunderXuan"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 86415
+ },
+ {
+  "name": "useragent",
+  "title": "{$Think.config.web.useragent.title}",
+  "h2": "常用User-Agent",
+  "desc": "常见浏览器User-Agent大全为您收集常见常用浏览器User-Agent,提供PC浏览器user-agent,手机浏览器user-agent,360浏览器user-agent,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 13611
+ },
+ {
+  "name": "utf8",
+  "title": "{$Think.config.web.utf8.title}",
+  "h2": "UTF-8 编码转换工具",
+  "desc": "中文与 UTF-8 十六进制字节互转，支持 %XX、\\xXX 等多种输入格式，解决网络传输中的字符乱码问题。",
+  "ids": [
+   "utfInput",
+   "utfOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5777
+ },
+ {
+  "name": "uuid",
+  "title": "{$Think.config.web.uuid.title}",
+  "h2": "UUID 在线生成",
+  "desc": "批量生成符合 RFC 4122 的 UUID v4 通用唯一识别码，支持大小写与数量自定义，全程本地生成。",
+  "ids": [
+   "uuidNum",
+   "uuidCase",
+   "uuidFmt",
+   "uuidOutput"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 5328
+ },
+ {
+  "name": "websocket",
+  "title": "{$Think.config.web.websocket.title}",
+  "h2": "Websocket测试",
+  "desc": "Websocket在线测试工具为您提供Websocket在线检测,在线websocket测试,Websocket在线测试服务端Websocket功能是否可用,",
+  "ids": [
+   "wsaddr",
+   "message"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/websocket.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2833
+ },
+ {
+  "name": "webstatus",
+  "title": "{$Think.config.web.webstatus.title}",
+  "h2": "HTTP状态码查询",
+  "desc": "HTTP状态查询工具为您提供查询页面返回的状态，比如返回404表示页面不存在，返回500表示内部服务出错，返回301表示资源永久性跳转，返回302代表暂时性转移。",
+  "ids": [
+   "url"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 4219
+ },
+ {
+  "name": "wenzitexiao",
+  "title": "{$Think.config.web.wenzitexiao.title}",
+  "h2": "文字特效工具",
+  "desc": "文字特效工具为您提供文字特效工具,彩色汉字特效生成,制作彩色文字生成,文字生成器,特效文字生成,文字特效制作,彩色文字特效,以及制作炫酷彩色Html代码特效",
+  "ids": [
+   "content"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/wenzitexiao.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2820
+ },
+ {
+  "name": "whois",
+  "title": "{$Think.config.web.whois.title}",
+  "h2": "Whois查询工具",
+  "desc": "查询WHOIS信息，查询域名是否已经被注册，以及注册域名的域名持有人，注册商，注册人，域名注册日期和过期日期，DNS等域名的详细信息。通过域名Whois服务器查询，",
+  "ids": [
+   "whois"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 3945
+ },
+ {
+  "name": "worldtime",
+  "title": "{$Think.config.web.worldtime.title}",
+  "h2": "世界各地时间",
+  "desc": "当前世界各地时间工具提供当前世界各地时间,世界时间,世界实时时间,当前世界各地时间是几点,在线世界各地时间查询,世界时差查询,可实时显示当前世界各地的当前时间,",
+  "ids": [],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/tool.js"
+  ],
+  "size": 7114
+ },
+ {
+  "name": "xpath",
+  "title": "{$Think.config.web.xpath.title}",
+  "h2": "Xpath工具",
+  "desc": "Xpath工具为您提供Xpath解析,Xpath在线工具,xpath提取html,xpath定位测试,根据xpath寻找网页图片、html超链接等元素,根据标签名,属性寻找元素,",
+  "ids": [
+   "content",
+   "xpath"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/hightout.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/pcjs/xpath.js",
+   "/static/script/tool.js"
+  ],
+  "size": 2780
+ },
+ {
+  "name": "zipstringtext",
+  "title": "{$Think.config.web.zipstringtext.title}",
+  "h2": "字符串文本压缩工具",
+  "desc": "在线字符串文本压缩工具提供内容去空格,去换行,删空白行,删除回车,去除制表符等",
+  "ids": [
+   "content",
+   "result"
+  ],
+  "scripts": [
+   "/static/script/app.js",
+   "/static/script/bootstrap.min.js",
+   "/static/script/jquery-1.11.3.min.js",
+   "/static/script/toolbox.js"
+  ],
+  "size": 3738
+ }
+]

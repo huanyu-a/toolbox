@@ -1,27 +1,160 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.json.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.json.keywords}" /><meta name="description" content="{$Think.config.web.json.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
-        <h2 class="tool-title"><span class="t-ico">🪄</span>JSON 格式化 / 压缩 / 校验</h2>
-        <p class="tool-desc">粘贴 JSON 内容自动实时格式化，支持压缩与错误定位提示，全程本地解析。</p>
-        <label class="t-label" for="jsonInput">JSON 内容</label>
-        <textarea class="t-area" id="jsonInput" rows="10" placeholder='{"name":"在线工具箱","tools":162}'></textarea>
-        <div class="t-options" style="margin-top:12px">
-            <label><input type="radio" name="jsonMode" value="format" checked> 格式化</label>
-            <label><input type="radio" name="jsonMode" value="compress"> 压缩</label>
-            <label><input type="checkbox" id="jsonSort"> 键名排序</label>
-            <label><input type="checkbox" id="jsonEscape"> 转义为字符串</label>
+        <h2 class="tool-title"><span class="t-ico">🪄</span>JSON 工具箱</h2>
+        <p class="tool-desc">格式化、压缩、校验、转义，以及与 GET 参数、XML、YAML、CSV/Excel、C#、Java、Go 的相互转换。除 YAML 解析与代码生成依赖本地脚本外，其余均为原生实现，数据全程只在浏览器本地处理。</p>
+        <ul class="t-tabs">
+            <li><button type="button" class="t-tab active" data-panel="panel-json-fmt">🪄 格式化/压缩/校验</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-esc">🔐 压缩转义</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-get">🔗 JSON ↔ GET</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-xml">📄 JSON ↔ XML</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-yaml">📋 JSON ↔ YAML</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-csv">📊 JSON ↔ CSV</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-cs">🅒 JSON → C#</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-java">☕ JSON → Java</button></li>
+            <li><button type="button" class="t-tab" data-panel="panel-json-go">🐹 JSON → Go</button></li>
+        </ul>
+        <div class="t-panel-wrap">
+            <div class="t-panel active" id="panel-json-fmt">
+                <label class="t-label" for="fmt-input">JSON 内容</label>
+                <textarea class="t-area" id="fmt-input" rows="8" placeholder='{"name":"在线工具箱","tools":162}'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label><input type="radio" name="fmtMode" value="format" checked> 格式化</label>
+                    <label><input type="radio" name="fmtMode" value="compress"> 压缩</label>
+                    <label><input type="radio" name="fmtMode" value="validate"> 校验</label>
+                    <label><input type="checkbox" id="fmtSort"> 键名排序</label>
+                    <label><input type="checkbox" id="fmtEscape"> 转义为字符串</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="fmtRun">格式化</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#fmt-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="fmtClear">清空</button>
+                </div>
+                <div class="t-result" id="fmt-result"><textarea class="t-area t-area-readonly" id="fmt-output" rows="10" readonly></textarea></div>
+                <div class="t-error" id="fmt-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-esc">
+                <label class="t-label" for="esc-input">输入内容</label>
+                <textarea class="t-area" id="esc-input" rows="8" placeholder='{"name":"在线工具箱","tools":162} 或任意文本'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label><input type="radio" name="escMode" value="compress" checked> JSON 压缩</label>
+                    <label><input type="radio" name="escMode" value="escape"> 转义</label>
+                    <label><input type="radio" name="escMode" value="unescape"> 反转义</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="escRun">处理</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#esc-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="escClear">清空</button>
+                </div>
+                <div class="t-result" id="esc-result"><textarea class="t-area t-area-readonly" id="esc-output" rows="10" readonly></textarea></div>
+                <div class="t-error" id="esc-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-get">
+                <label class="t-label" for="get-input">输入内容</label>
+                <textarea class="t-area" id="get-input" rows="8" placeholder='JSON：{"a":1,"b":{"c":2}} 或 GET：a=1&amp;b.c=2'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label><input type="radio" name="getMode" value="json2get" checked> JSON → GET 参数</label>
+                    <label><input type="radio" name="getMode" value="get2json"> GET 参数 → JSON</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="getRun">转换</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#get-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="getClear">清空</button>
+                </div>
+                <div class="t-result" id="get-result"><textarea class="t-area t-area-readonly" id="get-output" rows="10" readonly></textarea></div>
+                <div class="t-error" id="get-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-xml">
+                <label class="t-label" for="xml-input">输入内容</label>
+                <textarea class="t-area" id="xml-input" rows="8" placeholder='JSON：{"name":"张三","age":30} 或 XML：&lt;root&gt;&lt;name&gt;张三&lt;/name&gt;&lt;/root&gt;'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label><input type="radio" name="xmlMode" value="json2xml" checked> JSON → XML</label>
+                    <label><input type="radio" name="xmlMode" value="xml2json"> XML → JSON</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="xmlRun">转换</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#xml-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="xmlClear">清空</button>
+                </div>
+                <div class="t-result" id="xml-result"><textarea class="t-area t-area-readonly" id="xml-output" rows="10" readonly></textarea></div>
+                <div class="t-error" id="xml-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-yaml">
+                <label class="t-label" for="yaml-input">输入内容</label>
+                <textarea class="t-area" id="yaml-input" rows="8" placeholder='JSON：{"name":"在线工具箱","tools":162} 或 YAML：name: 在线工具箱&#10;tools: 162'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label><input type="radio" name="yamlMode" value="json2yaml" checked> JSON → YAML</label>
+                    <label><input type="radio" name="yamlMode" value="yaml2json"> YAML → JSON</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="yamlRun">转换</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#yaml-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="yamlClear">清空</button>
+                </div>
+                <div class="t-result" id="yaml-result"><textarea class="t-area t-area-readonly" id="yaml-output" rows="10" readonly></textarea></div>
+                <div class="t-error" id="yaml-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-csv">
+                <label class="t-label" for="csv-input">输入内容</label>
+                <textarea class="t-area" id="csv-input" rows="8" placeholder='JSON：[{"name":"张三","age":30},{"name":"李四","age":25}] 或 CSV：name,age&#10;张三,30'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label><input type="radio" name="csvMode" value="json2csv" checked> JSON → CSV</label>
+                    <label><input type="radio" name="csvMode" value="csv2json"> CSV → JSON</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="csvRun">转换</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#csv-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="csvClear">清空</button>
+                </div>
+                <div class="t-result" id="csv-result"><textarea class="t-area t-area-readonly" id="csv-output" rows="10" readonly></textarea></div>
+                <div class="t-error" id="csv-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-cs">
+                <label class="t-label" for="cs-input">JSON 内容</label>
+                <textarea class="t-area" id="cs-input" rows="8" placeholder='{"name":"在线工具箱","tools":162,"sub":{"enabled":true}}'></textarea>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="csRun">生成 C# 实体类</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#cs-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="csClear">清空</button>
+                </div>
+                <div class="t-result" id="cs-result"><textarea class="t-area t-area-readonly" id="cs-output" rows="14" readonly></textarea></div>
+                <div class="t-error" id="cs-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-java">
+                <label class="t-label" for="java-input">JSON 内容</label>
+                <textarea class="t-area" id="java-input" rows="8" placeholder='{"name":"在线工具箱","tools":162,"sub":{"enabled":true}}'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label>类名 <input type="text" class="t-input" id="java-class" value="PcjsonRootBean" style="width:170px"></label>
+                    <label>包名 <input type="text" class="t-input" id="java-pkg" value="pcjson.com.json2bean" style="width:230px"></label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="javaRun">生成 Java 实体类</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#java-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="javaClear">清空</button>
+                </div>
+                <div class="t-result" id="java-result"><textarea class="t-area t-area-readonly" id="java-output" rows="14" readonly></textarea></div>
+                <div class="t-error" id="java-error"></div>
+            </div>
+            <div class="t-panel" id="panel-json-go">
+                <label class="t-label" for="go-input">JSON 内容</label>
+                <textarea class="t-area" id="go-input" rows="8" placeholder='{"name":"在线工具箱","tools":162,"sub":{"enabled":true}}'></textarea>
+                <div class="t-options" style="margin-top:12px">
+                    <label>结构体名 <input type="text" class="t-input" id="go-class" value="AutoGenerated" style="width:170px"></label>
+                    <label><input type="checkbox" id="go-inline" checked> 内联类型定义</label>
+                </div>
+                <div class="tool-actions">
+                    <button class="t-btn" type="button" id="goRun">生成 Go 结构体</button>
+                    <button class="t-btn t-btn-ghost" type="button" data-copy="#go-output">复制结果</button>
+                    <button class="t-btn t-btn-ghost" type="button" id="goClear">清空</button>
+                </div>
+                <div class="t-result" id="go-result"><textarea class="t-area t-area-readonly" id="go-output" rows="14" readonly></textarea></div>
+                <div class="t-error" id="go-error"></div>
+            </div>
         </div>
-        <div class="tool-actions">
-            <button class="t-btn" type="button" id="jsonRun">格式化</button>
-            <button class="t-btn t-btn-ghost" type="button" data-copy="#jsonOutput">复制结果</button>
-            <button class="t-btn t-btn-ghost" type="button" id="jsonClear">清空</button>
-        </div>
-        <div class="t-result" id="jsonResult"><textarea class="t-area t-area-readonly" id="jsonOutput" rows="12" readonly></textarea></div>
-        <div class="t-error" id="jsonError"></div>
     </div>
     <div class="tool-card">
-        <h2 class="tool-title">📖 关于 JSON</h2>
-        <p class="tool-desc">JSON（JavaScript Object Notation）是一种轻量级数据交换格式，广泛用于前后端通信与配置文件。本站的 JSON 工具支持格式化、压缩、键排序、转义，并可准确定位语法错误位置。</p>
+        <h2 class="tool-title">📖 关于 JSON 工具箱</h2>
+        <p class="tool-desc">JSON（JavaScript Object Notation）是一种轻量级数据交换格式，广泛用于前后端通信与配置文件。本页将原独立的 JSON 格式化/校验、压缩转义、JSON 转 GET 参数、JSON↔XML、JSON↔YAML、JSON↔CSV/Excel、JSON 生成 C#/Java 实体类、JSON 生成 Go 结构体等工具合并为一处，便于统一使用。转换过程全部在浏览器本地完成，不会上传任何数据。</p>
     </div>
 </div></div>
 {include file="nav" /}
@@ -30,16 +163,77 @@
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
 <script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script src="/static/script/pcjs/yaml.js"></script>
+<script src="/static/script/pcjs/jscs.js"></script>
+<script src="/static/script/pcjs/tool2java.js"></script>
+<script src="/static/script/pcjs/json2go.js"></script>
+<script src="/static/script/pcjs/gojs.js"></script>
 <script>
 (function () {
-    var input = document.getElementById('jsonInput');
-    var output = document.getElementById('jsonOutput');
-    var result = document.getElementById('jsonResult');
-    var error = document.getElementById('jsonError');
-    function getMode() {
-        var m = document.querySelector('input[name="jsonMode"]:checked');
-        return m ? m.value : 'format';
+    'use strict';
+    function $(id) { return document.getElementById(id); }
+    function radio(name) {
+        var m = document.querySelector('input[name="' + name + '"]:checked');
+        return m ? m.value : '';
     }
+    function hide(resultId, errorId) {
+        $(resultId).classList.remove('show');
+        $(errorId).classList.remove('show');
+    }
+    function showResult(resultId) { $(resultId).classList.add('show'); }
+    function showError(errorId, msg) {
+        var e = $(errorId);
+        e.textContent = msg;
+        e.classList.add('show');
+    }
+    function clearTool(inputId, outputId, resultId, errorId) {
+        $(inputId).value = '';
+        $(outputId).value = '';
+        $(resultId).classList.remove('show');
+        $(errorId).classList.remove('show');
+        $(inputId).focus();
+    }
+    function safeRun(inputId, outputId, resultId, errorId, label, fn) {
+        hide(resultId, errorId);
+        var raw = $(inputId).value.trim();
+        if (!raw) { showError(errorId, '请输入内容'); return; }
+        try {
+            $(outputId).value = fn(raw);
+            showResult(resultId);
+        } catch (e) {
+            showError(errorId, label + '失败：' + ((e && e.message) ? e.message : String(e)));
+        }
+    }
+    var clears = [
+        ['fmt-input', 'fmt-output', 'fmt-result', 'fmt-error'],
+        ['esc-input', 'esc-output', 'esc-result', 'esc-error'],
+        ['get-input', 'get-output', 'get-result', 'get-error'],
+        ['xml-input', 'xml-output', 'xml-result', 'xml-error'],
+        ['yaml-input', 'yaml-output', 'yaml-result', 'yaml-error'],
+        ['csv-input', 'csv-output', 'csv-result', 'csv-error'],
+        ['cs-input', 'cs-output', 'cs-result', 'cs-error'],
+        ['java-input', 'java-output', 'java-result', 'java-error'],
+        ['go-input', 'go-output', 'go-result', 'go-error']
+    ];
+    clears.forEach(function (ids) {
+        var prefix = ids[0].split('-')[0];
+        $(prefix + 'Clear').addEventListener('click', function () {
+            clearTool(ids[0], ids[1], ids[2], ids[3]);
+        });
+    });
+
+    /* ===== Tab 切换 ===== */
+    var tabs = document.querySelectorAll('.t-tab');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            document.querySelectorAll('.t-panel').forEach(function (p) { p.classList.remove('active'); });
+            btn.classList.add('active');
+            $(btn.getAttribute('data-panel')).classList.add('active');
+        });
+    });
+
+    /* ===== 1. 格式化 / 压缩 / 校验 ===== */
     function sortKeys(obj) {
         if (Array.isArray(obj)) return obj.map(sortKeys);
         if (obj && typeof obj === 'object') {
@@ -49,43 +243,227 @@
         }
         return obj;
     }
-    function run() {
-        error.classList.remove('show');
-        result.classList.remove('show');
-        var raw = input.value.trim();
-        if (!raw) { error.textContent = '请输入 JSON 内容'; error.classList.add('show'); return; }
+    function fmtRun() {
+        hide('fmt-result', 'fmt-error');
+        var raw = $('fmt-input').value.trim();
+        if (!raw) { showError('fmt-error', '请输入 JSON 内容'); return; }
         var data;
-        try {
-            data = JSON.parse(raw);
-        } catch (e) {
-            var m = e.message;
-            error.textContent = 'JSON 解析失败：' + m;
-            error.classList.add('show');
-            return;
-        }
-        if (document.getElementById('jsonSort').checked) data = sortKeys(data);
+        try { data = JSON.parse(raw); }
+        catch (e) { showError('fmt-error', 'JSON 解析失败：' + e.message); return; }
+        if ($('fmtSort').checked) data = sortKeys(data);
+        var mode = radio('fmtMode');
         var out;
-        if (getMode() === 'compress') {
+        if (mode === 'validate') {
+            out = 'JSON 校验通过 ✓';
+        } else if (mode === 'compress') {
             out = JSON.stringify(data);
         } else {
             out = JSON.stringify(data, null, 4);
         }
-        if (document.getElementById('jsonEscape').checked) {
-            out = JSON.stringify(out);
-        }
-        output.value = out;
-        result.classList.add('show');
+        if ($('fmtEscape').checked && mode !== 'validate') out = JSON.stringify(out);
+        $('fmt-output').value = out;
+        showResult('fmt-result');
     }
-    document.getElementById('jsonRun').addEventListener('click', run);
-    document.getElementById('jsonClear').addEventListener('click', function () {
-        input.value = ''; output.value = '';
-        error.classList.remove('show'); result.classList.remove('show');
-        input.focus();
+    $('fmtRun').addEventListener('click', fmtRun);
+    var fmtTimer = null;
+    $('fmt-input').addEventListener('input', function () {
+        clearTimeout(fmtTimer);
+        fmtTimer = setTimeout(fmtRun, 500);
     });
-    var timer = null;
-    input.addEventListener('input', function () {
-        clearTimeout(timer);
-        timer = setTimeout(run, 500);
+
+    /* ===== 2. 压缩转义 ===== */
+    $('escRun').addEventListener('click', function () {
+        safeRun('esc-input', 'esc-output', 'esc-result', 'esc-error', '处理', function (raw) {
+            var mode = radio('escMode');
+            if (mode === 'escape') return JSON.stringify(raw);
+            if (mode === 'unescape') return JSON.parse(raw);
+            return JSON.stringify(JSON.parse(raw));
+        });
+    });
+
+    /* ===== 3. JSON ↔ GET ===== */
+    $('getRun').addEventListener('click', function () {
+        safeRun('get-input', 'get-output', 'get-result', 'get-error', '转换', function (raw) {
+            if (radio('getMode') === 'get2json') {
+                var params = new URLSearchParams(raw.replace(/^\?/, ''));
+                var obj = {};
+                params.forEach(function (v, k) { obj[k] = v; });
+                return JSON.stringify(obj, null, 2);
+            }
+            var data = JSON.parse(raw);
+            var qs = new URLSearchParams();
+            (function flat(o, prefix) {
+                Object.keys(o).forEach(function (k) {
+                    var key = prefix ? prefix + '.' + k : k;
+                    var v = o[k];
+                    if (v && typeof v === 'object') flat(v, key);
+                    else qs.append(key, v == null ? '' : String(v));
+                });
+            })(data, '');
+            return qs.toString();
+        });
+    });
+
+    /* ===== 4. JSON ↔ XML ===== */
+    function xmlEsc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function tagName(k) { return String(k).replace(/[^A-Za-z0-9_.-]/g, '_'); }
+    function jsonToXml(data, name) {
+        var tag = tagName(name);
+        if (data && typeof data === 'object') {
+            if (Array.isArray(data)) {
+                var arr = '';
+                data.forEach(function (item) { arr += jsonToXml(item, name); });
+                return arr;
+            }
+            var inner = '';
+            Object.keys(data).forEach(function (k) {
+                var v = data[k];
+                if (v && typeof v === 'object') inner += jsonToXml(v, k);
+                else inner += '<' + tagName(k) + '>' + xmlEsc(v == null ? '' : v) + '</' + tagName(k) + '>';
+            });
+            return '<' + tag + '>' + inner + '</' + tag + '>';
+        }
+        return '<' + tag + '>' + xmlEsc(data == null ? '' : data) + '</' + tag + '>';
+    }
+    function xmlToJson(xmlStr) {
+        var doc = new DOMParser().parseFromString(xmlStr, 'application/xml');
+        if (doc.getElementsByTagName('parsererror').length) throw new Error('XML 解析失败，请检查 XML 格式');
+        function walk(node) {
+            var childEls = [], text = '';
+            for (var i = 0; i < node.childNodes.length; i++) {
+                var n = node.childNodes[i];
+                if (n.nodeType === 1) childEls.push(n);
+                else if (n.nodeType === 3 && n.nodeValue && n.nodeValue.trim()) text += n.nodeValue;
+            }
+            var obj = {};
+            if (node.attributes) {
+                for (var a = 0; a < node.attributes.length; a++) {
+                    obj['@' + node.attributes[a].name] = node.attributes[a].value;
+                }
+            }
+            if (!childEls.length) {
+                if (Object.keys(obj).length) { if (text) obj['#text'] = text; return obj; }
+                return text;
+            }
+            var groups = {};
+            childEls.forEach(function (el) {
+                (groups[el.tagName] = groups[el.tagName] || []).push(walk(el));
+            });
+            Object.keys(groups).forEach(function (tag) {
+                obj[tag] = groups[tag].length === 1 ? groups[tag][0] : groups[tag];
+            });
+            return obj;
+        }
+        return walk(doc.documentElement);
+    }
+    $('xmlRun').addEventListener('click', function () {
+        safeRun('xml-input', 'xml-output', 'xml-result', 'xml-error', '转换', function (raw) {
+            if (radio('xmlMode') === 'xml2json') return JSON.stringify(xmlToJson(raw), null, 2);
+            return '<?xml version="1.0" encoding="UTF-8"?>' + jsonToXml(JSON.parse(raw), 'root');
+        });
+    });
+
+    /* ===== 5. JSON ↔ YAML ===== */
+    $('yamlRun').addEventListener('click', function () {
+        safeRun('yaml-input', 'yaml-output', 'yaml-result', 'yaml-error', '转换', function (raw) {
+            if (radio('yamlMode') === 'yaml2json') return JSON.stringify(YAML.parse(raw), null, 2);
+            return YAML.stringify(JSON.parse(raw));
+        });
+    });
+
+    /* ===== 6. JSON ↔ CSV ===== */
+    function csvCell(v) {
+        v = (v == null) ? '' : String(v);
+        return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+    }
+    function toCsv(rows) {
+        return rows.map(function (r) { return r.map(csvCell).join(','); }).join('\r\n');
+    }
+    function parseCsv(text) {
+        text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        var rows = [], row = [], cell = '', inQ = false;
+        for (var i = 0; i < text.length; i++) {
+            var ch = text.charAt(i);
+            if (inQ) {
+                if (ch === '"') {
+                    if (text.charAt(i + 1) === '"') { cell += '"'; i++; }
+                    else inQ = false;
+                } else cell += ch;
+            } else if (ch === '"') {
+                inQ = true;
+            } else if (ch === ',') {
+                row.push(cell); cell = '';
+            } else if (ch === '\n') {
+                row.push(cell); rows.push(row); row = []; cell = '';
+            } else cell += ch;
+        }
+        if (cell !== '' || row.length) { row.push(cell); rows.push(row); }
+        return rows;
+    }
+    $('csvRun').addEventListener('click', function () {
+        safeRun('csv-input', 'csv-output', 'csv-result', 'csv-error', '转换', function (raw) {
+            if (radio('csvMode') === 'csv2json') {
+                var rows = parseCsv(raw);
+                if (!rows.length) throw new Error('CSV 内容为空');
+                var headers = rows[0];
+                return JSON.stringify(rows.slice(1).map(function (r) {
+                    var o = {};
+                    headers.forEach(function (h, i) { o[h] = (r[i] == null) ? '' : r[i]; });
+                    return o;
+                }), null, 2);
+            }
+            var data = JSON.parse(raw);
+            var arr = Array.isArray(data) ? data : [data];
+            if (!arr.length) throw new Error('JSON 数组为空');
+            var headers2 = [];
+            arr.forEach(function (o) {
+                Object.keys(o).forEach(function (k) { if (headers2.indexOf(k) < 0) headers2.push(k); });
+            });
+            return toCsv([headers2].concat(arr.map(function (o) {
+                return headers2.map(function (h) {
+                    var v = o[h];
+                    return (v && typeof v === 'object') ? JSON.stringify(v) : v;
+                });
+            })));
+        });
+    });
+
+    /* ===== 7. JSON → C# ===== */
+    $('csRun').addEventListener('click', function () {
+        safeRun('cs-input', 'cs-output', 'cs-result', 'cs-error', '生成', function (raw) {
+            JSON2CSharp._allClass = [];
+            return JSON2CSharp.convert(JSON.parse(raw));
+        });
+    });
+
+    /* ===== 8. JSON → Java ===== */
+    $('javaRun').addEventListener('click', function () {
+        safeRun('java-input', 'java-output', 'java-result', 'java-error', '生成', function (raw) {
+            JSON.parse(raw);
+            var className = $('java-class').value.trim() || 'PcjsonRootBean';
+            var pkg = $('java-pkg').value.trim() || 'pcjson.com.json2bean';
+            var beans = getBeanFieldFromJson(raw, className);
+            var parts = [];
+            for (var k in beans) {
+                var b = beans[k];
+                if (b && typeof b === 'object' && b.name) parts.push(toBeanText(b, pkg));
+            }
+            if (!parts.length) throw new Error('未能生成 Java 实体类，请确认 JSON 为对象或数组');
+            return parts.join('\n\n');
+        });
+    });
+
+    /* ===== 9. JSON → Go ===== */
+    $('goRun').addEventListener('click', function () {
+        safeRun('go-input', 'go-output', 'go-result', 'go-error', '生成', function (raw) {
+            var typeName = $('go-class').value.trim() || 'AutoGenerated';
+            var res = jsonToGo(raw, typeName, $('go-inline').checked);
+            if (res && res.error) throw new Error(res.error.message || String(res.error));
+            if (!res || !res.go) throw new Error('未能生成 Go 结构体');
+            return res.go;
+        });
     });
 })();
 </script>

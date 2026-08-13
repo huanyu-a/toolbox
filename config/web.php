@@ -974,5 +974,17 @@ return array (
     'keywords' => 'UBB与HTML互转工具,Html转UBB,Html转UBB,UBB和HTML在线转换工具	',
     'description' => 'UBB与HTML互转工具为您提供在线UBB转为HTML代码,Html转为MarkDown格式,UBB转为Html语言,UBB和Html在线转换,UBB在线转换,Html在线转换工具,UBB转成Html代码,UBB在线转为Html工具,把UBB代码转换成HTML格式的代码/Html代码转换成Ubb论坛格式的代码等	',
   ),
+  'calc' => 
+  array (
+    'title' => '单位换算器,长度面积体积温度时间换算-在线工具箱',
+    'keywords' => '单位换算,长度换算,面积换算,体积换算,温度换算,时间换算,速度换算,压力换算,功率换算,角度换算,数据大小换算',
+    'description' => '在线单位换算器为您提供长度、面积、体积、温度、时间、速度、压力、功率、角度、数据大小、力、热量、密度等 13 类单位在线互转，输入数值自动换算全部单位，全程本地计算。',
+  ),
+  'format' => 
+  array (
+    'title' => '代码格式化工具,在线代码美化排版-在线工具箱',
+    'keywords' => '代码格式化,JS格式化,CSS格式化,HTML格式化,PHP格式化,Java格式化,SQL格式化,Python格式化,代码美化',
+    'description' => '在线代码格式化工具为您提供 C/C++/C#/Java/PHP/Python/Ruby/Perl/VBScript/SQL/XML/CSS/JS/HTML 共 14 种语言的格式化与美化排版，JS/CSS/HTML 支持压缩输出，全程本地处理。',
+  ),
 );
 ?>

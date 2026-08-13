@@ -1,18 +1,45 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.autoformat.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.autoformat.keywords}" /><meta name="description" content="{$Think.config.web.autoformat.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}<style>
+/* 本页专用：一行多列紧凑布局（仅作用于 #autoformatCard，不影响其他工具页） */
+#autoformatCard .af-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+#autoformatCard .af-grid-3 { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+#autoformatCard .af-grid-3 .t-col { flex: 0 1 320px; min-width: 0; }
+#autoformatCard .af-grid-3 .t-col-end { flex: 0 0 auto; }
+#autoformatCard .af-grid .t-label, #autoformatCard .af-grid-3 .t-label { margin-bottom: 6px; }
+/* 修复溢出：全局 textarea/input 无 box-sizing，width:100%+padding 会撑出容器 */
+#autoformatCard .t-area, #autoformatCard .t-input { box-sizing: border-box; max-width: 100%; }
+#autoformatCard .af-grid .t-input, #autoformatCard .af-grid-3 .t-input { width: 100%; }
+#autoformatCard .af-options { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 0; }
+#autoformatCard .t-options { margin-bottom: 10px; }
+@media (max-width: 991px) { #autoformatCard .af-grid { grid-template-columns: repeat(2, 1fr); } }
+/* 手机端：保持两列 + 缩小间距/字号/控件，整体更紧凑 */
+@media (max-width: 767px) {
+    #autoformatCard .af-grid { grid-template-columns: repeat(2, 1fr); gap: 8px 10px; }
+    #autoformatCard .af-grid .t-label, #autoformatCard .af-grid-3 .t-label { margin-bottom: 4px; font-size: 12px; }
+    #autoformatCard .af-options { gap: 8px; }
+    #autoformatCard .t-options { gap: 4px 10px; font-size: 12px; margin-bottom: 8px; }
+    #autoformatCard .t-area { height: 84px; min-height: 84px; }
+    #autoformatCard .af-grid-3 { gap: 8px; align-items: stretch; }
+    #autoformatCard .af-grid-3 .t-col { flex: 1 1 calc(50% - 4px); }
+    #autoformatCard .af-grid-3 .t-col-end { flex: 1 1 100%; }
+    #autoformatCard .af-grid-3 .t-col-end .t-btn { width: 100%; }
+    #autoformatCard .tool-actions { gap: 8px; margin-top: 10px; }
+    #autoformatCard .tool-actions .t-btn { flex: 1 1 calc(50% - 4px); padding: 9px 8px; font-size: 13px; }
+}
+</style></head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
-    <div class="tool-card">
+    <div class="tool-card" id="autoformatCard">
         <h2 class="tool-title"><span class="t-ico">📝</span>文章自动排版</h2>
         <p class="tool-desc">在线自动排版工具为您提供文章一键排版、文章自动排版编辑器，可用于小说、论文排版，支持段前缩进、段间空行、标点转换、简繁转换、行号、查找替换、错别字检查与配置记忆。</p>
         <label class="t-label" for="srcText">待排版文本</label>
-        <textarea class="t-area" id="srcText" name="srcText" rows="12" placeholder="请输入要排版的文本内容（支持直接粘贴网页内容，排版时自动清理HTML标签）"></textarea>
+        <textarea class="t-area" id="srcText" name="srcText" rows="10" placeholder="请输入要排版的文本内容（支持直接粘贴网页内容，排版时自动清理HTML标签）"></textarea>
         <div class="t-options">
             <span class="t-opt">当前字符数：<b id="charCount">0</b></span>
             <span class="t-opt">汉字数：<b id="hanCount">0</b></span>
             <span class="t-opt">行数：<b id="lineCount">0</b></span>
             <span class="t-opt">快捷键：Ctrl+Enter 一键排版 / Shift+Enter 清空</span>
         </div>
-        <div class="t-grid">
+        <div class="af-grid">
             <div class="t-col">
                 <label class="t-label" for="indentType">段前缩进类型</label>
                 <select class="t-input" id="indentType"><option value="0" selected>全角空格（中文习惯）</option><option value="1">半角空格</option><option value="2">Tab 制表符</option></select>
@@ -43,26 +70,24 @@
             </div>
             <div class="t-col">
                 <label class="t-label">其他选项</label>
-                <div class="t-options">
+                <div class="af-options">
                     <label class="t-check"><input type="checkbox" id="lineNo" /> 添加行号</label>
                     <label class="t-check"><input type="checkbox" id="signBr" checked /> 签名前加空行</label>
                 </div>
             </div>
         </div>
-        <div class="t-row">
-            <div class="t-grid">
-                <div class="t-col">
-                    <label class="t-label" for="findStr">查找内容</label>
-                    <input class="t-input" type="text" id="findStr" placeholder="查找内容" />
-                </div>
-                <div class="t-col">
-                    <label class="t-label" for="toStr">替换为</label>
-                    <input class="t-input" type="text" id="toStr" placeholder="替换为" />
-                </div>
-                <div class="t-col t-col-end">
-                    <label class="t-label">&nbsp;</label>
-                    <button class="t-btn t-btn-ok" type="button" id="btnReplace">全部替换</button>
-                </div>
+        <div class="af-grid-3">
+            <div class="t-col">
+                <label class="t-label" for="findStr">查找内容</label>
+                <input class="t-input" type="text" id="findStr" placeholder="查找内容" />
+            </div>
+            <div class="t-col">
+                <label class="t-label" for="toStr">替换为</label>
+                <input class="t-input" type="text" id="toStr" placeholder="替换为" />
+            </div>
+            <div class="t-col t-col-end">
+                <label class="t-label">&nbsp;</label>
+                <button class="t-btn t-btn-ok" type="button" id="btnReplace">全部替换</button>
             </div>
         </div>
         <div class="tool-actions">

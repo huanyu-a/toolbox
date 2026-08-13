@@ -1,29 +1,272 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.htmlescape.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.htmlescape.keywords}" /><meta name="description" content="{$Think.config.web.htmlescape.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
-        <h2 class="tool-title"><span class="t-ico">🏷️</span>HTML 转义工具</h2>
-        <p class="tool-desc">将 HTML 代码转义为安全字符串，或把转义字符串还原为 HTML，防止 XSS 注入、方便代码展示。</p>
-        <div class="t-grid">
-            <div class="t-col">
-                <label class="t-label" for="heInput">HTML 代码 / 转义字符串</label>
-                <textarea class="t-area" id="heInput" rows="8" placeholder="请在输入框粘贴需转换的 HTML 代码…"></textarea>
+        <h2 class="tool-title"><span class="t-ico">🏷️</span>HTML 转义工具 / 特殊字符对照表</h2>
+        <p class="tool-desc">将 HTML 代码转义为安全字符串或还原，防止 XSS 注入、方便代码展示，并附常用 HTML 特殊字符转义对照表。</p>
+        <ul class="t-tabs" id="heTabs">
+            <li><button type="button" class="t-tab active" data-panel="hePanel1">🔧 转义工具</button></li>
+            <li><button type="button" class="t-tab" data-panel="hePanel2">📋 特殊字符对照表</button></li>
+        </ul>
+        <div id="hePanel1" class="t-panel active">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="heInput">HTML 代码 / 转义字符串</label>
+                    <textarea class="t-area" id="heInput" rows="8" placeholder="请在输入框粘贴需转换的 HTML 代码…"></textarea>
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="heOutput">结果</label>
+                    <div class="t-result" id="heResult"><textarea class="t-area t-area-readonly" id="heOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea></div>
+                </div>
             </div>
-            <div class="t-col">
-                <label class="t-label" for="heOutput">结果</label>
-                <textarea class="t-area t-area-readonly" id="heOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+            <div class="tool-actions">
+                <button class="t-btn" type="button" id="heEscape">HTML 转义 →</button>
+                <button class="t-btn t-btn-ok" type="button" id="heUnescape">HTML 反转义 ←</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#heOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="heSwap">⇄ 交换</button>
+                <button class="t-btn t-btn-ghost" type="button" id="heClear">清空</button>
+            </div>
+            <div class="t-error" id="heError"></div>
+        </div>
+        <div id="hePanel2" class="t-panel">
+            <div style="overflow-x:auto">
+                <table class="table table-bordered table-striped" style="margin:0">
+                    <caption>HTML 特殊字符转义对照表（常用）</caption>
+                    <thead><tr><th>字符</th><th>实体名</th><th>十进制</th><th>十六进制</th></tr></thead>
+                    <tbody>
+<tr><td>&quot;</td><td>&amp;quot;</td><td>&amp;#34;</td><td>&#x22;</td></tr>
+<tr><td>&amp;</td><td>&amp;amp;</td><td>&amp;#38;</td><td>&#x26;</td></tr>
+<tr><td>&lt;</td><td>&amp;lt;</td><td>&amp;#60;</td><td>&#x3C;</td></tr>
+<tr><td>à</td><td>&amp;agrave;</td><td>&amp;#224;</td><td>&#xE0;</td></tr>
+<tr><td>&gt;</td><td>&amp;gt;</td><td>&amp;#62;</td><td>&#x3E;</td></tr>
+<tr><td>不断开空格</td><td>&amp;nbsp;</td><td>&amp;#160;</td><td>&#xA0;</td></tr>
+<tr><td>¡</td><td>&amp;iexcl;</td><td>&amp;#161;</td><td>&#xA1;</td></tr>
+<tr><td>Á</td><td>&amp;Aacute;</td><td>&amp;#193;</td><td>&#xC1;</td></tr>
+<tr><td>á</td><td>&amp;aacute;</td><td>&amp;#225;</td><td>&#xE1;</td></tr>
+<tr><td>â</td><td>&amp;acirc;</td><td>&amp;#226;</td><td>&#xE2;</td></tr>
+<tr><td>¢</td><td>&amp;cent;</td><td>&amp;#162;</td><td>&#xA2;</td></tr>
+<tr><td>Â</td><td>&amp;Acirc;</td><td>&amp;#194;</td><td>&#xC2;</td></tr>
+<tr><td>£</td><td>&amp;pound;</td><td>&amp;#163;</td><td>&#xA3;</td></tr>
+<tr><td>Ã</td><td>&amp;Atilde;</td><td>&amp;#195;</td><td>&#xC3;</td></tr>
+<tr><td>ã</td><td>&amp;atilde;</td><td>&amp;#227;</td><td>&#xE3;</td></tr>
+<tr><td>ä</td><td>&amp;auml;</td><td>&amp;#228;</td><td>&#xE4;</td></tr>
+<tr><td>¤</td><td>&amp;curren;</td><td>&amp;#164;</td><td>&#xA4;</td></tr>
+<tr><td>Ä</td><td>&amp;Auml;</td><td>&amp;#196;</td><td>&#xC4;</td></tr>
+<tr><td>¥</td><td>&amp;yen;</td><td>&amp;#165;</td><td>&#xA5;</td></tr>
+<tr><td>Å</td><td>&amp;Aring;</td><td>&amp;#197;</td><td>&#xC5;</td></tr>
+<tr><td>å</td><td>&amp;aring;</td><td>&amp;#229;</td><td>&#xE5;</td></tr>
+<tr><td>æ</td><td>&amp;aelig;</td><td>&amp;#230;</td><td>&#xE6;</td></tr>
+<tr><td>¦</td><td>&amp;brvbar;</td><td>&amp;#166;</td><td>&#xA6;</td></tr>
+<tr><td>Æ</td><td>&amp;AElig;</td><td>&amp;#198;</td><td>&#xC6;</td></tr>
+<tr><td>§</td><td>&amp;sect;</td><td>&amp;#167;</td><td>&#xA7;</td></tr>
+<tr><td>Ç</td><td>&amp;Ccedil;</td><td>&amp;#199;</td><td>&#xC7;</td></tr>
+<tr><td>ç</td><td>&amp;ccedil;</td><td>&amp;#231;</td><td>&#xE7;</td></tr>
+<tr><td>è</td><td>&amp;egrave;</td><td>&amp;#232;</td><td>&#xE8;</td></tr>
+<tr><td>¨</td><td>&amp;uml;</td><td>&amp;#168;</td><td>&#xA8;</td></tr>
+<tr><td>È</td><td>&amp;Egrave;</td><td>&amp;#200;</td><td>&#xC8;</td></tr>
+<tr><td>é</td><td>&amp;eacute;</td><td>&amp;#233;</td><td>&#xE9;</td></tr>
+<tr><td>©</td><td>&amp;copy;</td><td>&amp;#169;</td><td>&#xA9;</td></tr>
+<tr><td>É</td><td>&amp;Eacute;</td><td>&amp;#201;</td><td>&#xC9;</td></tr>
+<tr><td>ê</td><td>&amp;ecirc;</td><td>&amp;#234;</td><td>&#xEA;</td></tr>
+<tr><td>ª</td><td>&amp;ordf;</td><td>&amp;#170;</td><td>&#xAA;</td></tr>
+<tr><td>Ê</td><td>&amp;Ecirc;</td><td>&amp;#202;</td><td>&#xCA;</td></tr>
+<tr><td>«</td><td>&amp;laquo;</td><td>&amp;#171;</td><td>&#xAB;</td></tr>
+<tr><td>Ë</td><td>&amp;Euml;</td><td>&amp;#203;</td><td>&#xCB;</td></tr>
+<tr><td>ë</td><td>&amp;euml;</td><td>&amp;#235;</td><td>&#xEB;</td></tr>
+<tr><td>ì</td><td>&amp;igrave;</td><td>&amp;#236;</td><td>&#xEC;</td></tr>
+<tr><td>¬</td><td>&amp;not;</td><td>&amp;#172;</td><td>&#xAC;</td></tr>
+<tr><td>Ì</td><td>&amp;Igrave;</td><td>&amp;#204;</td><td>&#xCC;</td></tr>
+<tr><td>­</td><td>&amp;shy;</td><td>&amp;#173;</td><td>&#xAD;</td></tr>
+<tr><td>Í</td><td>&amp;Iacute;</td><td>&amp;#205;</td><td>&#xCD;</td></tr>
+<tr><td>í</td><td>&amp;iacute;</td><td>&amp;#237;</td><td>&#xED;</td></tr>
+<tr><td>î</td><td>&amp;icirc;</td><td>&amp;#238;</td><td>&#xEE;</td></tr>
+<tr><td>®</td><td>&amp;reg;</td><td>&amp;#174;</td><td>&#xAE;</td></tr>
+<tr><td>Î</td><td>&amp;Icirc;</td><td>&amp;#206;</td><td>&#xCE;</td></tr>
+<tr><td>¯</td><td>&amp;macr;</td><td>&amp;#175;</td><td>&#xAF;</td></tr>
+<tr><td>Ï</td><td>&amp;Iuml;</td><td>&amp;#207;</td><td>&#xCF;</td></tr>
+<tr><td>ï</td><td>&amp;iuml;</td><td>&amp;#239;</td><td>&#xEF;</td></tr>
+<tr><td>ð</td><td>&amp;eth;</td><td>&amp;#240;</td><td>&#xF0;</td></tr>
+<tr><td>°</td><td>&amp;deg;</td><td>&amp;#176;</td><td>&#xB0;</td></tr>
+<tr><td>Ð</td><td>&amp;ETH;</td><td>&amp;#208;</td><td>&#xD0;</td></tr>
+<tr><td>±</td><td>&amp;plusmn;</td><td>&amp;#177;</td><td>&#xB1;</td></tr>
+<tr><td>Ñ</td><td>&amp;Ntilde;</td><td>&amp;#209;</td><td>&#xD1;</td></tr>
+<tr><td>ñ</td><td>&amp;ntilde;</td><td>&amp;#241;</td><td>&#xF1;</td></tr>
+<tr><td>ò</td><td>&amp;ograve;</td><td>&amp;#242;</td><td>&#xF2;</td></tr>
+<tr><td>²</td><td>&amp;sup2;</td><td>&amp;#178;</td><td>&#xB2;</td></tr>
+<tr><td>Ò</td><td>&amp;Ograve;</td><td>&amp;#210;</td><td>&#xD2;</td></tr>
+<tr><td>³</td><td>&amp;sup3;</td><td>&amp;#179;</td><td>&#xB3;</td></tr>
+<tr><td>Ó</td><td>&amp;Oacute;</td><td>&amp;#211;</td><td>&#xD3;</td></tr>
+<tr><td>ó</td><td>&amp;oacute;</td><td>&amp;#243;</td><td>&#xF3;</td></tr>
+<tr><td>ô</td><td>&amp;ocirc;</td><td>&amp;#244;</td><td>&#xF4;</td></tr>
+<tr><td>´</td><td>&amp;acute;</td><td>&amp;#180;</td><td>&#xB4;</td></tr>
+<tr><td>Ô</td><td>&amp;Ocirc;</td><td>&amp;#212;</td><td>&#xD4;</td></tr>
+<tr><td>µ</td><td>&amp;micro;</td><td>&amp;#181;</td><td>&#xB5;</td></tr>
+<tr><td>Õ</td><td>&amp;Otilde;</td><td>&amp;#213;</td><td>&#xD5;</td></tr>
+<tr><td>õ</td><td>&amp;otilde;</td><td>&amp;#245;</td><td>&#xF5;</td></tr>
+<tr><td>ö</td><td>&amp;ouml;</td><td>&amp;#246;</td><td>&#xF6;</td></tr>
+<tr><td>¶</td><td>&amp;para;</td><td>&amp;#182;</td><td>&#xB6;</td></tr>
+<tr><td>Ö</td><td>&amp;Ouml;</td><td>&amp;#214;</td><td>&#xD6;</td></tr>
+<tr><td>·</td><td>&amp;middot;</td><td>&amp;#183;</td><td>&#xB7;</td></tr>
+<tr><td>×</td><td>&amp;times;</td><td>&amp;#215;</td><td>&#xD7;</td></tr>
+<tr><td>÷</td><td>&amp;divide;</td><td>&amp;#247;</td><td>&#xF7;</td></tr>
+<tr><td>ø</td><td>&amp;oslash;</td><td>&amp;#248;</td><td>&#xF8;</td></tr>
+<tr><td>¸</td><td>&amp;cedil;</td><td>&amp;#184;</td><td>&#xB8;</td></tr>
+<tr><td>Ø</td><td>&amp;Oslash;</td><td>&amp;#216;</td><td>&#xD8;</td></tr>
+<tr><td>¹</td><td>&amp;sup1;</td><td>&amp;#185;</td><td>&#xB9;</td></tr>
+<tr><td>Ù</td><td>&amp;Ugrave;</td><td>&amp;#217;</td><td>&#xD9;</td></tr>
+<tr><td>ù</td><td>&amp;ugrave;</td><td>&amp;#249;</td><td>&#xF9;</td></tr>
+<tr><td>ú</td><td>&amp;uacute;</td><td>&amp;#250;</td><td>&#xFA;</td></tr>
+<tr><td>º</td><td>&amp;ordm;</td><td>&amp;#186;</td><td>&#xBA;</td></tr>
+<tr><td>Ú</td><td>&amp;Uacute;</td><td>&amp;#218;</td><td>&#xDA;</td></tr>
+<tr><td>»</td><td>&amp;raquo;</td><td>&amp;#187;</td><td>&#xBB;</td></tr>
+<tr><td>Û</td><td>&amp;Ucirc;</td><td>&amp;#219;</td><td>&#xDB;</td></tr>
+<tr><td>û</td><td>&amp;ucirc;</td><td>&amp;#251;</td><td>&#xFB;</td></tr>
+<tr><td>ü</td><td>&amp;uuml;</td><td>&amp;#252;</td><td>&#xFC;</td></tr>
+<tr><td>¼</td><td>&amp;frac14;</td><td>&amp;#188;</td><td>&#xBC;</td></tr>
+<tr><td>Ü</td><td>&amp;Uuml;</td><td>&amp;#220;</td><td>&#xDC;</td></tr>
+<tr><td>½</td><td>&amp;frac12;</td><td>&amp;#189;</td><td>&#xBD;</td></tr>
+<tr><td>Ý</td><td>&amp;Yacute;</td><td>&amp;#221;</td><td>&#xDD;</td></tr>
+<tr><td>¾</td><td>&amp;frac34;</td><td>&amp;#190;</td><td>&#xBE;</td></tr>
+<tr><td>Þ</td><td>&amp;THORN;</td><td>&amp;#222;</td><td>&#xDE;</td></tr>
+<tr><td>þ</td><td>&amp;thorn;</td><td>&amp;#254;</td><td>&#xFE;</td></tr>
+<tr><td>ý</td><td>&amp;yacute;</td><td>&amp;#253;</td><td>&#xFD;</td></tr>
+<tr><td>¿</td><td>&amp;iquest;</td><td>&amp;#191;</td><td>&#xBF;</td></tr>
+<tr><td>ß</td><td>&amp;szlig;</td><td>&amp;#223;</td><td>&#xDF;</td></tr>
+<tr><td>À</td><td>&amp;Agrave;</td><td>&amp;#192;</td><td>&#xC0;</td></tr>
+<tr><td>ÿ</td><td>&amp;yuml;</td><td>&amp;#255;</td><td>&#xFF;</td></tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped" style="margin:10px 0 0">
+                    <caption>特殊符号对照表（希腊字母 / 数学符号 / 箭头）</caption>
+                    <thead><tr><th>字符</th><th>实体名</th><th>十进制</th><th>十六进制</th></tr></thead>
+                    <tbody>
+<tr><td>Α</td><td>&amp;Alpha;</td><td>&amp;#913;</td><td>&#x391;</td></tr>
+<tr><td>Β</td><td>&amp;Beta;</td><td>&amp;#914;</td><td>&#x392;</td></tr>
+<tr><td>Γ</td><td>&amp;Gamma;</td><td>&amp;#915;</td><td>&#x393;</td></tr>
+<tr><td>Δ</td><td>&amp;Delta;</td><td>&amp;#916;</td><td>&#x394;</td></tr>
+<tr><td>Ε</td><td>&amp;Epsilon;</td><td>&amp;#917;</td><td>&#x395;</td></tr>
+<tr><td>Ζ</td><td>&amp;Zeta;</td><td>&amp;#918;</td><td>&#x396;</td></tr>
+<tr><td>Η</td><td>&amp;Eta;</td><td>&amp;#919;</td><td>&#x397;</td></tr>
+<tr><td>Θ</td><td>&amp;Theta;</td><td>&amp;#920;</td><td>&#x398;</td></tr>
+<tr><td>Ι</td><td>&amp;Iota;</td><td>&amp;#921;</td><td>&#x399;</td></tr>
+<tr><td>Κ</td><td>&amp;Kappa;</td><td>&amp;#922;</td><td>&#x39A;</td></tr>
+<tr><td>Λ</td><td>&amp;Lambda;</td><td>&amp;#923;</td><td>&#x39B;</td></tr>
+<tr><td>Μ</td><td>&amp;Mu;</td><td>&amp;#924;</td><td>&#x39C;</td></tr>
+<tr><td>Ν</td><td>&amp;Nu;</td><td>&amp;#925;</td><td>&#x39D;</td></tr>
+<tr><td>Ξ</td><td>&amp;Xi;</td><td>&amp;#926;</td><td>&#x39E;</td></tr>
+<tr><td>Ο</td><td>&amp;Omicron;</td><td>&amp;#927;</td><td>&#x39F;</td></tr>
+<tr><td>Π</td><td>&amp;Pi;</td><td>&amp;#928;</td><td>&#x3A0;</td></tr>
+<tr><td>Ρ</td><td>&amp;Rho;</td><td>&amp;#929;</td><td>&#x3A1;</td></tr>
+<tr><td>Σ</td><td>&amp;Sigma;</td><td>&amp;#931;</td><td>&#x3A3;</td></tr>
+<tr><td>Τ</td><td>&amp;Tau;</td><td>&amp;#932;</td><td>&#x3A4;</td></tr>
+<tr><td>Υ</td><td>&amp;Upsilon;</td><td>&amp;#933;</td><td>&#x3A5;</td></tr>
+<tr><td>Φ</td><td>&amp;Phi;</td><td>&amp;#934;</td><td>&#x3A6;</td></tr>
+<tr><td>Χ</td><td>&amp;Chi;</td><td>&amp;#935;</td><td>&#x3A7;</td></tr>
+<tr><td>Ψ</td><td>&amp;Psi;</td><td>&amp;#936;</td><td>&#x3A8;</td></tr>
+<tr><td>Ω</td><td>&amp;Omega;</td><td>&amp;#937;</td><td>&#x3A9;</td></tr>
+<tr><td>α</td><td>&amp;alpha;</td><td>&amp;#945;</td><td>&#x3B1;</td></tr>
+<tr><td>β</td><td>&amp;beta;</td><td>&amp;#946;</td><td>&#x3B2;</td></tr>
+<tr><td>γ</td><td>&amp;gamma;</td><td>&amp;#947;</td><td>&#x3B3;</td></tr>
+<tr><td>δ</td><td>&amp;delta;</td><td>&amp;#948;</td><td>&#x3B4;</td></tr>
+<tr><td>ε</td><td>&amp;epsilon;</td><td>&amp;#949;</td><td>&#x3B5;</td></tr>
+<tr><td>ζ</td><td>&amp;zeta;</td><td>&amp;#950;</td><td>&#x3B6;</td></tr>
+<tr><td>η</td><td>&amp;eta;</td><td>&amp;#951;</td><td>&#x3B7;</td></tr>
+<tr><td>θ</td><td>&amp;theta;</td><td>&amp;#952;</td><td>&#x3B8;</td></tr>
+<tr><td>ι</td><td>&amp;iota;</td><td>&amp;#953;</td><td>&#x3B9;</td></tr>
+<tr><td>κ</td><td>&amp;kappa;</td><td>&amp;#954;</td><td>&#x3BA;</td></tr>
+<tr><td>λ</td><td>&amp;lambda;</td><td>&amp;#955;</td><td>&#x3BB;</td></tr>
+<tr><td>μ</td><td>&amp;mu;</td><td>&amp;#956;</td><td>&#x3BC;</td></tr>
+<tr><td>ν</td><td>&amp;nu;</td><td>&amp;#957;</td><td>&#x3BD;</td></tr>
+<tr><td>ξ</td><td>&amp;xi;</td><td>&amp;#958;</td><td>&#x3BE;</td></tr>
+<tr><td>ο</td><td>&amp;omicron;</td><td>&amp;#959;</td><td>&#x3BF;</td></tr>
+<tr><td>π</td><td>&amp;pi;</td><td>&amp;#960;</td><td>&#x3C0;</td></tr>
+<tr><td>ρ</td><td>&amp;rho;</td><td>&amp;#961;</td><td>&#x3C1;</td></tr>
+<tr><td>ς</td><td>&amp;sigmaf;</td><td>&amp;#962;</td><td>&#x3C2;</td></tr>
+<tr><td>σ</td><td>&amp;sigma;</td><td>&amp;#963;</td><td>&#x3C3;</td></tr>
+<tr><td>τ</td><td>&amp;tau;</td><td>&amp;#964;</td><td>&#x3C4;</td></tr>
+<tr><td>υ</td><td>&amp;upsilon;</td><td>&amp;#965;</td><td>&#x3C5;</td></tr>
+<tr><td>φ</td><td>&amp;phi;</td><td>&amp;#966;</td><td>&#x3C6;</td></tr>
+<tr><td>χ</td><td>&amp;chi;</td><td>&amp;#967;</td><td>&#x3C7;</td></tr>
+<tr><td>ψ</td><td>&amp;psi;</td><td>&amp;#968;</td><td>&#x3C8;</td></tr>
+<tr><td>ω</td><td>&amp;omega;</td><td>&amp;#969;</td><td>&#x3C9;</td></tr>
+<tr><td>ϑ</td><td>&amp;thetasym;</td><td>&amp;#977;</td><td>&#x3D1;</td></tr>
+<tr><td>ϒ</td><td>&amp;upsih;</td><td>&amp;#978;</td><td>&#x3D2;</td></tr>
+<tr><td>ϖ</td><td>&amp;piv;</td><td>&amp;#982;</td><td>&#x3D6;</td></tr>
+<tr><td>•</td><td>&amp;bull;</td><td>&amp;#8226;</td><td>&#x2022;</td></tr>
+<tr><td>…</td><td>&amp;hellip;</td><td>&amp;#8230;</td><td>&#x2026;</td></tr>
+<tr><td>′</td><td>&amp;prime;</td><td>&amp;#8242;</td><td>&#x2032;</td></tr>
+<tr><td>″</td><td>&amp;Prime;</td><td>&amp;#8243;</td><td>&#x2033;</td></tr>
+<tr><td>‾</td><td>&amp;oline;</td><td>&amp;#8254;</td><td>&#x203E;</td></tr>
+<tr><td>⁄</td><td>&amp;frasl;</td><td>&amp;#8260;</td><td>&#x2044;</td></tr>
+<tr><td>℘</td><td>&amp;weierp;</td><td>&amp;#8472;</td><td>&#x2118;</td></tr>
+<tr><td>ℑ</td><td>&amp;image;</td><td>&amp;#8465;</td><td>&#x2111;</td></tr>
+<tr><td>ℜ</td><td>&amp;real;</td><td>&amp;#8476;</td><td>&#x211C;</td></tr>
+<tr><td>™</td><td>&amp;trade;</td><td>&amp;#8482;</td><td>&#x2122;</td></tr>
+<tr><td>ℵ</td><td>&amp;alefsym;</td><td>&amp;#8501;</td><td>&#x2135;</td></tr>
+<tr><td>←</td><td>&amp;larr;</td><td>&amp;#8592;</td><td>&#x2190;</td></tr>
+<tr><td>↑</td><td>&amp;uarr;</td><td>&amp;#8593;</td><td>&#x2191;</td></tr>
+<tr><td>→</td><td>&amp;rarr;</td><td>&amp;#8594;</td><td>&#x2192;</td></tr>
+<tr><td>↓</td><td>&amp;darr;</td><td>&amp;#8595;</td><td>&#x2193;</td></tr>
+<tr><td>↔</td><td>&amp;harr;</td><td>&amp;#8596;</td><td>&#x2194;</td></tr>
+<tr><td>↵</td><td>&amp;crarr;</td><td>&amp;#8629;</td><td>&#x21B5;</td></tr>
+<tr><td>⇐</td><td>&amp;lArr;</td><td>&amp;#8656;</td><td>&#x21D0;</td></tr>
+<tr><td>⇑</td><td>&amp;uArr;</td><td>&amp;#8657;</td><td>&#x21D1;</td></tr>
+<tr><td>⇒</td><td>&amp;rArr;</td><td>&amp;#8658;</td><td>&#x21D2;</td></tr>
+<tr><td>⇓</td><td>&amp;dArr;</td><td>&amp;#8659;</td><td>&#x21D3;</td></tr>
+<tr><td>⇔</td><td>&amp;hArr;</td><td>&amp;#8660;</td><td>&#x21D4;</td></tr>
+<tr><td>∀</td><td>&amp;forall;</td><td>&amp;#8704;</td><td>&#x2200;</td></tr>
+<tr><td>∂</td><td>&amp;part;</td><td>&amp;#8706;</td><td>&#x2202;</td></tr>
+<tr><td>∃</td><td>&amp;exist;</td><td>&amp;#8707;</td><td>&#x2203;</td></tr>
+<tr><td>∅</td><td>&amp;empty;</td><td>&amp;#8709;</td><td>&#x2205;</td></tr>
+<tr><td>∇</td><td>&amp;nabla;</td><td>&amp;#8711;</td><td>&#x2207;</td></tr>
+<tr><td>∈</td><td>&amp;isin;</td><td>&amp;#8712;</td><td>&#x2208;</td></tr>
+<tr><td>∉</td><td>&amp;notin;</td><td>&amp;#8713;</td><td>&#x2209;</td></tr>
+<tr><td>∋</td><td>&amp;ni;</td><td>&amp;#8715;</td><td>&#x220B;</td></tr>
+<tr><td>∏</td><td>&amp;prod;</td><td>&amp;#8719;</td><td>&#x220F;</td></tr>
+<tr><td>∑</td><td>&amp;sum;</td><td>&amp;#8721;</td><td>&#x2211;</td></tr>
+<tr><td>−</td><td>&amp;minus;</td><td>&amp;#8722;</td><td>&#x2212;</td></tr>
+<tr><td>∗</td><td>&amp;lowast;</td><td>&amp;#8727;</td><td>&#x2217;</td></tr>
+<tr><td>√</td><td>&amp;radic;</td><td>&amp;#8730;</td><td>&#x221A;</td></tr>
+<tr><td>∝</td><td>&amp;prop;</td><td>&amp;#8733;</td><td>&#x221D;</td></tr>
+<tr><td>∞</td><td>&amp;infin;</td><td>&amp;#8734;</td><td>&#x221E;</td></tr>
+<tr><td>∠</td><td>&amp;ang;</td><td>&amp;#8736;</td><td>&#x2220;</td></tr>
+<tr><td>∧</td><td>&amp;and;</td><td>&amp;#8743;</td><td>&#x2227;</td></tr>
+<tr><td>∨</td><td>&amp;or;</td><td>&amp;#8744;</td><td>&#x2228;</td></tr>
+<tr><td>∩</td><td>&amp;cap;</td><td>&amp;#8745;</td><td>&#x2229;</td></tr>
+<tr><td>∪</td><td>&amp;cup;</td><td>&amp;#8746;</td><td>&#x222A;</td></tr>
+<tr><td>∫</td><td>&amp;int;</td><td>&amp;#8747;</td><td>&#x222B;</td></tr>
+<tr><td>∴</td><td>&amp;there4;</td><td>&amp;#8756;</td><td>&#x2234;</td></tr>
+<tr><td>∼</td><td>&amp;sim;</td><td>&amp;#8764;</td><td>&#x223C;</td></tr>
+<tr><td>≅</td><td>&amp;cong;</td><td>&amp;#8773;</td><td>&#x2245;</td></tr>
+<tr><td>≈</td><td>&amp;asymp;</td><td>&amp;#8773;</td><td>&#x2245;</td></tr>
+<tr><td>≠</td><td>&amp;ne;</td><td>&amp;#8800;</td><td>&#x2260;</td></tr>
+<tr><td>≡</td><td>&amp;equiv;</td><td>&amp;#8801;</td><td>&#x2261;</td></tr>
+<tr><td>≤</td><td>&amp;le;</td><td>&amp;#8804;</td><td>&#x2264;</td></tr>
+<tr><td>≥</td><td>&amp;ge;</td><td>&amp;#8805;</td><td>&#x2265;</td></tr>
+<tr><td>⊂</td><td>&amp;sub;</td><td>&amp;#8834;</td><td>&#x2282;</td></tr>
+<tr><td>⊃</td><td>&amp;sup;</td><td>&amp;#8835;</td><td>&#x2283;</td></tr>
+<tr><td>⊄</td><td>&amp;nsub;</td><td>&amp;#8836;</td><td>&#x2284;</td></tr>
+<tr><td>⊆</td><td>&amp;sube;</td><td>&amp;#8838;</td><td>&#x2286;</td></tr>
+<tr><td>⊇</td><td>&amp;supe;</td><td>&amp;#8839;</td><td>&#x2287;</td></tr>
+<tr><td>⊕</td><td>&amp;oplus;</td><td>&amp;#8853;</td><td>&#x2295;</td></tr>
+<tr><td>⊗</td><td>&amp;otimes;</td><td>&amp;#8855;</td><td>&#x2297;</td></tr>
+<tr><td>⊥</td><td>&amp;perp;</td><td>&amp;#8869;</td><td>&#x22A5;</td></tr>
+<tr><td>⋅</td><td>&amp;sdot;</td><td>&amp;#8901;</td><td>&#x22C5;</td></tr>
+<tr><td>⌈</td><td>&amp;lceil;</td><td>&amp;#8968;</td><td>&#x2308;</td></tr>
+<tr><td>⌉</td><td>&amp;rceil;</td><td>&amp;#8969;</td><td>&#x2309;</td></tr>
+<tr><td>⌊</td><td>&amp;lfloor;</td><td>&amp;#8970;</td><td>&#x230A;</td></tr>
+<tr><td>⌋</td><td>&amp;rfloor;</td><td>&amp;#8971;</td><td>&#x230B;</td></tr>
+<tr><td>◊</td><td>&amp;loz;</td><td>&amp;#9674;</td><td>&#x25CA;</td></tr>
+<tr><td>♠</td><td>&amp;spades;</td><td>&amp;#9824;</td><td>&#x2660;</td></tr>
+<tr><td>♣</td><td>&amp;clubs;</td><td>&amp;#9827;</td><td>&#x2663;</td></tr>
+<tr><td>♥</td><td>&amp;hearts;</td><td>&amp;#9829;</td><td>&#x2665;</td></tr>
+<tr><td>♦</td><td>&amp;diams;</td><td>&amp;#9830;</td><td>&#x2666;</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="tool-actions">
-            <button class="t-btn" type="button" id="heEscape">HTML 转义 →</button>
-            <button class="t-btn t-btn-ok" type="button" id="heUnescape">HTML 反转义 ←</button>
-            <button class="t-btn t-btn-ghost" type="button" data-copy="#heOutput">复制结果</button>
-            <button class="t-btn t-btn-ghost" type="button" id="heSwap">⇄ 交换</button>
-            <button class="t-btn t-btn-ghost" type="button" id="heClear">清空</button>
-        </div>
-        <div class="t-error" id="heError"></div>
     </div>
     <div class="tool-card">
-        <h2 class="tool-title">📖 关于 HTML 转义</h2>
+        <h2 class="tool-title"><span class="t-ico">📖</span>关于 HTML 转义</h2>
         <p class="tool-desc">HTML 转义会将 &lt; &gt; &amp; &quot; &#39; 等特殊字符替换为对应的 HTML 实体，常用于在网页中安全展示代码片段、防止脚本注入。反转义则将其还原为原始字符。本站转换完全在本地完成，不会上传内容。</p>
     </div>
 </div></div>
@@ -35,8 +278,19 @@
 <script src="/static/script/app.js" type="text/javascript"></script>
 <script>
 (function () {
+    var tabs = document.querySelectorAll('#heTabs .t-tab');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            document.querySelectorAll('.tool-card .t-panel').forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
     var input = document.getElementById('heInput');
     var output = document.getElementById('heOutput');
+    var result = document.getElementById('heResult');
     var error = document.getElementById('heError');
     function showErr(m) { error.textContent = m; error.classList.add('show'); }
     function hideErr() { error.classList.remove('show'); }
@@ -47,21 +301,19 @@
         doc.body.innerHTML = s;
         return doc.body.textContent || '';
     }
-    document.getElementById('heEscape').addEventListener('click', function () {
+    function run(fn, emptyMsg) {
         hideErr();
-        if (!input.value) { showErr('请输入要转义的 HTML 代码'); return; }
-        output.value = escapeHtml(input.value);
-    });
-    document.getElementById('heUnescape').addEventListener('click', function () {
-        hideErr();
-        if (!input.value) { showErr('请输入要反转义的字符串'); return; }
-        output.value = unescapeHtml(input.value);
-    });
+        if (!input.value) { showErr(emptyMsg); return; }
+        output.value = fn(input.value);
+        result.classList.add('show');
+    }
+    document.getElementById('heEscape').addEventListener('click', function () { run(escapeHtml, '请输入要转义的 HTML 代码'); });
+    document.getElementById('heUnescape').addEventListener('click', function () { run(unescapeHtml, '请输入要反转义的字符串'); });
     document.getElementById('heSwap').addEventListener('click', function () {
         var t = input.value; input.value = output.value; output.value = t;
     });
     document.getElementById('heClear').addEventListener('click', function () {
-        input.value = ''; output.value = ''; hideErr(); input.focus();
+        input.value = ''; output.value = ''; result.classList.remove('show'); hideErr(); input.focus();
     });
 })();
 </script>

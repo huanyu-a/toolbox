@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.textflip.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.textflip.keywords}" /><meta name="description" content="{$Think.config.web.textflip.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap">
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico">🔄</span>文字翻转工具</h2>
         <p class="tool-desc">在线文本翻转顺序工具为您提供文本内容在线倒序翻转排列,针对文本内容进行在线翻转排序的功能,支持中英文字,文字倒序排列工具,将一段文字逆序排列,每行倒序或者全文倒序均可,</p>
@@ -8,12 +9,18 @@
         <div class="t-options">提示：按字符倒序排列，并对可镜像的字符做翻转替换（原算法会先将输入转为小写）。</div>
         <div class="tool-actions">
             <button class="t-btn t-btn-ok" type="button" id="flipBtn">翻转文字</button>
-            <button class="t-btn t-btn-ghost" type="button" data-copy="#result">复制结果</button>
             <button class="t-btn t-btn-ghost" type="button" id="clearBtn">清空</button>
         </div>
         <label class="t-label" for="result">翻转结果</label>
-        <pre class="t-result" id="result"></pre>
+        <div class="t-result" id="txtResult">
+            <button class="t-copy" type="button" data-copy="#txtResultText">复制</button>
+            <div id="txtResultText"></div>
+        </div>
         <div class="t-error" id="tError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于文字翻转</h2>
+        <p class="tool-desc">翻转工具会将输入文字整体倒序排列，同时对字母、符号等可镜像字符（如 a↔ɐ、b↔q、d↔p）做上下翻转替换，生成"镜面文字"效果。原算法先统一转为小写再处理，支持中英文混排，全部在本地完成。</p>
     </div>
 </div></div>
 {include file="nav" /}
@@ -25,7 +32,8 @@
 <script>
 (function () {
     var input = document.getElementById('content');
-    var result = document.getElementById('result');
+    var resultWrap = document.getElementById('txtResult');
+    var result = document.getElementById('txtResultText');
     var error = document.getElementById('tError');
 
     function showErr(m) { error.textContent = m; error.classList.add('show'); }
@@ -82,11 +90,13 @@
         var v = input.value;
         if (!v) { showErr('请输入要翻转的内容'); return; }
         result.textContent = flipString(v.toLowerCase());
+        resultWrap.classList.add('show');
     });
 
     document.getElementById('clearBtn').addEventListener('click', function () {
         input.value = '';
         result.textContent = '';
+        resultWrap.classList.remove('show');
         hideErr();
         input.focus();
     });

@@ -2,3 +2,5 @@
 !/runtime/cache/
 
 /.fetch/
+/.merged_backup/
+/scripts/__pycache__/

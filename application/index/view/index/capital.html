@@ -1,11 +1,83 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.capital.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.capital.keywords}" /><meta name="description" content="{$Think.config.web.capital.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🏛️</span>世界各国首都查询</h2><p class="tool-desc">世界各国首都查询工具为您提供世界各国首都查询表,哪些城市是首都查询,世界各国首都大全,世界各国首都查询,世界各国首都是哪里,全世界各国首都在线查询工具等</p><form id="form1" class="form-horizontal" onsubmit="Public.TableSearch($('#table_shoudu'), $('#keyword').val());return false;"> <div class="form-group"> <label class="col-sm-2 control-label">关键词：</label> <div class="col-sm-10"> <input class="form-control" type="text" id="keyword" name="keyword" placeholder="请输入你要搜索的关键词"> </div> </div>
- 	<div class="form-group">
-		<div class="col-sm-12 text-center"><button type="button" class="btn btn-success" id="goSearch" onclick="Public.TableSearch($('#table_shoudu'), $('#keyword').val())">查询首都</button> <input type="button" onclick="$('#keyword').val('');" value="清空" class="btn btn-default"></div>
-	</div>
-	
-</form> </div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script type="text/javascript">var Public={};Public.TableSearch=function(table,keyword){if(keyword){keyword=keyword.replace(/\s+/g,'')}if(!keyword){$('tr',table).each(function(){$(this).show()});return}var pattern=new RegExp(keyword),is_show=false,is_td=false,str='';$('tr',table).each(function(){is_show=false,is_td=false;$('td',this).each(function(){is_td=true;str=$(this).text().replace(/\s+/g,'');if(pattern.test(str)){is_show=true}});if(is_td){if(is_show){$(this).show()}else{$(this).hide()}}})}</script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔠</span>英文大小写转换</h2>
+        <p class="tool-desc">英文大小写转换工具，支持全部大写、全部小写、句子首字母大写、单词首字母大写，输入内容即时转换，全程本地完成。</p>
+        <label class="t-label" for="content">请输入要转换的英文文本</label>
+        <textarea class="t-area" id="content" rows="8" placeholder="请输入要转换的英文文本，例如：hello world"></textarea>
+        <div class="t-options" style="margin-top:14px">
+            <label><input type="radio" name="caseMode" value="upper" checked> 全部大写</label>
+            <label><input type="radio" name="caseMode" value="lower"> 全部小写</label>
+            <label><input type="radio" name="caseMode" value="sentence"> 句子首字母大写</label>
+            <label><input type="radio" name="caseMode" value="title"> 单词首字母大写</label>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ok" type="button" id="btnRun">开始转换</button>
+            <button class="t-btn t-btn-ghost" type="button" id="btnClear">清空</button>
+        </div>
+        <div class="t-result" id="resultBox">
+            <button class="t-copy" type="button" data-copy="#resultText">复制</button>
+            <div id="resultText"></div>
+        </div>
+        <div class="t-error" id="err"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 英文大小写转换</h2>
+        <p class="tool-desc">英文字母大小写转换是最常用的文本整理功能之一：全大写适合强调与常量命名，全小写适合统一格式，句子首字母大写符合英文书写习惯，单词首字母大写常用于标题。本工具完全在本地浏览器运行，输入内容不会上传到服务器。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var input = document.getElementById('content');
+    var resultBox = document.getElementById('resultBox');
+    var resultText = document.getElementById('resultText');
+    var err = document.getElementById('err');
+    function showErr(m) { resultBox.classList.remove('show'); err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function showResult(v) { hideErr(); resultText.textContent = v; resultBox.classList.add('show'); }
+    function getMode() {
+        var m = document.querySelector('input[name="caseMode"]:checked');
+        return m ? m.value : 'upper';
+    }
+    // 句子首字母大写：句首（含 . ! ? 中英文标点及换行后）的首个字母转大写
+    function sentenceCase(s) {
+        return s.replace(/(^|[.!?。！？\n])(\s*)([a-z])/g, function (m, p1, p2, p3) {
+            return p1 + p2 + p3.toUpperCase();
+        });
+    }
+    // 单词首字母大写：每个单词（非字母边界后）的首个字母转大写
+    function titleCase(s) {
+        return s.replace(/(^|[^a-zA-Z])([a-z])/g, function (m, p1, p2) {
+            return p1 + p2.toUpperCase();
+        });
+    }
+    function convert() {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要转换的英文文本'); return; }
+        var mode = getMode();
+        if (mode === 'upper') showResult(v.toUpperCase());
+        else if (mode === 'lower') showResult(v.toLowerCase());
+        else if (mode === 'sentence') showResult(sentenceCase(v));
+        else showResult(titleCase(v));
+    }
+    document.getElementById('btnRun').addEventListener('click', convert);
+    document.getElementById('btnClear').addEventListener('click', function () {
+        input.value = '';
+        resultBox.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') convert();
+    });
+})();
+</script>
 </body></html>

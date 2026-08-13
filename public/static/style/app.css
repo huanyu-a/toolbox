@@ -776,3 +776,15 @@ pre { padding: 12px 14px; }
 }
 .tool-card .t-row .t-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(79, 110, 242, .12); }
 .tool-card .t-flex1 { flex: 1; }
+/* ===== 合集页 Tab 组件（工具合并） ===== */
+.tool-card .t-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; padding: 0; list-style: none; }
+.tool-card .t-tabs li { margin: 0; }
+.tool-card .t-tabs li button.t-tab { display: inline-block; padding: 7px 14px; font-size: 13px; line-height: 1.4; color: var(--text-2); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm, 8px); cursor: pointer; transition: all .15s; }
+.tool-card .t-tabs li button.t-tab:hover { color: var(--brand); border-color: var(--brand); }
+.tool-card .t-tabs li button.t-tab.active { color: #fff; background: var(--brand); border-color: var(--brand); font-weight: 600; }
+.tool-card .t-panel { display: none; }
+.tool-card .t-panel.active { display: block; }
+.tool-card .t-tabs + .t-panel-wrap .t-panel { margin-top: 0; }
+/* 合集页分隔线 */
+.t-panel + .t-panel { border-top: 1px dashed var(--border); margin-top: 18px; padding-top: 18px; }
+

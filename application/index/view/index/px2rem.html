@@ -1,6 +1,111 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.px2rem.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.px2rem.keywords}" /><meta name="description" content="{$Think.config.web.px2rem.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">📏</span>rem与px转换工具</h2><p class="tool-desc">rem与px转换工具为您提供Px和rem转换工具,rem与px的转换, px与rem转换,px转换rem自适应手机样式,px和rem单位的自动换算,px和rem换算公式,</p><form id="form1" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><textarea class="form-control" id="content" name="content" rows="10" placeholder="输入要转换的CSS代码"></textarea></div></div><div class="form-group"><div class="col-sm-12 text-center"><input id="chkIgnoreBorder" type="checkbox" checked="checked"><label for="chkIgnoreBorder" class="lblNormal">不处理border </label>&nbsp;&nbsp;&nbsp;&nbsp;<span>1Rem = </span><input id="txtRemIntalize" type="text" class="form-control" style="width:45px;display:inline-block;" value="16" /><span> px</span>&nbsp;&nbsp;<input class="btn btn-success" id="btnToRem" type="button" value="转换"><span id="copyallcode" class="btn btn-default" data-clipboard-target="#result">复制</span>  <input class="btn btn-default" onclick="ClearAll();" type="button" value="清空"></div></div><div class="form-group"><div class="col-sm-12"><pre><code id="result"></code></pre></div></div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/hightout.js" type="text/javascript"></script><script src="/static/script/cssformat.js" type="text/javascript"></script><script src="/static/script/pcjs/rem.js"></script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">📏</span>rem与px转换工具</h2>
+        <p class="tool-desc">rem与px转换工具为您提供Px和rem转换工具,rem与px的转换, px与rem转换,px转换rem自适应手机样式,px和rem单位的自动换算,px和rem换算公式,</p>
+        <label class="t-label" for="content">输入要转换的 CSS 代码</label>
+        <textarea class="t-area" id="content" rows="10" placeholder="输入要转换的CSS代码"></textarea>
+        <div class="t-options">
+            <label><input type="checkbox" id="chkIgnoreBorder" checked="checked" /> 不处理border</label>
+            <span>1Rem = </span>
+            <input class="t-input" id="txtRemIntalize" type="text" value="16" style="width:80px;display:inline-block;" />
+            <span> px</span>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ok" type="button" id="btnToRem">转换</button>
+            <button class="t-btn t-btn-ghost" type="button" id="btnClear">清空</button>
+        </div>
+        <div class="t-result" id="remResult">
+            <button class="t-copy" type="button" data-copy="#remResultText">复制结果</button>
+            <div id="remResultText"></div>
+        </div>
+        <div class="t-error" id="remError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 px / rem 转换</h2>
+        <p class="tool-desc">rem 是相对于根元素（html）字体大小的相对单位：1rem = 根字号 px。本工具会扫描 CSS 代码中所有 "数字px" 并换算为 rem（结果保留 4 位小数），勾选"不处理border"可跳过 border 属性行。全部换算均在本地完成。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var contentEl = document.getElementById('content');
+    var remEl = document.getElementById('txtRemIntalize');
+    var ignoreEl = document.getElementById('chkIgnoreBorder');
+    var resultWrap = document.getElementById('remResult');
+    var resultEl = document.getElementById('remResultText');
+    var errorEl = document.getElementById('remError');
+
+    function showErr(m) { errorEl.textContent = m; errorEl.classList.add('show'); }
+    function hideErr() { errorEl.classList.remove('show'); }
+
+    // 等价于原 cssChanger.format
+    function formatCss(s) {
+        s = String(s);
+        s = s.replace(/\s*([\{\}\:\;\,])\s*/g, "$1");
+        s = s.replace(/(\s*)\}/g, "$1;}");
+        s = s.replace(/;\s*;/g, ";");
+        s = s.replace(/\,[\s\.\#\d]*{/g, "{");
+        s = s.replace(/([^\s])\{([^\s])/g, "$1 {\n\t$2");
+        s = s.replace(/([^\s])\}([^\n]*)/g, "$1\n}\n$2");
+        s = s.replace(/([^\s]);([^\s\}])/g, "$1;\n\t$2");
+        s = s.replace(/\n(\n)*( *)*(\n)*\n/g, "");
+        s = s.replace(/\s+\*\//g, "*/");
+        return s;
+    }
+    // 等价于原 cssChanger.pack
+    function packCss(s) {
+        s = String(s);
+        s = s.replace(/\s*([\{\}\:\;\,])\s*/g, "$1");
+        s = s.replace(/\,[\s\.\#\d]*\{/g, "{");
+        s = s.replace(/;\s*;/g, ";");
+        var m = s.match(/^\s*(\S+(\s+\S+)*)\s*$/);
+        return (m == null) ? "" : m[1];
+    }
+    // 保留最多 4 位小数，并去掉多余的 0
+    function roundRem(n) {
+        var r = Math.round(n * 10000) / 10000;
+        return String(r).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+    }
+
+    document.getElementById('btnToRem').addEventListener('click', function () {
+        hideErr();
+        var text = contentEl.value;
+        var remRaw = remEl.value;
+        if (text === '') { showErr('请填写要转换的CSS'); return; }
+        if (remRaw === '') { showErr('请填写1rem等于多少px值'); return; }
+        if (remRaw <= 0) { showErr('请填写正确的px值'); return; }
+        // 与原 rem.js 一致：parseInt 取整基准
+        var rem = parseInt(remRaw, 10);
+        var ignoreBorder = ignoreEl.checked;
+        var lines = formatCss(text).split('\n');
+        var sb = '';
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            sb += line.replace(/\d+px/g, function (px) {
+                if (ignoreBorder && /border:/i.test(line)) return px;
+                return roundRem(parseInt(px, 10) / rem) + 'rem';
+            }) + '\n';
+        }
+        var sourceArr = text.split('\n');
+        var out = (sourceArr.length > 1) ? formatCss(sb) : packCss(sb);
+        resultEl.textContent = out;
+        resultWrap.classList.add('show');
+    });
+
+    document.getElementById('btnClear').addEventListener('click', function () {
+        contentEl.value = '';
+        resultEl.textContent = '';
+        resultWrap.classList.remove('show');
+        hideErr();
+        contentEl.focus();
+    });
+})();
+</script>
 </body></html>

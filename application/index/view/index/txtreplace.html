@@ -1,6 +1,89 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.txtreplace.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.txtreplace.keywords}" /><meta name="description" content="{$Think.config.web.txtreplace.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔁</span>文本内容替换</h2><p class="tool-desc">文字内容批量替换工具为您提供实现任意内容快速查找替换，如果不想要某个字符，直接替换掉即可,文字内容批量替换,还可以可自定义替换的字符，快速实现文本内容替换等</p><form id="mform" class="form-horizontal" method="post"><div class="form-group"><div class="col-sm-12"><textarea onmouseover="this.focus();" id="content" name="content" class="form-control" rows="8" placeholder="请输入要替换的内容"></textarea></div></div><div class="form-group input-group"><span class="input-group-addon">想替换的字符</span><input type="text" id="preplace" class="form-control" placeholder="请输入替换前的字符" /></div><div class="form-group input-group"><span class="input-group-addon">替换后的字符</span><input type="text" id="nextplace" class="form-control" placeholder="请输入替换后的字符" /></div><div class="form-group"><div class="col-sm-12 text-center"><input type="button" onclick="Replace();" value="立即替换" class="btn btn-success"><span id="copyallcode" class="btn btn-default" data-clipboard-target="#result">复制</span><input type="button" onclick="ClearAll();" value="清空" class="btn btn-default"></div></div><div class="form-group"><div class="col-sm-12"><pre><code id="result"></code></pre></div></div></form></div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script><script src="/static/script/bootstrap.min.js" type="text/javascript"></script><script src="/static/script/tool.js" type="text/javascript"></script><script src="/static/script/hightout.js"></script><script type="text/javascript">function Replace() {var s = $("#content").val();if (s != "") {s = s.replace(new RegExp($("#preplace").val(), 'g'), $("#nextplace").val());$("#content").val(s);hightout(s);}else {pcjson_com_msg($("#content"), "请输入要替换的内容文本");}}function Empty() {$("#content").val("");$("#result").val("");$("#preplace").val("");$("#nextplace").val("");$("#content").select();}</script>{include file="nav" /}
-{include file="link" /}
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔁</span>文本内容替换</h2>
+        <p class="tool-desc">批量查找替换文本中的任意字符，如果不想要某个字符，直接替换为空即可；也可自定义替换前后字符，快速完成内容整理。</p>
+        <label class="t-label" for="content">原文内容</label>
+        <textarea class="t-area" id="content" rows="8" placeholder="请输入要替换的内容"></textarea>
+        <label class="t-label" for="preplace">想替换的字符</label>
+        <input class="t-input" id="preplace" type="text" placeholder="请输入替换前的字符" />
+        <label class="t-label" for="nextplace">替换后的字符</label>
+        <input class="t-input" id="nextplace" type="text" placeholder="请输入替换后的字符（留空表示删除）" />
+        <div class="tool-actions">
+            <button class="t-btn" type="button" id="replaceBtn">立即替换</button>
+            <button class="t-btn t-btn-ghost" type="button" id="demoBtn">示例</button>
+            <button class="t-btn t-btn-ghost" type="button" id="clearBtn">清空</button>
+        </div>
+        <div class="t-result" id="txtResult">
+            <button class="t-copy" type="button" data-copy="#txtResultText">复制</button>
+            <div id="txtResultText"></div>
+        </div>
+        <div class="t-error" id="txtError"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于文本替换</h2>
+        <p class="tool-desc">文本替换工具会在原文中查找所有匹配的字符并一次性替换为新字符，替换字符留空则相当于删除。特殊字符（如 . * + ? 等）会被自动转义，按普通文本处理。所有操作都在本地浏览器完成，内容不会上传服务器。</p>
+    </div>
+</div></div>
+{include file="nav" /}
 {include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
 <script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var contentEl = document.getElementById('content');
+    var preplaceEl = document.getElementById('preplace');
+    var nextplaceEl = document.getElementById('nextplace');
+    var resultWrap = document.getElementById('txtResult');
+    var resultEl = document.getElementById('txtResultText');
+    var errorEl = document.getElementById('txtError');
+
+    function showErr(m) { errorEl.textContent = m; errorEl.classList.add('show'); }
+    function hideErr() { errorEl.classList.remove('show'); }
+
+    function escapeRegExp(s) {
+        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function replaceAll() {
+        hideErr();
+        var text = contentEl.value;
+        var from = preplaceEl.value;
+        var to = nextplaceEl.value;
+        if (text === '') { showErr('请输入要替换的内容文本'); return; }
+        if (from === '') { showErr('请输入替换前的字符'); return; }
+        var out = text.replace(new RegExp(escapeRegExp(from), 'g'), to);
+        contentEl.value = out;          // 与原工具一致：替换结果写回原文框
+        resultEl.textContent = out;
+        resultWrap.classList.add('show');
+    }
+
+    function clearAll() {
+        contentEl.value = '';
+        preplaceEl.value = '';
+        nextplaceEl.value = '';
+        resultEl.textContent = '';
+        resultWrap.classList.remove('show');
+        hideErr();
+        contentEl.focus();
+    }
+
+    function fillDemo() {
+        hideErr();
+        contentEl.value = 'hello world, hello toolbox!\n今天天气不错，今天心情很好。';
+        preplaceEl.value = 'hello';
+        nextplaceEl.value = '你好';
+        resultEl.textContent = '';
+        resultWrap.classList.remove('show');
+        contentEl.focus();
+    }
+
+    document.getElementById('replaceBtn').addEventListener('click', replaceAll);
+    document.getElementById('clearBtn').addEventListener('click', clearAll);
+    document.getElementById('demoBtn').addEventListener('click', fillDemo);
+})();
+</script>
 </body></html>
