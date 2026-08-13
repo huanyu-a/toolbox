@@ -116,7 +116,27 @@
 
   /* ---------- 纯文本提取（复制 TXT 用） ---------- */
   function getText() {
-    var html = getHTML() || '';
+    /* 优先基于 markdown 源码经 Lute 渲染，确保未渲染的字面 markdown 符号（# ** - 等）
+       也被解析掉，只保留纯文本；代码块/表格/行内代码内容不丢失 */
+    var html = '';
+    var isHtmlMode = $('#modeTabs .t-tab.active').attr('data-mode') === 'html';
+    if (isHtmlMode && htmlCm) {
+      /* HTML 源码模式下基于 CodeMirror 当前内容 */
+      html = htmlCm.getValue() || '';
+    } else {
+      try {
+        var md = getValue() || '';
+        if (md && window.Lute && typeof window.Lute.New === 'function') {
+          var lute = window.Lute.New();
+          if (typeof lute.Md2HTML === 'function') {
+            html = lute.Md2HTML(md) || '';
+          }
+        }
+      } catch (e) { /* 转换失败时降级 */ }
+      if (!html) {
+        html = getHTML() || '';
+      }
+    }
     var d = document.createElement('div');
     d.style.cssText = 'position:fixed;left:-9999px;top:0;visibility:hidden;';
     d.innerHTML = html
