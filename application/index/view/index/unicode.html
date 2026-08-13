@@ -7,8 +7,7 @@
             <li><button type="button" class="t-tab active" data-panel="ucPanel1">🔣 Unicode 转换</button></li>
             <li><button type="button" class="t-tab" data-panel="ucPanel2">🌐 Native 编码</button></li>
         </ul>
-        <div id="ucPanel1" class="t-panel active">
-            <div class="t-grid">
+<div class="t-grid">
                 <div class="t-col">
                     <label class="t-label" for="ucInput">原文</label>
                     <textarea class="t-area" id="ucInput" rows="8" placeholder="请输入要转换的文本…"></textarea>
@@ -18,6 +17,8 @@
                     <textarea class="t-area t-area-readonly" id="ucOutput" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
                 </div>
             </div>
+        <div id="ucPanel1" class="t-panel active">
+            
             <div class="t-options" style="margin-top:12px">
                 <span style="font-weight:600">转换格式：</span>
                 <label><input type="radio" name="ucMode" value="u" checked> \uXXXX</label>
@@ -35,16 +36,7 @@
             <div class="t-error" id="ucError"></div>
         </div>
         <div id="ucPanel2" class="t-panel">
-            <div class="t-grid">
-                <div class="t-col">
-                    <label class="t-label" for="nuInput">原文</label>
-                    <textarea class="t-area" id="nuInput" rows="8" spellcheck="false" placeholder="请输入要转换的文本…"></textarea>
-                </div>
-                <div class="t-col">
-                    <label class="t-label" for="nuOutput">结果</label>
-                    <textarea class="t-area t-area-readonly" id="nuOutput" rows="8" readonly spellcheck="false" placeholder="结果将显示在这里…"></textarea>
-                </div>
-            </div>
+            
             <div class="t-options" style="margin-top:12px">
                 <span style="font-weight:600">转换格式：</span>
                 <label><input type="radio" name="nuMode" value="u" checked> \uXXXX</label>
@@ -54,7 +46,7 @@
             <div class="tool-actions">
                 <button class="t-btn" type="button" id="nuToCode">中文 → 编码</button>
                 <button class="t-btn t-btn-ok" type="button" id="nuToText">编码 → 中文</button>
-                <button class="t-btn t-btn-ghost" type="button" data-copy="#nuOutput">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#ucOutput">复制结果</button>
                 <button class="t-btn t-btn-ghost" type="button" id="nuSwap">⇄ 交换</button>
                 <button class="t-btn t-btn-ghost" type="button" id="nuDemo">示例</button>
                 <button class="t-btn t-btn-ghost" type="button" id="nuClear">清空</button>
@@ -140,7 +132,7 @@
     document.getElementById('ucSwap').addEventListener('click', uc.swap);
     document.getElementById('ucDemo').addEventListener('click', uc.demo);
     document.getElementById('ucClear').addEventListener('click', uc.clear);
-    var nu = bind('nuInput', 'nuOutput', 'nuError', 'nuMode');
+    var nu = bind('ucInput', 'ucOutput', 'nuError', 'nuMode');
     document.getElementById('nuToCode').addEventListener('click', nu.toCode);
     document.getElementById('nuToText').addEventListener('click', nu.toText);
     document.getElementById('nuSwap').addEventListener('click', nu.swap);

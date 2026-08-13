@@ -414,7 +414,6 @@
         if (!btn) return;
         var target = document.querySelector(btn.getAttribute('data-copy'));
         if (!target) return;
-        if (!target) return;
         var text = target.value !== undefined ? target.value : target.textContent;
         var done = function () {
             var old = btn.textContent;

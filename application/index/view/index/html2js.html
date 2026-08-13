@@ -1,68 +1,55 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.html2js.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.html2js.keywords}" /><meta name="description" content="{$Think.config.web.html2js.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔄</span>Html转JS/多语言代码</h2><p class="tool-desc">Html转JS字符串、JS数组、JS还原，Html转C#/JSP/PHP/ASP/VB.NET/Perl代码，HTML与UBB互转，HTML表格生成器，Excel/CSV转HTML表格，全部本地转换，不上传任何数据。</p>
-<ul class="t-tabs"><li><button type="button" class="t-tab active" data-panel="panel-js">💻 HTML↔JS</button></li><li><button type="button" class="t-tab" data-panel="panel-cj">🔤 HTML↔C#/JSP</button></li><li><button type="button" class="t-tab" data-panel="panel-php">🐘 HTML↔PHP</button></li><li><button type="button" class="t-tab" data-panel="panel-asp">📜 HTML↔ASP/Perl</button></li><li><button type="button" class="t-tab" data-panel="panel-ubb">🔁 HTML↔UBB</button></li><li><button type="button" class="t-tab" data-panel="panel-table">📋 表格生成器</button></li><li><button type="button" class="t-tab" data-panel="panel-csv">📊 CSV转表格</button></li><li><button type="button" class="t-tab" data-panel="panel-about">ℹ️ 关于</button></li></ul>
-<div class="t-panel-wrap">
-<div class="t-panel active" id="panel-js">
-<label class="t-label" for="jsInput">待转换内容（HTML / JS 代码）</label>
-<textarea class="t-area" id="jsInput" rows="10" placeholder="输入要拼接或转换的 HTML/JS 代码，如：&lt;div class=&quot;box&quot;&gt;你好&lt;/div&gt;"></textarea>
-<div class="tool-actions"><button type="button" class="t-btn t-btn-ok" id="jsToJs">Html转为JS</button><button type="button" class="t-btn t-btn-ok" id="jsToHtml">JS转为Html</button><button type="button" class="t-btn t-btn-ok" id="jsToArray">Html转为JS数组格式</button><button type="button" class="t-btn t-btn-ghost" id="jsClear">清空</button></div>
-<div class="t-result" id="jsResult"><button class="t-copy" type="button" data-copy="#jsResultText">复制</button><pre><code id="jsResultText"></code></pre></div>
-<div class="t-error" id="jsError"></div>
-</div>
-<div class="t-panel" id="panel-cj">
-<label class="t-label" for="cjInput">请输入要转换的 HTML 代码</label>
-<textarea class="t-area" id="cjInput" rows="10" placeholder="请输入要转换的 HTML 代码"></textarea>
-<div class="tool-actions"><button type="button" class="t-btn t-btn-ok" id="cjToCsharp">Html转为C#代码</button><button type="button" class="t-btn t-btn-ok" id="cjToJsp">Html转为JSP代码</button><button type="button" class="t-btn t-btn-ghost" id="cjClear">清空</button></div>
-<div class="t-result" id="cjResult"><button class="t-copy" type="button" data-copy="#cjResultText">复制</button><pre><code id="cjResultText"></code></pre></div>
-<div class="t-error" id="cjError"></div>
-</div>
-<div class="t-panel" id="panel-php">
-<label class="t-label" for="phpInput">请输入要转换的 HTML 代码</label>
-<textarea class="t-area" id="phpInput" rows="10" placeholder="请输入要转换的 HTML 代码"></textarea>
-<div class="tool-actions"><button type="button" class="t-btn t-btn-ok" id="phpRun">Html转PHP代码</button><button type="button" class="t-btn t-btn-ghost" id="phpClear">清空</button></div>
-<div class="t-result" id="phpResult"><button class="t-copy" type="button" data-copy="#phpResultText">复制</button><pre><code id="phpResultText"></code></pre></div>
-<div class="t-error" id="phpError"></div>
-</div>
-<div class="t-panel" id="panel-asp">
-<label class="t-label" for="aspInput">请输入要转换的 HTML 代码</label>
-<textarea class="t-area" id="aspInput" rows="10" placeholder="请输入要转换的 HTML 代码"></textarea>
-<div class="tool-actions"><button type="button" class="t-btn t-btn-ok" id="aspRun">Html转ASP</button><button type="button" class="t-btn t-btn-ok" id="aspVbnet">Html转VB.NET</button><button type="button" class="t-btn t-btn-ok" id="aspPerl">Html转Perl</button><button type="button" class="t-btn t-btn-ok" id="aspSws">Html转Sws</button><button type="button" class="t-btn t-btn-ghost" id="aspClear">清空</button></div>
-<div class="t-result" id="aspResult"><button class="t-copy" type="button" data-copy="#aspResultText">复制</button><pre><code id="aspResultText"></code></pre></div>
-<div class="t-error" id="aspError"></div>
-</div>
-<div class="t-panel" id="panel-ubb">
-<label class="t-label" for="ubbInput">HTML 或 UBB 代码</label>
-<textarea class="t-area" id="ubbInput" rows="10" placeholder="粘贴 HTML 或 UBB 代码，如：[url=http://www.example.com]链接[/url] 或 &lt;a href=&quot;http://www.example.com&quot;&gt;链接&lt;/a&gt;"></textarea>
-<div class="tool-actions"><button type="button" class="t-btn" id="ubbToUbb">Html转UBB</button><button type="button" class="t-btn t-btn-ok" id="ubbToHtml">UBB转Html</button><button type="button" class="t-btn t-btn-ghost" id="ubbClear">清空</button></div>
-<div class="t-result" id="ubbResult"><button class="t-copy" type="button" data-copy="#ubbResultText">复制</button><pre><code id="ubbResultText"></code></pre></div>
-<div class="t-error" id="ubbError"></div>
-</div>
-<div class="t-panel" id="panel-table">
-<div class="t-options t-row">
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔄</span>Html转JS/多语言代码</h2><p class="tool-desc">Html转JS字符串、JS数组、JS还原，Html转C#/JSP/PHP/ASP/VB.NET/Perl代码，HTML与UBB互转，HTML表格生成器，Excel/CSV转HTML表格。输入输出共用同一区域，切换功能时输入内容自动保留，全部本地转换，不上传任何数据。</p>
+<ul class="t-tabs"><li><button type="button" class="t-tab active" data-mode="js">💻 HTML↔JS</button></li><li><button type="button" class="t-tab" data-mode="cj">🔤 HTML↔C#/JSP</button></li><li><button type="button" class="t-tab" data-mode="php">🐘 HTML↔PHP</button></li><li><button type="button" class="t-tab" data-mode="asp">📜 HTML↔ASP/Perl</button></li><li><button type="button" class="t-tab" data-mode="ubb">🔁 HTML↔UBB</button></li><li><button type="button" class="t-tab" data-mode="table">📋 表格生成器</button></li><li><button type="button" class="t-tab" data-mode="csv">📊 CSV转表格</button></li></ul>
+<label class="t-label" for="h2j-in">待转换内容</label>
+<textarea class="t-area" id="h2j-in" rows="8" placeholder="粘贴 HTML / JS 代码，如：&lt;div class=&quot;box&quot;&gt;你好&lt;/div&gt;"></textarea>
+<div class="t-options" style="margin-top:12px;display:none" id="opt-table-params">
+<div class="t-row">
 <div class="t-flex1"><label class="t-label" for="tblRows">行数</label><input type="number" class="t-input" id="tblRows" value="5" min="1" max="50" /></div>
 <div class="t-flex1"><label class="t-label" for="tblCols">列数</label><input type="number" class="t-input" id="tblCols" value="5" min="1" max="20" /></div>
 <div class="t-flex1"><label class="t-label" for="tblStyle">样式</label><select class="t-input" id="tblStyle"><option value="plain">普通表格</option><option value="striped">斑马纹</option><option value="bordered">全边框</option><option value="hover">悬停高亮</option></select></div>
 </div>
-<div class="t-options t-row">
+<div class="t-row">
 <div class="t-flex1"><label class="t-label" for="tblHead">表头内容（逗号分隔，可选）</label><input type="text" class="t-input" id="tblHead" placeholder="如：姓名,年龄,城市" /></div>
 <div class="t-flex1"><label class="t-label" for="tblCaption">表格标题（可选）</label><input type="text" class="t-input" id="tblCaption" placeholder="如：员工列表" /></div>
 </div>
-<div class="tool-actions"><button type="button" class="t-btn" id="tblRun">生成表格</button><button type="button" class="t-btn t-btn-ghost" id="tblClear">清空</button></div>
-<div class="t-result" id="tblResult"><button class="t-copy" type="button" data-copy="#tblResultText">复制</button><pre><code id="tblResultText"></code></pre></div>
-<div class="t-error" id="tblError"></div>
 </div>
-<div class="t-panel" id="panel-csv">
-<label class="t-label" for="csvInput">CSV / TSV 数据（第一行可作为表头，支持引号包裹字段）</label>
-<textarea class="t-area" id="csvInput" rows="8" placeholder="年份,供应商,型号,说明,价格&#10;2017,Ford,E350,&quot;ac, abs, moon&quot;,5000.00&#10;2018,Chevy,&quot;Venture &quot;&quot;Extended Edition&quot;&quot;&quot;,&quot;&quot;,5900.00"></textarea>
-<div class="t-options t-row">
+<div class="t-options" style="margin-top:12px;display:none" id="opt-csv-params">
+<div class="t-row">
 <div class="t-flex1"><label class="t-label" for="csvSep">分隔符</label><select class="t-input" id="csvSep"><option value=",">逗号 ,</option><option value="&#9;">Tab 制表符</option><option value="|">竖线 |</option><option value=";">分号 ;</option></select></div>
-<div class="t-flex1"><label class="t-label" for="csvHead"><input type="checkbox" id="csvHead" checked /> 首行为表头</label></div>
+<div class="t-flex1"><label class="t-label" style="padding-top:18px"><input type="checkbox" id="csvHead" checked /> 首行为表头</label></div>
 </div>
-<div class="tool-actions"><button type="button" class="t-btn" id="csvRun">转换 HTML 表格</button><button type="button" class="t-btn t-btn-ghost" id="csvClear">清空</button></div>
-<div class="t-result" id="csvResult"><button class="t-copy" type="button" data-copy="#csvResultText">复制</button><pre><code id="csvResultText"></code></pre></div>
-<div class="t-error" id="csvError"></div>
 </div>
-<div class="t-panel" id="panel-about">
+<div class="tool-actions" id="opt-js">
+<button type="button" class="t-btn t-btn-ok" id="jsToJs">Html转为JS</button><button type="button" class="t-btn t-btn-ok" id="jsToHtml">JS转为Html</button><button type="button" class="t-btn t-btn-ok" id="jsToArray">Html转为JS数组</button>
+</div>
+<div class="tool-actions" id="opt-cj" style="display:none">
+<button type="button" class="t-btn t-btn-ok" id="cjToCsharp">Html转为C#代码</button><button type="button" class="t-btn t-btn-ok" id="cjToJsp">Html转为JSP代码</button>
+</div>
+<div class="tool-actions" id="opt-php" style="display:none">
+<button type="button" class="t-btn t-btn-ok" id="phpRun">Html转PHP代码</button>
+</div>
+<div class="tool-actions" id="opt-asp" style="display:none">
+<button type="button" class="t-btn t-btn-ok" id="aspRun">Html转ASP</button><button type="button" class="t-btn t-btn-ok" id="aspVbnet">Html转VB.NET</button><button type="button" class="t-btn t-btn-ok" id="aspPerl">Html转Perl</button><button type="button" class="t-btn t-btn-ok" id="aspSws">Html转Sws</button>
+</div>
+<div class="tool-actions" id="opt-ubb" style="display:none">
+<button type="button" class="t-btn" id="ubbToUbb">Html转UBB</button><button type="button" class="t-btn t-btn-ok" id="ubbToHtml">UBB转Html</button>
+</div>
+<div class="tool-actions" id="opt-table" style="display:none">
+<button type="button" class="t-btn" id="tblRun">生成表格</button>
+</div>
+<div class="tool-actions" id="opt-csv" style="display:none">
+<button type="button" class="t-btn" id="csvRun">转换 HTML 表格</button>
+</div>
+<div class="tool-actions">
+<button type="button" class="t-btn t-btn-ghost" data-copy="#h2j-out">复制结果</button>
+<button type="button" class="t-btn t-btn-ghost" id="h2jClear">清空</button>
+</div>
+<div class="t-result" id="h2j-result"><pre><code id="h2j-out"></code></pre></div>
+<div class="t-error" id="h2j-error"></div>
+</div>
+<div class="tool-card">
+<h2 class="tool-title">📖 关于本页</h2>
 <p class="tool-desc">本页面将 8 个 HTML 转换工具合并为一处，共 7 大转换功能，全部在浏览器本地完成，不会上传您的代码：</p>
 <ul>
 <li><strong>HTML↔JS</strong>：HTML 拼接为 JS 字符串（var sd='...'）、JS 代码还原为 HTML、HTML 转为 JS 数组格式。</li>
@@ -74,7 +61,6 @@
 <li><strong>Excel/CSV→HTML 表格</strong>：粘贴 CSV/TSV 数据（支持引号包裹与转义），一键生成 &lt;table&gt; 代码。</li>
 </ul>
 </div>
-</div>
 </div></div>
 {include file="nav" /}
 {include file="footer" /}
@@ -84,60 +70,58 @@
 <script src="/static/script/app.js" type="text/javascript"></script>
 <script type="text/javascript">
 (function () {
-    var tabs = document.querySelectorAll('.t-tab');
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].addEventListener('click', function () {
-            for (var j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
-            this.classList.add('active');
-            var panels = document.querySelectorAll('.t-panel');
-            for (var k = 0; k < panels.length; k++) panels[k].classList.remove('active');
-            var panel = document.getElementById(this.getAttribute('data-panel'));
-            if (panel) panel.classList.add('active');
-        });
+    'use strict';
+    function $id(id) { return document.getElementById(id); }
+    function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function showErr(msg) { var e = $id('h2j-error'); e.textContent = msg; e.classList.add('show'); }
+    function clearOut() {
+        $id('h2j-out').textContent = '';
+        $id('h2j-result').classList.remove('show');
+        $id('h2j-error').classList.remove('show');
     }
-
-    function escapeHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-    function hideErr(prefix) { var err = document.getElementById(prefix + 'Error'); if (err) err.classList.remove('show'); }
-    function showErr(prefix, msg) { var err = document.getElementById(prefix + 'Error'); err.textContent = msg; err.classList.add('show'); }
-    function showResult(prefix, text) {
-        hideErr(prefix);
-        var res = document.getElementById(prefix + 'Result');
-        var txt = document.getElementById(prefix + 'ResultText');
-        txt.textContent = text;
-        res.classList.add('show');
-    }
-    function needInput(prefix, msg) {
-        var input = document.getElementById(prefix + 'Input');
-        if (!input.value) { showErr(prefix, msg); return true; }
+    function showResult(text) { clearOut(); $id('h2j-out').textContent = text; $id('h2j-result').classList.add('show'); }
+    function needInput(msg) {
+        var input = $id('h2j-in');
+        if (input.style.display === 'none') return false;
+        if (!input.value.trim()) { showErr(msg); return true; }
         return false;
     }
-    function clearPanel(prefix) {
-        document.getElementById(prefix + 'Input').value = '';
-        var res = document.getElementById(prefix + 'Result');
-        if (res) res.classList.remove('show');
-        hideErr(prefix);
-        document.getElementById(prefix + 'Input').focus();
-    }
-    // 通用复制：data-copy 指向目标元素 id
-    var copyBtns = document.querySelectorAll('[data-copy]');
-    for (var m = 0; m < copyBtns.length; m++) {
-        copyBtns[m].addEventListener('click', function () {
-            var el = document.getElementById(this.getAttribute('data-copy').replace(/^#/, ''));
-            if (!el || !el.textContent) return;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(el.textContent);
-            } else {
-                var ta = document.createElement('textarea');
-                ta.value = el.textContent;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            }
-        });
-    }
 
-    // ============ Tab1 HTML↔JS ============
+    /* ===== 模式注册表 ===== */
+    var MODES = {
+        js:     { placeholder: '粘贴 HTML / JS 代码，如：<div class="box">你好</div>', showInput: true },
+        cj:     { placeholder: '请输入要转换的 HTML 代码', showInput: true },
+        php:    { placeholder: '请输入要转换的 HTML 代码', showInput: true },
+        asp:    { placeholder: '请输入要转换的 HTML 代码', showInput: true },
+        ubb:    { placeholder: '粘贴 HTML 或 UBB 代码，如：[url=http://www.example.com]链接[/url] 或 <a href="http://www.example.com">链接</a>', showInput: true },
+        table:  { placeholder: '', showInput: false },
+        csv:    { placeholder: '年份,供应商,型号,说明,价格\n2017,Ford,E350,"ac, abs, moon",5000.00', showInput: true }
+    };
+    var current = 'js';
+    var tabs = document.querySelectorAll('.t-tab');
+    function switchMode(mode) {
+        current = mode;
+        tabs.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-mode') === mode); });
+        Object.keys(MODES).forEach(function (m) {
+            var opt = $id('opt-' + m);
+            if (opt) opt.style.display = (m === mode) ? '' : 'none';
+            var params = $id('opt-' + m + '-params');
+            if (params) params.style.display = (m === mode) ? '' : 'none';
+        });
+        $id('h2j-in').style.display = MODES[mode].showInput ? '' : 'none';
+        $id('h2j-in').placeholder = MODES[mode].placeholder;
+        clearOut();
+    }
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () { switchMode(btn.getAttribute('data-mode')); });
+    });
+    $id('h2jClear').addEventListener('click', function () {
+        $id('h2j-in').value = '';
+        clearOut();
+        $id('h2j-in').focus();
+    });
+
+    /* ============ HTML↔JS ============ */
     function jsString(input) {
         return "var sd='" + input.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').split('\n').join("';\nsd+='") + "';";
     }
@@ -153,24 +137,11 @@
             .replace(/\\"/g, '"')
             .replace(/\\\\/g, '\\');
     }
-    document.getElementById('jsToJs').addEventListener('click', function () {
-        hideErr('js');
-        if (needInput('js', '请输入要转换的 HTML 代码')) return;
-        showResult('js', jsString(document.getElementById('jsInput').value));
-    });
-    document.getElementById('jsToHtml').addEventListener('click', function () {
-        hideErr('js');
-        if (needInput('js', '请输入要还原的 JS 代码')) return;
-        showResult('js', jsToHtml(document.getElementById('jsInput').value));
-    });
-    document.getElementById('jsToArray').addEventListener('click', function () {
-        hideErr('js');
-        if (needInput('js', '请输入要转换的 HTML 代码')) return;
-        showResult('js', jsArray(document.getElementById('jsInput').value));
-    });
-    document.getElementById('jsClear').addEventListener('click', function () { clearPanel('js'); });
+    $id('jsToJs').addEventListener('click', function () { if (needInput('请输入要转换的 HTML 代码')) return; showResult(jsString($id('h2j-in').value)); });
+    $id('jsToHtml').addEventListener('click', function () { if (needInput('请输入要还原的 JS 代码')) return; showResult(jsToHtml($id('h2j-in').value)); });
+    $id('jsToArray').addEventListener('click', function () { if (needInput('请输入要转换的 HTML 代码')) return; showResult(jsArray($id('h2j-in').value)); });
 
-    // ============ Tab2 HTML↔C#/JSP（html2cj 算法）============
+    /* ============ HTML↔C#/JSP ============ */
     function toJsp(s) {
         if (s === '') return '<%\n%>';
         var out = 'out.println("';
@@ -200,16 +171,10 @@
             .join('");\nsb.AppendFormat("');
         return 'StringBuilder sb = new StringBuilder();\nsb.AppendFormat("' + body + '");';
     }
-    function convertCj(fn) {
-        hideErr('cj');
-        if (needInput('cj', '请输入要转换的HTML代码')) return;
-        showResult('cj', fn(document.getElementById('cjInput').value));
-    }
-    document.getElementById('cjToCsharp').addEventListener('click', function () { convertCj(toCSharp); });
-    document.getElementById('cjToJsp').addEventListener('click', function () { convertCj(toJsp); });
-    document.getElementById('cjClear').addEventListener('click', function () { clearPanel('cj'); });
+    $id('cjToCsharp').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toCSharp($id('h2j-in').value)); });
+    $id('cjToJsp').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toJsp($id('h2j-in').value)); });
 
-    // ============ Tab3 HTML↔PHP（html2php 算法）============
+    /* ============ HTML↔PHP ============ */
     function toPhp(s) {
         if (s === '') return '<?php\n?>';
         var out = 'echo "';
@@ -229,14 +194,9 @@
         }
         return '<?php\n' + out + '\n?>';
     }
-    document.getElementById('phpRun').addEventListener('click', function () {
-        hideErr('php');
-        if (needInput('php', '请输入要转换的HTML代码')) return;
-        showResult('php', toPhp(document.getElementById('phpInput').value));
-    });
-    document.getElementById('phpClear').addEventListener('click', function () { clearPanel('php'); });
+    $id('phpRun').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toPhp($id('h2j-in').value)); });
 
-    // ============ Tab4 HTML↔ASP/Perl（html2all 算法）============
+    /* ============ HTML↔ASP/Perl ============ */
     function toAsp(s) {
         if (s === '') return '<%\n%>';
         var out = 'Response.Write "';
@@ -313,18 +273,12 @@
         }
         return out;
     }
-    function convertAsp(fn) {
-        hideErr('asp');
-        if (needInput('asp', '请输入要转换的HTML代码')) return;
-        showResult('asp', fn(document.getElementById('aspInput').value));
-    }
-    document.getElementById('aspRun').addEventListener('click', function () { convertAsp(toAsp); });
-    document.getElementById('aspVbnet').addEventListener('click', function () { convertAsp(toVbnet); });
-    document.getElementById('aspPerl').addEventListener('click', function () { convertAsp(toPerl); });
-    document.getElementById('aspSws').addEventListener('click', function () { convertAsp(toSws); });
-    document.getElementById('aspClear').addEventListener('click', function () { clearPanel('asp'); });
+    $id('aspRun').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toAsp($id('h2j-in').value)); });
+    $id('aspVbnet').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toVbnet($id('h2j-in').value)); });
+    $id('aspPerl').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toPerl($id('h2j-in').value)); });
+    $id('aspSws').addEventListener('click', function () { if (needInput('请输入要转换的HTML代码')) return; showResult(toSws($id('h2j-in').value)); });
 
-    // ============ Tab5 HTML↔UBB（html2ubb 算法）============
+    /* ============ HTML↔UBB ============ */
     function phpcode(s) { return '<pre>' + s + '</pre>'; }
     function smilepath(n) { return '[s:' + n + ']'; }
     function pattern(str) {
@@ -370,26 +324,17 @@
         str = str.replace(/\[url\]([^\[]+)\[\/url\]/ig, '<a href="$1">$1</a>');
         return str;
     }
-    document.getElementById('ubbToUbb').addEventListener('click', function () {
-        hideErr('ubb');
-        if (needInput('ubb', '请输入要转换的 HTML 代码')) return;
-        showResult('ubb', pattern(document.getElementById('ubbInput').value));
-    });
-    document.getElementById('ubbToHtml').addEventListener('click', function () {
-        hideErr('ubb');
-        if (needInput('ubb', '请输入要转换的 UBB 代码')) return;
-        showResult('ubb', up(document.getElementById('ubbInput').value));
-    });
-    document.getElementById('ubbClear').addEventListener('click', function () { clearPanel('ubb'); });
+    $id('ubbToUbb').addEventListener('click', function () { if (needInput('请输入要转换的 HTML 代码')) return; showResult(pattern($id('h2j-in').value)); });
+    $id('ubbToHtml').addEventListener('click', function () { if (needInput('请输入要转换的 UBB 代码')) return; showResult(up($id('h2j-in').value)); });
 
-    // ============ Tab6 HTML 表格生成器 ============
-    document.getElementById('tblRun').addEventListener('click', function () {
-        hideErr('tbl');
-        var rows = parseInt(document.getElementById('tblRows').value, 10) || 5;
-        var cols = parseInt(document.getElementById('tblCols').value, 10) || 5;
-        var style = document.getElementById('tblStyle').value;
-        var head = document.getElementById('tblHead').value.split(',').map(function (s) { return s.trim(); });
-        var caption = document.getElementById('tblCaption').value;
+    /* ============ HTML 表格生成器 ============ */
+    $id('tblRun').addEventListener('click', function () {
+        clearOut();
+        var rows = parseInt($id('tblRows').value, 10) || 5;
+        var cols = parseInt($id('tblCols').value, 10) || 5;
+        var style = $id('tblStyle').value;
+        var head = $id('tblHead').value.split(',').map(function (s) { return s.trim(); });
+        var caption = $id('tblCaption').value;
         var cls = style === 'striped' ? ' class="striped"' : style === 'bordered' ? ' class="bordered"' : style === 'hover' ? ' class="hover"' : '';
         var html = '<table' + cls + '>\n';
         if (caption) html += '  <caption>' + escapeHtml(caption) + '</caption>\n';
@@ -405,21 +350,10 @@
             html += '    </tr>\n';
         }
         html += '  </tbody>\n</table>';
-        showResult('tbl', html);
-    });
-    document.getElementById('tblClear').addEventListener('click', function () {
-        document.getElementById('tblRows').value = '5';
-        document.getElementById('tblCols').value = '5';
-        document.getElementById('tblStyle').value = 'plain';
-        document.getElementById('tblHead').value = '';
-        document.getElementById('tblCaption').value = '';
-        var res = document.getElementById('tblResult');
-        if (res) res.classList.remove('show');
-        hideErr('tbl');
-        document.getElementById('tblRows').focus();
+        showResult(html);
     });
 
-    // ============ Tab7 Excel/CSV→HTML 表格 ============
+    /* ============ Excel/CSV→HTML 表格 ============ */
     function parseCsvLine(line, sep) {
         var cells = [], cur = '', inQ = false;
         for (var i = 0; i < line.length; i++) {
@@ -438,13 +372,13 @@
         cells.push(cur);
         return cells.map(function (x) { return x.trim(); });
     }
-    document.getElementById('csvRun').addEventListener('click', function () {
-        hideErr('csv');
-        var raw = document.getElementById('csvInput').value;
-        if (!raw) { showErr('csv', '请输入 CSV / TSV 数据'); return; }
-        var sep = document.getElementById('csvSep').value;
+    $id('csvRun').addEventListener('click', function () {
+        clearOut();
+        var raw = $id('h2j-in').value;
+        if (!raw.trim()) { showErr('请输入 CSV / TSV 数据'); return; }
+        var sep = $id('csvSep').value;
         if (sep === '&#9;') sep = '\t';
-        var hasHead = document.getElementById('csvHead').checked;
+        var hasHead = $id('csvHead').checked;
         var lines = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(function (l) { return l.trim() !== ''; });
         var rows = lines.map(function (l) { return parseCsvLine(l, sep); });
         var html = '<table>\n';
@@ -462,9 +396,8 @@
             html += '    </tr>\n';
         }
         html += '  </tbody>\n</table>';
-        showResult('csv', html);
+        showResult(html);
     });
-    document.getElementById('csvClear').addEventListener('click', function () { clearPanel('csv'); });
 })();
 </script>
 </body></html>
