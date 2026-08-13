@@ -144,10 +144,28 @@
     return html;
   }
 
+  /* ---------- 暗色主题联动 ---------- */
+  function isDark() {
+    return document.documentElement.getAttribute('data-theme') === 'dark';
+  }
+
+  function applyThemeToEditor() {
+    if (!vditor) {
+      return;
+    }
+    try {
+      if (isDark()) {
+        vditor.setTheme('dark', 'dark', 'github-dark');
+      } else {
+        vditor.setTheme('classic', 'light', 'github');
+      }
+    } catch (e) { /* 主题切换失败不阻塞编辑 */ }
+  }
+
   /* ---------- 模式切换（可视化编辑 <-> HTML 源码） ---------- */
   function switchMode(mode) {
     var isHtml = mode === 'html';
-    $('#modeTabs .mtab').removeClass('active')
+    $('#modeTabs .t-tab').removeClass('active')
       .filter('[data-mode="' + mode + '"]').addClass('active');
     $('#paneTui, #paneHtml').removeClass('active');
     $('#pane' + (isHtml ? 'Html' : 'Tui')).addClass('active');
@@ -222,7 +240,7 @@
       value: loadDraft() || '',
       placeholder: '在这里输入内容…支持 Markdown 语法，工具栏可切换 所见即所得 / 即时渲染 / 分屏预览 模式',
       lang: 'zh_CN',
-      theme: 'classic',
+      theme: isDark() ? 'dark' : 'classic',
       icon: 'ant',
       cdn: '/static/vditor',
       cache: { enable: false },
@@ -239,7 +257,7 @@
       toolbarConfig: { pin: false },
       counter: { enable: false },
       preview: {
-        hljs: { enable: true, style: 'github', lineNumber: true },
+        hljs: { enable: true, style: isDark() ? 'github-dark' : 'github', lineNumber: true },
         markdown: { toc: true, mark: true }
       },
       upload: {
@@ -270,6 +288,17 @@
       }
     });
 
+    /* 监听全站主题切换（app.js 通过 data-theme 属性切换），联动 Vditor 暗色主题 */
+    if (window.MutationObserver) {
+      var themeObserver = new MutationObserver(function () {
+        applyThemeToEditor();
+      });
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+      });
+    }
+
     /* ---------- CodeMirror：HTML 源码视图 ---------- */
     htmlCm = CodeMirror.fromTextArea(document.getElementById('htmlSource'), {
       mode: 'htmlmixed',
@@ -282,7 +311,7 @@
     htmlCm.setSize(null, DEFAULT_HEIGHT);
 
     /* ---------- 事件绑定 ---------- */
-    $('#modeTabs').on('click', '.mtab', function () {
+    $('#modeTabs').on('click', '.t-tab', function () {
       switchMode($(this).attr('data-mode'));
     });
 
