@@ -178,6 +178,12 @@ return array (
     'keywords' => 'JSON和GET参数转换工具,json转url,JSON和GET请求互相转换工具',
     'description' => 'JSON和GET参数转换工具为您提供在线json转url,JSON转GET请求字符串,JSON和GET参数转换,json转get请求参数,自动拼接Url参数,get请求参数转json格式,支持GET请求转JSON字符串等',
   ),
+  'webcheck' => 
+  array (
+    'title' => '网站检测工具,ICP备案查询/Whois/死链/微信拦截/Gzip/关键词密度-在线工具箱',
+    'keywords' => '网站检测,ICP备案查询,whois查询,域名whois,死链检测,微信域名检测,微信拦截检测,Gzip压缩检测,关键词密度检测',
+    'description' => '网站检测工具箱为您提供ICP备案查询,域名Whois信息查询,网站死链检测,微信域名拦截检测,Gzip压缩检测,网页关键词密度检测等站长常用检测工具',
+  ),
   'ip' => 
   array (
     'title' => 'IP地址查询,服务器IP地理位置查询,域名查IP-在线工具箱',
@@ -197,12 +203,6 @@ return array (
     'description' => 'C语言格式化工具为您提供C语言格式化,C语言代码美化,C语言代码格式化,C语言代码格式化美化排版处理,,C语言代码格式化美化在线工具,需要将C语言代码美化时,输入您需要格式化的C语言代码,点击C语言代码格式化,即可转换成功,并自动将C语言语法高亮着色,方便阅读查看C语言语法是否正确等',
   ),
   
-  'gzip' => 
-  array (
-    'title' => '网页Gzip压缩检测-在线工具箱',
-    'keywords' => 'gzip,Content-Encoding,vary,压缩检测',
-    'description' => '网站Gzip压缩检测工具为您提供测试网站Gzip压缩是否开启成功,网页压缩比例检测,压缩后下载速度检测,网页压缩后大小,原始文件大小,网页gzip压缩后与压缩前对比',
-  ),
   'linuxcmd' => 
   array (
     'title' => 'Linux常用命令大全,Linux命令查询-在线工具箱',
@@ -245,12 +245,6 @@ return array (
     'keywords' => '正则表达式,正则表达式测试工具,正则表达式工具',
     'description' => '正则表达式测试工具为您提供js正则表达式验证,java正则表达式,正则表达式数字,正则表达式验证,正则表达式校验,正则表达式测试工具,可在线自定义正则表达式提取文本内容,对任意正则表达式进行校验,正则表达式提取网址,希望对大家有帮助',
   ),
-  'checkurl' => 
-  array (
-    'title' => '网站死链检测查询工具-在线工具箱',
-    'keywords' => '死链,网站死链检测,死链查询,网站死链检测查询工具,网站死链检查',
-    'description' => '网站死链检测查询工具为您提供网站死链检查,检测网站有哪些链接是死链,以及网站死链检测,死链查询,网站死链检测查询工具,网站死链检查等，帮您快速找到死链接',
-  ),
   'favicon' => 
   array (
     'title' => 'ico图标在线制作,favicon图标制作-在线工具箱',
@@ -286,12 +280,6 @@ return array (
     'title' => 'htaccess换nginx,htaccess与nginx在线转换-在线工具箱',
     'keywords' => 'htaccess换nginx,apache转nginx',
     'description' => 'htaccess换nginx工具为您提供htaccess换nginx,apache伪静态文件转为nginx规则,htaccess伪静态规则换nginx,apache RewriteRule转rewrite,apache伪静态文件转nginx伪静态',
-  ),
-  'checkweixin' => 
-  array (
-    'title' => '微信域名检测工具,微信域名拦截封禁在线检测-在线工具箱',
-    'keywords' => '微信域名检测工具,微信域名封禁,微信域名防封,域名拦截检测',
-    'description' => '微信域名检测工具为您提供在线检测域名在微信中是否被封,域名拦截检测，使用微信域名检测工具可以实时检测域名是否被微信屏蔽，检测您的域名在微信是否被封禁屏蔽等。',
   ),
 
   array (
@@ -341,12 +329,6 @@ return array (
     'title' => 'perl格式化,perl代码美化-在线工具箱',
     'keywords' => 'perl格式化,perl在线格式化,perl代码美化,perl代码排版,perl格式化',
     'description' => 'perl格式化工具为您提供perl格式化,perl代码排版,perl在线格式化,perl代码美化,输入混乱,压缩或混淆的perl代码,点击perl代码格式化按钮即可实现代码的格式化与美化功能,该该工具使perl代码看起来更加漂亮且可读性更强也更容易编辑',
-  ),
-  'whois' => 
-  array (
-    'title' => 'WHOIS信息查询-在线工具箱',
-    'keywords' => 'WHOIS查询,域名持有人,注册商,注册人,域名注册日期,过期日期',
-    'description' => '查询WHOIS信息，查询域名是否已经被注册，以及注册域名的域名持有人，注册商，注册人，域名注册日期和过期日期，DNS等域名的详细信息。通过域名Whois服务器查询，可以查询域名归属者联系方式，以及注册和到期时间',
   ),
 
   array (
@@ -407,12 +389,6 @@ return array (
     'title' => 'HTTP状态码详解对照表-在线工具箱',
     'keywords' => 'HTTP响应状态,http状态码查询	',
     'description' => 'HTTP状态码详解对照表为您收集HTTP状态码详解对照表,提供在线HTTP状态对照,HTTP响应状态码,在线对照表大全,404,500,200,403,http状态码查询,http状态码403,,http状态查询,http常用状态码,http协议状态码	',
-  ),
-  'chaicp' => 
-  array (
-    'title' => 'ICP备案查询,网站ICP备案号查询-在线工具箱',
-    'keywords' => 'ICP备案查询,网站ICP备案号查询	',
-    'description' => 'ICP备案查询工具为您提供网站域名备案查询,通过域名可查询该域名是否有备案及相关的ICP备案许可信息,可直接查询该域名工业和信息化部ICP/IP地址备案详细信息	',
   ),
 
   array (
@@ -667,12 +643,6 @@ return array (
     'title' => 'UUID在线生成器-在线工具箱',
     'keywords' => 'UUID,UUID在线生成器,guid生成,在线guid	',
     'description' => 'uuid在线生成器为您提供uuid,uuid在线生成器,在线uuid,在线生成uuid,uuid生成工具,生成uuid,uuid生成器,批量生成uuid,uuid批量生成,全局唯一标识符生成,globally unique identifier生成等	',
-  ),
-  'checkkeyword' => 
-  array (
-    'title' => '网页关键词密度检测工具-在线工具箱',
-    'keywords' => '关键词密度, 网页关键词密度检测工具,keywords,关键词密度结果计算	',
-    'description' => '网页关键词密度检测工具为您提供在线关键词密度检测查询,检测关键词的密度百分比，可以快速检测页面关键词出现的数量和密度，更适合蜘蛛的搜索,检测关键词密度是否符合搜索引擎收录规范并给出建议	',
   ),
 
   array (

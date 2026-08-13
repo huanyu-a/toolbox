@@ -92,29 +92,6 @@ class Index extends Controller
                 $data['uuid_letter'] = input('uuid_letter', 2);
                 $data['uuid'] = uuid($data['uuid_number'], $data['uuid_letter']);
                 break;
-            case 'guid':
-                $data['guid_number'] = input('guid_number', 1);
-                $data['guid_letter'] = input('guid_letter', 1);
-                $array = array();
-                for ($i = 0; $data['guid_number'] > $i; $i++) {
-                    $guid = create_guid();
-                    if (!in_array($guid, $array)) {
-                        $array[] = ($data['guid_letter'] == 1) ? strtoupper($guid) : strtolower($guid);
-                    } else {
-                        $i--;
-                    }
-                }
-                $data['guid'] = $array;
-                break;
-            case 'md5':
-                $data['txt_md5'] = input('txt_md5', '');
-                $md532 = md5($data['txt_md5']);
-                $md516 = substr($md532, 8, 16);
-                $data['md532_d'] = strtoupper($md532);
-                $data['md532_x'] = strtolower($md532);
-                $data['md516_d'] = strtoupper($md516);
-                $data['md516_x'] = strtolower($md516);
-                break;
             case 'caiji':
                 $data['url'] = input('url', '');
                 $data['content'] = $data['url'] ? Fcurl($data['url']) : '';
@@ -224,149 +201,11 @@ class Index extends Controller
                     }
                 }
                 break;
-            case 'gzip':
-                $data['q'] = input('q');
-                if (request()->isPost()) {
-                    $data['q'] = str_replace(array('http://', 'https://'), '', $data['q']);
-                    return $this->redirect('/gzip/?q=' . $data['q'], 302);
-                }
-                if ($data['q']) {
-                    $data['url'] = preg_replace("/([\w.]+)[\w\/]*[\w.]*\??[\w=&\+\%]*/is", '\\1', $data['q']);
-                    $data['gzip'] = is_url('http://' . $data['q']) ? urlheader($data['q']) : '';
-                }
-                break;
             case 'refresh':
                 $url = input('url');
                 if ($url) {
                     $content = Fcurl($url);
                     return $content;
-                }
-                break;
-            case 'checkkeyword':
-                $data['url'] = input('txt_url');
-                $data['keyword'] = input('txt_keyword');
-                if ($data['url'] && $data['keyword']) {
-                    $str = Fcurl($data['url']);
-                    $str = htmlTotext($str);
-                    $data['html_strlen'] = mb_strlen($str, 'utf-8');
-                    $data['html_gjccd'] = mb_strlen($data['keyword'], 'utf-8');
-                    $data['html_gjcsl'] = substr_count($str, $data['keyword']);
-                    $data['html_gjczcd'] = $data['html_gjccd'] * $data['html_gjcsl'];
-                    $data['html_mdjgjs'] = @round(($data['html_gjczcd'] / $data['html_strlen'] * 100), 1);
-                }
-                break;
-            case 'chameta':
-                $data['url'] = input('txt_url');
-                $data['title'] = '';
-                $data['title_len'] = 0;
-                $data['keywords'] = '';
-                $data['keywords_len'] = 0;
-                $data['description'] = '';
-                $data['description_len'] = 0;
-                if ($data['url']) {
-                    $str = Fcurl($data['url']);
-                    preg_match("/<title>([\w\W]*?)<\/title>/is", $str, $match);
-                    $data['title'] = isset($match['1']) ? $match['1'] : null;
-                    $data['title_len'] = mb_strlen($data['title'], 'utf-8');
-                    preg_match("/<meta\s+name=\"keywords\"\s+content=\"([\w\W]*?)\"\s+\/>/is", $str, $match);
-                    $data['keywords'] = isset($match['1']) ? $match['1'] : null;
-                    $data['keywords_len'] = mb_strlen($data['keywords'], 'utf-8');
-                    preg_match("/<meta\s+name=\"description\"\s+content=\"([\w\W]*?)\"\s+\/>/is", $str, $match);
-                    $data['description'] = isset($match['1']) ? $match['1'] : null;
-                    $data['description_len'] = mb_strlen($data['description'], 'utf-8');
-                }
-                break;
-            case 'webstatus':
-                $data['url'] = input('url');
-                $data['ip'] = '';
-                if ($data['url']) {
-                    $web = webstatus($data['url']);
-                    $data['ip'] = $web['ip'];
-                    $data['code'] = $web['code'];
-                    $data['head'] = $web['head'];
-                }
-                break;
-            case 'whois':
-                $data['url'] = input('whois');
-                $data['whois'] = '';
-                $data['domain'] = array();
-                if($data['url']){
-                    if(filter_var($data['url'], FILTER_VALIDATE_IP)){
-                        $type = 'ip';
-                    }else{
-                        $type = 'domain';
-                        if(filter_var($data['url'], FILTER_VALIDATE_URL)){
-                            $data['url'] = parse_url($data['url'])['host'];
-                        }
-                        if(substr($data['url'], 0, 4) == 'www.') $data['url'] = substr($data['url'], 4);
-                        if(!checkdomain($data['url'])){
-                            break;
-                        }
-                    }
-                    
-                    $whois = whois_query($data['url']);
-                    if (preg_match('/Registrar:\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['注册商']=$domain['1'];
-                    }
-                    if (preg_match('/Registrant[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['联系人']=$domain['1'];
-                    }
-                    if (preg_match('/(Registrar\s+Abuse|Registrant)\s+Contact\s+Email[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['联系邮箱']=$domain['2'];
-                    }
-                    if (preg_match('/(Registrar\s+Abuse|Registrant)\s+Contact\s+Phone[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['联系电话']=$domain['2'];
-                    }
-                    if (preg_match('/Updated\s+Date[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['更新时间']=$domain['1'];
-                    }
-                    if (preg_match('/(Registration\s+Time|Creation\s+Date)[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['创建时间']=$domain['2'];
-                    }
-                    if (preg_match('/(Expiration\s+Time|Registry\s+Expiry\s+Date)[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['过期时间']=$domain['2'];
-                    }
-                    if (preg_match('/Registrar\s+WHOIS\s+Server[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['域名服务器']=$domain['1'];
-                    }
-                    if (preg_match_all('/Name\s+Server?[:]\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['DNS']=$domain['1'];
-                    }
-                    if (preg_match('/Domain\s+Status[:]?\s+(.*)/', $whois, $domain)) {
-                        $data['domain']['状态']=$domain['1'];
-                    }
-                    unset($domain);
-                    $whois = "'".str_replace(["\r",'\'',"\n"], ['',"\'","'+\"\\n\"+\r'"],$whois).'\'';
-                    $data['whois'] = $whois;
-                }
-                break;
-            case 'chaicp':
-                $data['url'] = input('icp');
-                $data['icp'] = array();
-                if($data['url']){
-                    if(filter_var($data['url'], FILTER_VALIDATE_URL)){
-                        $data['url'] = parse_url($data['url'])['host'];
-                    }
-                    if(substr($data['url'], 0, 4) == 'www.') $data['url'] = substr($data['url'], 4);
-                    if(!checkdomain($data['url'])){
-                        $data['code'] = 400;
-                        $data['icp']['msg'] = '域名格式不正确';
-                        break;
-                    }
-                    try{
-                        $result = icp_query($data['url']);
-                        if($result['total'] == 0){
-                            $data['code'] = 502;
-                            $data['icp']['msg'] = '未查询到备案信息';
-                            break;
-                        }
-                        $data['code'] = 200;
-                        $data['icp'] = ['网站域名'=>$result['data'][0]['domain'],'ICP备案号'=>$result['data'][0]['webLicence'],'主办单位名称'=>$result['data'][0]['unitName'],'主办单位性质'=>$result['data'][0]['unitType'],'审核日期'=>$result['data'][0]['updateTime'],'是否限制接入'=>$result['data'][0]['limitAccess']];
-                    }catch(Exception $e){
-                        $data['code'] = 501;
-                        $data['icp']['msg'] = $e->getMessage();
-                        break;
-                    }
                 }
                 break;
             case 'lishishangdejintian':
@@ -459,6 +298,124 @@ class Index extends Controller
                     'msg' => $msg,
                     'status' => 1
                 ));
+                break;
+            case 'chaicp':
+                $url = input('icp');
+                if (!$url) {
+                    return json(array('status' => 0, 'msg' => '请输入域名'));
+                }
+                if (filter_var($url, FILTER_VALIDATE_URL)) {
+                    $url = parse_url($url)['host'];
+                }
+                if (substr($url, 0, 4) == 'www.') {
+                    $url = substr($url, 4);
+                }
+                if (!checkdomain($url)) {
+                    return json(array('status' => 0, 'code' => 400, 'msg' => '域名格式不正确'));
+                }
+                try {
+                    $result = icp_query($url);
+                    if ($result['total'] == 0) {
+                        return json(array('status' => 0, 'code' => 502, 'msg' => '未查询到备案信息'));
+                    }
+                    return json(array('status' => 1, 'code' => 200, 'data' => array(
+                        '网站域名' => $result['data'][0]['domain'],
+                        'ICP备案号' => $result['data'][0]['webLicence'],
+                        '主办单位名称' => $result['data'][0]['unitName'],
+                        '主办单位性质' => $result['data'][0]['unitType'],
+                        '审核日期' => $result['data'][0]['updateTime'],
+                        '是否限制接入' => $result['data'][0]['limitAccess']
+                    )));
+                } catch (Exception $e) {
+                    return json(array('status' => 0, 'code' => 501, 'msg' => $e->getMessage()));
+                }
+                break;
+            case 'whois':
+                $url = input('whois');
+                $info = array();
+                $raw = '';
+                if ($url) {
+                    if (filter_var($url, FILTER_VALIDATE_IP)) {
+                        $type = 'ip';
+                    } else {
+                        $type = 'domain';
+                        if (filter_var($url, FILTER_VALIDATE_URL)) {
+                            $url = parse_url($url)['host'];
+                        }
+                        if (substr($url, 0, 4) == 'www.') {
+                            $url = substr($url, 4);
+                        }
+                        if (!checkdomain($url)) {
+                            return json(array('status' => 0, 'msg' => '域名格式不正确'));
+                        }
+                    }
+                    $whois = whois_query($url);
+                    if (preg_match('/Registrar:\s+(.*)/', $whois, $m)) {
+                        $info['注册商'] = $m['1'];
+                    }
+                    if (preg_match('/Registrant[:]?\s+(.*)/', $whois, $m)) {
+                        $info['联系人'] = $m['1'];
+                    }
+                    if (preg_match('/(Registrar\s+Abuse|Registrant)\s+Contact\s+Email[:]?\s+(.*)/', $whois, $m)) {
+                        $info['联系邮箱'] = $m['2'];
+                    }
+                    if (preg_match('/(Registrar\s+Abuse|Registrant)\s+Contact\s+Phone[:]?\s+(.*)/', $whois, $m)) {
+                        $info['联系电话'] = $m['2'];
+                    }
+                    if (preg_match('/Updated\s+Date[:]?\s+(.*)/', $whois, $m)) {
+                        $info['更新时间'] = $m['1'];
+                    }
+                    if (preg_match('/(Registration\s+Time|Creation\s+Date)[:]?\s+(.*)/', $whois, $m)) {
+                        $info['创建时间'] = $m['2'];
+                    }
+                    if (preg_match('/(Expiration\s+Time|Registry\s+Expiry\s+Date)[:]?\s+(.*)/', $whois, $m)) {
+                        $info['过期时间'] = $m['2'];
+                    }
+                    if (preg_match('/Registrar\s+WHOIS\s+Server[:]?\s+(.*)/', $whois, $m)) {
+                        $info['域名服务器'] = $m['1'];
+                    }
+                    if (preg_match_all('/Name\s+Server?[:]\s+(.*)/', $whois, $m)) {
+                        $info['DNS'] = $m['1'];
+                    }
+                    if (preg_match('/Domain\s+Status[:]?\s+(.*)/', $whois, $m)) {
+                        $info['状态'] = $m['1'];
+                    }
+                    $raw = $whois;
+                }
+                return json(array('status' => 1, 'data' => $info, 'raw' => $raw));
+                break;
+            case 'gzip':
+                $q = input('q');
+                if (!$q) {
+                    return json(array('status' => 0, 'msg' => '请输入网址'));
+                }
+                $q = str_replace(array('http://', 'https://'), '', $q);
+                $info = is_url('http://' . $q) ? urlheader($q) : array();
+                return json(array('status' => 1, 'data' => $info));
+                break;
+            case 'checkkeyword':
+                $url = input('txt_url');
+                $keyword = input('txt_keyword');
+                if (!$url || !$keyword) {
+                    return json(array('status' => 0, 'msg' => '请填写网址和关键词'));
+                }
+                $str = Fcurl($url);
+                if (!$str) {
+                    return json(array('status' => 0, 'msg' => '页面抓取失败，请检查网址'));
+                }
+                $str = htmlTotext($str);
+                $html_strlen = mb_strlen($str, 'utf-8');
+                $html_gjccd = mb_strlen($keyword, 'utf-8');
+                $html_gjcsl = substr_count($str, $keyword);
+                $html_gjczcd = $html_gjccd * $html_gjcsl;
+                $html_mdjgjs = @round(($html_gjczcd / max($html_strlen, 1) * 100), 1);
+                return json(array('status' => 1, 'data' => array(
+                    'html_strlen' => $html_strlen,
+                    'html_gjccd' => $html_gjccd,
+                    'html_gjcsl' => $html_gjcsl,
+                    'html_gjczcd' => $html_gjczcd,
+                    'html_mdjgjs' => $html_mdjgjs
+                )));
                 break;
             case 'check_url':
                 $page = input('page', 1);

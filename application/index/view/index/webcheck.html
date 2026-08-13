@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.webcheck.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.webcheck.keywords}" /><meta name="description" content="{$Think.config.web.webcheck.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔎</span>网站检测</h2>
+        <p class="tool-desc">网站检测工具箱：ICP 备案查询、域名 Whois 信息、网站死链检测、微信域名检测、Gzip 压缩检测、关键词密度检测，输入网址一键检测。</p>
+        <ul class="t-tabs" id="wcTabs">
+            <li><button type="button" class="t-tab active" data-panel="wcIcp">ICP备案</button></li>
+            <li><button type="button" class="t-tab" data-panel="wcWhois">Whois</button></li>
+            <li><button type="button" class="t-tab" data-panel="wcLinks">死链检测</button></li>
+            <li><button type="button" class="t-tab" data-panel="wcWx">微信检测</button></li>
+            <li><button type="button" class="t-tab" data-panel="wcGzip">Gzip检测</button></li>
+            <li><button type="button" class="t-tab" data-panel="wcKw">关键词密度</button></li>
+        </ul>
+
+        <!-- ICP 备案 -->
+        <div id="wcIcp" class="t-panel wc-panel active">
+            <label class="t-label" for="wcIcpInput">输入域名</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcIcpInput" placeholder="如：baidu.com" />
+                <button class="t-btn t-btn-ok" type="button" id="wcIcpBtn">查询ICP备案</button>
+            </div>
+            <div class="t-result" id="wcIcpResult" style="display:none"></div>
+        </div>
+
+        <!-- Whois -->
+        <div id="wcWhois" class="t-panel wc-panel">
+            <label class="t-label" for="wcWhoisInput">输入域名或 IP</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcWhoisInput" placeholder="如：baidu.com 或 1.2.3.4" />
+                <button class="t-btn t-btn-ok" type="button" id="wcWhoisBtn">查询 Whois</button>
+            </div>
+            <div class="t-result" id="wcWhoisResult" style="display:none"></div>
+            <div class="t-result" id="wcWhoisRaw" style="display:none;margin-top:10px"></div>
+        </div>
+
+        <!-- 死链检测 -->
+        <div id="wcLinks" class="t-panel wc-panel">
+            <label class="t-label" for="wcLinksInput">输入要检测的网址</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcLinksInput" placeholder="如：http://example.com" />
+                <button class="t-btn t-btn-ok" type="button" id="wcLinksBtn">立即检测死链</button>
+            </div>
+            <div class="t-result" id="wcLinksResult" style="display:none">
+                <table class="table table-bordered table-striped" style="margin-top:10px">
+                    <thead><tr><th width="60">序号</th><th>网页标题</th><th>检测的网址</th><th>检测状态</th></tr></thead>
+                    <tbody id="wcLinksData"></tbody>
+                </table>
+                <ul id="wcLinksPage" class="pagination"></ul>
+            </div>
+        </div>
+
+        <!-- 微信检测 -->
+        <div id="wcWx" class="t-panel wc-panel">
+            <label class="t-label" for="wcWxInput">输入要检测的网址</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcWxInput" placeholder="如：example.com" />
+                <button class="t-btn t-btn-ok" type="button" id="wcWxBtn">微信域名检测</button>
+            </div>
+            <div class="t-result" id="wcWxResult" style="display:none"></div>
+        </div>
+
+        <!-- Gzip 检测 -->
+        <div id="wcGzip" class="t-panel wc-panel">
+            <label class="t-label" for="wcGzipInput">输入要检测的网址</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcGzipInput" placeholder="如：example.com" />
+                <button class="t-btn t-btn-ok" type="button" id="wcGzipBtn">Gzip 压缩检测</button>
+            </div>
+            <div class="t-result" id="wcGzipResult" style="display:none"></div>
+        </div>
+
+        <!-- 关键词密度 -->
+        <div id="wcKw" class="t-panel wc-panel">
+            <label class="t-label" for="wcKwUrl">网页地址</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcKwUrl" placeholder="如：http://example.com/page.html" />
+            </div>
+            <label class="t-label" for="wcKwWord">检测关键词</label>
+            <div class="t-row">
+                <input class="t-input t-flex1" id="wcKwWord" placeholder="输入要统计的关键词" />
+                <button class="t-btn t-btn-ok" type="button" id="wcKwBtn">检测关键词密度</button>
+            </div>
+            <div class="t-result" id="wcKwResult" style="display:none"></div>
+        </div>
+    </div>
+</div></div>
+{include file="nav" /}
+{include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    var tabs = document.querySelectorAll('#wcTabs .t-tab');
+    var panels = document.querySelectorAll('.wc-panel');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            panels.forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+
+    function esc(s) {
+        var d = document.createElement('div');
+        d.textContent = (s === null || s === undefined) ? '' : String(s);
+        return d.innerHTML;
+    }
+    function api(params, cb) {
+        $.post('/api/', params, function (res) { cb(res); }).fail(function () { cb({ status: 0, msg: '请求失败，请稍后重试' }); });
+    }
+    function showBox(id, html) {
+        var box = document.getElementById(id);
+        box.innerHTML = html;
+        box.style.display = 'block';
+    }
+    function kvTable(obj) {
+        var h = '<table class="table table-bordered table-striped" style="margin-top:10px">';
+        for (var k in obj) {
+            if (obj.hasOwnProperty(k)) {
+                h += '<tr><td style="width:140px;font-weight:600">' + esc(k) + '</td><td>' + esc(Array.isArray(obj[k]) ? obj[k].join(', ') : obj[k]) + '</td></tr>';
+            }
+        }
+        return h + '</table>';
+    }
+    function errHtml(msg) {
+        return '<div class="t-error show">' + esc(msg) + '</div>';
+    }
+    function loading() {
+        return '<div class="t-note">正在检测，请稍候…</div>';
+    }
+
+    // ICP 备案
+    document.getElementById('wcIcpBtn').addEventListener('click', function () {
+        var v = document.getElementById('wcIcpInput').value.trim();
+        if (!v) { showBox('wcIcpResult', errHtml('请输入域名')); return; }
+        showBox('wcIcpResult', loading());
+        api({ type: 'chaicp', icp: v }, function (res) {
+            if (res.status === 1 && res.data) {
+                showBox('wcIcpResult', kvTable(res.data));
+            } else {
+                showBox('wcIcpResult', errHtml(res.msg || '未查询到备案信息'));
+            }
+        });
+    });
+
+    // Whois
+    document.getElementById('wcWhoisBtn').addEventListener('click', function () {
+        var v = document.getElementById('wcWhoisInput').value.trim();
+        if (!v) { showBox('wcWhoisResult', errHtml('请输入域名或 IP')); return; }
+        showBox('wcWhoisResult', loading());
+        document.getElementById('wcWhoisRaw').style.display = 'none';
+        api({ type: 'whois', whois: v }, function (res) {
+            if (res.status === 1) {
+                if (res.data && Object.keys(res.data).length) {
+                    showBox('wcWhoisResult', kvTable(res.data));
+                } else {
+                    showBox('wcWhoisResult', errHtml('未提取到关键信息，请查看下方原始数据'));
+                }
+                if (res.raw) {
+                    var pre = document.createElement('pre');
+                    pre.style.cssText = 'max-height:260px;overflow:auto;background:#f7f7f7;padding:10px;font-size:12px;white-space:pre-wrap;word-break:break-all';
+                    pre.textContent = res.raw;
+                    var rawBox = document.getElementById('wcWhoisRaw');
+                    rawBox.innerHTML = '<div style="font-weight:600;margin-top:6px">原始 Whois 数据</div>';
+                    rawBox.appendChild(pre);
+                    rawBox.style.display = 'block';
+                }
+            } else {
+                showBox('wcWhoisResult', errHtml(res.msg || '查询失败'));
+            }
+        });
+    });
+
+    // 死链检测（全局分页函数）
+    var wcLinksUrl = '';
+    window.get_data = function (page) {
+        if (!wcLinksUrl) return;
+        showBox('wcLinksResult', '<div class="t-note">正在检测，请稍候…</div><table class="table table-bordered table-striped" style="margin-top:10px"><thead><tr><th width="60">序号</th><th>网页标题</th><th>检测的网址</th><th>检测状态</th></tr></thead><tbody id="wcLinksData"></tbody></table><ul id="wcLinksPage" class="pagination"></ul>');
+        api({ type: 'check_url', url: wcLinksUrl, page: page || 1 }, function (res) {
+            if (res.status === 1) {
+                showBox('wcLinksResult',
+                    '<table class="table table-bordered table-striped" style="margin-top:10px"><thead><tr><th width="60">序号</th><th>网页标题</th><th>检测的网址</th><th>检测状态</th></tr></thead><tbody id="wcLinksData">' +
+                    (res.data || '') +
+                    '</tbody></table><ul id="wcLinksPage" class="pagination">' + (res.count_str || '') + '</ul>');
+            } else {
+                showBox('wcLinksResult', errHtml('检测失败，请检查网址'));
+            }
+        });
+    };
+    document.getElementById('wcLinksBtn').addEventListener('click', function () {
+        var v = document.getElementById('wcLinksInput').value.trim();
+        if (!v) { showBox('wcLinksResult', errHtml('请输入要检测的网址')); return; }
+        if (!/^https?:\/\//i.test(v)) v = 'http://' + v;
+        wcLinksUrl = v;
+        window.get_data(1);
+    });
+
+    // 微信检测
+    document.getElementById('wcWxBtn').addEventListener('click', function () {
+        var v = document.getElementById('wcWxInput').value.trim();
+        if (!v) { showBox('wcWxResult', errHtml('请输入要检测的网址')); return; }
+        showBox('wcWxResult', loading());
+        api({ type: 'checkweixin', txt_url: v }, function (res) {
+            if (res.status === 1) {
+                var ok = res.code === 0;
+                showBox('wcWxResult', '<div class="t-result-label" style="color:' + (ok ? 'green' : 'red') + ';font-size:16px;font-weight:600">' + (ok ? '✅ ' : '⛔ ') + esc(res.msg) + '</div>');
+            } else {
+                showBox('wcWxResult', errHtml(res.msg || '检测失败'));
+            }
+        });
+    });
+
+    // Gzip 检测
+    document.getElementById('wcGzipBtn').addEventListener('click', function () {
+        var v = document.getElementById('wcGzipInput').value.trim();
+        if (!v) { showBox('wcGzipResult', errHtml('请输入要检测的网址')); return; }
+        showBox('wcGzipResult', loading());
+        api({ type: 'gzip', q: v }, function (res) {
+            if (res.status === 1 && res.data) {
+                var h = '';
+                var jc = res.data.jc || {};
+                var head = res.data.head || {};
+                h += '<table class="table table-bordered table-striped" style="margin-top:10px">';
+                h += '<tr><td style="width:140px;font-weight:600">是否压缩</td><td><strong style="color:' + (jc.ystype === 'gzip' ? 'green' : 'red') + '">' + (jc.ystype === 'gzip' ? '是' : '否') + '</strong></td></tr>';
+                h += '<tr><td style="font-weight:600">压缩类型</td><td>' + esc(jc.ystype || '-') + '</td></tr>';
+                h += '<tr><td style="font-weight:600">原始文件大小</td><td>' + esc(jc.ysize || '-') + '</td></tr>';
+                h += '<tr><td style="font-weight:600">压缩后文件大小</td><td>' + esc(jc.yssize || '-') + '</td></tr>';
+                h += '<tr><td style="font-weight:600">压缩率（估计值）</td><td>' + esc(jc.ysl || '-') + ' %</td></tr>';
+                h += '</table>';
+                if (Object.keys(head).length) {
+                    h += '<div style="font-weight:600;margin-top:12px">Header 信息</div><table class="table table-bordered table-striped" style="margin-top:6px">';
+                    for (var k in head) {
+                        if (head.hasOwnProperty(k)) {
+                            h += '<tr><td style="width:140px;font-weight:600">' + esc(k) + '</td><td style="word-break:break-all">' + esc(head[k]) + '</td></tr>';
+                        }
+                    }
+                    h += '</table>';
+                }
+                showBox('wcGzipResult', h);
+            } else {
+                showBox('wcGzipResult', errHtml(res.msg || '检测失败，请检查网址'));
+            }
+        });
+    });
+
+    // 关键词密度
+    document.getElementById('wcKwBtn').addEventListener('click', function () {
+        var u = document.getElementById('wcKwUrl').value.trim();
+        var w = document.getElementById('wcKwWord').value.trim();
+        if (!u || !w) { showBox('wcKwResult', errHtml('请填写网页地址和关键词')); return; }
+        showBox('wcKwResult', loading());
+        api({ type: 'checkkeyword', txt_url: u, txt_keyword: w }, function (res) {
+            if (res.status === 1) {
+                var d = res.data || {};
+                var h = '<table class="table table-bordered table-striped" style="margin-top:10px">';
+                h += '<tr><td style="width:140px;font-weight:600">页面总字符数</td><td>' + esc(d.html_strlen) + ' 个</td></tr>';
+                h += '<tr><td style="font-weight:600">关键词字符数</td><td>' + esc(d.html_gjccd) + ' 个</td></tr>';
+                h += '<tr><td style="font-weight:600">关键词出现次数</td><td>' + esc(d.html_gjcsl) + ' 次</td></tr>';
+                h += '<tr><td style="font-weight:600">关键词总字符数</td><td>' + esc(d.html_gjczcd) + ' 个</td></tr>';
+                h += '<tr><td style="font-weight:600">关键词密度</td><td><strong style="color:#1677ff">' + esc(d.html_mdjgjs) + ' %</strong></td></tr>';
+                h += '</table>';
+                showBox('wcKwResult', h);
+            } else {
+                showBox('wcKwResult', errHtml(res.msg || '检测失败'));
+            }
+        });
+    });
+})();
+</script>
+</body></html>
