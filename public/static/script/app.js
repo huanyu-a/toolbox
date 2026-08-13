@@ -382,7 +382,19 @@
             var key = 'toolbox_history';
             var list = JSON.parse(localStorage.getItem(key) || '[]');
             var path = window.location.pathname.replace(/\/+$/, '') + '/';
-            var name = document.title.replace(/-.*$/, '').trim() || path;
+            // 优先用工具名称（TOOLS_DATA 注册表反查），找不到再回退页面标题
+            var name = '';
+            try {
+                var cats = window.TOOLS_DATA || [];
+                for (var ci = 0; ci < cats.length; ci++) {
+                    var items = cats[ci].items || [];
+                    for (var ii = 0; ii < items.length; ii++) {
+                        if (items[ii].url === path) { name = items[ii].name; break; }
+                    }
+                    if (name) break;
+                }
+            } catch (e) { /* ignore */ }
+            if (!name) name = document.title.replace(/-.*$/, '').trim() || path;
             list = list.filter(function (i) { return i.url !== path; });
             list.unshift({ url: path, name: name });
             list = list.slice(0, 12);
