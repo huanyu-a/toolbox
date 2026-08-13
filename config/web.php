@@ -180,9 +180,9 @@ return array (
   ),
   'webcheck' => 
   array (
-    'title' => '网站检测工具,ICP备案查询/Whois/死链/微信拦截/Gzip/关键词密度/HTTP状态码-在线工具箱',
-    'keywords' => '网站检测,ICP备案查询,whois查询,域名whois,死链检测,微信域名检测,微信拦截检测,Gzip压缩检测,关键词密度检测,HTTP状态码查询,HTTP状态码对照表',
-    'description' => '网站检测工具箱为您提供ICP备案查询,域名Whois信息查询,网站死链检测,微信域名拦截检测,Gzip压缩检测,网页关键词密度检测,HTTP状态码查询与对照表等站长常用检测工具',
+    'title' => '网站检测工具,ICP备案查询/Whois/微信拦截/Gzip/关键词密度/HTTP状态码-在线工具箱',
+    'keywords' => '网站检测,ICP备案查询,whois查询,域名whois,微信域名检测,微信拦截检测,Gzip压缩检测,关键词密度检测,HTTP状态码查询,HTTP状态码对照表',
+    'description' => '网站检测工具箱为您提供ICP备案查询,域名Whois信息查询,微信域名拦截检测,Gzip压缩检测,网页关键词密度检测,HTTP状态码查询与对照表等站长常用检测工具',
   ),
   'ip' => 
   array (
