@@ -29,11 +29,7 @@ return [
             ['url' => '/autoformat/', 'name' => '文章排版', 'accent' => ''],
             ['url' => '/caiji/', 'name' => '文章采集', 'accent' => ''],
             ['url' => '/textconvert/', 'name' => '文本转换', 'accent' => ''],
-            ['url' => '/txtreplace/', 'name' => '文本替换', 'accent' => ''],
-            ['url' => '/textdiff/', 'name' => '文本对比', 'accent' => ''],
-            ['url' => '/txtcount/', 'name' => '字数统计', 'accent' => ''],
-            ['url' => '/quchong/', 'name' => '内容去重', 'accent' => ''],
-            ['url' => '/zipstringtext/', 'name' => '字符串压缩', 'accent' => ''],
+            ['url' => '/texttool/', 'name' => '文本工具', 'accent' => ''],
         ],
     ],
     [
