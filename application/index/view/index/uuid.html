@@ -2,13 +2,9 @@
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico">🔖</span>UUID / GUID 在线生成</h2>
-        <p class="tool-desc">批量生成 UUID v4 与 GUID（128 位全局唯一标识符），支持大小写、格式与数量自定义，全程本地生成。</p>
-        <ul class="t-tabs">
-            <li><button type="button" class="t-tab active" data-panel="uuidPanel1">🔖 UUID 生成</button></li>
-            <li><button type="button" class="t-tab" data-panel="uuidPanel2">🆔 GUID 生成</button></li>
-        </ul>
-        <div id="uuidPanel1" class="t-panel active">
-            <p class="tool-desc" style="margin-bottom:14px">符合 RFC 4122 的 UUID v4（基于随机数，第 13 位固定 4、第 17 位 8/9/a/b）。</p>
+        <p class="tool-desc">批量生成 UUID v4 / GUID（128 位全局唯一标识符），支持大小写、格式与数量自定义，全程本地生成。</p>
+        <div id="uuidPanel" class="t-panel active">
+            <p class="tool-desc" style="margin-bottom:14px">UUID 与 GUID 本质相同，均为 128 位随机标识符（GUID 是微软对 UUID 的称呼）。生成结果符合 RFC 4122 v4：第 13 位固定 4、第 17 位为 8/9/a/b。</p>
             <div class="t-row" style="margin-bottom:14px">
                 <div class="t-col" style="flex:1;min-width:140px">
                     <label class="t-label">生成数量</label>
@@ -17,8 +13,8 @@
                 <div class="t-col" style="flex:1;min-width:140px">
                     <label class="t-label">大小写</label>
                     <select class="t-input" style="width:100%" id="uuidCase">
-                        <option value="lower">uuid 小写</option>
-                        <option value="upper">UUID 大写</option>
+                        <option value="lower">小写</option>
+                        <option value="upper">大写</option>
                     </select>
                 </div>
                 <div class="t-col" style="flex:1;min-width:140px">
@@ -26,53 +22,23 @@
                     <select class="t-input" style="width:100%" id="uuidFmt">
                         <option value="std">标准（含连字符）</option>
                         <option value="none">无连字符</option>
+                        <option value="brace">带花括号 {GUID}</option>
                         <option value="urn">URN 格式</option>
                     </select>
                 </div>
             </div>
             <div class="tool-actions">
-                <button class="t-btn" type="button" id="uuidRun">生成 UUID</button>
+                <button class="t-btn" type="button" id="uuidRun">生成 UUID / GUID</button>
                 <button class="t-btn t-btn-ghost" type="button" data-copy="#uuidOutput">复制结果</button>
                 <button class="t-btn t-btn-ghost" type="button" id="uuidClear">清空</button>
             </div>
             <div class="t-result" id="uuidResult"><textarea class="t-area t-area-readonly" id="uuidOutput" rows="8" readonly></textarea></div>
             <div class="t-error" id="uuidError"></div>
         </div>
-        <div id="uuidPanel2" class="t-panel">
-            <p class="tool-desc" style="margin-bottom:14px">GUID（Globally Unique Identifier）128 位随机标识，格式 "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"。</p>
-            <div class="t-row" style="margin-bottom:14px">
-                <div class="t-col" style="flex:1;min-width:140px">
-                    <label class="t-label">生成数量</label>
-                    <input class="t-input" style="width:100%" type="number" id="guidNum" value="5" min="1" max="100">
-                </div>
-                <div class="t-col" style="flex:1;min-width:140px">
-                    <label class="t-label">大小写</label>
-                    <select class="t-input" style="width:100%" id="guidCase">
-                        <option value="upper">GUID 大写</option>
-                        <option value="lower">guid 小写</option>
-                    </select>
-                </div>
-                <div class="t-col" style="flex:1;min-width:140px">
-                    <label class="t-label">格式</label>
-                    <select class="t-input" style="width:100%" id="guidFmt">
-                        <option value="std">标准（含连字符）</option>
-                        <option value="none">无连字符</option>
-                        <option value="brace">带花括号</option>
-                    </select>
-                </div>
-            </div>
-            <div class="tool-actions">
-                <button class="t-btn" type="button" id="guidRun">生成 GUID</button>
-                <button class="t-btn t-btn-ghost" type="button" data-copy="#guidOutput">复制结果</button>
-                <button class="t-btn t-btn-ghost" type="button" id="guidClear">清空</button>
-            </div>
-            <div class="t-result" id="guidResult"><textarea class="t-area t-area-readonly" id="guidOutput" rows="8" readonly></textarea></div>
-            <div class="t-error" id="guidError"></div>
-        </div>
     </div>
     <div class="tool-card">
         <h2 class="tool-title">📖 什么是 UUID / GUID</h2>
-        <p class="tool-desc">UUID 是通用唯一识别码（Universally Unique Identifier），GUID 是全局唯一标识符（Globally Unique Identifier），二者均为 128 位数值，格式 "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"，重复可能性极小，可用于所有需要唯一标识符的场景。本工具使用浏览器密码学级随机源（crypto.getRandomValues）生成，全程本地完成，不会上传任何数据。</p>
+        <p class="tool-desc">UUID（Universally Unique Identifier，通用唯一识别码）与 GUID（Globally Unique Identifier，全局唯一标识符）本质上是同一种 128 位标识符，规则完全一致，GUID 只是微软对 UUID 的称呼，格式 "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"，重复可能性极小，可用于所有需要唯一标识符的场景。本工具使用浏览器密码学级随机源（crypto.getRandomValues）生成，全程本地完成，不会上传任何数据。</p>
     </div>
 </div></div>
 {include file="nav" /}
@@ -83,24 +49,10 @@
 <script src="/static/script/app.js" type="text/javascript"></script>
 <script>
 (function () {
-    // Tab 切换
-    var tabs = document.querySelectorAll('.t-tab');
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].addEventListener('click', function () {
-            var target = this.getAttribute('data-panel');
-            for (var j = 0; j < tabs.length; j++) {
-                tabs[j].classList.toggle('active', tabs[j] === this);
-            }
-            var panels = document.querySelectorAll('.t-panel');
-            for (var k = 0; k < panels.length; k++) {
-                panels[k].classList.toggle('active', panels[k].id === target);
-            }
-        });
-    }
-    // UUID
-    var uErr = document.getElementById('uuidError');
-    function uShow(m) { uErr.textContent = m; uErr.classList.add('show'); }
-    function uHide() { uErr.classList.remove('show'); }
+    var err = document.getElementById('uuidError');
+    function showErr(m) { err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    // 生成符合 RFC 4122 的 UUID v4（GUID 与 UUID 规则相同，花括号只是包装格式）
     function genUuid() {
         var arr = new Uint8Array(16);
         window.crypto.getRandomValues(arr);
@@ -111,7 +63,7 @@
         return hex.substr(0, 8) + '-' + hex.substr(8, 4) + '-' + hex.substr(12, 4) + '-' + hex.substr(16, 4) + '-' + hex.substr(20, 12);
     }
     document.getElementById('uuidRun').addEventListener('click', function () {
-        uHide();
+        hideErr();
         var num = parseInt(document.getElementById('uuidNum').value, 10);
         var cs = document.getElementById('uuidCase').value;
         var fmt = document.getElementById('uuidFmt').value;
@@ -121,6 +73,7 @@
         for (var i = 0; i < num; i++) {
             var u = genUuid();
             if (fmt === 'none') u = u.replace(/-/g, '');
+            else if (fmt === 'brace') u = '{' + u + '}';
             else if (fmt === 'urn') u = 'urn:uuid:' + u;
             if (cs === 'upper') u = u.toUpperCase();
             list.push(u);
@@ -131,41 +84,7 @@
     document.getElementById('uuidClear').addEventListener('click', function () {
         document.getElementById('uuidOutput').value = '';
         document.getElementById('uuidResult').classList.remove('show');
-        uHide();
-    });
-    // GUID
-    var gErr = document.getElementById('guidError');
-    function gShow(m) { gErr.textContent = m; gErr.classList.add('show'); }
-    function gHide() { gErr.classList.remove('show'); }
-    function randHex(len) {
-        var arr = new Uint8Array(Math.ceil(len / 2));
-        window.crypto.getRandomValues(arr);
-        var hex = '';
-        for (var i = 0; i < arr.length; i++) hex += (arr[i] < 16 ? '0' : '') + arr[i].toString(16);
-        return hex.substr(0, len);
-    }
-    document.getElementById('guidRun').addEventListener('click', function () {
-        gHide();
-        var num = parseInt(document.getElementById('guidNum').value, 10);
-        var cs = document.getElementById('guidCase').value;
-        var fmt = document.getElementById('guidFmt').value;
-        if (isNaN(num) || num < 1) num = 1;
-        if (num > 100) num = 100;
-        var list = [];
-        for (var i = 0; i < num; i++) {
-            var g = randHex(8) + '-' + randHex(4) + '-' + randHex(4) + '-' + randHex(4) + '-' + randHex(12);
-            if (fmt === 'none') g = g.replace(/-/g, '');
-            else if (fmt === 'brace') g = '{' + g + '}';
-            if (cs === 'upper') g = g.toUpperCase();
-            list.push(g);
-        }
-        document.getElementById('guidOutput').value = list.join('\n');
-        document.getElementById('guidResult').classList.add('show');
-    });
-    document.getElementById('guidClear').addEventListener('click', function () {
-        document.getElementById('guidOutput').value = '';
-        document.getElementById('guidResult').classList.remove('show');
-        gHide();
+        hideErr();
     });
 })();
 </script>

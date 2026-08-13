@@ -640,7 +640,7 @@ return array (
   ),
   'uuid' => 
   array (
-    'title' => 'UUID在线生成器-在线工具箱',
+    'title' => 'UUID/GUID在线生成器-在线工具箱',
     'keywords' => 'UUID,UUID在线生成器,guid生成,在线guid	',
     'description' => 'uuid在线生成器为您提供uuid,uuid在线生成器,在线uuid,在线生成uuid,uuid生成工具,生成uuid,uuid生成器,批量生成uuid,uuid批量生成,全局唯一标识符生成,globally unique identifier生成等	',
   ),
