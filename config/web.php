@@ -305,12 +305,6 @@ return array (
     'keywords' => '换算器,密度换算器,在线密度换算器,密度单位换算',
     'description' => '在线密度换算器工具为您提供密度在线计算,克/立方厘米转千克/立方分米,克/立方米转克/立方分米,密度单位转换器,在线密度换算器可以帮您快速进行密度计算',
   ),
-  'htmlescape' => 
-  array (
-    'title' => 'html在线转义工具,html在线反转义工具-在线工具箱',
-    'keywords' => 'html在线转义工具,html在线转义,html转义,转义工具,html转义字符工具,html转码工具,在线转义工具,html转义字符表',
-    'description' => 'HTML转义工具为您提供 HTML转义,html在线转义,html转义,转义工具,html转义字符工具,html转码工具,在线转义工具,html转义字符表,把HTML代码转义后输出，提供html转义字符表对照等',
-  ),
   
   'contenttype' => 
   array (
@@ -377,12 +371,6 @@ return array (
     'title' => 'HTML/CSS/JS在线运行代码,代码编辑器-在线工具箱',
     'keywords' => '执行Js代码,网页代码调试器,Html在线预览工具,代码编辑器	',
     'description' => 'HTML/CSS/JS在线运行代码工具为您提供在在线执行Js代码工具,网页代码调试器,Html在线预览工具,可以把Html页面代码进行在线调试,在线预览 ,代码编辑器,代码在线编辑器,支持Jquery和Js	',
-  ),
-  'camelcase' => 
-  array (
-    'title' => '在线驼峰转下划线,下划线转驼峰-在线工具箱',
-    'keywords' => '在线驼峰转下划线,下划线转驼峰	',
-    'description' => '驼峰与下划线互转工具为您提供在线驼峰转下划线,变量，类名,属性名,函数等命名的驼峰与下划线相互转换,下划线转驼峰;建议一般普通的函数、类名和变量用驼峰命名，私有的函数方法使用下划线	',
   ),
   'desencrypt' => 
   array (
@@ -480,11 +468,11 @@ return array (
     'keywords' => '当前世界各地时间,世界时间,世界实时时间,美国时间	',
     'description' => '当前世界各地时间工具提供当前世界各地时间,世界时间,世界实时时间,当前世界各地时间是几点,在线世界各地时间查询,世界时差查询,可实时显示当前世界各地的当前时间,提供世界主要城市的时间查询功能等	',
   ),
-  'urlencode' => 
+  'encode' => 
   array (
-    'title' => 'url编码解码工具,UrlEncode编码,UrlDecode解码-在线工具箱',
-    'keywords' => 'URL编码解码工具,UrlEncode编码,UrlDecode解码,网址编码解码	',
-    'description' => 'URL编码解码工具提供UrlEncode编码,UrlDecode解码,URL网址编码解码,对Url进行编码后可以将一些特殊字符和汉字变为urlEncode编码格式等	',
+    'title' => '编码转换工具大全,Base64/URL/Escape/Unicode/UTF-8/ASCII/摩尔斯/HTML转义在线工具-在线工具箱',
+    'keywords' => '编码转换,Base64编码,URL编码,URL解码,Escape编码,Unicode转换,UTF-8转换,ASCII转换,摩尔斯电码,HTML转义,html转义字符,迅雷链接加密',
+    'description' => '编码转换工具大全提供Base64编码解码,URL编码解码,Escape编码解码,Unicode转换,UTF-8编码转换,ASCII编码转换,摩尔斯电码加密解密,HTML转义字符转换,迅雷快车旋风链接加密解密,图片转Base64等常用编码转换功能',
   ),
   'asciicode' => 
   array (
@@ -812,9 +800,9 @@ return array (
     'description' => '在线加密解密工具大全,提供AES、DES、RC4、Rabbit、TripleDES对称加密解密,MD5、SHA1、SHA224、SHA256、SHA384、SHA512、RIPEMD160、SHA3哈希加密,HMAC消息认证码,htpasswd密码文件生成,全程浏览器本地运算,数据不离开浏览器',
   ),
     'textconvert' => array (
-        'title' => '文本转换工具,简繁转换/汉字拼音/火星文/竖排翻转/人民币大写-在线工具箱',
-        'keywords' => '文本转换,简繁转换,繁体字转换,汉字转拼音,火星文转换,文字竖排,文字翻转,文字特效,全角半角转换,英文大小写转换,人民币大写',
-        'description' => '文本转换在线工具合集，提供简体繁体互转、汉字转拼音及读音、火星文转换、文字竖排、文字翻转、彩色文字特效、全角半角互转、英文大小写转换、人民币大写金额转换等功能，全部在浏览器本地完成。',
+        'title' => '文本转换工具,简繁转换/汉字拼音/火星文/竖排翻转/驼峰下划线/人民币大写-在线工具箱',
+        'keywords' => '文本转换,简繁转换,繁体字转换,汉字转拼音,火星文转换,文字竖排,文字翻转,文字特效,全角半角转换,英文大小写转换,驼峰下划线转换,人民币大写',
+        'description' => '文本转换在线工具合集，提供简体繁体互转、汉字转拼音及读音、火星文转换、文字竖排、文字翻转、彩色文字特效、全角半角互转、英文大小写转换、驼峰与下划线命名互转、人民币大写金额转换等功能，全部在浏览器本地完成。',
     ),
     'texttool' => array (
         'title' => '文本工具,字数统计/内容去重/文本替换/字符串压缩/文本对比-在线工具箱',

@@ -1,0 +1,47 @@
+(function () {
+    var input = document.getElementById('content');
+    var resultBox = document.getElementById('resultBox');
+    var resultText = document.getElementById('resultText');
+    var err = document.getElementById('err');
+    function showErr(m) { resultBox.classList.remove('show'); err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function showResult(v) { hideErr(); resultText.textContent = v; resultBox.classList.add('show'); }
+    function ucfirst(s) { return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function escapeRe(ch) { return ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    // 下划线转驼峰：等价原 PHP 算法 preg_replace_callback('/([^a-zA-Z][a-z])/', ucfirst(strtoupper(str_replace('_','',$m))), ucfirst($text))
+    function toCamel(str) {
+        return ucfirst(str).replace(/([^a-zA-Z][a-z])/g, function (m) {
+            return m.replace(/_/g, '').toUpperCase();
+        });
+    }
+    // 驼峰转下划线：等价原 PHP 算法，先按 /(([A-Z]).*?([A-Z]))/ 在大写边界插入 _，再整体转小写
+    function toUnder(str) {
+        var t = ucfirst(str).replace(/([A-Z]).*?([A-Z])/g, function (m) {
+            var last = m.charAt(m.length - 1);
+            return m.replace(new RegExp(escapeRe(last), 'g'), '_' + last);
+        });
+        return t.toLowerCase();
+    }
+    function convert(fn) {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要转换的内容'); return; }
+        showResult(fn(v));
+    }
+    document.getElementById('btnToCamel').addEventListener('click', function () { convert(toCamel); });
+    document.getElementById('btnToUnder').addEventListener('click', function () { convert(toUnder); });
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        input.value = 'order_id;\nauth_code;\ntotal_amount;\nuserName;\nuser_id_card;';
+        hideErr();
+        input.focus();
+    });
+    document.getElementById('btnClear').addEventListener('click', function () {
+        input.value = '';
+        resultBox.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') convert(toCamel);
+    });
+})();

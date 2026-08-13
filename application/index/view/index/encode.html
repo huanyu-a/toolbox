@@ -13,6 +13,7 @@
             <li><button type="button" class="t-tab" data-panel="encMorse">摩尔斯</button></li>
             <li><button type="button" class="t-tab" data-panel="encThunder">迅雷/旋风</button></li>
             <li><button type="button" class="t-tab" data-panel="encImg">图片Base64</button></li>
+            <li><button type="button" class="t-tab" data-panel="encHtml">HTML转义</button></li>
         </ul>
 
         <!-- Base64 -->
@@ -366,6 +367,21 @@
             </div>
             <div id="miImgArea" style="margin-top:10px"></div>
             <div class="t-error" id="miError"></div>
+        </div>
+
+        <!-- HTML 转义 -->
+        <div id="encHtml" class="t-panel enc-panel">
+            <label class="t-label" for="heInput">输入 HTML 代码或文本</label>
+            <textarea class="t-area" id="heInput" rows="8" placeholder="请输入要转义（或反转义）的 HTML 内容"></textarea>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ok" type="button" id="heEncode">HTML 转义</button>
+                <button class="t-btn" type="button" id="heDecode">HTML 反转义</button>
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#heOut">复制结果</button>
+                <button class="t-btn t-btn-ghost" type="button" id="heClear">清空</button>
+            </div>
+            <label class="t-label" for="heOut">转换结果</label>
+            <textarea class="t-area t-area-readonly" id="heOut" rows="8" readonly placeholder="结果将显示在这里…"></textarea>
+            <div class="t-error" id="heError"></div>
         </div>
     </div>
 </div></div>
@@ -1028,6 +1044,36 @@ if (typeof module !== 'undefined' && module.exports) {
     document.getElementById('miClear').addEventListener('click', function () {
         result.value = ''; imgArea.innerHTML = ''; fileName.textContent = ''; fileInput.value = '';
         hideErr(); result.focus();
+    });
+})();
+(function () {
+    /* HTML 转义 / 反转义 */
+    var heInput = document.getElementById('heInput'), heOut = document.getElementById('heOut'), heError = document.getElementById('heError');
+    function heShow(m) { heError.textContent = m; heError.classList.add('show'); }
+    function heHide() { heError.classList.remove('show'); }
+    function heEscape(s) {
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+    function heUnescape(s) {
+        var div = document.createElement('div');
+        div.innerHTML = String(s);
+        return div.textContent || div.innerText || '';
+    }
+    function heRun(fn) {
+        heHide();
+        var v = heInput.value;
+        if (!v) { heShow('请输入要转换的内容'); return; }
+        heOut.value = fn(v);
+    }
+    document.getElementById('heEncode').addEventListener('click', function () { heRun(heEscape); });
+    document.getElementById('heDecode').addEventListener('click', function () { heRun(heUnescape); });
+    document.getElementById('heClear').addEventListener('click', function () {
+        heInput.value = ''; heOut.value = ''; heHide(); heInput.focus();
     });
 })();
 </script>

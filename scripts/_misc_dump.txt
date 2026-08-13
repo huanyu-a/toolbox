@@ -1,4 +1,141 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.htmlescape.title}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.htmlescape.keywords}" /><meta name="description" content="{$Think.config.web.htmlescape.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" /><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+===== camelcase (5109 B) =====
+EXT: ['//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js', '//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js', '/static/script/jquery-1.11.3.min.js', '/static/script/bootstrap.min.js', '/static/script/toolbox.js', '/static/script/app.js']
+BODY:
+{include file="header" /}
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🐫</span>驼峰与下划线互转</h2>
+        <p class="tool-desc">驼峰与下划线互转工具为您提供在线驼峰转下划线，变量、类名、属性名、函数等命名的驼峰与下划线相互转换，下划线转驼峰；建议一般普通的函数、类名和变量用驼峰命名，私有的函数方法使用下划线。</p>
+        <label class="t-label" for="content">原文（驼峰 / 下划线命名）</label>
+        <textarea class="t-area" id="content" rows="8" placeholder="输入要转换的内容，例如：order_id 或 orderId"></textarea>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ok" type="button" id="btnToCamel">下划线转驼峰</button>
+            <button class="t-btn t-btn-ok" type="button" id="btnToUnder">驼峰转下划线</button>
+        </div>
+        <div class="tool-actions">
+            <button class="t-btn t-btn-ghost" type="button" id="btnDemo">示例</button>
+            <button class="t-btn t-btn-ghost" type="button" id="btnClear">清空</button>
+        </div>
+        <div class="t-result" id="resultBox">
+            <button class="t-copy" type="button" data-copy="#resultText">复制</button>
+            <div id="resultText"></div>
+        </div>
+        <div class="t-error" id="err"></div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于 驼峰与下划线互转</h2>
+        <p class="tool-desc">驼峰命名（camelCase / PascalCase）与下划线命名（snake_case）是编程中最常见的两种命名风格。本工具按原站算法实现：下划线转驼峰时识别分隔符后的单词首字母并转为大写；驼峰转下划线时在大写字母边界插入下划线并统一转为小写。转换全程在本地完成。</p>
+    </div>
+</div></div>
+{include file="nav" /}
+{include file="footer" /}
+
+
+
+
+<script>
+(function () {
+    var input = document.getElementById('content');
+    var resultBox = document.getElementById('resultBox');
+    var resultText = document.getElementById('resultText');
+    var err = document.getElementById('err');
+    function showErr(m) { resultBox.classList.remove('show'); err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function showResult(v) { hideErr(); resultText.textContent = v; resultBox.classList.add('show'); }
+    function ucfirst(s) { return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function escapeRe(ch) { return ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    // 下划线转驼峰：等价原 PHP 算法 preg_replace_callback('/([^a-zA-Z][a-z])/', ucfirst(strtoupper(str_replace('_','',$m))), ucfirst($text))
+    function toCamel(str) {
+        return ucfirst(str).replace(/([^a-zA-Z][a-z])/g, function (m) {
+            return m.replace(/_/g, '').toUpperCase();
+        });
+    }
+    // 驼峰转下划线：等价原 PHP 算法，先按 /(([A-Z]).*?([A-Z]))/ 在大写边界插入 _，再整体转小写
+    function toUnder(str) {
+        var t = ucfirst(str).replace(/([A-Z]).*?([A-Z])/g, function (m) {
+            var last = m.charAt(m.length - 1);
+            return m.replace(new RegExp(escapeRe(last), 'g'), '_' + last);
+        });
+        return t.toLowerCase();
+    }
+    function convert(fn) {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要转换的内容'); return; }
+        showResult(fn(v));
+    }
+    document.getElementById('btnToCamel').addEventListener('click', function () { convert(toCamel); });
+    document.getElementById('btnToUnder').addEventListener('click', function () { convert(toUnder); });
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        input.value = 'order_id;\nauth_code;\ntotal_amount;\nuserName;\nuser_id_card;';
+        hideErr();
+        input.focus();
+    });
+    document.getElementById('btnClear').addEventListener('click', function () {
+        input.value = '';
+        resultBox.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') convert(toCamel);
+    });
+})();
+</script>
+
+--- JS#6 (2242 B) ---
+(function () {
+    var input = document.getElementById('content');
+    var resultBox = document.getElementById('resultBox');
+    var resultText = document.getElementById('resultText');
+    var err = document.getElementById('err');
+    function showErr(m) { resultBox.classList.remove('show'); err.textContent = m; err.classList.add('show'); }
+    function hideErr() { err.classList.remove('show'); }
+    function showResult(v) { hideErr(); resultText.textContent = v; resultBox.classList.add('show'); }
+    function ucfirst(s) { return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function escapeRe(ch) { return ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    // 下划线转驼峰：等价原 PHP 算法 preg_replace_callback('/([^a-zA-Z][a-z])/', ucfirst(strtoupper(str_replace('_','',$m))), ucfirst($text))
+    function toCamel(str) {
+        return ucfirst(str).replace(/([^a-zA-Z][a-z])/g, function (m) {
+            return m.replace(/_/g, '').toUpperCase();
+        });
+    }
+    // 驼峰转下划线：等价原 PHP 算法，先按 /(([A-Z]).*?([A-Z]))/ 在大写边界插入 _，再整体转小写
+    function toUnder(str) {
+        var t = ucfirst(str).replace(/([A-Z]).*?([A-Z])/g, function (m) {
+            var last = m.charAt(m.length - 1);
+            return m.replace(new RegExp(escapeRe(last), 'g'), '_' + last);
+        });
+        return t.toLowerCase();
+    }
+    function convert(fn) {
+        hideErr();
+        var v = input.value;
+        if (!v) { showErr('请输入要转换的内容'); return; }
+        showResult(fn(v));
+    }
+    document.getElementById('btnToCamel').addEventListener('click', function () { convert(toCamel); });
+    document.getElementById('btnToUnder').addEventListener('click', function () { convert(toUnder); });
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        input.value = 'order_id;\nauth_code;\ntotal_amount;\nuserName;\nuser_id_card;';
+        hideErr();
+        input.focus();
+    });
+    document.getElementById('btnClear').addEventListener('click', function () {
+        input.value = '';
+        resultBox.classList.remove('show');
+        hideErr();
+        input.focus();
+    });
+    input.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') convert(toCamel);
+    });
+})();
+
+===== htmlescape (22869 B) =====
+EXT: ['//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js', '//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js', '/static/script/jquery-1.11.3.min.js', '/static/script/bootstrap.min.js', '/static/script/toolbox.js', '/static/script/app.js']
+BODY:
+{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico">🏷️</span>HTML 转义工具 / 特殊字符对照表</h2>
@@ -272,10 +409,10 @@
 </div></div>
 {include file="nav" /}
 {include file="footer" /}
-<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/toolbox.js"></script>
-<script src="/static/script/app.js" type="text/javascript"></script>
+
+
+
+
 <script>
 (function () {
     var tabs = document.querySelectorAll('#heTabs .t-tab');
@@ -317,4 +454,163 @@
     });
 })();
 </script>
-</body></html>
+
+--- JS#6 (2070 B) ---
+(function () {
+    var tabs = document.querySelectorAll('#heTabs .t-tab');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            document.querySelectorAll('.tool-card .t-panel').forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+    var input = document.getElementById('heInput');
+    var output = document.getElementById('heOutput');
+    var result = document.getElementById('heResult');
+    var error = document.getElementById('heError');
+    function showErr(m) { error.textContent = m; error.classList.add('show'); }
+    function hideErr() { error.classList.remove('show'); }
+    var escMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;' };
+    function escapeHtml(s) { return s.replace(/[&<>"'`]/g, function (c) { return escMap[c]; }); }
+    function unescapeHtml(s) {
+        var doc = document.implementation.createHTMLDocument('');
+        doc.body.innerHTML = s;
+        return doc.body.textContent || '';
+    }
+    function run(fn, emptyMsg) {
+        hideErr();
+        if (!input.value) { showErr(emptyMsg); return; }
+        output.value = fn(input.value);
+        result.classList.add('show');
+    }
+    document.getElementById('heEscape').addEventListener('click', function () { run(escapeHtml, '请输入要转义的 HTML 代码'); });
+    document.getElementById('heUnescape').addEventListener('click', function () { run(unescapeHtml, '请输入要反转义的字符串'); });
+    document.getElementById('heSwap').addEventListener('click', function () {
+        var t = input.value; input.value = output.value; output.value = t;
+    });
+    document.getElementById('heClear').addEventListener('click', function () {
+        input.value = ''; output.value = ''; result.classList.remove('show'); hideErr(); input.focus();
+    });
+})();
+
+===== checkkeyword (6664 B) =====
+EXT: ['//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js', '//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js', '/static/script/jquery-1.11.3.min.js', '/static/script/bootstrap.min.js', '/static/script/app.js']
+BODY:
+{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🔎</span>网页关键词密度检测</h2><p class="tool-desc">网页关键词密度检测工具为您提供在线关键词密度检测查询,检测关键词的密度百分比，可以快速检测页面关键词出现的数量和密度，更适合蜘蛛的搜索,</p>
+                        <form id="form1help" class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="txt_url" name="txt_url" type="text" value="{$url}" placeholder="输入要检测的网址，如：http://{$_SERVER.HTTP_HOST}"/>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="txt_url" name="txt_keyword" type="text" value="{$keyword}" placeholder="输入关键词"/>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <button type="submit" id="chameta" class="btn btn-success" onclick="$('#chameta').text('正在检测，请稍候……')">查询关键词密度
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="metachecktb">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="titcolor" colspan="2">
+                                        网址 {$url} 检测结果
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td width="25%">
+                                        页面文本总长度
+                                    </td>
+
+                                    <td>
+                                        <font color="red">{$html_strlen|default='-'}</font> 个字符
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        关键字符串长度
+                                    </td>
+
+                                    <td>
+                                        <font color="red">{$html_gjccd|default='-'}</font> 个字符
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        关键字出现频率
+                                    </td>
+
+                                    <td>
+                                        <font color="red">{$html_gjcsl|default='0'}</font> 次
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        关键字符总长度
+                                    </td>
+
+                                    <td>
+                                        <font color="red">{$html_gjczcd|default='0'}</font> 个字符
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        密度结果计算
+                                    </td>
+
+                                    <td>
+                                        <font color="red">{$html_mdjgjs|default='-'}</font> %
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        密度建议值
+                                    </td>
+
+                                    <td>
+                                        <font color="red">2%≦密度≦8%</font>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        密度检测结果建议
+                                    </td>
+
+                                    <td>
+                                        {if isset($html_mdjgjs)}
+                                            {if $html_mdjgjs>8}
+                                                <font color="red">关键词密度&gt;2%，密度偏高</font>
+                                            {elseif $html_mdjgjs<2}
+                                                <font color="red">关键词密度&lt;2%，密度偏小</font>
+                                            {else}
+                                                <img src="/static/images/ok.png"> <font color="green">关键词密度在合理范围内</font>
+                                            {/if}
+                                        {else}
+                                        -
+                                        {/if}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div></div></div>
+
+{include file="nav" /}
+{include file="footer" /}
+
+
+

@@ -13,6 +13,7 @@
             <li><button type="button" class="t-tab" data-panel="tcQb">全角半角</button></li>
             <li><button type="button" class="t-tab" data-panel="tcCase">英文大小写</button></li>
             <li><button type="button" class="t-tab" data-panel="tcRmb">人民币大写</button></li>
+            <li><button type="button" class="t-tab" data-panel="tcName">命名转换</button></li>
         </ul>
 
         <!-- 简繁转换 -->
@@ -182,6 +183,24 @@
             <label class="t-label" for="rmbOut">大写金额</label>
             <textarea class="t-area t-area-readonly" id="rmbOut" rows="3" readonly placeholder="结果将显示在这里…"></textarea>
             <div class="t-error" id="rmbError"></div>
+        </div>
+
+        <!-- 命名转换 -->
+        <div id="tcName" class="t-panel tc-panel">
+            <label class="t-label" for="ccInput">原文（驼峰 / 下划线命名）</label>
+            <textarea class="t-area" id="ccInput" rows="8" placeholder="输入要转换的内容，例如：order_id 或 orderId"></textarea>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ok" type="button" id="ccCamel">下划线转驼峰</button>
+                <button class="t-btn" type="button" id="ccUnder">驼峰转下划线</button>
+                <button class="t-btn t-btn-ghost" type="button" id="ccDemo">示例</button>
+                <button class="t-btn t-btn-ghost" type="button" id="ccClear">清空</button>
+            </div>
+            <label class="t-label" for="ccResult">转换结果</label>
+            <div class="t-result" id="ccResultBox">
+                <button class="t-copy" type="button" data-copy="#ccResultText">复制</button>
+                <div id="ccResultText"></div>
+            </div>
+            <div class="t-error" id="ccError"></div>
         </div>
     </div>
 </div></div>
@@ -439,6 +458,44 @@
     rmbDigits.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); rmbDo(); } });
     document.getElementById('rmbClear').addEventListener('click', function () {
         rmbDigits.value = ''; rmbOut.value = ''; hideErr(rmbError); rmbDigits.focus();
+    });
+
+    /* 命名转换：驼峰 / 下划线互转 */
+    var ccInput = document.getElementById('ccInput'), ccResultBox = document.getElementById('ccResultBox'), ccResultText = document.getElementById('ccResultText'), ccError = document.getElementById('ccError');
+    function ccUcfirst(s) { return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function ccEscapeRe(ch) { return ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    function ccToCamel(str) {
+        return ccUcfirst(str).replace(/([^a-zA-Z][a-z])/g, function (m) {
+            return m.replace(/_/g, '').toUpperCase();
+        });
+    }
+    function ccToUnder(str) {
+        var t = ccUcfirst(str).replace(/([A-Z]).*?([A-Z])/g, function (m) {
+            var last = m.charAt(m.length - 1);
+            return m.replace(new RegExp(ccEscapeRe(last), 'g'), '_' + last);
+        });
+        return t.toLowerCase();
+    }
+    function ccShowErr(m) { ccResultBox.classList.remove('show'); ccError.textContent = m; ccError.classList.add('show'); }
+    function ccHideErr() { ccError.classList.remove('show'); }
+    function ccShow(v) { ccHideErr(); ccResultText.textContent = v; ccResultBox.classList.add('show'); }
+    function ccConvert(fn) {
+        ccHideErr();
+        var v = ccInput.value;
+        if (!v) { ccShowErr('请输入要转换的内容'); return; }
+        ccShow(fn(v));
+    }
+    document.getElementById('ccCamel').addEventListener('click', function () { ccConvert(ccToCamel); });
+    document.getElementById('ccUnder').addEventListener('click', function () { ccConvert(ccToUnder); });
+    document.getElementById('ccDemo').addEventListener('click', function () {
+        ccInput.value = 'user_name order_id create_time';
+        ccResultText.textContent = '';
+        ccResultBox.classList.remove('show');
+        ccHideErr();
+        ccInput.focus();
+    });
+    document.getElementById('ccClear').addEventListener('click', function () {
+        ccInput.value = ''; ccResultText.textContent = ''; ccResultBox.classList.remove('show'); ccHideErr(); ccInput.focus();
     });
 })();
 </script>
