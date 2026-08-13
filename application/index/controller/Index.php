@@ -18,6 +18,16 @@ class Index extends Controller
             $toolCount += isset($cat['items']) ? count($cat['items']) : 0;
         }
         $data['homeCount'] = $toolCount;
+        // 随机 20 个工具（底部"随机推荐"区块数据源）
+        $allTools = array();
+        foreach ((array)$data['tools'] as $cat) {
+            foreach ((array)$cat['items'] as $item) {
+                $item['cat'] = isset($cat['cat']) ? $cat['cat'] : '';
+                $allTools[] = $item;
+            }
+        }
+        shuffle($allTools);
+        $data['randTools'] = array_slice($allTools, 0, 20);
         // 当前工具信息（面包屑 + 导航高亮 + SEO）
         $act = input('act', 'index');
         $data['act'] = $act;
