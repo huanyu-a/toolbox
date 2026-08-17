@@ -1,64 +1,79 @@
 /* ============================================================
-   在线工具箱 · 首页样式 (home.css) — 现代工具站设计
-   设计理念：温暖、现代、有层次感
-   - Hero：柔和渐变背景 + 大标题 + 搜索 + 热门标签
-   - 分类区：卡片网格布局，每个工具一张卡片(图标+名称+描述)
-   - 配色：靛蓝主色，6 种分类柔和色，暖灰背景
-   - 深色模式完整适配
+   在线工具箱 · 首页样式 (home.css)
+   配色参考 Anthropic：暖奶油底 + 赤陶橙 + 暖灰
+   布局参考帮小忙/蛙蛙：左侧分类栏 + 右侧搜索 + 卡片网格
    ============================================================ */
 
-/* ---------- 首页设计令牌 ---------- */
+/* ---------- Anthropic 配色令牌 ---------- */
 :root {
-    --hp-primary: #4f46e5;
-    --hp-primary-light: #6366f1;
-    --hp-primary-soft: #eef2ff;
-    --hp-accent: #f59e0b;
+    /* 主色 */
+    --hp-primary: #D97757;
+    --hp-primary-hover: #C5582E;
+    --hp-primary-soft: #FCE8DD;
+    --hp-primary-soft-2: #F5DDD0;
 
-    /* 分类主题色 */
-    --hp-c1: #6366f1;  --hp-c1-bg: #eef2ff;   /* 开发编程 - 靛蓝 */
-    --hp-c2: #f59e0b;  --hp-c2-bg: #fffbeb;   /* 文本处理 - 琥珀 */
-    --hp-c3: #10b981;  --hp-c3-bg: #ecfdf5;   /* 计算换算 - 翡翠 */
-    --hp-c4: #06b6d4;  --hp-c4-bg: #ecfeff;   /* 网络运维 - 青色 */
-    --hp-c5: #ec4899;  --hp-c5-bg: #fdf2f8;   /* 站长辅助 - 粉色 */
-    --hp-c6: #8b5cf6;  --hp-c6-bg: #f5f3ff;   /* 生活趣味 - 紫色 */
+    /* 背景 */
+    --hp-bg: #FAF9F5;
+    --hp-bg-alt: #F3F1EA;
+    --hp-surface: #FFFFFF;
+    --hp-surface-hover: #F8F6F0;
 
-    --hp-text: #1e293b;
-    --hp-text-2: #475569;
-    --hp-text-3: #94a3b8;
-    --hp-border: #e2e8f0;
-    --hp-border-soft: #f1f5f9;
-    --hp-surface: #ffffff;
-    --hp-bg: #f8fafc;
-    --hp-radius: 12px;
-    --hp-radius-lg: 16px;
-    --hp-shadow-sm: 0 1px 2px rgba(0,0,0,.04);
-    --hp-shadow: 0 2px 8px rgba(0,0,0,.06);
-    --hp-shadow-hover: 0 8px 24px rgba(79,70,229,.12), 0 2px 8px rgba(0,0,0,.06);
+    /* 文字 */
+    --hp-text: #2D2A24;
+    --hp-text-2: #6B6660;
+    --hp-text-3: #9C978F;
+
+    /* 边框 */
+    --hp-border: #E8E5DD;
+    --hp-border-strong: #D5D1C7;
+
+    /* 分类主题色（6 色，取自 Anthropic 暖色谱） */
+    --hp-c1: #B14D3D;  --hp-c1-bg: #F4DDD6;  /* 开发编程 - 赭红 */
+    --hp-c2: #9C6B2F;  --hp-c2-bg: #F0E4CE;  /* 文本处理 - 焦糖 */
+    --hp-c3: #4A7A5C;  --hp-c3-bg: #D8E8DC;  /* 计算换算 - 苔绿 */
+    --hp-c4: #3D6A8C;  --hp-c4-bg: #D2E0EE;  /* 网络运维 - 钢蓝 */
+    --hp-c5: #8B4A6B;  --hp-c5-bg: #EAD8E2;  /* 站长辅助 - 莓紫 */
+    --hp-c6: #6B5B8C;  --hp-c6-bg: #E0D8EC;  /* 生活趣味 - 薰衣草 */
+
+    /* 阴影 */
+    --hp-shadow-sm: 0 1px 2px rgba(45, 42, 36, .04);
+    --hp-shadow: 0 2px 8px rgba(45, 42, 36, .06);
+    --hp-shadow-hover: 0 6px 20px rgba(217, 119, 87, .12), 0 2px 6px rgba(45, 42, 36, .06);
+
+    /* 圆角 */
+    --hp-radius: 10px;
+    --hp-radius-sm: 7px;
+    --hp-radius-lg: 14px;
 }
 
 [data-theme="dark"] {
-    --hp-primary: #818cf8;
-    --hp-primary-light: #a5b4fc;
-    --hp-primary-soft: #312e81;
-    --hp-accent: #fbbf24;
+    --hp-primary: #E89476;
+    --hp-primary-hover: #F0A585;
+    --hp-primary-soft: #4A2818;
+    --hp-primary-soft-2: #3A1F12;
 
-    --hp-c1: #818cf8;  --hp-c1-bg: #1e1b4b;
-    --hp-c2: #fbbf24;  --hp-c2-bg: #422006;
-    --hp-c3: #34d399;  --hp-c3-bg: #064e3b;
-    --hp-c4: #22d3ee;  --hp-c4-bg: #0e3a40;
-    --hp-c5: #f472b6;  --hp-c5-bg: #500724;
-    --hp-c6: #a78bfa;  --hp-c6-bg: #2e1065;
+    --hp-bg: #1A1814;
+    --hp-bg-alt: #221F1A;
+    --hp-surface: #252220;
+    --hp-surface-hover: #2D2A26;
 
-    --hp-text: #f1f5f9;
-    --hp-text-2: #94a3b8;
-    --hp-text-3: #64748b;
-    --hp-border: #1e293b;
-    --hp-border-soft: #1a2332;
-    --hp-surface: #1e293b;
-    --hp-bg: #0f172a;
-    --hp-shadow-sm: 0 1px 2px rgba(0,0,0,.2);
-    --hp-shadow: 0 2px 8px rgba(0,0,0,.25);
-    --hp-shadow-hover: 0 8px 24px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
+    --hp-text: #E8E4DC;
+    --hp-text-2: #A8A29A;
+    --hp-text-3: #75706A;
+
+    --hp-border: #38332E;
+    --hp-border-strong: #4A443C;
+
+    --hp-c1: #D87A6A;  --hp-c1-bg: #3D2622;
+    --hp-c2: #C9A262;  --hp-c2-bg: #3A2F1A;
+    --hp-c3: #6BAF85;  --hp-c3-bg: #1F3528;
+    --hp-c4: #5C94B8;  --hp-c4-bg: #1A2D3D;
+    --hp-c5: #B670A0;  --hp-c5-bg: #3A2433;
+    --hp-c6: #9480B5;  --hp-c6-bg: #2D2440;
+
+    --hp-shadow-sm: 0 1px 2px rgba(0, 0, 0, .2);
+    --hp-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+    --hp-shadow-hover: 0 6px 20px rgba(0, 0, 0, .35), 0 2px 6px rgba(0, 0, 0, .2);
 }
 
 /* ---------- 重置首页布局 ---------- */
@@ -71,40 +86,62 @@
    Hero
    ============================================================ */
 .home-hero {
-    position: relative;
-    overflow: hidden;
-    padding: 56px 0 48px;
+    padding: 56px 0 40px;
     text-align: center;
-    background:
-        radial-gradient(900px 380px at 50% -80px, var(--hp-primary-soft) 0%, transparent 70%),
-        var(--hp-surface);
+    background: var(--hp-bg);
     border-bottom: 1px solid var(--hp-border);
 }
 
 .home-hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
+    max-width: 720px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
+/* 统计数字条 */
+.home-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 28px;
+}
+.home-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 28px;
+    border-right: 1px solid var(--hp-border);
+}
+.home-stat:last-child { border-right: none; }
+.home-stat-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--hp-primary);
+    line-height: 1;
+    letter-spacing: -1px;
+}
+.home-stat-label {
+    font-size: 12px;
+    color: var(--hp-text-3);
+    margin-top: 4px;
+    letter-spacing: 1px;
+}
+
 .home-title {
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 800;
     color: var(--hp-text);
-    margin: 0 0 10px;
-    letter-spacing: -.8px;
+    margin: 0 0 8px;
+    letter-spacing: -.5px;
     line-height: 1.2;
 }
 
 .home-sub {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--hp-text-2);
     margin: 0 0 28px;
     line-height: 1.6;
 }
-
 .home-sub strong {
     color: var(--hp-primary);
     font-weight: 700;
@@ -113,10 +150,9 @@
 /* 搜索框 */
 .home-search {
     position: relative;
-    max-width: 520px;
+    max-width: 560px;
     margin: 0 auto;
 }
-
 .home-search-ico {
     position: absolute;
     left: 16px;
@@ -128,37 +164,27 @@
     pointer-events: none;
     z-index: 1;
 }
-
-.home-search-ico svg {
-    width: 18px;
-    height: 18px;
-}
-
+.home-search-ico svg { width: 18px; height: 18px; }
 .home-search-input {
     width: 100%;
-    height: 50px;
+    height: 48px;
     padding: 0 44px 0 44px;
-    border: 2px solid var(--hp-border);
-    border-radius: 25px;
-    background: var(--hp-bg);
+    border: 1.5px solid var(--hp-border-strong);
+    border-radius: 24px;
+    background: var(--hp-surface);
     color: var(--hp-text);
     font-size: 15px;
     outline: none;
-    transition: border-color .2s, box-shadow .2s, background .2s;
+    transition: border-color .2s, box-shadow .2s;
     box-sizing: border-box;
     font-family: inherit;
+    box-shadow: var(--hp-shadow-sm);
 }
-
 .home-search-input:focus {
     border-color: var(--hp-primary);
-    background: var(--hp-surface);
     box-shadow: 0 0 0 4px var(--hp-primary-soft);
 }
-
-.home-search-input::placeholder {
-    color: var(--hp-text-3);
-}
-
+.home-search-input::placeholder { color: var(--hp-text-3); }
 .home-search-clear {
     position: absolute;
     right: 12px;
@@ -175,112 +201,156 @@
     justify-content: center;
     color: var(--hp-text-2);
     padding: 0;
-    transition: background .15s, color .15s;
 }
-
-.home-search-clear svg {
-    width: 14px;
-    height: 14px;
-}
-
-.home-search-clear:hover {
-    background: var(--hp-accent);
-    color: #fff;
-}
+.home-search-clear svg { width: 14px; height: 14px; }
+.home-search-clear:hover { background: var(--hp-primary); color: #fff; }
 
 /* 热门标签 */
 .home-hot {
-    margin-top: 22px;
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
     align-items: center;
 }
-
 .home-hot-label {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--hp-text-3);
     margin-right: 4px;
 }
-
 .home-hot a {
     display: inline-block;
-    padding: 6px 16px;
-    border-radius: 20px;
+    padding: 5px 14px;
+    border-radius: 18px;
     background: var(--hp-surface);
     border: 1px solid var(--hp-border);
     color: var(--hp-text-2);
     font-size: 13px;
     text-decoration: none;
     transition: all .15s;
-    box-shadow: var(--hp-shadow-sm);
 }
-
 .home-hot a:hover {
     color: var(--hp-primary);
     border-color: var(--hp-primary);
     background: var(--hp-primary-soft);
-    box-shadow: none;
 }
 
 /* ============================================================
-   工具分类区
+   工具分类区：左栏导航 + 右栏卡片
    ============================================================ */
-.home-cats {
-    max-width: 1100px;
+.home-body {
+    display: flex;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 36px 20px 56px;
+    padding: 28px 20px 48px;
+    gap: 28px;
 }
 
-/* 分类区块 */
-.home-cat {
-    margin-bottom: 32px;
+/* 左侧分类导航 */
+.home-sidebar {
+    flex-shrink: 0;
+    width: 180px;
+    position: sticky;
+    top: 64px;
+    align-self: flex-start;
 }
+.home-sidebar-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--hp-text-3);
+    letter-spacing: 1px;
+    margin: 0 0 12px;
+    padding: 0 8px;
+}
+.home-sidebar-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.home-sidebar-list a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: var(--hp-radius-sm);
+    color: var(--hp-text-2);
+    font-size: 14px;
+    text-decoration: none;
+    transition: all .15s;
+    border-left: 3px solid transparent;
+}
+.home-sidebar-list a:hover {
+    background: var(--hp-surface-hover);
+    color: var(--hp-text);
+}
+.home-sidebar-list a.active {
+    background: var(--hp-primary-soft);
+    color: var(--hp-primary-hover);
+    font-weight: 600;
+    border-left-color: var(--hp-primary);
+}
+.home-sidebar-list .cat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: .5;
+}
+.home-sidebar-list .cat-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--hp-text-3);
+}
+
+/* 右侧工具区 */
+.home-cats {
+    flex: 1;
+    min-width: 0;
+}
+.home-cats-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+#homeCats { display: flex; flex-direction: column; gap: 36px; }
+
+/* 分类区块 */
+.home-cat { scroll-margin-top: 64px; }
 
 /* 分类标题行 */
 .home-cat-head {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 16px;
-    padding: 0 4px;
+    margin-bottom: 14px;
 }
-
 .home-cat-ico {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--hp-radius);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     background: var(--cat-color, var(--hp-primary));
     color: #fff;
     flex-shrink: 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,.1);
 }
-
-.home-cat-ico svg {
-    width: 18px;
-    height: 18px;
-}
-
+.home-cat-ico svg { width: 16px; height: 16px; }
 .home-cat-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--hp-text);
     margin: 0;
     line-height: 1.3;
 }
-
 .home-cat-meta {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--hp-text-3);
     margin-left: auto;
-    white-space: nowrap;
-    background: var(--hp-border-soft);
+    background: var(--hp-bg-alt);
     padding: 3px 10px;
-    border-radius: 20px;
+    border-radius: 12px;
 }
 
 /* 分类颜色分配 */
@@ -294,10 +364,9 @@
 /* 工具卡片网格 */
 .home-cat-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
 }
-
 .home-cat-list a {
     display: flex;
     align-items: center;
@@ -311,29 +380,11 @@
     transition: all .18s ease;
     box-shadow: var(--hp-shadow-sm);
     position: relative;
-    overflow: hidden;
 }
-
-.home-cat-list a::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--cat-color, var(--hp-primary));
-    opacity: 0;
-    transition: opacity .18s;
-}
-
 .home-cat-list a:hover {
-    border-color: transparent;
+    border-color: var(--cat-color, var(--hp-primary));
     box-shadow: var(--hp-shadow-hover);
-    transform: translateY(-2px);
-}
-
-.home-cat-list a:hover::before {
-    opacity: 1;
+    transform: translateY(-1px);
 }
 
 /* 工具图标 */
@@ -341,23 +392,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     background: var(--cat-bg, var(--hp-primary-soft));
     color: var(--cat-color, var(--hp-primary));
     flex-shrink: 0;
     transition: transform .18s;
 }
-
-.home-cat-list a .tool-ico svg {
-    width: 20px;
-    height: 20px;
-}
-
-.home-cat-list a:hover .tool-ico {
-    transform: scale(1.08);
-}
+.home-cat-list a .tool-ico svg { width: 20px; height: 20px; }
+.home-cat-list a:hover .tool-ico { transform: scale(1.06); }
 
 /* 工具名称 + 路径 */
 .home-cat-list a .tool-text {
@@ -367,7 +411,6 @@
     flex-direction: column;
     gap: 2px;
 }
-
 .home-cat-list a .tool-name {
     font-size: 14px;
     font-weight: 600;
@@ -377,7 +420,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .home-cat-list a .tool-path {
     font-size: 12px;
     color: var(--hp-text-3);
@@ -385,119 +427,38 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: "SF Mono", Consolas, Menlo, monospace;
 }
-
-.home-cat-list a:hover .tool-name {
-    color: var(--cat-color, var(--hp-primary));
-}
+.home-cat-list a:hover .tool-name { color: var(--cat-color, var(--hp-primary)); }
 
 /* ---------- 空状态 ---------- */
 .home-empty {
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
     color: var(--hp-text-3);
 }
-
-.home-empty-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--hp-text-2);
-    margin: 0 0 6px;
-}
-
-.home-empty-sub {
-    font-size: 14px;
-    margin: 0;
-}
+.home-empty-title { font-size: 15px; font-weight: 600; color: var(--hp-text-2); margin: 0 0 4px; }
+.home-empty-sub { font-size: 13px; margin: 0; }
 
 /* ---------- 响应式 ---------- */
+@media (max-width: 991px) {
+    .home-sidebar { display: none; }
+    .home-body { padding: 24px 16px 36px; }
+}
 @media (max-width: 768px) {
-    .home-hero {
-        padding: 36px 0 32px;
-    }
-
-    .home-title {
-        font-size: 26px;
-    }
-
-    .home-sub {
-        font-size: 14px;
-        margin-bottom: 22px;
-    }
-
-    .home-search-input {
-        height: 46px;
-        font-size: 14px;
-    }
-
-    .home-hot {
-        margin-top: 18px;
-    }
-
-    .home-hot a {
-        font-size: 12px;
-        padding: 5px 14px;
-    }
-
-    .home-cats {
-        padding: 24px 16px 36px;
-    }
-
-    .home-cat {
-        margin-bottom: 24px;
-    }
-
-    .home-cat-head {
-        padding: 0 2px;
-        margin-bottom: 12px;
-    }
-
-    .home-cat-ico {
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-    }
-
-    .home-cat-ico svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .home-cat-title {
-        font-size: 16px;
-    }
-
-    .home-cat-meta {
-        font-size: 12px;
-        padding: 2px 8px;
-    }
-
-    .home-cat-list {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .home-cat-list a {
-        padding: 12px 14px;
-        gap: 10px;
-    }
-
-    .home-cat-list a .tool-ico {
-        width: 34px;
-        height: 34px;
-        border-radius: 8px;
-    }
-
-    .home-cat-list a .tool-ico svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .home-cat-list a .tool-name {
-        font-size: 13px;
-    }
-
-    .home-cat-list a .tool-path {
-        font-size: 11px;
-    }
+    .home-hero { padding: 36px 0 28px; }
+    .home-stats { gap: 0; margin-bottom: 20px; }
+    .home-stat { padding: 0 18px; }
+    .home-stat-num { font-size: 22px; }
+    .home-title { font-size: 24px; }
+    .home-sub { font-size: 13px; margin-bottom: 22px; }
+    .home-search-input { height: 44px; font-size: 14px; }
+    .home-hot { margin-top: 16px; }
+    .home-hot a { font-size: 12px; padding: 4px 12px; }
+    .home-cat-list { grid-template-columns: 1fr; gap: 8px; }
+    .home-cat-list a { padding: 12px 14px; gap: 10px; }
+    .home-cat-list a .tool-ico { width: 36px; height: 36px; }
+    .home-cat-list a .tool-ico svg { width: 18px; height: 18px; }
+    .home-cat-list a .tool-name { font-size: 13px; }
+    .home-cat-list a .tool-path { font-size: 11px; }
 }

@@ -21,6 +21,11 @@
 <main class="home-wrap">
     <section class="home-hero">
         <div class="home-hero-inner">
+            <div class="home-stats">
+                <div class="home-stat"><span class="home-stat-num">{:$homeCount}</span><span class="home-stat-label">实用工具</span></div>
+                <div class="home-stat"><span class="home-stat-num">{$tools|count}</span><span class="home-stat-label">工具分类</span></div>
+                <div class="home-stat"><span class="home-stat-num">免费</span><span class="home-stat-label">全部功能</span></div>
+            </div>
             <h1 class="home-title">{$Think.config.web.site.name}</h1>
             <p class="home-sub">JSON 格式化、编码转换、加解密、网络诊断等 <strong>{:$homeCount}</strong> 个常用工具，打开即用，浏览器本地运算</p>
             <div class="home-search">
@@ -41,42 +46,56 @@
         </div>
     </section>
 
-    <section class="home-cats" id="homeCats">
-        {volist name="tools" id="cat"}
-        <div class="home-cat" data-cat="{$cat.cat}">
-            <div class="home-cat-head">
-                <span class="home-cat-ico" aria-hidden="true">{volist name="cat.items" id="t0"}{if condition="$i eq 1"}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg>{/if}{/volist}</span>
-                <h2 class="home-cat-title">{$cat.cat}</h2>
-                <span class="home-cat-meta">{$cat.items|count} 个工具</span>
-            </div>
-            <div class="home-cat-list">
-                {volist name="cat.items" id="tool"}
-                <a href="{$tool.url}">
-                    <span class="tool-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v3h3a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1z"/><path d="M9 14l2 2 4-4"/></svg></span>
-                    <span class="tool-text">
-                        <span class="tool-name">{$tool.name}</span>
-                        <span class="tool-path">{$tool.url}</span>
-                    </span>
-                </a>
+    <div class="home-body">
+        <aside class="home-sidebar" id="homeSidebar">
+            <p class="home-sidebar-title">工具分类</p>
+            <ul class="home-sidebar-list">
+                {volist name="tools" id="cat"}
+                <li><a href="#cat-{$i}" data-cat="{$cat.cat}"><span class="cat-dot" style="background:var(--hp-c{$i})"></span><span>{$cat.cat}</span><span class="cat-count">{$cat.items|count}</span></a></li>
                 {/volist}
+            </ul>
+        </aside>
+
+        <section class="home-cats">
+            <div id="homeCats">
+                {volist name="tools" id="cat"}
+                <div class="home-cat" id="cat-{$i}" data-cat="{$cat.cat}">
+                    <div class="home-cat-head">
+                        <span class="home-cat-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg></span>
+                        <h2 class="home-cat-title">{$cat.cat}</h2>
+                        <span class="home-cat-meta">{$cat.items|count} 个工具</span>
+                    </div>
+                    <div class="home-cat-list">
+                        {volist name="cat.items" id="tool"}
+                        <a href="{$tool.url}">
+                            <span class="tool-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v3h3a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1z"/><path d="M9 14l2 2 4-4"/></svg></span>
+                            <span class="tool-text">
+                                <span class="tool-name">{$tool.name}</span>
+                                <span class="tool-path">{$tool.url}</span>
+                            </span>
+                        </a>
+                        {/volist}
+                    </div>
+                </div>
+                {/volist}
+                <div class="home-empty" id="homeEmpty" style="display:none;">
+                    <p class="home-empty-title">没有找到匹配的工具</p>
+                    <p class="home-empty-sub">换个关键词试试</p>
+                </div>
             </div>
-        </div>
-        {/volist}
-        <div class="home-empty" id="homeEmpty" style="display:none;">
-            <p class="home-empty-title">没有找到匹配的工具</p>
-            <p class="home-empty-sub">换个关键词试试</p>
-        </div>
-    </section>
+        </section>
+    </div>
 </main>
 {include file="nav" /}
 {include file="footer" /}
 <script type="text/javascript">
-// 首页搜索：过滤工具卡片，支持工具名和路径匹配
+// 首页搜索 + 侧栏联动
 (function(){
     var search = document.getElementById('homeSearch');
     var cats = document.getElementById('homeCats');
     var empty = document.getElementById('homeEmpty');
     var clear = document.getElementById('homeSearchClear');
+    var sidebar = document.getElementById('homeSidebar');
     if (!search || !cats) return;
     search.addEventListener('input', function() {
         var kw = search.value.trim().toLowerCase();
@@ -116,6 +135,21 @@
             search.focus();
         }
     });
+    // 侧栏点击高亮 + 平滑滚动
+    if (sidebar) {
+        sidebar.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (!link) return;
+            e.preventDefault();
+            var targetId = link.getAttribute('href');
+            var target = document.querySelector(targetId);
+            if (target) {
+                window.scrollTo({ top: target.offsetTop - 56, behavior: 'smooth' });
+            }
+            sidebar.querySelectorAll('a').forEach(function(a) { a.classList.remove('active'); });
+            link.classList.add('active');
+        });
+    }
 })();
 </script>
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
