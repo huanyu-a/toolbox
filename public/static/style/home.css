@@ -1,64 +1,64 @@
 /* ============================================================
-   在线工具箱 · 首页样式 (home.css)
-   设计理念：克制、温暖、信息密度高
-   - Hero：白底极简，大标题 + 搜索框 + 统计
-   - 分类区：白色区块 + 彩色左竖条 + 工具列表行
-   - 每行工具：彩色圆角图标 + 名称 + 简短说明
-   - 配色：深靛蓝主色，6 种分类柔和色
+   在线工具箱 · 首页样式 (home.css) — 现代工具站设计
+   设计理念：温暖、现代、有层次感
+   - Hero：柔和渐变背景 + 大标题 + 搜索 + 热门标签
+   - 分类区：卡片网格布局，每个工具一张卡片(图标+名称+描述)
+   - 配色：靛蓝主色，6 种分类柔和色，暖灰背景
    - 深色模式完整适配
    ============================================================ */
 
 /* ---------- 首页设计令牌 ---------- */
 :root {
-    --hp-primary: #3b5bdb;
-    --hp-primary-soft: #edf0fe;
-    --hp-accent: #e8590c;
+    --hp-primary: #4f46e5;
+    --hp-primary-light: #6366f1;
+    --hp-primary-soft: #eef2ff;
+    --hp-accent: #f59e0b;
 
-    /* 分类色 */
-    --hp-c1: #4263eb;  --hp-c1-bg: #edf2ff;   /* 开发编程 - 靛蓝 */
-    --hp-c2: #b08300;  --hp-c2-bg: #fff9db;   /* 文本处理 - 琥珀 */
-    --hp-c3: #097859;  --hp-c3-bg: #e6fcf5;   /* 计算换算 - 翡翠 */
-    --hp-c4: #0c7ed3;  --hp-c4-bg: #e7f5ff;   /* 网络运维 - 天蓝 */
-    --hp-c5: #bc3a87;  --hp-c5-bg: #ffeaef;   /* 站长辅助 - 粉红 */
-    --hp-c6: #6741d9;  --hp-c6-bg: #f3f0ff;   /* 生活趣味 - 紫罗兰 */
+    /* 分类主题色 */
+    --hp-c1: #6366f1;  --hp-c1-bg: #eef2ff;   /* 开发编程 - 靛蓝 */
+    --hp-c2: #f59e0b;  --hp-c2-bg: #fffbeb;   /* 文本处理 - 琥珀 */
+    --hp-c3: #10b981;  --hp-c3-bg: #ecfdf5;   /* 计算换算 - 翡翠 */
+    --hp-c4: #06b6d4;  --hp-c4-bg: #ecfeff;   /* 网络运维 - 青色 */
+    --hp-c5: #ec4899;  --hp-c5-bg: #fdf2f8;   /* 站长辅助 - 粉色 */
+    --hp-c6: #8b5cf6;  --hp-c6-bg: #f5f3ff;   /* 生活趣味 - 紫色 */
 
-    --hp-text: #1a1d29;
-    --hp-text-2: #595e6b;
-    --hp-text-3: #9499a8;
-    --hp-border: #e9e9ec;
-    --hp-border-soft: #f0f0f3;
+    --hp-text: #1e293b;
+    --hp-text-2: #475569;
+    --hp-text-3: #94a3b8;
+    --hp-border: #e2e8f0;
+    --hp-border-soft: #f1f5f9;
     --hp-surface: #ffffff;
-    --hp-bg: #f5f5f7;
-    --hp-shadow: 0 1px 3px rgba(0,0,0,.05);
-    --hp-shadow-md: 0 4px 12px rgba(0,0,0,.06);
-    --hp-shadow-hover: 0 6px 20px rgba(0,0,0,.08);
+    --hp-bg: #f8fafc;
     --hp-radius: 12px;
-    --hp-radius-sm: 8px;
-    --hp-font-mono: "SF Mono", "Cascadia Code", Consolas, "Liberation Mono", Menlo, monospace;
+    --hp-radius-lg: 16px;
+    --hp-shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+    --hp-shadow: 0 2px 8px rgba(0,0,0,.06);
+    --hp-shadow-hover: 0 8px 24px rgba(79,70,229,.12), 0 2px 8px rgba(0,0,0,.06);
 }
 
 [data-theme="dark"] {
-    --hp-primary: #748ffc;
-    --hp-primary-soft: #252a48;
-    --hp-accent: #ff922b;
+    --hp-primary: #818cf8;
+    --hp-primary-light: #a5b4fc;
+    --hp-primary-soft: #312e81;
+    --hp-accent: #fbbf24;
 
-    --hp-c1: #748ffc;  --hp-c1-bg: #2a2d4a;
-    --hp-c2: #ffc940;  --hp-c2-bg: #3d2f00;
-    --hp-c3: #40c8a6;  --hp-c3-bg: #0d3a2e;
-    --hp-c4: #4dabf7;  --hp-c4-bg: #0d2a3d;
-    --hp-c5: #ff85b8;  --hp-c5-bg: #3d142a;
-    --hp-c6: #b197fc;  --hp-c6-bg: #251a40;
+    --hp-c1: #818cf8;  --hp-c1-bg: #1e1b4b;
+    --hp-c2: #fbbf24;  --hp-c2-bg: #422006;
+    --hp-c3: #34d399;  --hp-c3-bg: #064e3b;
+    --hp-c4: #22d3ee;  --hp-c4-bg: #0e3a40;
+    --hp-c5: #f472b6;  --hp-c5-bg: #500724;
+    --hp-c6: #a78bfa;  --hp-c6-bg: #2e1065;
 
-    --hp-text: #e9eaf0;
-    --hp-text-2: #a0a4b0;
-    --hp-text-3: #6b6f7d;
-    --hp-border: #2a2d38;
-    --hp-border-soft: #232630;
-    --hp-surface: #1a1d27;
-    --hp-bg: #14161e;
-    --hp-shadow: 0 1px 3px rgba(0,0,0,.2);
-    --hp-shadow-md: 0 4px 12px rgba(0,0,0,.25);
-    --hp-shadow-hover: 0 6px 20px rgba(0,0,0,.3);
+    --hp-text: #f1f5f9;
+    --hp-text-2: #94a3b8;
+    --hp-text-3: #64748b;
+    --hp-border: #1e293b;
+    --hp-border-soft: #1a2332;
+    --hp-surface: #1e293b;
+    --hp-bg: #0f172a;
+    --hp-shadow-sm: 0 1px 2px rgba(0,0,0,.2);
+    --hp-shadow: 0 2px 8px rgba(0,0,0,.25);
+    --hp-shadow-hover: 0 8px 24px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
 }
 
 /* ---------- 重置首页布局 ---------- */
@@ -67,27 +67,35 @@
     min-height: calc(100vh - 52px);
 }
 
-/* ---------- Hero ---------- */
+/* ============================================================
+   Hero
+   ============================================================ */
 .home-hero {
-    background: var(--hp-surface);
-    border-bottom: 1px solid var(--hp-border);
-    padding: 48px 0 40px;
+    position: relative;
+    overflow: hidden;
+    padding: 56px 0 48px;
     text-align: center;
+    background:
+        radial-gradient(900px 380px at 50% -80px, var(--hp-primary-soft) 0%, transparent 70%),
+        var(--hp-surface);
+    border-bottom: 1px solid var(--hp-border);
 }
 
 .home-hero-inner {
+    position: relative;
+    z-index: 1;
     max-width: 680px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 .home-title {
-    font-size: 30px;
+    font-size: 34px;
     font-weight: 800;
     color: var(--hp-text);
     margin: 0 0 10px;
-    letter-spacing: -.5px;
-    line-height: 1.25;
+    letter-spacing: -.8px;
+    line-height: 1.2;
 }
 
 .home-sub {
@@ -128,15 +136,15 @@
 
 .home-search-input {
     width: 100%;
-    height: 48px;
+    height: 50px;
     padding: 0 44px 0 44px;
     border: 2px solid var(--hp-border);
-    border-radius: 24px;
+    border-radius: 25px;
     background: var(--hp-bg);
     color: var(--hp-text);
     font-size: 15px;
     outline: none;
-    transition: border-color .15s, box-shadow .15s, background .15s;
+    transition: border-color .2s, box-shadow .2s, background .2s;
     box-sizing: border-box;
     font-family: inherit;
 }
@@ -167,6 +175,7 @@
     justify-content: center;
     color: var(--hp-text-2);
     padding: 0;
+    transition: background .15s, color .15s;
 }
 
 .home-search-clear svg {
@@ -181,7 +190,7 @@
 
 /* 热门标签 */
 .home-hot {
-    margin-top: 20px;
+    margin-top: 22px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -197,86 +206,67 @@
 
 .home-hot a {
     display: inline-block;
-    padding: 5px 14px;
-    border-radius: 16px;
-    background: var(--hp-bg);
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: var(--hp-surface);
     border: 1px solid var(--hp-border);
     color: var(--hp-text-2);
     font-size: 13px;
     text-decoration: none;
     transition: all .15s;
+    box-shadow: var(--hp-shadow-sm);
 }
 
 .home-hot a:hover {
     color: var(--hp-primary);
     border-color: var(--hp-primary);
     background: var(--hp-primary-soft);
+    box-shadow: none;
 }
 
-/* ---------- 工具区 ---------- */
+/* ============================================================
+   工具分类区
+   ============================================================ */
 .home-cats {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 32px 20px 48px;
+    padding: 36px 20px 56px;
 }
 
 /* 分类区块 */
 .home-cat {
-    background: var(--hp-surface);
-    border: 1px solid var(--hp-border);
-    border-radius: var(--hp-radius);
-    margin-bottom: 20px;
-    overflow: hidden;
-    box-shadow: var(--hp-shadow);
-    position: relative;
+    margin-bottom: 32px;
 }
 
-/* 彩色左竖条 —— 签名元素 */
-.home-cat::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--cat-color, var(--hp-primary));
-}
-
-.home-cat:nth-child(1) { --cat-color: var(--hp-c1); }
-.home-cat:nth-child(2) { --cat-color: var(--hp-c2); }
-.home-cat:nth-child(3) { --cat-color: var(--hp-c3); }
-.home-cat:nth-child(4) { --cat-color: var(--hp-c4); }
-.home-cat:nth-child(5) { --cat-color: var(--hp-c5); }
-.home-cat:nth-child(6) { --cat-color: var(--hp-c6); }
-
-/* 分类头 */
+/* 分类标题行 */
 .home-cat-head {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 18px 24px 14px;
-    border-bottom: 1px solid var(--hp-border-soft);
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 0 4px;
 }
 
 .home-cat-ico {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: var(--hp-radius-sm);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--hp-radius);
     background: var(--cat-color, var(--hp-primary));
     color: #fff;
     flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
 }
 
 .home-cat-ico svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
 }
 
 .home-cat-title {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--hp-text);
     margin: 0;
@@ -288,30 +278,62 @@
     color: var(--hp-text-3);
     margin-left: auto;
     white-space: nowrap;
+    background: var(--hp-border-soft);
+    padding: 3px 10px;
+    border-radius: 20px;
 }
 
-/* 工具列表 */
+/* 分类颜色分配 */
+.home-cat:nth-child(1) { --cat-color: var(--hp-c1); --cat-bg: var(--hp-c1-bg); }
+.home-cat:nth-child(2) { --cat-color: var(--hp-c2); --cat-bg: var(--hp-c2-bg); }
+.home-cat:nth-child(3) { --cat-color: var(--hp-c3); --cat-bg: var(--hp-c3-bg); }
+.home-cat:nth-child(4) { --cat-color: var(--hp-c4); --cat-bg: var(--hp-c4-bg); }
+.home-cat:nth-child(5) { --cat-color: var(--hp-c5); --cat-bg: var(--hp-c5-bg); }
+.home-cat:nth-child(6) { --cat-color: var(--hp-c6); --cat-bg: var(--hp-c6-bg); }
+
+/* 工具卡片网格 */
 .home-cat-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 0;
-    padding: 6px 0;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
 }
 
 .home-cat-list a {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 24px;
-    color: var(--hp-text-2);
+    padding: 14px 16px;
+    background: var(--hp-surface);
+    border: 1px solid var(--hp-border);
+    border-radius: var(--hp-radius);
+    color: var(--hp-text);
     text-decoration: none;
-    transition: background .12s;
-    border-radius: 0;
+    transition: all .18s ease;
+    box-shadow: var(--hp-shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-cat-list a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--cat-color, var(--hp-primary));
+    opacity: 0;
+    transition: opacity .18s;
 }
 
 .home-cat-list a:hover {
-    background: var(--hp-bg);
-    color: var(--hp-text);
+    border-color: transparent;
+    box-shadow: var(--hp-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.home-cat-list a:hover::before {
+    opacity: 1;
 }
 
 /* 工具图标 */
@@ -319,36 +341,36 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--hp-radius-sm);
-    background: var(--cat-color, var(--hp-primary));
-    opacity: .15;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--cat-bg, var(--hp-primary-soft));
     color: var(--cat-color, var(--hp-primary));
     flex-shrink: 0;
-    transition: opacity .15s, transform .15s;
+    transition: transform .18s;
 }
 
 .home-cat-list a .tool-ico svg {
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
 }
 
 .home-cat-list a:hover .tool-ico {
-    opacity: 1;
-    color: #fff;
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 /* 工具名称 + 路径 */
 .home-cat-list a .tool-text {
     min-width: 0;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .home-cat-list a .tool-name {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--hp-text);
     line-height: 1.3;
     white-space: nowrap;
@@ -359,15 +381,13 @@
 .home-cat-list a .tool-path {
     font-size: 12px;
     color: var(--hp-text-3);
-    font-family: var(--hp-font-mono);
     line-height: 1.4;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-top: 1px;
 }
 
-.home-cat-list a:hover .tool-path {
+.home-cat-list a:hover .tool-name {
     color: var(--cat-color, var(--hp-primary));
 }
 
@@ -393,11 +413,11 @@
 /* ---------- 响应式 ---------- */
 @media (max-width: 768px) {
     .home-hero {
-        padding: 32px 0 28px;
+        padding: 36px 0 32px;
     }
 
     .home-title {
-        font-size: 24px;
+        font-size: 26px;
     }
 
     .home-sub {
@@ -406,61 +426,71 @@
     }
 
     .home-search-input {
-        height: 44px;
+        height: 46px;
         font-size: 14px;
     }
 
     .home-hot {
-        margin-top: 16px;
+        margin-top: 18px;
     }
 
     .home-hot a {
         font-size: 12px;
-        padding: 4px 12px;
+        padding: 5px 14px;
     }
 
     .home-cats {
-        padding: 20px 16px 32px;
+        padding: 24px 16px 36px;
     }
 
     .home-cat {
-        margin-bottom: 16px;
+        margin-bottom: 24px;
     }
 
     .home-cat-head {
-        padding: 14px 18px 12px;
+        padding: 0 2px;
+        margin-bottom: 12px;
     }
 
     .home-cat-ico {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
     }
 
     .home-cat-ico svg {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
     }
 
     .home-cat-title {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .home-cat-meta {
-        display: none;
+        font-size: 12px;
+        padding: 2px 8px;
     }
 
     .home-cat-list {
         grid-template-columns: 1fr;
+        gap: 8px;
     }
 
     .home-cat-list a {
-        padding: 10px 18px;
+        padding: 12px 14px;
         gap: 10px;
     }
 
     .home-cat-list a .tool-ico {
-        width: 28px;
-        height: 28px;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+
+    .home-cat-list a .tool-ico svg {
+        width: 18px;
+        height: 18px;
     }
 
     .home-cat-list a .tool-name {
