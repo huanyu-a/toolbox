@@ -51,7 +51,7 @@
             <p class="home-sidebar-title">工具分类</p>
             <ul class="home-sidebar-list">
                 {volist name="tools" id="cat"}
-                <li><a href="#cat-{$i}" data-cat="{$cat.cat}"><span class="cat-dot" style="background:var(--hp-c{$i})"></span><span>{$cat.cat}</span><span class="cat-count">{$cat.items|count}</span></a></li>
+                <li><a href="#cat-{$key+1}" data-cat="{$cat.cat}"><span class="cat-dot" style="background:var(--hp-c{$key+1})"></span><span>{$cat.cat}</span><span class="cat-count">{$cat.items|count}</span></a></li>
                 {/volist}
             </ul>
         </aside>
@@ -59,7 +59,7 @@
         <section class="home-cats">
             <div id="homeCats">
                 {volist name="tools" id="cat"}
-                <div class="home-cat" id="cat-{$i}" data-cat="{$cat.cat}">
+                <div class="home-cat" id="cat-{$key+1}" data-cat="{$cat.cat}">
                     <div class="home-cat-head">
                         <span class="home-cat-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg></span>
                         <h2 class="home-cat-title">{$cat.cat}</h2>
