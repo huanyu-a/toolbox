@@ -46,6 +46,28 @@
     --hp-radius-lg: 14px;
 }
 
+/* ---------- 顶栏 logo 配色覆盖（首页也生效） ---------- */
+.topbar .logo_ico {
+    background: var(--hp-primary) !important;
+    color: #fff !important;
+}
+.topbar .navbar-brand {
+    color: var(--hp-text) !important;
+}
+.topbar .navbar-nav > li > a {
+    color: var(--hp-text-2);
+}
+.topbar .navbar-nav > li > a:hover,
+.topbar .navbar-nav > li.open > a {
+    color: var(--hp-primary);
+}
+.topbar.navbar-default {
+    background: var(--hp-surface);
+    border-bottom: 1px solid var(--hp-border);
+}
+html { padding-top: 52px !important; }
+body { background: var(--hp-bg); }
+
 [data-theme="dark"] {
     --hp-primary: #E89476;
     --hp-primary-hover: #F0A585;
