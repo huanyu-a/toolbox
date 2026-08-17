@@ -135,20 +135,40 @@
             search.focus();
         }
     });
-    // 侧栏点击高亮 + 平滑滚动
+    // 侧栏点击高亮 + 平滑滚动（用 getBoundingClientRect 精确计算）
     if (sidebar) {
+        var navLinks = sidebar.querySelectorAll('a');
+        var headerH = 54; // 固定顶栏高度
+        function scrollToCat(link) {
+            var targetId = link.getAttribute('href');
+            var target = document.querySelector(targetId);
+            if (!target) return;
+            var top = target.getBoundingClientRect().top + window.pageYOffset - headerH - 8;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+        }
         sidebar.addEventListener('click', function(e) {
             var link = e.target.closest('a');
             if (!link) return;
             e.preventDefault();
-            var targetId = link.getAttribute('href');
-            var target = document.querySelector(targetId);
-            if (target) {
-                window.scrollTo({ top: target.offsetTop - 56, behavior: 'smooth' });
-            }
-            sidebar.querySelectorAll('a').forEach(function(a) { a.classList.remove('active'); });
+            navLinks.forEach(function(a) { a.classList.remove('active'); });
             link.classList.add('active');
+            scrollToCat(link);
         });
+        // 滚动联动高亮（IntersectionObserver）
+        var catSections = cats.querySelectorAll('.home-cat');
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var id = '#' + entry.target.id;
+                        navLinks.forEach(function(a) {
+                            a.classList.toggle('active', a.getAttribute('href') === id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-' + headerH + 'px 0px -70% 0px', threshold: 0 });
+            catSections.forEach(function(s) { io.observe(s); });
+        }
     }
 })();
 </script>
