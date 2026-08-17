@@ -68,6 +68,69 @@
 html { padding-top: 52px !important; }
 body { background: var(--hp-bg); }
 
+/* 顶栏右侧按钮（搜索/主题） */
+.nav-search .nav-search-btn {
+    color: var(--hp-text-2) !important;
+    border-color: var(--hp-border) !important;
+    background: var(--hp-surface-hover) !important;
+}
+.nav-search .nav-search-btn:hover {
+    color: var(--hp-primary) !important;
+    border-color: var(--hp-primary) !important;
+    background: var(--hp-primary-soft) !important;
+}
+.nav-theme a {
+    color: var(--hp-text-2) !important;
+}
+.nav-theme a:hover {
+    color: var(--hp-primary) !important;
+}
+
+/* 返回顶部 */
+.gotop {
+    background: var(--hp-primary) !important;
+}
+.gotop .arrow.lit {
+    border-color: transparent transparent var(--hp-primary-hover) !important;
+}
+
+/* FAB 按钮 */
+.fab-cat {
+    background: var(--hp-primary) !important;
+    border-color: var(--hp-primary) !important;
+}
+.fab-cat.active {
+    background: var(--hp-primary-hover) !important;
+}
+.fab-search, .fab-theme {
+    background: var(--hp-surface) !important;
+    border-color: var(--hp-border) !important;
+    color: var(--hp-text-2) !important;
+}
+
+/* 搜索弹窗 */
+.search-pop {
+    background: var(--hp-surface) !important;
+}
+.search-pop-input {
+    border-color: var(--hp-primary) !important;
+}
+.search-pop-close {
+    color: var(--hp-text-2) !important;
+    border-color: var(--hp-border) !important;
+    background: var(--hp-surface-hover) !important;
+}
+.search-pop-close:hover {
+    border-color: var(--hp-primary) !important;
+    color: var(--hp-primary) !important;
+}
+
+/* 浮动分类导航 */
+.float-cat-item.active {
+    background: var(--hp-primary-soft) !important;
+    color: var(--hp-primary-hover) !important;
+}
+
 [data-theme="dark"] {
     --hp-primary: #E89476;
     --hp-primary-hover: #F0A585;
