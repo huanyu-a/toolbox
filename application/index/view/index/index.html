@@ -20,20 +20,8 @@
 {include file="header" /}
 <main class="home-wrap">
     <section class="home-hero">
-        <div class="hero-grid" aria-hidden="true"></div>
-        <div class="hero-chips" aria-hidden="true">
-            <span class="chip chip-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4.5c-1.1 0-2 .9-2 2v2.3c0 1-.7 1.8-1.7 2 1 .2 1.7 1 1.7 2v2.7c0 1.1.9 2 2 2"/><path d="M15.5 4.5c1.1 0 2 .9 2 2v2.3c0 1 .7 1.8 1.7 2-1 .2-1.7 1-1.7 2v2.7c0 1.1-.9 2-2 2"/></svg></span>
-            <span class="chip chip-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span>
-            <span class="chip chip-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9.5 4 7.5 20"/><path d="M16.5 4l-2 16"/><path d="M4.5 9h15"/><path d="M4 15h15"/></svg></span>
-            <span class="chip chip-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></svg></span>
-            <span class="chip chip-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 5 5.6v5.2c0 4.5 3 7.8 7 9 4-1.2 7-4.5 7-9V5.6L12 3.2z"/><path d="m9.3 11.5 1.9 1.9 3.5-3.9"/></svg></span>
-            <span class="chip chip-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="12" r="2.3"/><circle cx="18" cy="6" r="2.3"/><circle cx="18" cy="18" r="2.3"/><path d="M8.2 11 15.8 7.1"/><path d="M8.2 13l7.6 3.9"/></svg></span>
-            <span class="chip chip-7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="m7 9.5 3 2.5-3 2.5"/><path d="M12.5 14.5H17"/></svg></span>
-            <span class="chip chip-8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.2 12 3.8l8 4.4v7.6l-8 4.4-8-4.4V8.2z"/><path d="M4 8.2 12 12.6l8-4.4"/><path d="M12 12.6v7.6"/></svg></span>
-        </div>
         <div class="container home-hero-inner">
-            <p class="home-eyebrow">WEB TOOLKIT<span class="dot">·</span><span id="homeStat">{:$homeCount}</span> TOOLS</p>
-            <h1 class="home-title">在线工具箱</h1>
+            <h1 class="home-title">{$Think.config.web.site.name}</h1>
             <p class="home-sub">JSON 格式化、编码转换、加解密、网络诊断等 <strong>{:$homeCount}</strong> 个常用工具，打开即用，浏览器本地运算</p>
             <div class="home-search">
                 <span class="home-search-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span>
@@ -100,7 +88,6 @@
         '\u7ad9\u957f\u8f85\u52a9': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17"/><path d="M8.5 9.5V19.5"/><path d="M11.5 13.5h5"/><path d="M11.5 16.5h3.5"/></svg>',
         '\u751f\u6d3b\u8da3\u5473': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2c.55 3.6 2.5 5.55 6.1 6.1-3.6.55-5.55 2.5-6.1 6.1-.55-3.6-2.5-5.55-6.1-6.1 3.6-.55 5.55-2.5 6.1-6.1z"/><path d="M18.8 15.6c.3 2 1.4 3.1 3.4 3.4-2 .3-3.1 1.4-3.4 3.4-.3-2-1.4-3.1-3.4-3.4 2-.3 3.1-1.4 3.4-3.4z"/></svg>'
     };
-    /* 工具磁贴图标：按 URL 关键词匹配类型 */
     var TOOL_SVGS = {
         code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4.5c-1.1 0-2 .9-2 2v2.3c0 1-.7 1.8-1.7 2 1 .2 1.7 1 1.7 2v2.7c0 1.1.9 2 2 2"/><path d="M15.5 4.5c1.1 0 2 .9 2 2v2.3c0 1 .7 1.8 1.7 2-1 .2-1.7 1-1.7 2v2.7c0 1.1-.9 2-2 2"/></svg>',
         lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10.5V8a5 5 0 0 1 10 0v2.5"/><rect x="4.8" y="10.5" width="14.4" height="9.5" rx="2"/><path d="M12 14.2v2.8"/></svg>',

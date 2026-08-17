@@ -1,201 +1,109 @@
 /* ============================================================
    在线工具箱 · 首页样式（home.css）
-   设计方向：工程工作台 / Engineering Workbench
-   - Hero：发丝网格蓝图背景 + 浮动工具图形 + 命令面板式搜索
-   - 工具区：分类分组块 + 工具磁贴网格（大图标、大名称、整卡可点）
-   - 全部走 CSS 变量，自动适配深浅色模式
+   设计方向：干净实用的工具站
+   - Hero：标题 + 副标题 + 搜索框 + 热门标签，无装饰图形
+   - 工具区：分类区块 + 卡片网格（图标 + 名称）
+   - 基于 CSS 变量，自动适配深浅色模式
    ============================================================ */
 
-/* ---------- 首页专用令牌 ---------- */
 :root {
-    --hp-brand: #4657e8;
-    --hp-brand-2: #6a7bff;
-    --hp-amber: #b45309;
-    --hp-grid: rgba(15, 23, 42, .05);
-    --hp-chip-bg: rgba(255, 255, 255, .72);
-    --hp-chip-brd: rgba(15, 23, 42, .07);
+    --hp-brand: #2563eb;
+    --hp-brand-soft: #eff5ff;
 }
-
 [data-theme="dark"] {
-    --hp-brand: #8ba0ff;
-    --hp-brand-2: #a5b4ff;
-    --hp-amber: #f0b429;
-    --hp-grid: rgba(148, 163, 184, .08);
-    --hp-chip-bg: rgba(26, 34, 54, .62);
-    --hp-chip-brd: rgba(148, 163, 184, .14);
+    --hp-brand: #6d8dff;
+    --hp-brand-soft: #1e2a4a;
 }
 
 /* ---------- Hero ---------- */
 .home-hero {
     position: relative;
-    overflow: hidden;
-    padding: 68px 0 58px;
+    padding: 56px 0 44px;
     text-align: center;
-    background:
-        radial-gradient(1100px 440px at 50% -160px, var(--brand-soft) 0%, transparent 72%),
-        var(--bg);
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
 }
-
-/* 发丝网格（蓝图纹理） */
-.hero-grid {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-        linear-gradient(var(--hp-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--hp-grid) 1px, transparent 1px);
-    background-size: 42px 42px;
-    -webkit-mask-image: radial-gradient(760px 420px at 50% 0%, #000 32%, transparent 78%);
-    mask-image: radial-gradient(760px 420px at 50% 0%, #000 32%, transparent 78%);
-}
-
-.home-hero-inner {
-    position: relative;
-    z-index: 1;
-}
-
-/* 浮动工具图形（装饰性图片，纯 SVG） */
-.hero-chips {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-.hero-chips .chip {
-    position: absolute;
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: var(--hp-chip-bg);
-    border: 1px solid var(--hp-chip-brd);
-    box-shadow: var(--shadow-sm);
-    color: var(--hp-brand);
-    animation: chipFloat 7s ease-in-out infinite;
-}
-.hero-chips .chip svg { width: 23px; height: 23px; }
-.chip-1 { top: 22%; left: 9%; animation-delay: 0s; }
-.chip-2 { top: 40%; left: 15%; animation-delay: -1.6s; }
-.chip-3 { top: 18%; right: 11%; animation-delay: -.8s; }
-.chip-4 { top: 36%; right: 17%; animation-delay: -2.4s; }
-.chip-5 { bottom: 24%; left: 13%; animation-delay: -3.2s; }
-.chip-6 { bottom: 15%; left: 26%; animation-delay: -4s; }
-.chip-7 { bottom: 22%; right: 13%; animation-delay: -2s; }
-.chip-8 { bottom: 13%; right: 25%; animation-delay: -4.8s; }
-
-@keyframes chipFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-9px); }
-}
-
-/* 眉标（等宽字体，仪器标签） */
-.home-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 0 20px;
-    padding: 7px 16px;
-    font: 600 11px/1 var(--font-mono);
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--hp-brand);
-    background: var(--brand-soft);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-}
-.home-eyebrow .dot { color: var(--text-3); }
+.home-hero-inner { position: relative; z-index: 1; }
 
 .home-title {
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: 2px;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 1px;
     color: var(--text);
-    margin: 0 0 16px;
+    margin: 0 0 12px;
 }
-
 .home-sub {
     color: var(--text-2);
-    font-size: 16px;
-    margin: 0 0 32px;
-    letter-spacing: .02em;
+    font-size: 15px;
+    margin: 0 0 28px;
 }
 .home-sub strong { color: var(--hp-brand); font-weight: 700; }
 
-/* 命令面板式搜索 */
+/* 搜索框 */
 .home-search {
     position: relative;
-    max-width: 620px;
-    margin: 0 auto 24px;
+    max-width: 560px;
+    margin: 0 auto 20px;
 }
 .home-search-ico {
     position: absolute;
-    left: 19px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-3);
     pointer-events: none;
 }
-.home-search-ico svg { width: 21px; height: 21px; }
+.home-search-ico svg { width: 18px; height: 18px; }
 .home-search-input {
     width: 100%;
-    height: 60px;
-    padding: 0 132px 0 52px;
-    font-size: 15px;
+    height: 46px;
+    padding: 0 80px 0 44px;
+    font-size: 14px;
     color: var(--text);
     background: var(--surface);
     border: 1px solid var(--border-strong);
-    border-radius: 17px;
+    border-radius: 8px;
     box-shadow: var(--shadow-sm);
     outline: none;
-    transition: border-color .18s ease, box-shadow .18s ease;
+    transition: border-color .15s ease, box-shadow .15s ease;
 }
 .home-search-input::placeholder { color: var(--text-3); }
 .home-search-input:focus,
 .home-search-input:focus-visible {
     border-color: var(--hp-brand);
-    box-shadow: 0 0 0 4px var(--brand-soft), var(--shadow);
+    box-shadow: 0 0 0 3px var(--hp-brand-soft);
 }
 .home-search-kbd {
     position: absolute;
-    right: 16px;
+    right: 14px;
     top: 50%;
     transform: translateY(-50%);
-    font: 600 12px/1 var(--font-mono);
-    letter-spacing: .08em;
+    font: 600 11px/1 var(--font-mono);
     color: var(--text-3);
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 5px 9px;
+    border-radius: 5px;
+    padding: 4px 8px;
 }
 .home-search-clear {
     position: absolute;
-    right: 88px;
+    right: 64px;
     top: 50%;
     transform: translateY(-50%);
     display: grid;
     place-items: center;
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
     padding: 0;
     border: none;
     border-radius: 50%;
     background: var(--surface-2);
     color: var(--text-3);
     cursor: pointer;
-    transition: color .15s ease, background .15s ease;
+    transition: color .15s ease;
 }
-.home-search-clear:hover { color: var(--text); background: var(--border); }
-.home-search-clear svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 14px;
-    height: 14px;
-}
+.home-search-clear:hover { color: var(--text); }
+.home-search-clear svg { width: 12px; height: 12px; }
 
 /* 热门标签 */
 .home-hot {
@@ -203,188 +111,180 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 9px;
-    font-size: 14px;
+    gap: 8px;
+    font-size: 13px;
     color: var(--text-3);
 }
 .home-hot-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-right: 4px;
-    font: 600 11px/1 var(--font-mono);
-    letter-spacing: .14em;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--text-3);
+    margin-right: 2px;
 }
 .home-hot-label::before {
     content: "";
+    display: inline-block;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--hp-amber);
+    background: #f59e00;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 .home-hot a {
-    padding: 7px 15px;
+    padding: 5px 12px;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: 6px;
     color: var(--text-2);
     background: var(--surface);
-    transition: color .15s ease, border-color .15s ease, background .15s ease, transform .15s ease;
+    text-decoration: none;
+    transition: color .15s ease, border-color .15s ease, background .15s ease;
 }
 .home-hot a:hover {
     color: var(--hp-brand);
     border-color: var(--hp-brand);
-    background: var(--brand-soft);
-    transform: translateY(-1px);
+    background: var(--hp-brand-soft);
 }
 
-/* ---------- 工具区：分类分组 + 磁贴网格 ---------- */
+/* ---------- 工具区 ---------- */
 .home-cats {
-    padding: 42px 0 64px;
+    padding: 36px 0 56px;
     display: flex;
     flex-direction: column;
-    gap: 34px;
+    gap: 28px;
 }
-
 .home-section-head {
     display: flex;
     align-items: baseline;
-    gap: 14px;
-    padding: 0 2px 4px;
+    gap: 12px;
+    margin-bottom: 4px;
 }
 .home-section-title {
     margin: 0;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 700;
     color: var(--text);
 }
 .home-section-meta {
-    font: 500 12px/1 var(--font-mono);
-    letter-spacing: .1em;
+    font-size: 13px;
     color: var(--text-3);
 }
 .home-section-meta em {
     font-style: normal;
     color: var(--hp-brand);
+    font-weight: 600;
 }
 
-/* 分类分组块 */
+/* 分类块 */
 .home-cat {
-    margin: 0;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 70px;
 }
 .home-cat-head {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 2px 16px;
-    border-bottom: 1px solid var(--border);
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 16px;
 }
 .home-cat-ico {
     flex: none;
     display: grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 13px;
-    background: var(--brand-soft);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--hp-brand-soft);
     color: var(--hp-brand);
-    border: 1px solid var(--border);
 }
-.home-cat-ico svg { width: 23px; height: 23px; }
+.home-cat-ico svg { width: 20px; height: 20px; }
 .home-cat-name {
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: .5px;
+    font-size: 17px;
+    font-weight: 700;
     color: var(--text);
 }
 .home-cat-count {
     margin-left: auto;
-    font: 500 12px/1 var(--font-mono);
-    letter-spacing: .06em;
+    font-size: 12px;
     color: var(--text-3);
     background: var(--surface-2);
     border: 1px solid var(--border);
-    padding: 5px 11px;
+    padding: 3px 10px;
     border-radius: 999px;
 }
 
-/* 工具磁贴网格 */
+/* 工具卡片网格 */
 .home-cat-list {
     list-style: none;
     margin: 0;
-    padding: 16px 0 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
 }
 .home-cat-list li { margin: 0; min-width: 0; }
 .home-cat-list a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
+    gap: 11px;
+    padding: 11px 13px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 13px;
+    border-radius: 8px;
     box-shadow: var(--shadow-sm);
     text-decoration: none;
-    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
 .home-cat-list a:hover {
-    transform: translateY(-2px);
     border-color: var(--hp-brand);
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, .1);
     background: var(--surface);
 }
 .home-cat-list a:focus-visible {
     outline: 2px solid var(--hp-brand);
-    outline-offset: 2px;
+    outline-offset: 1px;
 }
 
-/* 磁贴图标 */
+/* 卡片图标 */
 .tile-ico {
     flex: none;
     display: grid;
     place-items: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
-    background: var(--brand-soft);
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    background: var(--hp-brand-soft);
     color: var(--hp-brand);
-    transition: color .16s ease, background .16s ease, transform .16s ease;
+    transition: background .15s ease, color .15s ease;
 }
-.tile-ico svg { width: 20px; height: 20px; }
+.tile-ico svg { width: 18px; height: 18px; }
 .home-cat-list a:hover .tile-ico {
     background: var(--hp-brand);
     color: #fff;
-    transform: scale(1.04);
 }
 
-/* 磁贴名称：大、清晰、整卡可点 */
+/* 卡片名称 */
 .tile-name {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text);
     line-height: 1.35;
-    letter-spacing: .01em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.home-cat-list a:hover .tile-name { color: var(--hp-brand-strong); }
+.home-cat-list a:hover .tile-name { color: var(--hp-brand); }
 
-/* 磁贴箭头（hover 浮现） */
+/* 卡片箭头 */
 .tile-arrow {
     flex: none;
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     margin-left: auto;
     color: var(--text-3);
     opacity: 0;
     transform: translateX(-3px);
-    transition: opacity .16s ease, transform .16s ease, color .16s ease;
+    transition: opacity .15s ease, transform .15s ease, color .15s ease;
 }
 .home-cat-list a:hover .tile-arrow {
     opacity: 1;
@@ -396,11 +296,11 @@
 .home-empty {
     text-align: center;
     color: var(--text-3);
-    padding: 56px 0 40px;
+    padding: 48px 0 32px;
 }
 .home-empty-title {
-    margin: 0 0 8px;
-    font-size: 16px;
+    margin: 0 0 6px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--text-2);
 }
@@ -410,27 +310,23 @@
 }
 
 /* ---------- 响应式 ---------- */
-@media (max-width: 1080px) {
-    .hero-chips { display: none; }
-}
 @media (max-width: 767px) {
-    .home-hero { padding: 46px 0 40px; }
-    .home-title { font-size: 32px; letter-spacing: 1px; }
-    .home-sub { font-size: 14px; margin-bottom: 24px; }
-    .home-search-input { height: 54px; padding-right: 108px; }
+    .home-hero { padding: 40px 0 34px; }
+    .home-title { font-size: 28px; letter-spacing: .5px; }
+    .home-sub { font-size: 14px; margin-bottom: 22px; }
+    .home-search-input { height: 44px; padding-right: 64px; }
     .home-search-kbd { display: none; }
-    .home-search-clear { right: 14px; }
-    .home-cats { padding: 28px 0 48px; gap: 28px; }
-    .home-cat-list { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
-    .home-cat-name { font-size: 17px; }
-    .home-cat-ico { width: 40px; height: 40px; }
-    .tile-name { font-size: 14px; }
-    .tile-ico { width: 36px; height: 36px; }
+    .home-search-clear { right: 12px; }
+    .home-cats { padding: 24px 0 44px; gap: 22px; }
+    .home-cat-list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; }
+    .home-cat-name { font-size: 16px; }
+    .home-cat-ico { width: 32px; height: 32px; }
+    .tile-name { font-size: 13px; }
+    .tile-ico { width: 30px; height: 30px; }
+    .tile-ico svg { width: 16px; height: 16px; }
 }
 
-/* 减弱动态效果 */
 @media (prefers-reduced-motion: reduce) {
-    .hero-chips .chip { animation: none; }
-    .home-cat-list a { transition: none; }
+    .home-cat-list a,
     .home-search-input { transition: none; }
 }
