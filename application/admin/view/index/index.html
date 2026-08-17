@@ -3,40 +3,74 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>后台管理 - 在线工具箱</title>
+    <title>后台管理 - {$Think.config.web.site.name}</title>
     <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <script src="/static/admin/js/theme.js"></script>
 </head>
 <body>
 <header class="admin-topbar">
-    <button class="btn btn-sm btn-ghost menu-toggle" id="menuToggle" type="button">☰</button>
-    <a class="brand" href="/" target="_blank"><span class="logo">🔧</span>在线工具箱后台</a>
+    <button class="menu-toggle" id="menuToggle" type="button" title="折叠/展开菜单">☰</button>
+    <a class="brand" href="/" target="_blank">
+        <span class="logo">🔧</span>
+        <span>{$Think.config.web.site.name}</span>
+        <span class="brand-badge">后台管理</span>
+    </a>
     <div class="topbar-right">
+        <button class="theme-toggle" type="button" title="切换深色/浅色模式">
+            <span class="theme-toggle-icon">🌙</span>
+        </button>
         <a href="/" target="_blank">查看前台 ↗</a>
-        <a href="/admin/index/logout" onclick="return confirm('确定退出登录吗？')">退出登录</a>
+        <a href="/portal/index/logout" onclick="return confirm('确定退出登录吗？')">退出登录</a>
     </div>
 </header>
 <aside class="admin-side" id="adminSide">
     <nav>
         <div class="menu-group">
-            <a class="menu-item" href="/admin/index/main.html" target="main">🏠 系统信息</a>
+            <a class="menu-item" href="/portal/index/main.html" target="main">
+                <span class="mi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                系统信息
+            </a>
         </div>
         <div class="menu-group open">
-            <a class="menu-item" href="javascript:;">⚙️ 系统设置<span class="arrow">▶</span></a>
+            <a class="menu-item" href="javascript:;">
+                <span class="mi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+                系统设置<span class="arrow">▶</span>
+            </a>
             <div class="sub-menu">
-                <a href="/admin/web/index.html" target="main">全局 head 配置</a>
-                <a href="/admin/web/header.html" target="main">全局顶部导航</a>
-                <a href="/admin/web/nav.html" target="main">页脚导航管理</a>
-                <a href="/admin/web/footer.html" target="main">全局底部</a>
-                <a href="/admin/web/link.html" target="main">友情链接</a>
-                <a href="/admin/index/web_cache.html" target="main">清除缓存</a>
-                <a href="/admin/file/index.html" target="main">文件管理</a>
-                <a href="/admin/index/account.html" target="main">修改密码</a>
+                <a href="/portal/web/index.html" target="main">网站配置</a>
+                <a href="/portal/web/header.html" target="main">全局顶部导航</a>
+                <a href="/portal/web/nav.html" target="main">页脚导航管理</a>
+                <a href="/portal/web/footer.html" target="main">全局底部</a>
+                <a href="/portal/web/link.html" target="main">友情链接</a>
+            </div>
+        </div>
+        <div class="menu-group">
+            <a class="menu-item" href="javascript:;">
+                <span class="mi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+                系统维护<span class="arrow">▶</span>
+            </a>
+            <div class="sub-menu">
+                <a href="/portal/index/web_cache.html" target="main">清除缓存</a>
+                <a href="/portal/file/index.html" target="main">文件管理</a>
+            </div>
+        </div>
+        <div class="menu-group">
+            <a class="menu-item" href="javascript:;">
+                <span class="mi-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                账号安全<span class="arrow">▶</span>
+            </a>
+            <div class="sub-menu">
+                <a href="/portal/index/account.html" target="main">修改密码</a>
             </div>
         </div>
     </nav>
+    <div class="side-foot">
+        <span class="dot"></span>
+        <span>系统运行正常</span>
+    </div>
 </aside>
 <main class="admin-main">
-    <iframe src="/admin/index/main.html" name="main" id="mainFrame" frameborder="0" scrolling="auto"></iframe>
+    <iframe src="/portal/index/main.html" name="main" id="mainFrame" frameborder="0" scrolling="auto"></iframe>
 </main>
 <script src="/static/admin/js/admin.js"></script>
 </body>

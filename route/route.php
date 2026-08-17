@@ -9,10 +9,10 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-//后台
-Route::rule('admin/:c/:a', 'admin/:c/:a');
-Route::rule('admin', function(){
-    return redirect('admin/index/index');
+//后台（对外路径已改为 /portal/，隐藏原 /admin/ 入口）
+Route::rule('portal/:c/:a', 'admin/:c/:a');
+Route::rule('portal', function(){
+    return redirect('portal/index/index');
 });
 
 Route::rule('/', 'index');

@@ -1,6 +1,5 @@
 <?php
 return array (
-  'username' => 'admin',
-  'password' => 'admin',
+  'username' => 'toolbox',
+  'password' => 'Toolbox@2026',
 );
-?>

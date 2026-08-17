@@ -38,7 +38,7 @@ class Index extends Base
     }
     public function logout(){
         session('admin', null);
-        return $this->redirect(url('login'), 302);
+        return $this->redirect(url('portal/index/login'), 302);
     }
     public function login()
     {
@@ -101,7 +101,7 @@ class Index extends Base
 
             if($config['username'] != $confignew['username'] || isset($confignew['password']) && $config['password'] != $confignew['password']){
                 $webconfig = "<?php\n".'return ' . var_export($confignew, true) . ';'."\n";
-                file_put_contents('../config/admin.php', $webconfig);
+                file_put_contents($this->rootPath() . 'config/admin.php', $webconfig);
                 return json(['code'=>0, 'msg'=>'修改成功，请重新登录。']);
             }
 
