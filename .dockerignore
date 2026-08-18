@@ -7,3 +7,5 @@ runtime
 *.log
 .gitignore
 README.md
+backup
+scripts

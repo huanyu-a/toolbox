@@ -4,3 +4,6 @@
 /.fetch/
 /.merged_backup/
 /.check/
+
+/backup/
+/scripts/

@@ -6,7 +6,7 @@
 //  2. 新增工具页：新增一个命名条目并引用 {$Think.config.web.xxx.title} 等变量；
 //  3. keywords 建议 5~10 个精准关键词，description 兼顾功能描述与 SEO。
 // ============================================================
-$brand = '在线工具箱';
+$brand = '寰宇的工具箱';
 
 return array (
   'site' => array (

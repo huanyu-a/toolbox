@@ -47,7 +47,8 @@ class Index extends Controller
         // 页面 SEO 元信息（来自 web 配置）
         $webCfg = config('web.');
         $pageCfg = (isset($webCfg[$act]) && is_array($webCfg[$act])) ? $webCfg[$act] : array();
-        $data['page_title'] = isset($pageCfg['title']) ? $pageCfg['title'] : '在线工具箱';
+        $siteName = isset($webCfg['site']['name']) ? $webCfg['site']['name'] : '在线工具箱';
+        $data['page_title'] = isset($pageCfg['title']) ? $pageCfg['title'] : $siteName;
         $data['page_desc'] = isset($pageCfg['description']) ? $pageCfg['description'] : '';
         $data['page_keywords'] = isset($pageCfg['keywords']) ? $pageCfg['keywords'] : '';
         // JSON-LD 结构化数据（控制器拼接，避免模板解析 JSON 花括号冲突）
@@ -56,7 +57,9 @@ class Index extends Controller
             $data['jsonld'] = json_encode(array(
                 '@context' => 'https://schema.org',
                 '@type' => 'WebSite',
-                'name' => '在线工具箱',
+                'name' => $siteName,
+                'description' => isset($webCfg['index']['description']) ? $webCfg['index']['description'] : '',
+                'inLanguage' => 'zh-CN',
                 'url' => $domain . '/',
                 'potentialAction' => array(
                     '@type' => 'SearchAction',
@@ -81,6 +84,7 @@ class Index extends Controller
                 'description' => $data['page_desc'],
                 'url' => $domain . $data['current_url'],
                 'applicationCategory' => 'UtilitiesApplication',
+                'inLanguage' => 'zh-CN',
                 'operatingSystem' => 'Any',
             );
             $data['jsonld'] = json_encode($breadcrumb, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
@@ -209,12 +213,14 @@ class Index extends Controller
                 }
                 break;
             case 'lishishangdejintian':
-                $lsjt = Fcurl('https://api.oick.cn/lishi/api.php');
                 $data['list'] = array();
-                if($lsjt){
+                $lsjt = Fcurl('https://api.oick.cn/lishi/api.php');
+                if ($lsjt) {
                     $lsjt = str_replace('""', '"', $lsjt);
-                    $lsjt = json_decode($lsjt, true);
-                    $data['list'] = ($lsjt['code']==200)?$lsjt['result']:array();
+                    $decoded = json_decode($lsjt, true);
+                    if (is_array($decoded) && isset($decoded['code']) && $decoded['code'] == 200) {
+                        $data['list'] = isset($decoded['result']) && is_array($decoded['result']) ? $decoded['result'] : array();
+                    }
                 }
                 break;
         }

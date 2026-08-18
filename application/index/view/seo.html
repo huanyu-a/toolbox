@@ -1,8 +1,13 @@
 <link rel="canonical" href="{:request()->domain()}{$current_url|default='/'}" />
 <meta name="robots" content="index,follow" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="在线工具箱" />
-<meta property="og:title" content="{$page_title|default='在线工具箱'}" />
-<meta property="og:description" content="{$page_desc|default='在线工具箱'}" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:site_name" content="{$Think.config.web.site.name}" />
+<meta property="og:title" content="{$page_title|default=''}" />
+<meta property="og:description" content="{$page_desc|default=''}" />
 <meta property="og:url" content="{:request()->domain()}{$current_url|default='/'}" />
+<meta property="og:image" content="{:request()->domain()}/favicon.ico" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{$page_title|default=''}" />
+<meta name="twitter:description" content="{$page_desc|default=''}" />
 {if condition="isset($jsonld) && $jsonld != ''"}<script type="application/ld+json">{$jsonld|raw}</script>{/if}
