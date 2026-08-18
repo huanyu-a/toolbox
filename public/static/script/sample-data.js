@@ -86,11 +86,6 @@
             run: [{ fn: 'webdebug' }],
             msg: '已填入 HTML 示例，点击调试预览可查看'
         },
-        '/xpath/': {
-            fill: { '#content': '<html>\n<body>\n  <div id="list">\n    <a href="https://a.com/1">链接一</a>\n    <a href="https://a.com/2">链接二</a>\n    <img src="https://a.com/1.png">\n    <img src="https://a.com/2.png">\n  </div>\n</body>\n</html>', '#xpath': '//a/@href' },
-            run: [{ fn: 'find', arg: 2 }],
-            msg: '已填入 XPath 示例并匹配'
-        },
         '/barcode/': {
             fill: { '#content': '6901234567892' },
             run: [{ click: 'btnresult' }],

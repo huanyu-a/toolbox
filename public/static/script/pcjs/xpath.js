@@ -1,44 +1,127 @@
-	function find(t){
-			$("#result").val("");
-			var code = $("#content").val();
-			var condition = 'img';
-			switch(t){
-				case 1:
-				condition = 'img';
-				break;
-				case 2:
-				condition = $("#xpath").val();
-				break;
-				case 3:
-				condition = 'a';
-				break;
-				
-			}
-			var html = '';
-			$(code).find(condition).each(function(){
-				switch(t){
-					case 1:
-					if($("#showImg").is(":checked")){
-						$("#res").append("<img src='"+$(this).attr("src")+"' style='margin-left:2px'> ");
-					}
-					html+=$(this).attr("src")+"\r\n";
-					break;
-					case 2:
-					html+=$(this).html()+"\r\n";
-					break;
-					case 3:
-					//if($(this).attr("href").indexOf("Net://")>=0||$(this).attr("href").indexOf("https://")>=0){
-					html+=$(this).attr("href")+"\r\n";
-					//}
-					break;
-				}
-				
-			});
-			if(html==''){
-				html+='没有匹配到数据';
-			}
-			hightout(html);
-		}
-		function demo(){
-			$("#content").val('<p><a href="Net://www.sohu.com/"><img src="Net://5b0988e595225.cdn.sohucs.com/images/20191029/bc5a383be6fd43e5ada49f8d8f573007.png"/></a></p><p>国内外大量的社会调查与医学统计显示：越来越多的疾病正快步向男性走来，并不断地严重威胁到男性同志的身心健康。例如前列腺炎（20-50岁的男性发病率高达20%-40%以上）、性功能障碍、前列腺增生、高血压、糖尿病、疲劳综合症、肥胖综合症、脱发、秃顶等等。这一切看来，好似男性更加脆弱。事实也正是如此，全世界范围内男性的平均寿命要比女性小上2-3岁。这些危害男性健康的现状早已引起国际卫生组织的高度重视。</p><p><img src="Net://5b0988e595225.cdn.sohucs.com/images/20191029/a7f20952a135489caffaea8cad88bb07.png"/></p><p>世界卫生组织确定每年的10月28日为“世界男性健康日”，在每年的“世界男性健康日”到来之即，要求世界各国加大对男性健康的宣传力度，呼吁整个社会再多一点对男性健康的关注、呼吁每个家庭再多一点对男性健康的关爱。</p><p><img src="Net://5b0988e595225.cdn.sohucs.com/images/20191029/a5afa04ed69c4e8e884e29a37d647d08.jpeg"/></p><p>从2000年开始，每年10月28日为我国“男性健康日”。今年中国男性健康日主题：“健康中国我行动，幸福相伴在一起”。倡议<span>健康体魄、幸福生活，努力做到夫妻在一起、家人在一起、亲情在一起、专家和患者在一起、幸福中国和健康中国在一起。</span></p>');
-		}
+/* ============================================================
+ * XPath 工具 (xpath.js)
+ * 真正的 XPath 解析：DOMParser 解析 HTML + document.evaluate 执行表达式
+ * - find(1)：解析图片（提取所有 img 的 src）
+ * - find(2)：按输入框中的 XPath 表达式匹配
+ * - find(3)：解析链接（提取所有 a 的 href）
+ * 结果以纯文本展示（textContent，杜绝 HTML 注入），不依赖 hightout.js / hljs
+ * ============================================================ */
+(function (global) {
+    'use strict';
+
+    function getContent() {
+        var el = document.getElementById('content');
+        return el ? el.value : '';
+    }
+
+    function getXPath() {
+        var el = document.getElementById('xpath');
+        return el ? el.value.trim() : '';
+    }
+
+    function getResultNode() {
+        return document.getElementById('result');
+    }
+
+    /* 用 DOMParser 把输入解析为完整文档，供 document.evaluate 使用 */
+    function parseHTML(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc;
+    }
+
+    /* 单个节点 -> 展示文本 */
+    function nodeToText(node) {
+        if (!node) return '';
+        // 属性节点（如 //a/@href、//img/@src）
+        if (node.nodeType === 2) return node.nodeValue || '';
+        // 文本 / CDATA 节点
+        if (node.nodeType === 3 || node.nodeType === 4) return node.nodeValue || '';
+        // 元素节点：输出其源码
+        if (node.nodeType === 1) return node.outerHTML;
+        // 兜底
+        return (node.textContent !== undefined ? node.textContent : String(node)) || '';
+    }
+
+    /* 执行 XPath，返回字符串结果数组 */
+    function runXPath(html, expr) {
+        var doc = parseHTML(html);
+        var results = [];
+        var res = doc.evaluate(expr, doc, null, XPathResult.ANY_TYPE, null);
+
+        switch (res.resultType) {
+            case XPathResult.NUMBER_TYPE:
+                results.push(String(res.numberValue));
+                break;
+            case XPathResult.STRING_TYPE:
+                results.push(res.stringValue);
+                break;
+            case XPathResult.BOOLEAN_TYPE:
+                results.push(String(res.booleanValue));
+                break;
+            default: {
+                // 节点集（iterator 类型）
+                var node;
+                while ((node = res.iterateNext())) {
+                    var t = nodeToText(node);
+                    if (t !== '') results.push(t);
+                }
+                break;
+            }
+        }
+        return results;
+    }
+
+    function showResult(lines) {
+        var result = getResultNode();
+        if (!result) return;
+        var pre = result.closest ? result.closest('pre') : null;
+        if (pre) pre.style.display = 'block';
+        result.textContent = lines.length ? lines.join('\n') : '没有匹配到数据';
+    }
+
+    /* 统一入口：find(1)=图片 find(2)=自定义XPath find(3)=链接 */
+    global.find = function (t) {
+        var html = getContent();
+        if (!html.trim()) {
+            showResult(['请输入要 XPath 测试的内容']);
+            return;
+        }
+        var expr = '';
+        if (t === 1) {
+            expr = '//img/@src';
+        } else if (t === 3) {
+            expr = '//a/@href';
+        } else {
+            expr = getXPath();
+            if (!expr) {
+                showResult(['请输入 XPath 表达式']);
+                return;
+            }
+        }
+        try {
+            var results = runXPath(html, expr);
+            showResult(results);
+        } catch (e) {
+            showResult(['XPath 表达式无效：' + (e && e.message ? e.message : e)]);
+        }
+    };
+
+    global.demo = function () {
+        var c = document.getElementById('content');
+        if (c) {
+            c.value = '<html>\n<body>\n  <div id="list">\n    <a href="https://a.com/1">链接一</a>\n    <a href="https://a.com/2">链接二</a>\n    <img src="https://a.com/1.png">\n    <img src="https://a.com/2.png">\n  </div>\n</body>\n</html>';
+        }
+        var x = document.getElementById('xpath');
+        if (x) x.value = '//a/@href';
+        showResult(['已填入示例数据，点击「xpath匹配」查看结果']);
+    };
+
+    global.ClearAll = function () {
+        var c = document.getElementById('content');
+        if (c) c.value = '';
+        var x = document.getElementById('xpath');
+        if (x) x.value = '';
+        var result = getResultNode();
+        if (result) result.textContent = '';
+    };
+})(window);
