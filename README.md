@@ -4,6 +4,8 @@
 
 > 在线体验：<https://tool.bx9y.com.cn>
 
+> 📦 项目来源：[Shadownc/toolbox](https://github.com/Shadownc/toolbox)
+
 ---
 
 ## ✨ 功能特性
