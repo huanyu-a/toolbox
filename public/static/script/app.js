@@ -316,17 +316,19 @@
         var activeLi = topMenu ? topMenu.querySelector('li.active[data-cat]') : null;
         if (activeLi) currentCat = activeLi.getAttribute('data-cat') || '';
 
-        TOOLS.forEach(function (cat) {
+        TOOLS.forEach(function (cat, catIdx) {
+            // 首页分类区块 id 使用序号（对应模板中的 cat-{$key+1}），而非分类名
+            var catId = 'cat-' + (catIdx + 1);
             var a = document.createElement('a');
             a.className = 'float-cat-item' + (cat.cat === currentCat ? ' active' : '');
             a.textContent = cat.cat;
-            a.href = isHome ? '#cat-' + encodeURIComponent(cat.cat) : '/#cat-' + encodeURIComponent(cat.cat);
+            a.href = (isHome ? '#' : '/#') + catId;
             a.setAttribute('data-cat', cat.cat);
             a.addEventListener('click', function (e) {
                 closeCatNav(); // 点击分类后收起面板
                 if (!isHome) return; // 非首页直接跳转
                 e.preventDefault();
-                var target = document.getElementById('cat-' + cat.cat);
+                var target = document.getElementById(catId);
                 if (!target) return;
                 // 立即高亮当前点击的分类
                 floatNav.querySelectorAll('.float-cat-item').forEach(function (item) {
