@@ -43,6 +43,10 @@
         '/useragent/': { skip: true },
         '/contenttype/': { skip: true },
         '/caiji/': { skip: true },
+        '/currency/': { skip: true },
+        '/areacode/': { skip: true },
+        '/jieri/': { skip: true },
+        '/shaoshuminzu/': { skip: true },
 
         '/json/': {
             fill: { '#json-in': '{\n  "name": "在线工具箱",\n  "url": "https://tool.example.com",\n  "free": true,\n  "tools": 47,\n  "tags": ["json", "format", "encode"]\n}' },
@@ -114,11 +118,6 @@
             run: [{ click: 'utTs2Date' }],
             msg: '已填入时间戳示例并转换'
         },
-        '/currency/': {
-            fill: { '#keyword': 'USD' },
-            run: [{ click: 'goSearch' }],
-            msg: '已填入 USD 并查询'
-        },
         '/webcheck/': {
             fill: { '#wcIcpInput': 'https://www.baidu.com' },
             run: [{ click: 'wcIcpBtn' }],
@@ -153,21 +152,6 @@
             fill: {},
             run: [{ click: 'uuidRun' }],
             msg: '已生成 UUID 示例'
-        },
-        '/areacode/': {
-            fill: { '#keyword': '北京' },
-            run: [{ click: 'goSearch' }],
-            msg: '已填入 北京 并查询'
-        },
-        '/jieri/': {
-            fill: { '#keyword': '春节' },
-            run: [{ click: 'goSearch' }],
-            msg: '已填入 春节 并查询'
-        },
-        '/shaoshuminzu/': {
-            fill: { '#keyword': '苗族' },
-            run: [{ click: 'goSearch' }],
-            msg: '已填入 苗族 并查询'
         },
     };
 
