@@ -1,29 +1,47 @@
-# 在线工具箱
+# 🧰 寰宇的工具箱（Online Toolbox）
 
-免费好用的在线工具大全：JSON 格式化、代码格式化、编码转换、加密解密、单位换算、IP 查询、DNS 大全、正则测试、HTTP 请求头对照、Linux 命令查询等 40+ 款工具，无需安装、打开即用。大部分工具在浏览器本地完成运算，数据安全不泄露。
+免费好用的**在线工具箱**，无需安装、打开即用。集成了 **47 款**常用开发 / 运维 / 站长工具，覆盖 JSON 格式化、代码格式化、编码转换、加密解密、单位换算、IP 查询、DNS 大全、正则测试、HTTP 请求头对照、Linux 命令查询、世界货币实时汇率等。大部分工具在浏览器本地完成运算，**数据不离开你的设备**，安全不泄露。
 
-## 功能特性
+> 在线体验：<https://tool.bx9y.com.cn>
 
-- 40+ 款常用开发 / 运维 / 站长工具，按分类导航
-- 纯前端计算的工具本地运行，不上传数据
-- 支持工具搜索与快捷筛选
-- 后台管理：网站配置（TDK、网站名称、顶部导航、页脚、友情链接）、账号管理、缓存清理、在线文件管理
-- SEO 友好：动态站点地图、结构化数据、可配置 TDK
+---
 
-## 技术栈
+## ✨ 功能特性
 
-- ThinkPHP 5.1（PHP >= 5.6）
-- Bootstrap 3 + jQuery（前端）
-- 无数据库依赖（配置存文件，IP 库使用 QQWry.dat）
-- 后台验证码：cccyun/think-captcha
+- 🧰 **47 款工具，6 大分类**：开发编程 / 文本处理 / 计算换算 / 网络运维 / 站长辅助 / 生活趣味
+- 🔒 **本地运算**：纯前端工具在浏览器内计算，数据不上传服务器
+- 🔍 **工具搜索**：支持按名称快速搜索与分类导航
+- 💱 **实时汇率**：世界货币查询内置 60 秒级实时汇率接口
+- 🛡️ **百度统计混淆防爬**：后台填 ID 即自动注入防广告拦截器识别的混淆统计代码
+- ⚙️ **可视化后台**：网站配置（TDK / 名称）、顶部导航、页脚、友链、账号、缓存、文件管理
+- 🔎 **SEO 友好**：动态站点地图（sitemap.xml）、结构化数据、全站可配置 TDK
 
-## 目录结构
+## 🗂 内置工具一览
+
+| 分类 | 工具 |
+| --- | --- |
+| **开发编程** | JSON 工具箱、代码格式化、HTML 转 JS、正则表达式、JS 加密混淆、加密解密、编码转换、在线运行 JS/HTML、XPath、Bootstrap 图标、Android 权限、条形码生成 |
+| **文本处理** | 在线编辑器、文章排版、文本转换、文本工具 |
+| **计算换算** | 科学计算器、单位换算、利率计算器、子网掩码、随机数/密码、数值转换、世界货币查询 |
+| **网络运维** | 网站检测、IP 查询、DNS 大全、WebSocket 测试、浏览器信息、定时刷新、端口大全、Linux 命令、htaccess 转 nginx |
+| **站长辅助** | Meta 标签、桌面快捷方式、ico 制作、User-Agent、Content-Type、HTTP 请求头、UUID 生成 |
+| **生活趣味** | 在线涂鸦、区号时差、世界节日、历史朝代、少数民族、特殊符号、历史上的今天、按键码测试 |
+
+## 🧱 技术栈
+
+- **后端**：ThinkPHP 5.1（PHP ≥ 5.6）
+- **前端**：Bootstrap 3 + jQuery
+- **数据**：无数据库依赖 — 配置存文件，IP 归属地使用 `QQWry.dat`
+- **验证码**：cccyun/think-captcha
+- **部署**：Docker（生产 + 开发双镜像，Nginx / php-fpm）
+
+## 📁 目录结构
 
 ```
 toolbox/
 ├── application/          # 应用代码（index 前台 / admin 后台）
-├── config/               # 配置（admin 账号、web 全站 TDK、tools 工具导航）
-├── docker/               # Docker 部署文件（生产 Dockerfile / compose / 开发镜像）
+├── config/               # 配置（admin 账号、web 全站 TDK、tools 工具导航、tongji 统计）
+├── docker/               # Docker 部署（生产 Dockerfile / compose / 开发镜像）
 ├── extend/               # 扩展库（IP 查询等）
 ├── public/               # Web 根目录（入口 index.php、静态资源）
 ├── route/                # 路由配置
@@ -32,27 +50,11 @@ toolbox/
 └── vendor/               # Composer 依赖
 ```
 
-## Docker 部署
+---
 
-### 方式一：docker run（直接运行）
+## 🚀 Docker 部署
 
-```bash
-# 进入项目根目录
-cd toolbox
-
-# 构建镜像
-docker build -f docker/Dockerfile -t toolbox:latest .
-
-# 运行（8080 端口映射到容器 80）
-docker run -d --name toolbox \
-    --restart unless-stopped \
-    -p 8080:80 \
-    -e USERNAME=admin \
-    -e PASSWORD=你的密码 \
-    toolbox:latest
-```
-
-### 方式二：docker compose（推荐）
+### 方式一：docker compose（推荐）
 
 ```bash
 cd toolbox/docker
@@ -68,10 +70,28 @@ docker compose logs -f
 docker compose down
 ```
 
-启动后访问：
+### 方式二：docker run（直接运行）
+
+```bash
+# 进入项目根目录
+cd toolbox
+
+# 构建镜像
+docker build -f docker/Dockerfile -t toolbox:latest .
+
+# 运行（8080 端口映射到容器 80）
+docker run -d --name toolbox \
+    --restart unless-stopped \
+    -p 8080:80 \
+    -e USERNAME=admin \
+    -e PASSWORD=admin \
+    toolbox:latest
+```
+
+### 启动后访问
 
 - 前台首页：`http://<服务器IP>:8080`
-- 后台管理：`http://<服务器IP>:8080/admin`
+- 后台管理：`http://<服务器IP>:8080/portal/`
 
 ### 环境变量
 
@@ -81,11 +101,11 @@ docker compose down
 | `PASSWORD` | 后台登录密码（仅首次启动写入） | `admin` |
 | `TZ` | 容器时区 | `Asia/Shanghai` |
 
-> 说明：仅当显式设置了 `USERNAME` / `PASSWORD` 时才写入 `config/admin.php`。未设置时使用镜像内置配置；后台修改的密码在容器重启后保留（除非重新设置环境变量）。
+> 仅当显式设置 `USERNAME` / `PASSWORD` 时才写入 `config/admin.php`；未设置时使用镜像内置配置，后台修改会在容器重启后保留。
 
 ### 数据持久化
 
-compose 部署默认挂载两个 volume，重启 / 重建容器不丢失数据：
+compose 部署默认挂载两个 volume，重启 / 重建不丢失数据：
 
 - `toolbox-config` → `/var/www/html/config`（后台网站配置、账号配置）
 - `toolbox-runtime` → `/var/www/html/runtime`（运行缓存与日志）
@@ -94,9 +114,15 @@ compose 部署默认挂载两个 volume，重启 / 重建容器不丢失数据�
 
 ### 健康检查
 
-镜像内置 HEALTHCHECK，每 30 秒请求首页探测，失败 3 次标记 unhealthy。可用 `docker inspect --format '{{.State.Health.Status}}' toolbox` 查看。
+镜像内置 HEALTHCHECK，每 30 秒请求首页探测，失败 3 次标记 unhealthy：
 
-## 本地开发
+```bash
+docker inspect --format '{{.State.Health.Status}}' toolbox
+```
+
+---
+
+## 🛠 本地开发
 
 ### 方式一：Docker 开发容器（推荐）
 
@@ -113,7 +139,7 @@ docker run -d --name toolbox-dev \
 # 访问 http://localhost:18080
 ```
 
-开发镜像内置 `php -S` 服务器，配合 `public/router.php` 实现 URL 重写，修改代码即时生效。
+开发镜像内置 `php -S`，配合 `public/router.php` 实现 URL 重写，**修改代码即时生效**。
 
 ### 方式二：宿主机直接运行
 
@@ -122,17 +148,33 @@ docker run -d --name toolbox-dev \
 php -S 0.0.0.0:8080 -t public public/router.php
 ```
 
-## 后台管理
+---
 
-- 地址：`/admin`（登录页 `http://<host>:<port>/admin/index/login.html`）
-- 默认账号：`admin` / `admin`（通过环境变量或后台"修改密码"调整）
-- 功能：网站配置（网站名称、页面 TDK、顶部导航、页脚、友情链接）、清除缓存、文件管理、修改密码
+## 🔐 后台管理
 
-> 网站名称已字段化：前台标题、导航、页脚、SEO 标签、全部工具页标题均从后台"网站配置 → 网站信息 → 网站名称"读取，修改后全站生效。
+- 入口：`/portal/`（登录页 `http://<host>:<port>/portal/index/login.html`）
+- 默认账号：`admin` / `admin`（通过环境变量或后台「修改密码」调整）
+- 功能：网站配置（网站名称、页面 TDK、顶部导航、页脚、友情链接）、账号管理、清除缓存、文件管理、**百度统计**
 
-## 注意事项
+> 「网站名称」已字段化：前台标题、导航、页脚、SEO 标签、全部工具页标题均从「网站配置 → 网站信息 → 网站名称」读取，修改后全站生效。
 
-- `QQWry.dat` 为 IP 归属地数据库（约 10MB），为运行时依赖，请勿删除
-- `runtime/` 目录需保持可写（容器内已自动授权 www-data）
-- 后台"网站配置"保存后会重写 `config/web.php`，请确保该文件可写
+### 📊 百度统计（混淆防爬）
+
+后台「系统设置 → 百度统计」填入统计 ID 并启用，**程序自动生成混淆防爬代码**注入全站页面：
+
+- 域名以字符数组 + `String.fromCharCode(46)` 动态拼接，页面源码不出现整段明文 `hm.baidu.com`
+- 可绕过主流广告拦截器（AdBlock / uBlock 等）和爬虫的关键词识别
+- 启用才注入，停用即无额外流量
+
+---
+
+## ⚠️ 注意事项
+
+- `QQWry.dat` 为 IP 归属地数据库（约 10MB），为运行时依赖，**请勿删除**
+- `runtime/` 目录需保持可写（容器内已自动授权 `www-data`）
+- 后台「网站配置」保存时会重写 `config/web.php`，请确保该文件可写
 - 生产环境建议开启 HTTPS（反向代理或云负载均衡终结 SSL）
+
+## 📄 License
+
+[MIT](./LICENSE) © 寰宇
