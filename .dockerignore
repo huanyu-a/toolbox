@@ -1,0 +1,9 @@
+# 构建上下文排除项（生产镜像）
+.git
+.check
+.fetch
+.merged_backup
+runtime
+*.log
+.gitignore
+README.md

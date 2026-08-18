@@ -3,4 +3,4 @@
 
 /.fetch/
 /.merged_backup/
-/scripts/__pycache__/
+/.check/
