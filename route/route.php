@@ -9,10 +9,12 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-//后台（对外路径已改为 /portal/，隐藏原 /admin/ 入口）
-Route::rule('portal/:c/:a', 'admin/:c/:a');
-Route::rule('portal', function(){
-    return redirect('portal/index/index');
+// 后台入口：真实路径由 config('admin.path') 决定（默认 portal，服务器可用 ADMIN_PATH 环境变量覆盖为隐蔽路径）
+$adminPath = config('admin.path');
+$adminPath = $adminPath ?: 'portal';
+Route::rule($adminPath . '/:c/:a', 'admin/:c/:a');
+Route::rule($adminPath, function () use ($adminPath) {
+    return redirect(url($adminPath . '/index/index'));
 });
 
 Route::rule('/', 'index');

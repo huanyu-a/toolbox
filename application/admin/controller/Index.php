@@ -38,7 +38,7 @@ class Index extends Base
     }
     public function logout(){
         session('admin', null);
-        return $this->redirect(url('portal/index/login'), 302);
+        return $this->redirect(url(config('admin.path') . '/index/login'), 302);
     }
     public function login()
     {

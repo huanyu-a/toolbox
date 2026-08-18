@@ -23,7 +23,7 @@ class Base extends Controller
     protected function checkLogin()
     {
         if(!$this->isLogin()){
-            exit($this->redirect(url('portal/index/login'), 302));
+            exit($this->redirect(url(config('admin.path') . '/index/login'), 302));
         }
     }
 
