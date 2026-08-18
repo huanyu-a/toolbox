@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>全局配置 - 在线工具箱后台</title>
+    <title>全局配置 - {$Think.config.web.site.name}后台</title>
     <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <script src="/static/admin/js/theme.js"></script>
 </head>
 <body>
 <div class="page">
@@ -13,7 +14,7 @@
         {foreach $web as $key=>$vo}
         <div class="card">
             {if is_array($vo)}
-            <h3>{$key|pageapi}页面 <a class="back" href="/{$key}" target="_blank">打开页面 ↗</a></h3>
+            <h3>{$key|pageapi}{if condition="$key != 'site'"}页面 <a class="back" href="/{$key}" target="_blank">打开页面 ↗</a>{/if}</h3>
             {foreach $vo as $key2=>$vo2}
             <div class="form-item">
                 <label>{$key2|pageapi}</label>

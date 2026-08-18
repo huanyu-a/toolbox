@@ -24,7 +24,6 @@ return [
         'items' => [
             ['url' => '/editor/', 'name' => '在线编辑器', 'accent' => ''],
             ['url' => '/autoformat/', 'name' => '文章排版', 'accent' => ''],
-            ['url' => '/caiji/', 'name' => '文章采集', 'accent' => ''],
             ['url' => '/textconvert/', 'name' => '文本转换', 'accent' => ''],
             ['url' => '/texttool/', 'name' => '文本工具', 'accent' => ''],
         ],

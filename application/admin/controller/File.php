@@ -7,7 +7,7 @@ class File extends Base
     public function index()
     {
         $this->checkLogin();
-        $path = '../application/index/view/index/';
+        $path = $this->rootPath() . 'application/index/view/index/';
         $filename = scandir($path);
         $filelist = array();
         foreach ($filename as $file) {
@@ -30,7 +30,7 @@ class File extends Base
     {
         $this->checkLogin();
         $file = input('file');
-        $dir = '../application/index/view/index/'.$file;
+        $dir = $this->rootPath() . 'application/index/view/index/' . $file;
         if(request()->isPost()){
             $Xcode = input('Xcode');
             file_put_contents($dir, $Xcode);

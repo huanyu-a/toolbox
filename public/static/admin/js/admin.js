@@ -37,12 +37,38 @@
                 if (!isOpen) g.classList.add('open');
             });
         });
-        // 顶部菜单切换按钮
+        // 顶部菜单切换按钮：桌面折叠 / 移动端抽屉
         var toggle = document.getElementById('menuToggle');
         var side = document.getElementById('adminSide');
         if (toggle && side) {
-            toggle.addEventListener('click', function () { side.classList.toggle('open'); });
+            var SIDE_KEY = 'favshub_admin_side';
+            var saved = null;
+            try { saved = localStorage.getItem(SIDE_KEY); } catch (e) { /* ignore */ }
+            if (saved === '1' && window.innerWidth > 768) {
+                document.body.classList.add('side-collapsed');
+            }
+            toggle.addEventListener('click', function () {
+                if (window.innerWidth > 768) {
+                    var collapsed = document.body.classList.toggle('side-collapsed');
+                    try { localStorage.setItem(SIDE_KEY, collapsed ? '1' : '0'); } catch (e) { /* ignore */ }
+                } else {
+                    side.classList.toggle('open');
+                }
+            });
         }
+    }
+
+    /* ---------- 主题切换按钮 ---------- */
+    function initThemeToggle() {
+        var btns = document.querySelectorAll('.theme-toggle');
+        btns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var t = window.AdminTheme ? window.AdminTheme.toggle() : 'light';
+                var icon = btn.querySelector('.theme-toggle-icon');
+                if (icon) icon.textContent = t === 'dark' ? '☀️' : '🌙';
+                btn.title = t === 'dark' ? '切换到浅色模式' : '切换到深色模式';
+            });
+        });
     }
 
     /* ---------- iframe 内菜单高亮 ---------- */
@@ -113,6 +139,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         initMenu();
+        initThemeToggle();
         initFrameActive();
         initAjaxForms();
         initPlainForms();

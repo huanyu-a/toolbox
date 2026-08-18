@@ -11,7 +11,7 @@ class Web extends Base
         if(request()->isPost()){
             $web = input('web/a');
             $webconfig = "<?php\n".'return ' . var_export($web, true) . ';'."\n";
-            file_put_contents('../config/web.php', $webconfig);
+            file_put_contents($this->rootPath() . 'config/web.php', $webconfig);
         }
         return $this->fetch('', [
             'web'=>$web,
@@ -21,7 +21,7 @@ class Web extends Base
     public function link()
     {
         $this->checkLogin();
-        $dir = '../application/index/view/link.html';
+        $dir = $this->rootPath() . 'application/index/view/link.html';
         if(request()->isPost()){
             $Xcode = input('Xcode');
             file_put_contents($dir, $Xcode);
@@ -34,7 +34,7 @@ class Web extends Base
     public function nav()
     {
         $this->checkLogin();
-        $dir = '../application/index/view/nav.html';
+        $dir = $this->rootPath() . 'application/index/view/nav.html';
         if(request()->isPost()){
             $Xcode = input('Xcode');
             file_put_contents($dir, $Xcode);
@@ -47,7 +47,7 @@ class Web extends Base
     public function header()
     {
         $this->checkLogin();
-        $dir = '../application/index/view/header.html';
+        $dir = $this->rootPath() . 'application/index/view/header.html';
         if(request()->isPost()){
             $Xcode = input('Xcode');
             file_put_contents($dir, $Xcode);
@@ -60,7 +60,7 @@ class Web extends Base
     public function footer()
     {
         $this->checkLogin();
-        $dir = '../application/index/view/footer.html';
+        $dir = $this->rootPath() . 'application/index/view/footer.html';
         if(request()->isPost()){
             $Xcode = input('Xcode');
             file_put_contents($dir, $Xcode);

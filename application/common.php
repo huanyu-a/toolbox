@@ -205,7 +205,11 @@ function getip($type = 0,$adv=false) {
 
 function strToUTF8($strText)
 {
-    $encode = mb_detect_encoding($strText, array('UTF-8', 'GB2312', 'GBK'));
+    $encode = mb_detect_encoding($strText, array('UTF-8', 'GB2312', 'GBK', 'EUC-CN'));
+    // mb_detect_encoding 可能返回 EUC-CN（GB2312 别名），但 iconv 不认识，需映射为 GB2312
+    if ($encode == 'EUC-CN') {
+        $encode = 'GB2312';
+    }
     if ($encode != "UTF-8") {
         return @iconv($encode, 'UTF-8', $strText);
     } else {

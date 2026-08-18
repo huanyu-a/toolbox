@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>管理员登录 - 在线工具箱后台</title>
+    <title>管理员登录 - {$Think.config.web.site.name}后台</title>
     <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <script src="/static/admin/js/theme.js"></script>
 </head>
 <body class="login-page">
 <div class="login-card">
-    <h1>🔧 在线工具箱</h1>
-    <p class="login-sub">后台管理系统</p>
+    <div class="login-logo">🔧</div>
+    <h1>{$Think.config.web.site.name}</h1>
+    <p class="login-sub">后台管理系统 · WEB TOOLKIT</p>
     <form data-ajax data-redirect="./index.html" method="post" action="?">
         <div class="form-item">
             <label>用户名</label>
@@ -30,6 +32,7 @@
         </div>
         <button class="btn btn-block" type="submit">登 录</button>
     </form>
+    <p class="login-foot">Powered by ThinkPHP</p>
 </div>
 <script src="/static/admin/js/admin.js"></script>
 </body>
