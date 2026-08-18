@@ -16,8 +16,8 @@
 .rate-board .rb-val { color: var(--brand); font-weight: 700; font-size: 16px; }
 </style>
 </head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">💱</span>世界各地货币查询</h2><p class="tool-desc">世界各国货币查询与实时汇率换算：提供全球各国及地区货币名称、符号表示与进位制信息查询，支持美元、欧元、日元、英镑、港币、人民币等主流货币的实时汇率在线换算，外贸、旅游、金融从业者快速查阅。</p>
-<div class="rate-panel"><h3 class="rp-title">实时汇率换算</h3><div class="rate-form"><input type="number" id="rateAmount" class="form-control" value="100" min="0" step="any" placeholder="金额" /><select id="rateFrom" class="form-control"><option value="CNY">人民币 CNY</option>
-<option value="USD">美元 USD</option>
+<div class="rate-panel"><h3 class="rp-title">实时汇率换算</h3><div class="rate-form"><input type="number" id="rateAmount" class="form-control" value="100" min="0" step="any" placeholder="金额" /><select id="rateFrom" class="form-control"><option value="USD" selected>美元 USD</option>
+<option value="CNY">人民币 CNY</option>
 <option value="EUR">欧元 EUR</option>
 <option value="JPY">日元 JPY</option>
 <option value="GBP">英镑 GBP</option>
@@ -70,7 +70,7 @@
 <option value="SAR">沙特里亚尔 SAR</option>
 <option value="ZAR">南非兰特 ZAR</option>
 <option value="BRL">巴西雷亚尔 BRL</option>
-<option value="MXN">墨西哥比索 MXN</option></select><button type="button" class="btn btn-success" id="rateConvert">换算</button></div><div class="rate-result" id="rateResult"></div><div class="rate-board" id="rateBoard" style="display:none;">当前：<span class="rb-item">1 <b>美元</b> ≈ <span class="rb-val" id="rbUsdCny">—</span> <b>人民币</b></span><span class="rb-item">1 <b>人民币</b> ≈ <span class="rb-val" id="rbCnyUsd">—</span> <b>美元</b></span></div><div class="rate-note" id="rateNote">汇率数据加载中，请稍候…</div></div>
+<option value="MXN">墨西哥比索 MXN</option></select><button type="button" class="btn btn-success" id="rateConvert">换算</button></div><div class="rate-result" id="rateResult"></div><div class="rate-board" id="rateBoard" style="display:none;">当前：<span class="rb-item">1 <b class="rb-cur" id="rbCurA">—</b> ≈ <span class="rb-val" id="rbValA">—</span> <b class="rb-cur" id="rbCurB">—</b></span><span class="rb-item">1 <b class="rb-cur" id="rbCurB2">—</b> ≈ <span class="rb-val" id="rbValB">—</span> <b class="rb-cur" id="rbCurA2">—</b></span></div><div class="rate-note" id="rateNote">汇率数据加载中，请稍候…</div></div>
 <form id="form1" class="form-horizontal" onsubmit="Public.TableSearch($('#table_huobi'), $('#keyword').val());return false;"> <div class="form-group"> <label class="col-sm-2 control-label">关键词：</label> <div class="col-sm-10"> <input class="form-control" type="text" id="keyword" name="keyword" placeholder="输入国家/地区、货币名称或代码，如：美元、USD、中国"> </div> </div>
  	<div class="form-group">
 		<div class="col-sm-12 text-center"><button type="button" class="btn btn-success" id="goSearch" onclick="Public.TableSearch($('#table_huobi'), $('#keyword').val())">查询货币</button> <button type="button" class="btn btn-default" id="btnSample" onclick="$('#keyword').val('USD');Public.TableSearch($('#table_huobi'),'USD');">示例</button> <input type="button" onclick="$('#keyword').val('');Public.TableSearch($('#table_huobi'), '');" value="清空" class="btn btn-default"></div>
@@ -99,11 +99,7 @@
           var mm = ('0' + ratesTime.getMinutes()).slice(-2);
           var dd = ratesTime.getFullYear() + '-' + ('0'+(ratesTime.getMonth()+1)).slice(-2) + '-' + ('0'+ratesTime.getDate()).slice(-2);
           $note.text('汇率基准：1 美元（USD），更新于 ' + dd + ' ' + hh + ':' + mm + '。数据来源 open.er-api.com，仅供参考。');
-          if (rates.CNY) {
-            $('#rbUsdCny').text(rates.CNY.toFixed(4));
-            $('#rbCnyUsd').text((1 / rates.CNY).toFixed(4));
-            $('#rateBoard').show();
-          }
+          updateBoard();
         } else {
           $note.text('汇率数据加载失败，请稍后刷新重试。');
         }
@@ -126,15 +122,35 @@
     $result.html('<span class="rr-val">' + amt + '</span> ' + f + ' = <span class="rr-val">' + disp + '</span> ' + t).show();
   }
 
+  
+  function fmtRate(v) {
+    if (v >= 100) return v.toFixed(2);
+    if (v >= 1) return v.toFixed(4);
+    if (v >= 0.01) return v.toFixed(6);
+    return v.toFixed(8);
+  }
+  function updateBoard() {
+    if (!rates) return;
+    var f = $from.val(), t = $to.val();
+    if (f === t || !rates[f] || !rates[t]) { $('#rateBoard').hide(); return; }
+    var fn = $from.find('option:selected').text().replace(/\s*[A-Z]{3}\s*$/, '').trim();
+    var tn = $to.find('option:selected').text().replace(/\s*[A-Z]{3}\s*$/, '').trim();
+    var a = rates[t] / rates[f], b = rates[f] / rates[t];
+    $('#rbCurA').text(fn); $('#rbCurB').text(tn);
+    $('#rbValA').text(fmtRate(a));
+    $('#rbCurB2').text(tn); $('#rbCurA2').text(fn);
+    $('#rbValB').text(fmtRate(b));
+    $('#rateBoard').show();
+  }
+
   $('#rateConvert').on('click', convert);
   $('#rateAmount').on('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); convert(); } });
-  $from.on('change', function () { if ($from.val() === $to.val()) { $to.val($from.val() === 'CNY' ? 'USD' : 'CNY'); } });
-  $to.on('change', function () { if ($to.val() === $from.val()) { $from.val($to.val() === 'CNY' ? 'USD' : 'CNY'); } });
+  $from.on('change', function () { if ($from.val() === $to.val()) { $to.val($from.val() === 'CNY' ? 'USD' : 'CNY'); } updateBoard(); });
+  $to.on('change', function () { if ($to.val() === $from.val()) { $from.val($to.val() === 'CNY' ? 'USD' : 'CNY'); } updateBoard(); });
 
   loadRates();
 })();
 </script>{include file="nav" /}
-{include file="link" /}
 {include file="footer" /}
 <script src="/static/script/app.js" type="text/javascript"></script>
 <script src="/static/script/sample-data.js" type="text/javascript"></script>
