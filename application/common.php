@@ -454,3 +454,33 @@ function checkdomain($domain){
 	}
 	return true;
 }
+/**
+ * 百度统计混淆防爬代码
+ * 将 hm.baidu.com 域名以分段数组 + String.fromCharCode 形式组装，避免整段明文出现在页面，
+ * 降低被广告拦截器 / 爬虫关键词规则直接识别的概率；用户只需提供百度统计 ID，程序自动生成。
+ * @param string $id 百度统计站点 ID
+ * @return string 生成的 <script> 统计代码；未启用或 ID 非法时返回空
+ */
+function build_tongji_code($id = '')
+{
+    $id = trim((string)$id);
+    if ($id === '' || !preg_match('/^[a-zA-Z0-9]+$/', $id)) return '';
+    $js = "(function(){var _hmt=_hmt||[];(function(){var hm=document.createElement(\"script\");"
+        . "hm.src=\"https://\"+[\"hm\",\"baidu\",\"com\"].join(String.fromCharCode(46))"
+        . "+\"/hm.js?\"+\"$id\";"
+        . "var s=document.getElementsByTagName(\"script\")[0];s.parentNode.insertBefore(hm,s)})();})();";
+    return '<script type="text/javascript">' . "\n" . $js . "\n" . '</script>';
+}
+
+/**
+ * 根据配置输出百度统计混淆代码到页面
+ * @return string 启用的统计代码；未启用 / 未配置返回空字符串
+ */
+function tongji_config_code()
+{
+    $cfg = config('tongji.');
+    if (empty($cfg) || empty($cfg['enabled']) || empty($cfg['baidu_id'])) {
+        return '';
+    }
+    return build_tongji_code($cfg['baidu_id']);
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>百度统计 - {$Think.config.web.site.name}后台</title>
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <script src="/static/admin/js/theme.js"></script>
+</head>
+<body>
+<div class="page">
+    <h1 class="page-title">📊 百度统计</h1>
+    <div class="card">
+        <p class="card-desc">只需填写百度统计的站点 ID（一串字符，形如 <code>3cac3b804824023eab6a7154c37a23c1</code>）。保存后程序自动生成<strong>混淆防爬</strong>的统计代码并注入到全站所有页面的头部，无需手工改动模板。</p>
+        <form method="post" action="">
+            <div class="form-item">
+                <label>是否启用百度统计</label>
+                <label style="display:inline-flex;align-items:center;gap:8px;margin-top:8px">
+                    <input type="checkbox" name="enabled" value="1"{if condition="$cfg.enabled"} checked{/if} style="width:18px;height:18px">
+                    <span>启用（开启后才会在前台注入统计代码）</span>
+                </label>
+            </div>
+            <div class="form-item">
+                <label>百度统计站点 ID</label>
+                <input class="form-input" type="text" name="baidu_id" value="{$cfg.baidu_id}" placeholder="请输入百度统计站点 ID">
+                <div class="form-hint">如何获取：登录百度统计 → 管理 → 代码获取，复制 <code>hm.js?</code> 后面的一串字符。</div>
+            </div>
+            <div class="form-actions">
+                <button class="btn" type="submit">保存并生成代码</button>
+                <button class="btn btn-ghost" type="button" onclick="location.reload()">刷新</button>
+            </div>
+        </form>
+    </div>
+    {if condition="$generated != ''"}
+    <div class="card">
+        <h3>生成的混淆代码预览（已注入页面）</h3>
+        <pre style="white-space:pre-wrap;word-break:break-all;background:#0d1117;color:#c9d1d9;padding:14px;border-radius:10px;font-size:12px;overflow-x:auto;margin:0">{$generated}</pre>
+        <div class="form-hint" style="margin-top:10px;color:var(--text-3);font-size:12px">说明：代码将域名 hm.baidu.com 拆分为数组并用 String.fromCharCode(46) 拼接，整段不见明文域名，可降低被广告拦截器规则或爬虫关键词直接识别拦截的概率。</div>
+    </div>
+    {/if}
+</div>
+</body>
+</html>
