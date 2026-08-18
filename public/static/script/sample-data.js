@@ -22,7 +22,6 @@
         /* 以下页面已自带示例按钮，跳过自动注入 */
         '/editor/': { skip: true },
         '/encode/': { skip: true },
-        '/regex/': { skip: true },
         '/textconvert/': { skip: true },
         '/websocket/': { skip: true },
         '/xpath/': { skip: true },
@@ -44,7 +43,6 @@
         '/useragent/': { skip: true },
         '/contenttype/': { skip: true },
         '/caiji/': { skip: true },
-        '/refresh/': { skip: true },
 
         '/json/': {
             fill: { '#json-in': '{\n  "name": "在线工具箱",\n  "url": "https://tool.example.com",\n  "free": true,\n  "tools": 47,\n  "tags": ["json", "format", "encode"]\n}' },
@@ -76,11 +74,6 @@
             run: [{ click: 'deEncrypt' }],
             msg: '已填入示例文本并加密'
         },
-        '/encode/': {
-            fill: { '#b64Input': 'Hello, 在线工具箱! Base64 编码测试。' },
-            run: [{ click: 'b64Encode' }],
-            msg: '已填入示例文本并编码'
-        },
         '/runjs/': {
             fill: { '#content': '<!DOCTYPE html>\n<html>\n<head><meta charset="utf-8"><title>示例</title></head>\n<body>\n  <h3>在线运行示例</h3>\n  <button onclick="alert(\'Hello Toolbox!\')">点我</button>\n  <script>\n    document.write("<p>JS 正常执行: " + (1 + 2) + "</p>");\n  <\/script>\n</body>\n</html>' },
             run: [{ fn: 'webdebug' }],
@@ -91,29 +84,21 @@
             run: [{ click: 'btnresult' }],
             msg: '已填入条形码示例并生成'
         },
-        '/editor/': {},
         '/autoformat/': {
             fill: { '#srcText': '　　这是一段用于文章排版测试的示例文本，包含多余空格和空行。\n\n　　自动排版功能可以整理段落、统一标点、清理空白，非常适合从网页复制过来的文章。\n\n　　第二段内容，测试首行缩进与段间距处理效果。' },
             run: [{ click: 'btnFormat' }],
             msg: '已填入示例文章并排版'
-        },
-        '/textconvert/': {
-            fill: { '.t-area': 'Hello World 在线工具箱 Test 2026' },
-            run: [{ fn: 'pyBtn' }],
-            msg: '已填入示例文本'
         },
         '/texttool/': {
             fill: { '#uqInput': 'apple\nbanana\napple\ncherry\nbanana\ndate\n' },
             run: [{ click: 'uqGo' }],
             msg: '已填入示例文本并去重'
         },
-        '/calculator/': {},
         '/calc/': {
             fill: { '.u-in': '100' },
             run: [{ input: '.u-in' }],
             msg: '已填入 100 触发单位换算'
         },
-        '/nianlvli/': {},
         '/subnetmask/': {
             fill: { 'input[name=ip_1]': '192', 'input[name=ip_2]': '168', 'input[name=ip_3]': '1', 'input[name=ip_4]': '0', 'input[name=bits]': '24' },
             run: [{ fn: 'calNBFL' }],
@@ -144,16 +129,11 @@
             run: [{ click: 'ipQueryBtn' }],
             msg: '已填入 8.8.8.8 并查询'
         },
-        '/dns/': {},
-        '/websocket/': {},
-        '/browserinfo/': {},
         '/refresh/': {
             fill: { '#url': 'https://www.baidu.com', '#frequency': '5', '#times': '3' },
             run: [],
             msg: '已填入刷新示例参数'
         },
-        '/ports/': {},
-        '/linuxcmd/': {},
         '/htaccess2nginx/': {
             fill: { '#content': 'RewriteEngine On\nRewriteRule ^index\\.html$ /index.php [L]\nRewriteRule ^article-(\\d+)\\.html$ /index.php?id=$1 [L]' },
             run: [{ fn: 'htaccess2nginx' }],
@@ -169,16 +149,11 @@
             run: [{ fn: 'check' }],
             msg: '已填入快捷方式示例'
         },
-        '/favicon/': {},
-        '/useragent/': {},
-        '/contenttype/': {},
-        '/httpheader/': {},
         '/uuid/': {
             fill: {},
             run: [{ click: 'uuidRun' }],
             msg: '已生成 UUID 示例'
         },
-        '/tuya/': {},
         '/areacode/': {
             fill: { '#keyword': '北京' },
             run: [{ click: 'goSearch' }],
@@ -189,17 +164,11 @@
             run: [{ click: 'goSearch' }],
             msg: '已填入 春节 并查询'
         },
-        '/chaodai/': {},
         '/shaoshuminzu/': {
             fill: { '#keyword': '苗族' },
             run: [{ click: 'goSearch' }],
             msg: '已填入 苗族 并查询'
         },
-        '/tesufuhao/': {},
-        '/lishishangdejintian/': {},
-        '/keyboardcode/': {},
-        '/androidmanifest/': {},
-        '/bootstrapicon/': {}
     };
 
     function $(sel) {
