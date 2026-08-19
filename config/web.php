@@ -295,6 +295,12 @@ return array (
     'description' => '数值与单位在线转换工具合集：Unix 时间戳与日期在线互转、世界主要城市实时时间、在线时钟、二进制/八进制/十进制/十六进制互转、HEX 与 RGB 在线转换及调色板、rem/px 在线转换，全部浏览器本地完成，免安装打开即用。',
   ),
 
+  'hermescmd' => array (
+    'title' => 'Hermes命令在线速查,网关管理,Cron定时任务,进程管理命令大全',
+    'keywords' => 'Hermes命令在线速查,Hermes Agent,Hermes网关,hermes gateway,Hermes Dashboard,Hermes Cron,Hermes进程管理,Hermes故障排查,在线命令查询',
+    'description' => 'Hermes Agent 命令在线速查手册：涵盖默认网关与 dingtalk2 网关管理、Dashboard 进程管理、Cron 定时任务管理、一键进程清理、开机自启控制及常见故障排查等 Hermes 命令大全，点击命令即可复制，免安装打开即用。',
+  ),
+
   'jsencrypt' => array (
     'title' => 'JS加密解密在线工具,JS混淆与加解密',
     'keywords' => 'JS在线加密,JS解密,JS混淆,JS代码加密,JavaScript加密,在线工具',

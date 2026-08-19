@@ -79,4 +79,10 @@ return [
             ['url' => '/keyboardcode/', 'name' => '按键码/键盘测试', 'accent' => ''],
         ],
     ],
+    [
+        'cat' => 'Agent',
+        'items' => [
+            ['url' => '/hermescmd/', 'name' => '在线Hermes命令速查', 'accent' => ''],
+        ],
+    ],
 ];
