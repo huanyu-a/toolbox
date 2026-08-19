@@ -297,12 +297,18 @@ class Index extends Controller
                     $txt_url = 'http://' . $txt_url;
                 }
                 // 官方API接口
-                $api = get_headers('http://mp.weixinbridge.com/mp/wapredirect?url=' . urlencode($txt_url), 1);
-                if (isset($api['Location']['1'])) {
-                    if ($api['Location']['1'] == $txt_url) {
+                $code = 0;
+                $msg = '检测失败，请稍后重试';
+                $api = @get_headers('http://mp.weixinbridge.com/mp/wapredirect?url=' . urlencode($txt_url), 1);
+                if (is_array($api)) {
+                    $loc = isset($api['Location']) ? $api['Location'] : '';
+                    if (is_array($loc)) {
+                        $loc = end($loc);
+                    }
+                    if ($loc == $txt_url) {
                         $code = 0;
                         $msg = '域名正常！';
-                    } else {
+                    } elseif ($loc) {
                         $code = 1;
                         $msg = '域名被拦截！';
                     }

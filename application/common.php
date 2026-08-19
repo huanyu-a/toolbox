@@ -395,22 +395,103 @@ function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobod
 	return $ret;
 }
 
-//域名whois查询
+//域名whois查询（RDAP 标准协议，免费稳定，无 key）
 function whois_query($domain)
 {
-    $url = 'https://whois.aite.xyz/?ajax&domain='.urlencode($domain);
-    $data = get_curl($url,0,'https://whois.aite.xyz/');
+    $url = 'https://rdap.org/domain/' . urlencode($domain);
+    $data = get_curl($url, 0, 'https://rdap.org/');
     if(!$data) return false;
-    $data = str_replace(['<br/>','<br>'], "\n", $data);
-    $data = strip_tags($data);
-    if(strpos($data,'For more information on')){
-        $data = substr($data, 0, strpos($data,'For more information on'));
+    // RDAP 返回 JSON，转成类似文本 whois 的键值行，供上层正则解析
+    $arr = json_decode($data, true);
+    if (!is_array($arr)) return false;
+    $lines = [];
+    if (isset($arr['registrar']['0']['0'])) {
+        // 部分 RDAP 服务器结构不同，尝试多种取法
     }
-    return $data;
+    if (isset($arr['registrar']) && is_array($arr['registrar'])) {
+        $reg = $arr['registrar'];
+        if (isset($reg[0]['name'])) {
+            $lines[] = 'Registrar: ' . $reg[0]['name'];
+        } elseif (isset($reg['name'])) {
+            $lines[] = 'Registrar: ' . $reg['name'];
+        }
+    }
+    if (isset($arr['entities']) && is_array($arr['entities'])) {
+        foreach ($arr['entities'] as $ent) {
+            if (!is_array($ent)) continue;
+            $role = isset($ent['roles'][0]) ? $ent['roles'][0] : '';
+            $name = isset($ent['vcardArray'][1][0][3]) ? $ent['vcardArray'][1][0][3] : '';
+            if ($role && $name) {
+                if ($role === 'registrant') $lines[] = 'Registrant: ' . $name;
+                if ($role === 'administrative') $lines[] = 'Registrant Contact Email: ' . $name;
+            }
+            if (isset($ent['vcardArray'][1]) && is_array($ent['vcardArray'][1])) {
+                foreach ($ent['vcardArray'][1] as $vcard) {
+                    if (!is_array($vcard) || count($vcard) < 4) continue;
+                    $kind = strtolower($vcard[0]);
+                    $val = is_array($vcard[3]) ? implode(' ', $vcard[3]) : $vcard[3];
+                    if ($kind === 'email' && $val) {
+                        $lines[] = 'Registrant Contact Email: ' . $val;
+                    }
+                    if ($kind === 'tel' && $val) {
+                        $lines[] = 'Registrant Contact Phone: ' . $val;
+                    }
+                }
+            }
+        }
+    }
+    if (isset($arr['events']) && is_array($arr['events'])) {
+        foreach ($arr['events'] as $ev) {
+            if (!is_array($ev)) continue;
+            $action = isset($ev['eventAction']) ? $ev['eventAction'] : '';
+            $date = isset($ev['eventDate']) ? $ev['eventDate'] : '';
+            if ($action === 'registration') $lines[] = 'Creation Date: ' . $date;
+            if ($action === 'expiration') $lines[] = 'Registry Expiry Date: ' . $date;
+            if ($action === 'last changed') $lines[] = 'Updated Date: ' . $date;
+            if ($action === 'last update of RDAP database') $lines[] = 'Updated Date: ' . $date;
+        }
+    }
+    if (isset($arr['status']) && is_array($arr['status'])) {
+        $lines[] = 'Domain Status: ' . implode(', ', $arr['status']);
+    }
+    if (isset($arr['nameservers']) && is_array($arr['nameservers'])) {
+        $ns = [];
+        foreach ($arr['nameservers'] as $server) {
+            if (isset($server['ldhName'])) $ns[] = $server['ldhName'];
+        }
+        if ($ns) $lines[] = 'Name Server: ' . implode(', ', $ns);
+    }
+    if (isset($arr['registrar']['ianaID'])) {
+        $lines[] = 'Registrar IANA ID: ' . $arr['registrar']['ianaID'];
+    }
+    return implode("
+", $lines);
 }
+
 
 //ICP备案查询
 function icp_query($domain){
+    // 优先：uapis.cn 免费接口（稳定、无需 key）
+    $uapis = get_curl('https://uapis.cn/api/v1/network/icp?domain=' . urlencode($domain), 0, 'https://uapis.cn/');
+    if ($uapis) {
+        $arr = json_decode($uapis, true);
+        if (is_array($arr) && isset($arr['code']) && $arr['code'] == '200') {
+            return ['code'=>0, 'total'=>1, 'data'=>[[
+                'domain'=>$domain,
+                'mainLicence'=>isset($arr['mainLicence']) ? $arr['mainLicence'] : '',
+                'webLicence'=>isset($arr['serviceLicence']) ? $arr['serviceLicence'] : '',
+                'unitName'=>isset($arr['unitName']) ? $arr['unitName'] : '',
+                'unitType'=>isset($arr['natureName']) ? $arr['natureName'] : '',
+                'updateTime'=>isset($arr['updateTime']) ? $arr['updateTime'] : '',
+                'limitAccess'=>isset($arr['limitAccess']) ? $arr['limitAccess'] : '',
+                'contentTypeName'=>isset($arr['contentTypeName']) ? $arr['contentTypeName'] : ''
+            ]]];
+        }
+        if (is_array($arr) && isset($arr['code']) && $arr['code'] == '404') {
+            return ['code'=>0, 'total'=>0, 'data'=>[]];
+        }
+    }
+    // 兜底：工信部官方接口
     $timeStamp = time();
     $authKey = md5("testtest" . $timeStamp);
     $referer = 'https://beian.miit.gov.cn/';
@@ -420,12 +501,12 @@ function icp_query($domain){
     $response = get_curl($url, $post, $referer, 0, 0, 0, 0, $headers);
     $arr = json_decode($response, true);
     if(isset($arr['code']) && $arr['code']==200){
-        $token = $arr['params']['bussiness'];
+        $token=$arr['params']['bussiness'];
 
         $url = 'https://hlwicpfwc.miit.gov.cn/icpproject_query/api/icpAbbreviateInfo/queryByCondition';
         $post = json_encode(['pageNum'=>'','pageSize'=>'','unitName'=>$domain,'serviceType'=>1]);
         $headers[] = 'Content-Type: application/json; charset=UTF-8';
-        $headers[] = 'token: '.$token;
+        $headers[] = 'token:'.$token;
         $response = get_curl($url, $post, $referer, 0, 0, 0, 0, $headers);
         $arr = json_decode($response, true);
         if(isset($arr['code']) && $arr['code']==200){
