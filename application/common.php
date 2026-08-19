@@ -395,77 +395,15 @@ function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobod
 	return $ret;
 }
 
-//域名whois查询（RDAP 标准协议，免费稳定，无 key）
+//域名whois查询（uapis 免费接口，返回标准文本 whois）
 function whois_query($domain)
 {
-    $url = 'https://rdap.org/domain/' . urlencode($domain);
-    $data = get_curl($url, 0, 'https://rdap.org/');
+    $url = 'https://uapis.cn/api/v1/network/whois?domain=' . urlencode($domain) . '&format=text';
+    $data = get_curl($url, 0, 'https://uapis.cn/');
     if(!$data) return false;
-    // RDAP 返回 JSON，转成类似文本 whois 的键值行，供上层正则解析
     $arr = json_decode($data, true);
-    if (!is_array($arr)) return false;
-    $lines = [];
-    if (isset($arr['registrar']['0']['0'])) {
-        // 部分 RDAP 服务器结构不同，尝试多种取法
-    }
-    if (isset($arr['registrar']) && is_array($arr['registrar'])) {
-        $reg = $arr['registrar'];
-        if (isset($reg[0]['name'])) {
-            $lines[] = 'Registrar: ' . $reg[0]['name'];
-        } elseif (isset($reg['name'])) {
-            $lines[] = 'Registrar: ' . $reg['name'];
-        }
-    }
-    if (isset($arr['entities']) && is_array($arr['entities'])) {
-        foreach ($arr['entities'] as $ent) {
-            if (!is_array($ent)) continue;
-            $role = isset($ent['roles'][0]) ? $ent['roles'][0] : '';
-            $name = isset($ent['vcardArray'][1][0][3]) ? $ent['vcardArray'][1][0][3] : '';
-            if ($role && $name) {
-                if ($role === 'registrant') $lines[] = 'Registrant: ' . $name;
-                if ($role === 'administrative') $lines[] = 'Registrant Contact Email: ' . $name;
-            }
-            if (isset($ent['vcardArray'][1]) && is_array($ent['vcardArray'][1])) {
-                foreach ($ent['vcardArray'][1] as $vcard) {
-                    if (!is_array($vcard) || count($vcard) < 4) continue;
-                    $kind = strtolower($vcard[0]);
-                    $val = is_array($vcard[3]) ? implode(' ', $vcard[3]) : $vcard[3];
-                    if ($kind === 'email' && $val) {
-                        $lines[] = 'Registrant Contact Email: ' . $val;
-                    }
-                    if ($kind === 'tel' && $val) {
-                        $lines[] = 'Registrant Contact Phone: ' . $val;
-                    }
-                }
-            }
-        }
-    }
-    if (isset($arr['events']) && is_array($arr['events'])) {
-        foreach ($arr['events'] as $ev) {
-            if (!is_array($ev)) continue;
-            $action = isset($ev['eventAction']) ? $ev['eventAction'] : '';
-            $date = isset($ev['eventDate']) ? $ev['eventDate'] : '';
-            if ($action === 'registration') $lines[] = 'Creation Date: ' . $date;
-            if ($action === 'expiration') $lines[] = 'Registry Expiry Date: ' . $date;
-            if ($action === 'last changed') $lines[] = 'Updated Date: ' . $date;
-            if ($action === 'last update of RDAP database') $lines[] = 'Updated Date: ' . $date;
-        }
-    }
-    if (isset($arr['status']) && is_array($arr['status'])) {
-        $lines[] = 'Domain Status: ' . implode(', ', $arr['status']);
-    }
-    if (isset($arr['nameservers']) && is_array($arr['nameservers'])) {
-        $ns = [];
-        foreach ($arr['nameservers'] as $server) {
-            if (isset($server['ldhName'])) $ns[] = $server['ldhName'];
-        }
-        if ($ns) $lines[] = 'Name Server: ' . implode(', ', $ns);
-    }
-    if (isset($arr['registrar']['ianaID'])) {
-        $lines[] = 'Registrar IANA ID: ' . $arr['registrar']['ianaID'];
-    }
-    return implode("
-", $lines);
+    if (!is_array($arr) || !isset($arr['whois'])) return false;
+    return $arr['whois'];
 }
 
 
@@ -487,7 +425,7 @@ function icp_query($domain){
                 'contentTypeName'=>isset($arr['contentTypeName']) ? $arr['contentTypeName'] : ''
             ]]];
         }
-        if (is_array($arr) && isset($arr['code']) && $arr['code'] == '404') {
+        if (is_array($arr) && isset($arr['code']) && in_array($arr['code'], array('404', 'NOT_FOUND'), true)) {
             return ['code'=>0, 'total'=>0, 'data'=>[]];
         }
     }

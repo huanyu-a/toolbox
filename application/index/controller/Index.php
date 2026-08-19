@@ -296,21 +296,22 @@ class Index extends Controller
                 if (!preg_match('/(http:\/\/)|(https:\/\/)/i', $txt_url)) {
                     $txt_url = 'http://' . $txt_url;
                 }
-                // 官方API接口
+                // 微信域名检测（uapis 免费接口）
                 $code = 0;
                 $msg = '检测失败，请稍后重试';
-                $api = @get_headers('http://mp.weixinbridge.com/mp/wapredirect?url=' . urlencode($txt_url), 1);
-                if (is_array($api)) {
-                    $loc = isset($api['Location']) ? $api['Location'] : '';
-                    if (is_array($loc)) {
-                        $loc = end($loc);
-                    }
-                    if ($loc == $txt_url) {
-                        $code = 0;
-                        $msg = '域名正常！';
-                    } elseif ($loc) {
-                        $code = 1;
-                        $msg = '域名被拦截！';
+                $host = parse_url($txt_url, PHP_URL_HOST);
+                if (!$host) $host = $txt_url;
+                $api = Fcurl('https://uapis.cn/api/v1/network/wxdomain?domain=' . urlencode($host));
+                if ($api) {
+                    $arr = json_decode($api, true);
+                    if (is_array($arr) && isset($arr['type'])) {
+                        if ($arr['type'] === 'ok') {
+                            $code = 0;
+                            $msg = isset($arr['title']) ? $arr['title'] : '域名正常！';
+                        } else {
+                            $code = 1;
+                            $msg = isset($arr['title']) ? $arr['title'] : '域名被拦截！';
+                        }
                     }
                 }
                 return json(array(
@@ -370,6 +371,9 @@ class Index extends Controller
                         }
                     }
                     $whois = whois_query($url);
+                    if ($whois === false || $whois === '') {
+                        return json(array('status' => 0, 'msg' => 'Whois 查询失败，请稍后重试'));
+                    }
                     if (preg_match('/Registrar:\s+(.*)/', $whois, $m)) {
                         $info['注册商'] = $m['1'];
                     }
