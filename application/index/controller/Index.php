@@ -213,15 +213,8 @@ class Index extends Controller
                 }
                 break;
             case 'lishishangdejintian':
+                // 数据改为前端本地加载（public/static/data/lishi-data.js），不再依赖第三方接口
                 $data['list'] = array();
-                $lsjt = Fcurl('https://api.oick.cn/lishi/api.php');
-                if ($lsjt) {
-                    $lsjt = str_replace('""', '"', $lsjt);
-                    $decoded = json_decode($lsjt, true);
-                    if (is_array($decoded) && isset($decoded['code']) && $decoded['code'] == 200) {
-                        $data['list'] = isset($decoded['result']) && is_array($decoded['result']) ? $decoded['result'] : array();
-                    }
-                }
                 break;
         }
         return $this->fetch($act, $data);

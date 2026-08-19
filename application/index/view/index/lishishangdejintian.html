@@ -13,30 +13,106 @@
     <meta name="renderer" content="webkit"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
-    
-    
-<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
     <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/>
     <!--[if lt IE 9]>
     <script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
     {:$Think.config.web.header}
 {include file="seo" /}</head>
-<body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">📅</span>历史上的今天</h2><p class="tool-desc">历史上的今天为您呈现今日历史上的重大事件、名人诞生与逝世等历史记录，每天更新。</p>
+<body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">📅</span>历史上的今天</h2><p class="tool-desc">历史上的今天为您呈现今日历史上的重大事件、名人诞生与逝世等历史记录，数据内置本地、每天更新，稳定可靠。</p>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        历史上的今天 <span class="greentag">{:date('Y年m月d日')}</span>
+                                        历史上的今天 <span class="greentag" id="lsjt-date"></span>
                                     </h3>
                                 </div>
-                                <table class="table table-bordered table-striped">
-                                    {foreach $list as $key=>$vo}
-                                    <tr><td><span class="lx_name">{$vo.date}</span><span class="lx_value">{$vo.title}</span></td></tr>
-                                    {/foreach}
-                                </table>
+                                <div class="panel-body">
+                                    <ul class="nav nav-tabs" id="lsjt-tabs" style="margin-bottom:12px;">
+                                        <li class="active"><a href="javascript:" data-t="1">大事记</a></li>
+                                        <li><a href="javascript:" data-t="2">诞生</a></li>
+                                        <li><a href="javascript:" data-t="3">逝世</a></li>
+                                        <li><a href="javascript:" data-t="0">全部</a></li>
+                                    </ul>
+                                    <table class="table table-bordered table-striped">
+                                        <tbody id="lsjt-list">
+                                            <tr><td style="text-align:center;color:#999;padding:20px;">数据加载中…</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                     </div></div></div><script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/data/lishi-data.js" type="text/javascript"></script>
+<script>
+(function () {
+    'use strict';
+    var now = new Date();
+    var m = now.getMonth() + 1;
+    var d = now.getDate();
+    var key = m + '-' + d;
+    var all = (window.LISHI_DATA && window.LISHI_DATA[key]) || [];
+    var curType = 1;
+
+    function typeName(t) {
+        if (t === 2) return '诞生';
+        if (t === 3) return '逝世';
+        return '事件';
+    }
+
+    function render(t) {
+        curType = t;
+        var list = all;
+        if (t > 0) {
+            list = [];
+            for (var i = 0; i < all.length; i++) {
+                if (all[i].t === t) list.push(all[i]);
+            }
+        }
+        var html = '';
+        if (!list.length) {
+            html = '<tr><td style="text-align:center;color:#999;padding:20px;">暂无记录</td></tr>';
+        } else {
+            // 按年份倒序（最新在前）
+            list.sort(function (a, b) {
+                var ya = parseInt(a.y, 10), yb = parseInt(b.y, 10);
+                if (isNaN(ya)) ya = 0;
+                if (isNaN(yb)) yb = 0;
+                return yb - ya;
+            });
+            for (var j = 0; j < list.length; j++) {
+                var it = list[j];
+                var yr = it.y;
+                if (parseInt(yr, 10) < 0) yr = '公元前' + Math.abs(parseInt(yr, 10)) + '年';
+                else yr = yr + '年';
+                html += '<tr><td><span class="lx_name">' + yr + '</span><span class="lx_value">' + it.d + '</span></td></tr>';
+            }
+        }
+        document.getElementById('lsjt-list').innerHTML = html;
+        // tab 高亮
+        var tabs = document.getElementById('lsjt-tabs').getElementsByTagName('li');
+        for (var k = 0; k < tabs.length; k++) {
+            var a = tabs[k].getElementsByTagName('a')[0];
+            if (a && parseInt(a.getAttribute('data-t'), 10) === t) {
+                tabs[k].className = 'active';
+            } else {
+                tabs[k].className = '';
+            }
+        }
+    }
+
+    document.getElementById('lsjt-date').textContent = now.getFullYear() + '年' + m + '月' + d + '日';
+    render(1);
+
+    var tabs = document.getElementById('lsjt-tabs').getElementsByTagName('a');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].onclick = function () {
+            render(parseInt(this.getAttribute('data-t'), 10));
+            return false;
+        };
+    }
+})();
+</script>
 {include file="nav" /}
 {include file="footer" /}
 <script src="/static/script/app.js" type="text/javascript"></script>
