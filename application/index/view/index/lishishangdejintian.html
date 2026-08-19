@@ -20,18 +20,18 @@
     <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
     {:$Think.config.web.header}
 {include file="seo" /}</head>
-<body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">📅</span>历史上的今天</h2><p class="tool-desc">历史上的今天为您呈现今日历史上的重大事件、名人诞生与逝世等历史记录，数据内置本地、每天更新，稳定可靠。</p>
+<body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">📅</span>历史上的今天</h2><p class="tool-desc">历史上的今天为您呈现今日历史上的重大事件，数据实时更新（在线接口优先，本地数据兜底），稳定可靠。</p>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        历史上的今天 <span class="greentag" id="lsjt-date"></span>
+                                        历史上的今天 <span class="greentag" id="lsjt-date"></span> <span id="lsjt-source" class="greentag" style="background:#f0ad4e"></span>
                                     </h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="nav nav-tabs" id="lsjt-tabs" style="margin-bottom:12px;">
                                         <li class="active"><a href="javascript:" data-t="1">大事记</a></li>
-                                        <li><a href="javascript:" data-t="2">诞生</a></li>
-                                        <li><a href="javascript:" data-t="3">逝世</a></li>
+                                        <li data-only-local="1"><a href="javascript:" data-t="2">诞生</a></li>
+                                        <li data-only-local="1"><a href="javascript:" data-t="3">逝世</a></li>
                                         <li><a href="javascript:" data-t="0">全部</a></li>
                                     </ul>
                                     <table class="table table-bordered table-striped">
@@ -51,7 +51,10 @@
     var m = now.getMonth() + 1;
     var d = now.getDate();
     var key = m + '-' + d;
-    var all = (window.LISHI_DATA && window.LISHI_DATA[key]) || [];
+    // 在线数据（服务端实时获取）优先，为空时回退本地内置数据
+    var onlineList = {:json_encode($list, JSON_UNESCAPED_UNICODE)};
+    var all = (Array.isArray(onlineList) && onlineList.length) ? onlineList : ((window.LISHI_DATA && window.LISHI_DATA[key]) || []);
+    var isOnline = (Array.isArray(onlineList) && onlineList.length) ? true : false;
     var curType = 1;
 
     function typeName(t) {
@@ -102,6 +105,17 @@
     }
 
     document.getElementById('lsjt-date').textContent = now.getFullYear() + '年' + m + '月' + d + '日';
+    var srcEl = document.getElementById('lsjt-source');
+    var tabsUl = document.getElementById('lsjt-tabs');
+    if (isOnline) {
+        if (srcEl) srcEl.textContent = '在线实时数据';
+        // 在线数据仅含大事记，隐藏诞生/逝世 tab
+        var onlyLocal = tabsUl.querySelectorAll('li[data-only-local]');
+        for (var li = 0; li < onlyLocal.length; li++) onlyLocal[li].style.display = 'none';
+    } else {
+        if (srcEl) srcEl.textContent = '本地内置数据';
+        if (srcEl) srcEl.style.display = 'none';
+    }
     render(1);
 
     var tabs = document.getElementById('lsjt-tabs').getElementsByTagName('a');

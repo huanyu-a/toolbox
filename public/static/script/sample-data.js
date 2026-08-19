@@ -124,9 +124,9 @@
             msg: '已填入网址并检测'
         },
         '/ip/': {
-            fill: { '#ipv4Input': '8.8.8.8' },
+            fill: { '#ip_address': '8.8.8.8' },
             run: [{ click: 'ipQueryBtn' }],
-            msg: '已填入 8.8.8.8 并查询'
+            msg: '已填入 8.8.8.8 并查询归属地'
         },
         '/refresh/': {
             fill: { '#url': 'https://www.baidu.com', '#frequency': '5', '#times': '3' },

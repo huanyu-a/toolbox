@@ -213,8 +213,23 @@ class Index extends Controller
                 }
                 break;
             case 'lishishangdejintian':
-                // 数据改为前端本地加载（public/static/data/lishi-data.js），不再依赖第三方接口
+                // 优先请求在线接口（数据实时更新），失败时前端自动回退本地内置数据
                 $data['list'] = array();
+                $lsjt = Fcurl('https://v2.xxapi.cn/api/history');
+                if ($lsjt) {
+                    $decoded = json_decode($lsjt, true);
+                    if (is_array($decoded) && isset($decoded['code']) && $decoded['code'] == 200 && isset($decoded['data']) && is_array($decoded['data'])) {
+                        foreach ($decoded['data'] as $item) {
+                            if (!is_string($item) || $item === '') continue;
+                            // 形如：1999年08月19日 事件描述
+                            if (preg_match('/^(\d{4})年\d{2}月\d{2}日\s*(.*)$/u', trim($item), $m)) {
+                                $data['list'][] = array('y' => $m[1], 't' => 1, 'd' => $m[2]);
+                            } else {
+                                $data['list'][] = array('y' => '', 't' => 1, 'd' => trim($item));
+                            }
+                        }
+                    }
+                }
                 break;
         }
         return $this->fetch($act, $data);

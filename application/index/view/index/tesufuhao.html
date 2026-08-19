@@ -40,6 +40,7 @@
 </div></div></div>
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/symbol-names.js"></script>
 <script>
 (function () {
     'use strict';
@@ -108,10 +109,13 @@
 
     function renderGrid(chars) {
         var html = '';
-        for (var i = 0; i < chars.length; i++) {
-            var ch = chars.charAt(i);
+        // 按 Unicode 码点遍历（避免 emoji 被 charAt 拆成乱码）
+        var arr = Array.from(chars);
+        for (var i = 0; i < arr.length; i++) {
+            var ch = arr[i];
             if (ch === ' ' || ch === '\n' || ch === '\t') continue;
-            html += '<span class="tsf-item" data-c="' + ch.replace(/"/g, '&quot;') + '">' + ch + '</span>';
+            var name = (window.SYMBOL_NAMES && window.SYMBOL_NAMES[ch]) || '';
+            html += '<span class="tsf-item" title="' + name.replace(/"/g, '&quot;') + '" data-c="' + ch.replace(/"/g, '&quot;') + '">' + ch + '</span>';
         }
         $grid.innerHTML = html;
     }

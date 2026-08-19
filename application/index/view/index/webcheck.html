@@ -115,7 +115,7 @@
         return d.innerHTML;
     }
     function api(params, cb) {
-        $.post('/api/', params, function (res) { cb(res); }).fail(function () { cb({ status: 0, msg: '请求失败，请稍后重试' }); });
+        $.post('/doapi/', params, function (res) { cb(res); }).fail(function () { cb({ status: 0, msg: '请求失败，请稍后重试' }); });
     }
     function showBox(id, html) {
         var box = document.getElementById(id);
