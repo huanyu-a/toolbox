@@ -414,6 +414,10 @@ function icp_query($domain){
     if ($uapis) {
         $arr = json_decode($uapis, true);
         if (is_array($arr) && isset($arr['code']) && $arr['code'] == '200') {
+            // uapis 对无备案域名返回 code:200 但字段为"查询失败"
+            if (isset($arr['serviceLicence']) && $arr['serviceLicence'] === '查询失败') {
+                return ['code'=>0, 'total'=>0, 'data'=>[]];
+            }
             return ['code'=>0, 'total'=>1, 'data'=>[[
                 'domain'=>$domain,
                 'mainLicence'=>isset($arr['mainLicence']) ? $arr['mainLicence'] : '',
