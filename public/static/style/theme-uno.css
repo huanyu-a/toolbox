@@ -1,0 +1,204 @@
+/* ============================================================
+   寰宇工具箱 · 统一设计令牌 (theme-uno.css)
+   单一真相源：所有页面共享同一套 --tb-* 令牌
+   兼容别名：--hp-*（home.css）和 --brand/--bg/--surface 等（app.css / tool-theme.css）
+   加载顺序：site.min.css → theme-uno.css → home.css / tool-theme.css
+   ============================================================ */
+
+/* ---------- 浅色模式 ---------- */
+:root {
+    /* 主色 */
+    --tb-primary: #D97757;
+    --tb-primary-hover: #C5582E;
+    --tb-primary-soft: #FCE8DD;
+    --tb-primary-soft-2: #F5DDD0;
+    --tb-primary-strong: #A14A2C;
+
+    /* 辅助语义色 */
+    --tb-accent: #4A7C59;
+    --tb-danger: #C44A4A;
+    --tb-warn: #C08A3E;
+
+    /* 背景 */
+    --tb-bg: #FAF9F5;
+    --tb-bg-alt: #F3F1EA;
+    --tb-bg-soft: #F4F1EA;
+    --tb-surface: #FFFFFF;
+    --tb-surface-hover: #F8F6F0;
+    --tb-surface-2: #F7F5EF;
+
+    /* 文字 */
+    --tb-text: #2D2A24;
+    --tb-text-2: #6B6660;
+    --tb-text-3: #9C978F;
+
+    /* 边框 */
+    --tb-border: #E8E5DD;
+    --tb-border-strong: #D5D1C7;
+
+    /* 分类主题色（7 色，取自 Anthropic 暖色谱） */
+    --tb-c1: #B14D3D;  --tb-c1-bg: #F4DDD6;  /* 开发编程 - 赭红 */
+    --tb-c2: #9C6B2F;  --tb-c2-bg: #F0E4CE;  /* 文本处理 - 焦糖 */
+    --tb-c3: #4A7A5C;  --tb-c3-bg: #D8E8DC;  /* 计算换算 - 苔绿 */
+    --tb-c4: #3D6A8C;  --tb-c4-bg: #D2E0EE;  /* 网络运维 - 钢蓝 */
+    --tb-c5: #8B4A6B;  --tb-c5-bg: #EAD8E2;  /* 站长辅助 - 莓紫 */
+    --tb-c6: #6B5B8C;  --tb-c6-bg: #E0D8EC;  /* 生活趣味 - 薰衣草 */
+    --tb-c7: #3A8C7E;  --tb-c7-bg: #D4ECE6;  /* Agent - 青松 */
+
+    /* 阴影 */
+    --tb-shadow-sm: 0 1px 2px rgba(45, 42, 36, .05);
+    --tb-shadow: 0 4px 16px rgba(45, 42, 36, .07);
+    --tb-shadow-hover: 0 6px 20px rgba(217, 119, 87, .12), 0 2px 6px rgba(45, 42, 36, .06);
+    --tb-shadow-lg: 0 12px 32px rgba(45, 42, 36, .10);
+
+    /* 圆角 */
+    --tb-radius: 10px;
+    --tb-radius-sm: 7px;
+    --tb-radius-lg: 14px;
+
+    /* 字体 */
+    --tb-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    --tb-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* ---------- 兼容别名：--hp-*（home.css） ---------- */
+    --hp-primary: var(--tb-primary);
+    --hp-primary-hover: var(--tb-primary-hover);
+    --hp-primary-soft: var(--tb-primary-soft);
+    --hp-primary-soft-2: var(--tb-primary-soft-2);
+    --hp-bg: var(--tb-bg);
+    --hp-bg-alt: var(--tb-bg-alt);
+    --hp-surface: var(--tb-surface);
+    --hp-surface-hover: var(--tb-surface-hover);
+    --hp-text: var(--tb-text);
+    --hp-text-2: var(--tb-text-2);
+    --hp-text-3: var(--tb-text-3);
+    --hp-border: var(--tb-border);
+    --hp-border-strong: var(--tb-border-strong);
+    --hp-c1: var(--tb-c1);  --hp-c1-bg: var(--tb-c1-bg);
+    --hp-c2: var(--tb-c2);  --hp-c2-bg: var(--tb-c2-bg);
+    --hp-c3: var(--tb-c3);  --hp-c3-bg: var(--tb-c3-bg);
+    --hp-c4: var(--tb-c4);  --hp-c4-bg: var(--tb-c4-bg);
+    --hp-c5: var(--tb-c5);  --hp-c5-bg: var(--tb-c5-bg);
+    --hp-c6: var(--tb-c6);  --hp-c6-bg: var(--tb-c6-bg);
+    --hp-shadow-sm: var(--tb-shadow-sm);
+    --hp-shadow: var(--tb-shadow);
+    --hp-shadow-hover: var(--tb-shadow-hover);
+    --hp-radius: var(--tb-radius);
+    --hp-radius-sm: var(--tb-radius-sm);
+    --hp-radius-lg: var(--tb-radius-lg);
+
+    /* ---------- 兼容别名：--brand / --bg / --surface 等（app.css / tool-theme.css） ---------- */
+    --brand: var(--tb-primary);
+    --brand-strong: var(--tb-primary-hover);
+    --brand-soft: var(--tb-primary-soft);
+    --accent: var(--tb-accent);
+    --danger: var(--tb-danger);
+    --warn: var(--tb-warn);
+    --bg: var(--tb-bg);
+    --bg-soft: var(--tb-bg-soft);
+    --surface: var(--tb-surface);
+    --surface-2: var(--tb-surface-2);
+    --border: var(--tb-border);
+    --border-strong: var(--tb-border-strong);
+    --text: var(--tb-text);
+    --text-2: var(--tb-text-2);
+    --text-3: var(--tb-text-3);
+    --radius: var(--tb-radius);
+    --radius-sm: var(--tb-radius-sm);
+    --shadow-sm: var(--tb-shadow-sm);
+    --shadow: var(--tb-shadow);
+    --shadow-lg: var(--tb-shadow-lg);
+    --font: var(--tb-font);
+    --font-mono: var(--tb-font-mono);
+}
+
+/* ---------- 深色模式 ---------- */
+[data-theme="dark"] {
+    /* 主色 */
+    --tb-primary: #E89476;
+    --tb-primary-hover: #F0A585;
+    --tb-primary-soft: #4A2818;
+    --tb-primary-soft-2: #3A1F12;
+    --tb-primary-strong: #F0A585;
+
+    /* 辅助语义色 */
+    --tb-accent: #7AB08A;
+    --tb-danger: #E87878;
+    --tb-warn: #E0B060;
+
+    /* 背景 */
+    --tb-bg: #1A1814;
+    --tb-bg-alt: #221F1A;
+    --tb-bg-soft: #221F1A;
+    --tb-surface: #252220;
+    --tb-surface-hover: #2D2A26;
+    --tb-surface-2: #2C2925;
+
+    /* 文字 */
+    --tb-text: #E8E4DC;
+    --tb-text-2: #A8A29A;
+    --tb-text-3: #75706A;
+
+    /* 边框 */
+    --tb-border: #38332E;
+    --tb-border-strong: #4A443C;
+
+    /* 分类主题色（深色） */
+    --tb-c1: #D87A6A;  --tb-c1-bg: #3D2622;
+    --tb-c2: #C9A262;  --tb-c2-bg: #3A2F1A;
+    --tb-c3: #6BAF85;  --tb-c3-bg: #1F3528;
+    --tb-c4: #5C94B8;  --tb-c4-bg: #1A2D3D;
+    --tb-c5: #B670A0;  --tb-c5-bg: #3A2433;
+    --tb-c6: #9480B5;  --tb-c6-bg: #2D2440;
+    --tb-c7: #5BB5A4;  --tb-c7-bg: #1A2D28;
+
+    /* 阴影 */
+    --tb-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+    --tb-shadow: 0 4px 16px rgba(0, 0, 0, .35);
+    --tb-shadow-hover: 0 6px 20px rgba(0, 0, 0, .35), 0 2px 6px rgba(0, 0, 0, .2);
+    --tb-shadow-lg: 0 12px 32px rgba(0, 0, 0, .45);
+
+    /* ---------- 兼容别名（深色） ---------- */
+    --hp-primary: var(--tb-primary);
+    --hp-primary-hover: var(--tb-primary-hover);
+    --hp-primary-soft: var(--tb-primary-soft);
+    --hp-primary-soft-2: var(--tb-primary-soft-2);
+    --hp-bg: var(--tb-bg);
+    --hp-bg-alt: var(--tb-bg-alt);
+    --hp-surface: var(--tb-surface);
+    --hp-surface-hover: var(--tb-surface-hover);
+    --hp-text: var(--tb-text);
+    --hp-text-2: var(--tb-text-2);
+    --hp-text-3: var(--tb-text-3);
+    --hp-border: var(--tb-border);
+    --hp-border-strong: var(--tb-border-strong);
+    --hp-c1: var(--tb-c1);  --hp-c1-bg: var(--tb-c1-bg);
+    --hp-c2: var(--tb-c2);  --hp-c2-bg: var(--tb-c2-bg);
+    --hp-c3: var(--tb-c3);  --hp-c3-bg: var(--tb-c3-bg);
+    --hp-c4: var(--tb-c4);  --hp-c4-bg: var(--tb-c4-bg);
+    --hp-c5: var(--tb-c5);  --hp-c5-bg: var(--tb-c5-bg);
+    --hp-c6: var(--tb-c6);  --hp-c6-bg: var(--tb-c6-bg);
+    --hp-shadow-sm: var(--tb-shadow-sm);
+    --hp-shadow: var(--tb-shadow);
+    --hp-shadow-hover: var(--tb-shadow-hover);
+
+    --brand: var(--tb-primary);
+    --brand-strong: var(--tb-primary-strong);
+    --brand-soft: var(--tb-primary-soft);
+    --accent: var(--tb-accent);
+    --danger: var(--tb-danger);
+    --warn: var(--tb-warn);
+    --bg: var(--tb-bg);
+    --bg-soft: var(--tb-bg-soft);
+    --surface: var(--tb-surface);
+    --surface-2: var(--tb-surface-2);
+    --border: var(--tb-border);
+    --border-strong: var(--tb-border-strong);
+    --text: var(--tb-text);
+    --text-2: var(--tb-text-2);
+    --text-3: var(--tb-text-3);
+    --shadow-sm: var(--tb-shadow-sm);
+    --shadow: var(--tb-shadow);
+    --shadow-lg: var(--tb-shadow-lg);
+}

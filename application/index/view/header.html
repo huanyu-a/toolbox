@@ -1,3 +1,5 @@
+<link href="/static/style/theme-uno.css" rel="stylesheet" type="text/css"/>
+<link href="/static/style/topbar.css" rel="stylesheet" type="text/css"/>
 <nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -9,17 +11,18 @@
         <div id="navbar" class="navbar-collapse collapse" role="navigation">
             <ul class="nav navbar-nav" id="top_menu">
                 {volist name="tools" id="cat"}
-                <li class="dropdown{if condition="$cat.cat == $current_cat"} active{/if}" data-cat="{$cat.cat}">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$cat.cat}<span class="caret"></span></a>
+                <li class="dropdown{if condition="$cat.cat == $current_cat"} active{/if}{if condition="count($cat.items) > 6"} multi-col{/if}" data-cat="{$cat.cat}" style="--cat-c:var(--tb-c{$key+1});--cat-bg:var(--tb-c{$key+1}-bg)">
+                    <a href="/#cat-{$cat.cat}" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">{$cat.cat}<span class="caret"></span></a>
                     <ul class="dropdown-menu ul-list">
+                        <li class="dropdown-header-cat"><span class="dropdown-header-dot" style="background:var(--cat-c)"></span>{$cat.cat}<span class="dropdown-header-count">{$cat.items|count} 个工具</span></li>
                         {volist name="cat.items" id="tool"}
-                        <li{if condition="$tool.url == $current_url"} class="cur"{/if}><a href="{$tool.url}"{if condition="$tool.accent != ''"} style="color:{$tool.accent}"{/if}>{$tool.name}</a></li>
+                        <li{if condition="$tool.url == $current_url"} class="cur"{/if}><a href="{$tool.url}"{if condition="$tool.accent != ''"} style="color:{$tool.accent}"{/if}><span class="dropdown-tool-dot" style="background:var(--cat-c)"></span>{$tool.name}</a></li>
                         {/volist}
                     </ul>
                 </li>
                 {/volist}
                 <li class="dropdown more-menu" id="moreMenu" style="display:none;">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
+                    <a href="javascript:;" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
                     <ul class="dropdown-menu ul-list more-list" id="moreMenuList"></ul>
                 </li>
             </ul>

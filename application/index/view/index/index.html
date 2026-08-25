@@ -13,28 +13,29 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
     <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/theme-uno.css" rel="stylesheet" type="text/css"/>
     <link href="/static/style/home.css" rel="stylesheet" type="text/css"/>
     {:$Think.config.web.header}
 {include file="seo" /}</head>
 <body>
 {include file="header" /}
 <main class="home-wrap">
+    <!-- ============ Hero ============ -->
     <section class="home-hero">
+        <div class="home-hero-mesh" aria-hidden="true"></div>
         <div class="home-hero-inner">
-            <div class="home-stats">
-                <div class="home-stat"><span class="home-stat-num">{:$homeCount}</span><span class="home-stat-label">实用工具</span></div>
-                <div class="home-stat"><span class="home-stat-num">{$tools|count}</span><span class="home-stat-label">工具分类</span></div>
-                <div class="home-stat"><span class="home-stat-num">免费</span><span class="home-stat-label">全部功能</span></div>
-            </div>
-            <h1 class="home-title">{$Think.config.web.site.name}</h1>
-            <p class="home-sub">JSON 格式化、编码转换、加解密、网络诊断等 <strong>{:$homeCount}</strong> 个常用工具，打开即用，浏览器本地运算</p>
-            <div class="home-search">
+            <span class="home-badge">🆓 完全免费 · 本地运算 · 无需注册</span>
+            <h1 class="home-title"><strong>{:$homeCount}</strong> 款工具，<span class="home-title-accent">打开即用</span></h1>
+            <p class="home-sub">JSON 格式化、编码转换、加解密、网络诊断等常用工具，浏览器本地运算，数据不离开你的设备</p>
+            <div class="home-search" id="homeSearchWrap">
                 <span class="home-search-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span>
                 <input type="text" id="homeSearch" class="home-search-input" placeholder="搜索工具，如：json、md5、时间戳、IP…" autocomplete="off" aria-label="搜索工具"/>
+                <kbd class="home-search-kbd">Ctrl K</kbd>
                 <button type="button" class="home-search-clear" id="homeSearchClear" style="display:none;" aria-label="清空搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                <div class="home-search-dropdown" id="homeSearchDropdown" style="display:none;"></div>
             </div>
             <div class="home-hot">
-                <span class="home-hot-label">热门</span>
+                <span class="home-hot-label">热门 🔥</span>
                 <a href="/json/">JSON 格式化</a>
                 <a href="/encrypt/">加密解密</a>
                 <a href="/encode/">编码转换</a>
@@ -46,129 +47,197 @@
         </div>
     </section>
 
-    <div class="home-body">
-        <aside class="home-sidebar" id="homeSidebar">
-            <p class="home-sidebar-title">工具分类</p>
-            <ul class="home-sidebar-list">
-                {volist name="tools" id="cat"}
-                <li><a href="#cat-{$key+1}" data-cat="{$cat.cat}"><span class="cat-dot" style="background:var(--hp-c{$key+1})"></span><span>{$cat.cat}</span><span class="cat-count">{$cat.items|count}</span></a></li>
-                {/volist}
-            </ul>
-        </aside>
+    <!-- ============ 特性条 ============ -->
+    <section class="home-features">
+        <div class="home-features-inner">
+            <div class="home-feature">
+                <span class="home-feature-ico">🔒</span>
+                <div><span class="home-feature-h">本地运算</span><span class="home-feature-d">数据不离开设备</span></div>
+            </div>
+            <div class="home-feature">
+                <span class="home-feature-ico">⚡</span>
+                <div><span class="home-feature-h">打开即用</span><span class="home-feature-d">无需安装注册</span></div>
+            </div>
+            <div class="home-feature">
+                <span class="home-feature-ico">🆓</span>
+                <div><span class="home-feature-h">完全免费</span><span class="home-feature-d">所有功能免费</span></div>
+            </div>
+            <div class="home-feature">
+                <span class="home-feature-ico">📦</span>
+                <div><span class="home-feature-h">{$tools|count} 大分类</span><span class="home-feature-d">{:$homeCount} 款工具全覆盖</span></div>
+            </div>
+        </div>
+    </section>
 
-        <section class="home-cats">
-            <div id="homeCats">
+    <!-- ============ 分类概览 ============ -->
+    <section class="home-showcase">
+        <div class="home-showcase-inner">
+            <h2 class="home-section-title">覆盖你的日常工作</h2>
+            <p class="home-section-sub">{$tools|count} 大分类，{:$homeCount} 款工具，从开发到运维一站配齐</p>
+            <div class="home-cat-cards">
                 {volist name="tools" id="cat"}
-                <div class="home-cat" id="cat-{$key+1}" data-cat="{$cat.cat}">
-                    <div class="home-cat-head">
-                        <span class="home-cat-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg></span>
-                        <h2 class="home-cat-title">{$cat.cat}</h2>
-                        <span class="home-cat-meta">{$cat.items|count} 个工具</span>
+                <div class="home-cat-card" id="cat-{$cat.cat}" data-cat="{$cat.cat}" style="--cat-c:var(--tb-c{$key+1});--cat-bg:var(--tb-c{$key+1}-bg)">
+                    <div class="home-cat-card-head">
+                        <span class="home-cat-card-ico" aria-hidden="true">{if condition="$key eq 0"}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 4 12l4 8M16 4l4 8-4 8"/></svg>{elseif condition="$key eq 1"/}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>{elseif condition="$key eq 2"/}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h2M13 11h2M9 15h2M13 15h2"/></svg>{elseif condition="$key eq 3"/}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>{elseif condition="$key eq 4"/}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.1 2.1-2.4-2.4z"/></svg>{elseif condition="$key eq 5"/}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>{else/}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V5a3 3 0 0 1 6 0v3M9 13h.01M15 13h.01"/></svg>{/if}</span>
+                        <h3 class="home-cat-card-title">{$cat.cat}</h3>
+                        <span class="home-cat-card-count">{$cat.items|count} 个工具</span>
+                        <span class="home-cat-card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
                     </div>
-                    <div class="home-cat-list">
+                    <div class="home-cat-card-tags">
+                        {volist name="cat.items" id="tool" length="4"}
+                        <span class="home-cat-tag">{$tool.name}</span>
+                        {/volist}
+                    </div>
+                    <div class="home-cat-card-body">
                         {volist name="cat.items" id="tool"}
-                        <a href="{$tool.url}">
-                            <span class="tool-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v3h3a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1z"/><path d="M9 14l2 2 4-4"/></svg></span>
-                            <span class="tool-text">
-                                <span class="tool-name">{$tool.name}</span>
-                                <span class="tool-path">{$tool.url}</span>
-                            </span>
+                        <a href="{$tool.url}" class="home-cat-tool">
+                            <span class="home-cat-tool-name">{$tool.name}</span>
+                            <span class="home-cat-tool-desc">{if condition="$tool.desc"}{$tool.desc}{else/}{$tool.url}{/if}</span>
                         </a>
                         {/volist}
                     </div>
                 </div>
                 {/volist}
-                <div class="home-empty" id="homeEmpty" style="display:none;">
-                    <p class="home-empty-title">没有找到匹配的工具</p>
-                    <p class="home-empty-sub">换个关键词试试</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 三步使用指南 ============ -->
+    <section class="home-steps">
+        <div class="home-steps-inner">
+            <h2 class="home-section-title">打开网页，马上就能用</h2>
+            <p class="home-section-sub">无需安装、无需注册，三步完成所有操作</p>
+            <div class="home-steps-grid">
+                <div class="home-step">
+                    <span class="home-step-ico">🔍</span>
+                    <span class="home-step-num">1</span>
+                    <h3 class="home-step-h">选择工具</h3>
+                    <p class="home-step-p">从顶部分类菜单或搜索框找到你需要的工具</p>
+                </div>
+                <div class="home-step">
+                    <span class="home-step-ico">⌨️</span>
+                    <span class="home-step-num">2</span>
+                    <h3 class="home-step-h">输入数据</h3>
+                    <p class="home-step-p">粘贴文本、上传文件或填写参数，浏览器本地处理</p>
+                </div>
+                <div class="home-step">
+                    <span class="home-step-ico">📋</span>
+                    <span class="home-step-num">3</span>
+                    <h3 class="home-step-h">复制结果</h3>
+                    <p class="home-step-p">一键复制处理后的结果，即用即走</p>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="home-cta">
+        <div class="home-cta-inner">
+            <h2 class="home-cta-title">准备好了吗？</h2>
+            <p class="home-cta-sub">从顶部分类菜单开始，或直接搜索你需要的工具</p>
+            <a href="/json/" class="home-cta-btn">立即体验 →</a>
+        </div>
+    </section>
 </main>
 {include file="nav" /}
 {include file="footer" /}
 <script type="text/javascript">
-// 首页搜索 + 侧栏联动
+// 首页搜索（下拉浮窗式）
 (function(){
     var search = document.getElementById('homeSearch');
-    var cats = document.getElementById('homeCats');
-    var empty = document.getElementById('homeEmpty');
+    var dropdown = document.getElementById('homeSearchDropdown');
     var clear = document.getElementById('homeSearchClear');
-    var sidebar = document.getElementById('homeSidebar');
-    if (!search || !cats) return;
+    var wrap = document.getElementById('homeSearchWrap');
+    if (!search || !dropdown) return;
+    // 工具数据
+    var allTools = [
+        {volist name="tools" id="cat"}
+        {volist name="cat.items" id="tool"}
+        { name: "{$tool.name}", url: "{$tool.url}", cat: "{$cat.cat}", desc: "{if condition="$tool.desc"}{$tool.desc}{else/}{$tool.url}{/if}" },
+        {/volist}
+        {/volist}
+    ];
+    function renderResults(kw) {
+        kw = kw.trim().toLowerCase();
+        if (!kw) { dropdown.style.display = 'none'; return; }
+        var hits = allTools.filter(function(t) {
+            return t.name.toLowerCase().indexOf(kw) !== -1 ||
+                   t.desc.toLowerCase().indexOf(kw) !== -1 ||
+                   t.cat.toLowerCase().indexOf(kw) !== -1 ||
+                   t.url.toLowerCase().indexOf(kw) !== -1;
+        }).slice(0, 8);
+        if (!hits.length) {
+            dropdown.innerHTML = '<div class="home-search-empty">没有找到匹配的工具，换个关键词试试</div>';
+        } else {
+            dropdown.innerHTML = hits.map(function(t) {
+                return '<a href="' + t.url + '" class="home-search-item">' +
+                    '<span class="home-search-item-name">' + t.name + '</span>' +
+                    '<span class="home-search-item-cat">' + t.cat + '</span>' +
+                    '<span class="home-search-item-desc">' + t.desc + '</span></a>';
+            }).join('');
+        }
+        dropdown.style.display = 'block';
+    }
     search.addEventListener('input', function() {
-        var kw = search.value.trim().toLowerCase();
-        var sections = cats.querySelectorAll('.home-cat');
-        var visible = 0;
+        var kw = search.value;
         if (clear) clear.style.display = kw ? 'flex' : 'none';
-        sections.forEach(function(section) {
-            var links = section.querySelectorAll('.home-cat-list a');
-            var catVisible = false;
-            var catName = (section.getAttribute('data-cat') || '').toLowerCase();
-            var catMatch = !kw || catName.indexOf(kw) !== -1;
-            links.forEach(function(link) {
-                var name = (link.querySelector('.tool-name') || {}).textContent || '';
-                var path = (link.querySelector('.tool-path') || {}).textContent || '';
-                var href = (link.getAttribute('href') || '').toLowerCase();
-                name = name.trim().toLowerCase();
-                path = path.trim().toLowerCase();
-                var hit = !kw || name.indexOf(kw) !== -1 || path.indexOf(kw) !== -1 || href.indexOf(kw) !== -1;
-                link.style.display = hit ? '' : 'none';
-                if (hit) catVisible = true;
-            });
-            section.style.display = (catVisible || catMatch) ? '' : 'none';
-            if (catVisible || catMatch) visible++;
-        });
-        if (empty) empty.style.display = visible ? 'none' : 'block';
+        renderResults(kw);
     });
     if (clear) {
         clear.addEventListener('click', function() {
             search.value = '';
-            search.dispatchEvent(new Event('input'));
+            clear.style.display = 'none';
+            dropdown.style.display = 'none';
             search.focus();
         });
     }
+    document.addEventListener('click', function(e) {
+        if (wrap && !wrap.contains(e.target)) dropdown.style.display = 'none';
+    });
     document.addEventListener('keydown', function(e) {
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
             e.preventDefault();
             search.focus();
         }
+        if (e.key === 'Escape') { dropdown.style.display = 'none'; }
     });
-    // 侧栏点击高亮 + 平滑滚动（用 getBoundingClientRect 精确计算）
-    if (sidebar) {
-        var navLinks = sidebar.querySelectorAll('a');
-        var headerH = 54; // 固定顶栏高度
-        function scrollToCat(link) {
-            var targetId = link.getAttribute('href');
-            var target = document.querySelector(targetId);
-            if (!target) return;
-            var top = target.getBoundingClientRect().top + window.pageYOffset - headerH - 8;
-            window.scrollTo({ top: top, behavior: 'smooth' });
-        }
-        sidebar.addEventListener('click', function(e) {
-            var link = e.target.closest('a');
-            if (!link) return;
+})();
+
+// 分类卡片手风琴展开/折叠
+(function(){
+    var cards = document.querySelectorAll('.home-cat-card');
+    if (!cards.length) return;
+    cards.forEach(function(card){
+        card.addEventListener('click', function(e){
+            // 点击工具链接时不折叠
+            if (e.target.closest('.home-cat-tool')) return;
             e.preventDefault();
-            navLinks.forEach(function(a) { a.classList.remove('active'); });
-            link.classList.add('active');
-            scrollToCat(link);
+            var wasOpen = card.classList.contains('open');
+            // 先关闭其他卡片
+        cards.forEach(function(c){ c.classList.remove('open'); });
+            if (!wasOpen) card.classList.add('open');
         });
-        // 滚动联动高亮（IntersectionObserver）
-        var catSections = cats.querySelectorAll('.home-cat');
-        if ('IntersectionObserver' in window) {
-            var io = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        var id = '#' + entry.target.id;
-                        navLinks.forEach(function(a) {
-                            a.classList.toggle('active', a.getAttribute('href') === id);
-                        });
-                    }
-                });
-            }, { rootMargin: '-' + headerH + 'px 0px -70% 0px', threshold: 0 });
-            catSections.forEach(function(s) { io.observe(s); });
-        }
+    });
+
+    // URL hash 自动展开对应分类（工具页面包屑跳转 #cat-分类名）
+    function openByHash() {
+        var hash = window.location.hash;
+        if (!hash || hash.indexOf('cat-') !== 1) return;
+        var catName = decodeURIComponent(hash.slice(5));
+        var card = document.querySelector('.home-cat-card[data-cat="' + catName + '"]');
+        if (!card) return;
+        cards.forEach(function(c){ c.classList.remove('open'); });
+        card.classList.add('open');
+        setTimeout(function(){
+            var y = card.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - 70;
+            window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        }, 200);
+    }
+    window.addEventListener('hashchange', openByHash);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', openByHash);
+    } else {
+        openByHash(); // 页面加载时也检查
     }
 })();
 </script>

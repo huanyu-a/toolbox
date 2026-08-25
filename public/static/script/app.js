@@ -236,7 +236,7 @@
 
         var nav = topMenu.closest ? topMenu.closest('.navbar-collapse') : null;
         var rightUl = nav ? nav.querySelector('.navbar-right') : null;
-        var avail = (nav ? nav.clientWidth : 0) - (rightUl ? rightUl.offsetWidth : 0) - 12;
+        var avail = (nav ? nav.clientWidth : 0) - (rightUl ? rightUl.offsetWidth : 0) - 80;
         if (avail <= 0) return;
 
         var total = 0;
@@ -317,8 +317,7 @@
         if (activeLi) currentCat = activeLi.getAttribute('data-cat') || '';
 
         TOOLS.forEach(function (cat, catIdx) {
-            // 首页分类区块 id 使用序号（对应模板中的 cat-{$key+1}），而非分类名
-            var catId = 'cat-' + (catIdx + 1);
+            var catId = 'cat-' + cat.cat;
             var a = document.createElement('a');
             a.className = 'float-cat-item' + (cat.cat === currentCat ? ' active' : '');
             a.textContent = cat.cat;
@@ -328,17 +327,24 @@
                 closeCatNav(); // 点击分类后收起面板
                 if (!isHome) return; // 非首页直接跳转
                 e.preventDefault();
-                var target = document.getElementById(catId);
-                if (!target) return;
-                // 立即高亮当前点击的分类
+                // 首页：找到对应分类卡片并展开手风琴 + 滚动到位
+                var card = document.querySelector('.home-cat-card[data-cat="' + cat.cat + '"]');
+                if (!card) return;
+                // 关闭其他展开的卡片
+                document.querySelectorAll('.home-cat-card.open').forEach(function (c) {
+                    if (c !== card) c.classList.remove('open');
+                });
+                // 展开当前卡片
+                card.classList.add('open');
+                // 高亮当前点击的分类
                 floatNav.querySelectorAll('.float-cat-item').forEach(function (item) {
                     item.classList.toggle('active', item === a);
                 });
+                // 滚动到卡片位置（留 70px 顶栏空间）
                 try {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } catch (err) {
-                    // 旧浏览器：手动滚动 + scroll-margin-top 兼容（62px 顶栏）
-                    var y = target.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - 62;
+                    var y = card.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - 70;
                     window.scrollTo(0, Math.max(0, y));
                 }
             });
@@ -347,7 +353,7 @@
 
         // 首页：滚动监听高亮当前分类（scrollspy）
         if (isHome && 'IntersectionObserver' in window) {
-            var catSections = document.querySelectorAll('.home-cat');
+            var catSections = document.querySelectorAll('.home-cat-card');
             var spyObserver = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (!entry.isIntersecting) return;
@@ -451,5 +457,33 @@
         try { document.execCommand('copy'); done(); } catch (e) { /* ignore */ }
         document.body.removeChild(ta);
     }
+
+    /* ---------- 顶栏下拉菜单：纯 CSS hover 展开，点击分类名跳转 ---------- */
+    var navDropdowns = document.querySelectorAll('.topbar .navbar-nav > li.dropdown');
+    var isHome = window.location.pathname === '/' || window.location.pathname === '';
+    navDropdowns.forEach(function (li) {
+        var toggle = li.querySelector('.dropdown-toggle');
+        if (!toggle) return;
+        toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // 首页：局部展开手风琴，不刷新页面
+            if (isHome) {
+                var catName = li.getAttribute('data-cat') || '';
+                if (!catName) return;
+                var card = document.querySelector('.home-cat-card[data-cat="' + catName + '"]');
+                if (!card) return;
+                document.querySelectorAll('.home-cat-card.open').forEach(function (c) {
+                    if (c !== card) c.classList.remove('open');
+                });
+                card.classList.add('open');
+                var y = card.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - 70;
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            } else {
+                // 工具页：跳转到首页对应分类
+                window.location.href = toggle.getAttribute('href');
+            }
+        });
+    });
 
 })(window, document, window.jQuery);

@@ -1,82 +1,10 @@
 /* ============================================================
-   工具页 Anthropic 配色覆盖 (tool-theme.css)
-   只覆盖 site.min.css 中的 CSS 变量，不改变布局结构
-   加载顺序：在 site.min.css 之后
+   工具页配色覆盖 (tool-theme.css)
+   令牌统一来源：theme-uno.css（--tb-* + --brand 兼容别名）
+   顶栏与共享组件样式由 topbar.css 统一处理（在 header.html 中加载）
+   本文件仅覆盖工具页专属组件样式
+   加载顺序：site.min.css → tool-theme.css → theme-uno.css → topbar.css
    ============================================================ */
-
-/* ---------- 浅色模式：Anthropic 暖色谱 ---------- */
-:root {
-    --brand: #c15f3c;
-    --brand-strong: #a14a2c;
-    --brand-soft: #faf0eb;
-    --accent: #4a7c59;
-    --danger: #c44a4a;
-    --warn: #c08a3e;
-
-    --bg: #faf9f5;
-    --bg-soft: #f4f1ea;
-    --surface: #ffffff;
-    --surface-2: #f7f5ef;
-    --border: #e8e5dd;
-    --border-strong: #d5d0c4;
-
-    --text: #2d2a24;
-    --text-2: #5a5448;
-    --text-3: #948e80;
-
-    --radius: 10px;
-    --radius-sm: 6px;
-    --shadow-sm: 0 1px 2px rgba(45, 42, 36, .05);
-    --shadow: 0 4px 16px rgba(45, 42, 36, .07);
-    --shadow-lg: 0 12px 32px rgba(45, 42, 36, .10);
-}
-
-/* ---------- 深色模式 ---------- */
-[data-theme="dark"] {
-    --brand: #e8957a;
-    --brand-strong: #f0a890;
-    --brand-soft: #3a2418;
-    --accent: #7ab08a;
-    --danger: #e87878;
-    --warn: #e0b060;
-
-    --bg: #1a1814;
-    --bg-soft: #221f1a;
-    --surface: #252220;
-    --surface-2: #2c2925;
-    --border: #3a3630;
-    --border-strong: #4a4540;
-
-    --text: #e8e4dc;
-    --text-2: #a8a298;
-    --text-3: #6e6960;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
-    --shadow: 0 4px 16px rgba(0, 0, 0, .35);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, .45);
-}
-
-/* ---------- 顶栏微调 ---------- */
-.topbar .logo_ico {
-    background: var(--brand) !important;
-}
-.topbar .navbar-nav > li > a:hover,
-.topbar .navbar-nav > li > a:focus,
-.topbar .navbar-nav > li.open > a {
-    color: var(--brand) !important;
-}
-.topbar .dropdown-menu > li > a:hover {
-    background: var(--brand-soft) !important;
-    color: var(--brand-strong) !important;
-}
-
-/* ---------- 面包屑 ---------- */
-.crumb-bar {
-    background: var(--bg-soft) !important;
-}
-.crumb-bar .breadcrumb a:hover {
-    color: var(--brand) !important;
-}
 
 /* ---------- 工具卡片 ---------- */
 .tool-card .tool-title .t-ico {
@@ -107,7 +35,7 @@
 .tool-card .t-area:focus,
 .tool-card .t-row .t-input:focus {
     border-color: var(--brand) !important;
-    box-shadow: 0 0 0 3px rgba(193, 95, 60, .12) !important;
+    box-shadow: 0 0 0 3px rgba(217, 119, 87, .12) !important;
 }
 
 /* ---------- Tab 组件：去掉渐变，改扁平 ---------- */
@@ -157,92 +85,10 @@
     accent-color: var(--brand) !important;
 }
 
-/* ---------- 页脚 ---------- */
-.copyright {
-    background: var(--surface) !important;
-    border-top: 1px solid var(--border) !important;
-    color: var(--text-3) !important;
-}
-.copyright a {
-    color: var(--text-2) !important;
-}
-.footer-nav h2 {
-    color: var(--text) !important;
-}
-.rand-tools a {
-    color: var(--text-2) !important;
-}
-.rand-tools a:hover {
-    color: var(--brand) !important;
-}
-
-/* ---------- FAB 按钮 ---------- */
-.fab-cat {
-    background: var(--brand) !important;
-    border-color: var(--brand) !important;
-}
-.fab-cat.active {
-    background: var(--brand-strong) !important;
-}
-.fab-search, .fab-theme {
-    background: var(--surface) !important;
-    border-color: var(--border) !important;
-    color: var(--text-2) !important;
-}
-
-/* ---------- 返回顶部 ---------- */
-.gotop {
-    background: var(--brand) !important;
-}
-.gotop .arrow.lit {
-    border-color: transparent transparent var(--brand-strong) !important;
-}
-
-/* ---------- 搜索按钮 / 主题按钮图标颜色 ---------- */
-.nav-search .nav-search-btn {
-    color: var(--text-2) !important;
-    border-color: var(--border) !important;
-    background: var(--surface-2) !important;
-}
-.nav-search .nav-search-btn:hover {
-    color: var(--brand) !important;
-    border-color: var(--brand) !important;
-    background: var(--brand-soft) !important;
-}
-.nav-theme a {
-    color: var(--text-2) !important;
-}
-.nav-theme a:hover {
-    color: var(--brand) !important;
-}
-
-/* ---------- 搜索弹窗 ---------- */
-.search-pop {
-    background: var(--surface) !important;
-}
-.search-pop-input {
-    border-color: var(--brand) !important;
-}
-.search-pop-close {
-    color: var(--text-2) !important;
-    border-color: var(--border) !important;
-    background: var(--surface-2) !important;
-}
-.search-pop-close:hover {
-    border-color: var(--brand) !important;
-    color: var(--brand) !important;
-}
-
-/* ---------- 浮动分类导航 ---------- */
-.float-cat-item.active {
-    background: var(--brand-soft) !important;
-    color: var(--brand-strong) !important;
-}
-
 /* ---------- 表单通用 ---------- */
 .form-control:focus {
     border-color: var(--brand) !important;
-    box-shadow: 0 0 0 3px rgba(193, 95, 60, .12) !important;
+    box-shadow: 0 0 0 3px rgba(217, 119, 87, .12) !important;
 }
 .btn-primary, .btn-success {
     background: var(--brand) !important;
