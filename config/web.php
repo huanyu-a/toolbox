@@ -301,6 +301,42 @@ return array (
     'description' => 'Hermes Agent 命令在线速查手册：涵盖默认网关与 dingtalk2 网关管理、Dashboard 进程管理、Cron 定时任务管理、一键进程清理、开机自启控制及常见故障排查等 Hermes 命令大全，点击命令即可复制，免安装打开即用。',
   ),
 
+  'claudecodecmd' => array (
+    'title' => 'Claude Code命令在线速查,CLI命令大全,会话管理与Git集成',
+    'keywords' => 'Claude Code命令速查,Claude Code CLI,Claude Code命令,Claude AI,Claude编程,Claude代码生成,MCP工具,在线命令查询',
+    'description' => 'Claude Code CLI 命令在线速查手册：涵盖会话管理、文件操作、Git 集成、MCP 工具调用、配置管理及常见故障排查等 Claude Code 命令大全，点击命令即可一键复制，免安装打开即用。',
+  ),
+
+  'codexcmd' => array (
+    'title' => 'OpenAI Codex命令在线速查,代码生成与审查,测试生成命令大全',
+    'keywords' => 'OpenAI Codex命令速查,Codex CLI,Codex代码生成,Codex代码审查,Codex测试生成,OpenAI编程,在线命令查询',
+    'description' => 'OpenAI Codex CLI 命令在线速查手册：涵盖会话管理、代码生成、代码审查、测试生成、配置管理及常见故障排查等 Codex 命令大全，点击命令即可一键复制，免安装打开即用。',
+  ),
+
+  'openclawcmd' => array (
+    'title' => 'OpenClaw命令在线速查,技能管理,Agent部署,MCP集成命令大全',
+    'keywords' => 'OpenClaw命令速查,OpenClaw CLI,OpenClaw技能,Agent部署,MCP集成,OpenClaw配置,在线命令查询',
+    'description' => 'OpenClaw CLI 命令在线速查手册：涵盖会话管理、技能管理、Agent 部署、MCP 集成、配置管理及常见故障排查等 OpenClaw 命令大全，点击命令即可一键复制，免安装打开即用。',
+  ),
+
+  'opencmd' => array (
+    'title' => 'Open Code命令在线速查,模型切换,插件系统,配置管理命令大全',
+    'keywords' => 'Open Code命令速查,Open Code CLI,Open Code模型切换,Open Code插件,AI编程工具,在线命令查询',
+    'description' => 'Open Code CLI 命令在线速查手册：涵盖会话管理、模型切换与管理、插件系统、配置管理及常见故障排查等 Open Code 命令大全，点击命令即可一键复制，免安装打开即用。',
+  ),
+
+  'picmd' => array (
+    'title' => 'Pi命令在线速查,对话管理,记忆系统,个性化配置命令大全',
+    'keywords' => 'Pi命令速查,Pi CLI,Pi AI,对话管理,记忆系统,Pi个性化,Pi配置,AI助手命令,在线命令查询',
+    'description' => 'Pi CLI 命令在线速查手册：涵盖对话管理、记忆系统、个性化配置、配置管理及常见故障排查等 Pi AI 命令大全，点击命令即可一键复制，免安装打开即用。',
+  ),
+
+  'deepseekharnesscmd' => array (
+    'title' => 'DeepSeek Harness命令在线速查,模型管理,推理优化,分布式训练命令大全',
+    'keywords' => 'DeepSeek Harness命令速查,DeepSeek CLI,模型管理,推理优化,分布式训练,API网关,DeepSeek部署,在线命令查询',
+    'description' => 'DeepSeek Harness CLI 命令在线速查手册：涵盖会话管理、模型管理、推理优化、分布式训练、API 网关及常见故障排查等 DeepSeek Harness 命令大全，点击命令即可一键复制，免安装打开即用。',
+  ),
+
   'jsencrypt' => array (
     'title' => 'JS加密解密在线工具,JS混淆与加解密',
     'keywords' => 'JS在线加密,JS解密,JS混淆,JS代码加密,JavaScript加密,在线工具',

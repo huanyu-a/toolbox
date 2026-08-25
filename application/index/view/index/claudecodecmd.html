@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.claudecodecmd.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.claudecodecmd.keywords}" /><meta name="description" content="{$Think.config.web.claudecodecmd.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><style>.tool-card .t-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}.tool-card .t-tabs li{margin:0}.tool-card .t-tabs button.t-tab{display:inline-block;padding:7px 14px;font-size:13px;line-height:1.4;color:var(--text-2,#666);background:var(--surface,#fff);border:1px solid var(--border,#ddd);border-radius:8px;cursor:pointer;transition:color .2s,border-color .2s}.tool-card .t-tabs button.t-tab:hover{color:var(--brand,#4f6ef2);border-color:var(--brand,#4f6ef2)}.tool-card .t-tabs button.t-tab.active{color:#fff;background:var(--brand,#4f6ef2);border-color:var(--brand,#4f6ef2);font-weight:600}.t-panel{display:none}.t-panel.active{display:block}.lt-search{margin:0 0 16px}.lt-search input{width:100%;box-sizing:border-box;padding:9px 12px;font-size:14px;color:var(--text-1,#333);border:1px solid var(--border,#ddd);border-radius:8px;outline:none}.lt-search input:focus{border-color:var(--brand,#4f6ef2)}.lt-sub{font-size:14px;font-weight:600;color:var(--text-2,#555);margin:0 0 10px;padding:8px 12px;background:var(--surface,#f6f7fb);border-left:3px solid var(--brand,#4f6ef2);border-radius:4px}.lt{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:13px;line-height:1.6}.lt th,.lt td{border:1px solid var(--border,#e4e4e4);padding:7px 10px;text-align:left;vertical-align:top}.lt th{background:var(--surface,#f4f6fb);font-weight:600;white-space:nowrap;color:var(--text-1,#333)}.lt td:first-child{font-family:Consolas,Monaco,Menlo,monospace;color:#0a6b5a;overflow-wrap:anywhere;cursor:pointer;position:relative}.lt td:first-child:hover{background:#e8f5ee!important}.lt td:first-child.copied{background:#d4edda!important}.lt-copied{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:11px;color:#155724;background:#d4edda;border-radius:3px;padding:1px 5px;white-space:nowrap}.lt tr:nth-child(even) td{background:#fafbfe}.lt-empty{display:none;padding:20px;text-align:center;color:var(--text-3,#999);font-size:13px}.hm-note{background:#fef6e7;border:1px solid #f3ddb6;color:#b45309;border-radius:10px;padding:10px 14px;font-size:13px;margin:10px 0}.hm-note b{font-weight:700}.hm-tip{background:#eaf1ff;border:1px solid #bcd0f7;color:#2459c8;border-radius:10px;padding:10px 14px;font-size:13px;margin:10px 0}.hm-card{background:#fff;border:1px solid var(--border,#e3e6ea);border-radius:10px;padding:12px 14px;margin-bottom:10px}.hm-card h3{font-size:14px;margin:0 0 4px}.hm-card .hm-desc{font-size:13px;color:var(--text-2,#666);margin-bottom:8px}</style><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🤖</span>Claude Code 命令速查</h2><p class="tool-desc">Claude Code CLI 命令在线速查：涵盖会话管理、文件操作、Git 集成、MCP 工具调用、配置管理等常用命令，点击命令即可复制。</p>   <div class="lt-search"><input type="search" id="linuxSearch" placeholder="输入命令或说明快速过滤" autocomplete="off" /></div><ul class="t-tabs"><li><button type="button" class="t-tab active" data-panel="p-basic">🚀 基础命令</button></li><li><button type="button" class="t-tab" data-panel="p-file">📁 文件操作</button></li><li><button type="button" class="t-tab" data-panel="p-git">🌿 Git 集成</button></li><li><button type="button" class="t-tab" data-panel="p-mcp">🔌 MCP 工具</button></li><li><button type="button" class="t-tab" data-panel="p-config">⚙️ 配置管理</button></li><li><button type="button" class="t-tab" data-panel="p-trouble">🔧 故障排查</button></li></ul><div class="t-panel-wrap"><div class="lt-empty" id="linuxEmpty">未找到匹配的命令，请尝试其他关键词</div>
+
+<div class="t-panel active" id="p-basic">
+<h3 class="lt-sub">会话管理</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>启动交互会话</td><td>claude</td></tr>
+<tr><td>单次执行（非交互）</td><td>claude -p "你的提示词"</td></tr>
+<tr><td>继续上次会话</td><td>claude -r</td></tr>
+<tr><td>指定会话 ID 继续</td><td>claude -r &lt;session_id&gt;</td></tr>
+<tr><td>列出历史会话</td><td>claude sessions list</td></tr>
+<tr><td>清除当前会话</td><td>claude sessions clear</td></tr>
+<tr><td>退出会话</td><td>/exit 或 Ctrl+C</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-file">
+<h3 class="lt-sub">文件与代码操作</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>读取文件</td><td>请读取 path/to/file.txt</td></tr>
+<tr><td>写入文件</td><td>将以下内容写入 path/to/file.txt: ...</td></tr>
+<tr><td>搜索文件</td><td>在当前目录搜索包含 "关键词" 的文件</td></tr>
+<tr><td>列出目录</td><td>列出当前目录下的所有文件</td></tr>
+<tr><td>编辑代码</td><td>修改 path/to/file.js 第 10-15 行</td></tr>
+<tr><td>创建文件</td><td>创建 path/to/newfile.py 并写入内容</td></tr>
+<tr><td>删除文件</td><td>删除 path/to/oldfile.txt</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-git">
+<h3 class="lt-sub">Git 集成</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>查看状态</td><td>git status</td></tr>
+<tr><td>查看差异</td><td>git diff</td></tr>
+<tr><td>提交更改</td><td>git commit -m "提交信息"</td></tr>
+<tr><td>创建分支</td><td>git checkout -b feature/new-feature</td></tr>
+<tr><td>合并分支</td><td>git merge feature/branch-name</td></tr>
+<tr><td>推送代码</td><td>git push origin main</td></tr>
+<tr><td>拉取更新</td><td>git pull origin main</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-mcp">
+<h3 class="lt-sub">MCP 工具调用</h3>
+<div class="hm-note">⚠️ MCP (Model Context Protocol) 允许 Claude 调用外部工具和服务</div>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>列出可用工具</td><td>/mcp list</td></tr>
+<tr><td>调用工具</td><td>使用 tool_name 工具执行操作</td></tr>
+<tr><td>查看工具详情</td><td>/mcp describe tool_name</td></tr>
+<tr><td>配置 MCP</td><td>编辑 ~/.claude/claude_desktop_config.json</td></tr>
+<tr><td>重启 MCP 服务</td><td>重启 Claude Desktop 应用</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-config">
+<h3 class="lt-sub">配置管理</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>查看配置</td><td>claude config list</td></tr>
+<tr><td>设置 API Key</td><td>export ANTHROPIC_API_KEY=your_key</td></tr>
+<tr><td>设置默认模型</td><td>claude config set model claude-3-5-sonnet</td></tr>
+<tr><td>设置温度</td><td>claude config set temperature 0.7</td></tr>
+<tr><td>设置最大 token</td><td>claude config set max_tokens 4096</td></tr>
+<tr><td>重置配置</td><td>claude config reset</td></tr>
+<tr><td>配置文件路径</td><td>~/.claude/config.json</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-trouble">
+<h3 class="lt-sub">故障排查</h3>
+
+<div class="hm-card"><h3>① 命令未找到</h3><div class="hm-desc"><b>根因</b>：claude CLI 未安装或不在 PATH 中 · <b>解法</b>：安装或检查环境变量</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查安装</td><td>which claude</td></tr><tr><td>重新安装</td><td>npm install -g @anthropic-ai/claude-code</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>② API Key 无效</h3><div class="hm-desc"><b>根因</b>：API Key 未设置或过期 · <b>解法</b>：检查环境变量或重新设置</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查环境变量</td><td>echo $ANTHROPIC_API_KEY</td></tr><tr><td>重新设置</td><td>export ANTHROPIC_API_KEY=your_new_key</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>③ 网络连接失败</h3><div class="hm-desc"><b>根因</b>：网络问题或代理配置 · <b>解法</b>：检查网络连接和代理设置</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>测试网络</td><td>curl https://api.anthropic.com</td></tr><tr><td>设置代理</td><td>export HTTPS_PROXY=http://proxy:port</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>④ 权限被拒绝</h3><div class="hm-desc"><b>根因</b>：文件读写权限不足 · <b>解法</b>：使用 sudo 或调整权限</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查权限</td><td>ls -la path/to/file</td></tr><tr><td>修改权限</td><td>chmod 644 path/to/file</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>⑤ 会话卡住无响应</h3><div class="hm-desc"><b>根因</b>：长时间运行或 API 超时 · <b>解法</b>：中断并重启会话</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>中断</td><td>Ctrl+C</td></tr><tr><td>重启</td><td>claude</td></tr></tbody></table></div>
+</div>
+
+</div></div></div>
+{include file="nav" /}
+{include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function(){'use strict';
+var tabs=document.querySelectorAll('.t-tab'),panels=document.querySelectorAll('.t-panel'),box=document.getElementById('linuxSearch'),empty=document.getElementById('linuxEmpty');
+function filter(){
+  var q=box.value.trim().toLowerCase(),active=document.querySelector('.t-panel.active'),n=0;
+  active.querySelectorAll('tbody tr').forEach(function(tr){
+    if(tr.querySelector('th')){tr.style.display='';return;}
+    var hit=!q||tr.textContent.toLowerCase().indexOf(q)>-1;
+    tr.style.display=hit?'':'none';
+    if(hit)n++;
+  });
+  empty.style.display=(q&&n===0)?'block':'none';
+}
+tabs.forEach(function(b){b.addEventListener('click',function(){
+  tabs.forEach(function(x){x.classList.remove('active');});
+  panels.forEach(function(p){p.classList.remove('active');});
+  b.classList.add('active');
+  document.getElementById(b.getAttribute('data-panel')).classList.add('active');
+  filter();
+});});
+box.addEventListener('input',filter);
+
+// ===== 点击命令代码一键复制 =====
+function ltFallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+}
+function ltCopy(text, td) {
+    function ok() {
+        td.classList.add('copied');
+        var tip = document.createElement('span');
+        tip.className = 'lt-copied';
+        tip.textContent = '✓ 已复制';
+        td.appendChild(tip);
+        setTimeout(function () {
+            td.classList.remove('copied');
+            if (tip.parentNode) tip.parentNode.removeChild(tip);
+        }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, function () { ltFallbackCopy(text); ok(); });
+    } else {
+        ltFallbackCopy(text); ok();
+    }
+}
+document.addEventListener('click', function (e) {
+    var n = e.target;
+    while (n && n.tagName !== 'TD' && n !== document.body) n = n.parentNode;
+    if (!n || n.tagName !== 'TD') return;
+    var table = n.closest ? n.closest('table.lt') : null;
+    if (!table) return;
+    if (n.cellIndex !== 0 && n.cellIndex !== 1) return;
+    if (n.querySelector('th')) return;
+    var txt = n.textContent.replace(/\s+/g, ' ').trim();
+    if (txt) ltCopy(txt, n);
+});
+})();
+</script>
+<script src="/static/script/sample-data.js" type="text/javascript"></script>
+</body></html>

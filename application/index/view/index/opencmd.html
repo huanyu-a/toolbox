@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.opencmd.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.opencmd.keywords}" /><meta name="description" content="{$Think.config.web.opencmd.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><style>.tool-card .t-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}.tool-card .t-tabs li{margin:0}.tool-card .t-tabs button.t-tab{display:inline-block;padding:7px 14px;font-size:13px;line-height:1.4;color:var(--text-2,#666);background:var(--surface,#fff);border:1px solid var(--border,#ddd);border-radius:8px;cursor:pointer;transition:color .2s,border-color .2s}.tool-card .t-tabs button.t-tab:hover{color:var(--brand,#4f6ef2);border-color:var(--brand,#4f6ef2)}.tool-card .t-tabs button.t-tab.active{color:#fff;background:var(--brand,#4f6ef2);border-color:var(--brand,#4f6ef2);font-weight:600}.t-panel{display:none}.t-panel.active{display:block}.lt-search{margin:0 0 16px}.lt-search input{width:100%;box-sizing:border-box;padding:9px 12px;font-size:14px;color:var(--text-1,#333);border:1px solid var(--border,#ddd);border-radius:8px;outline:none}.lt-search input:focus{border-color:var(--brand,#4f6ef2)}.lt-sub{font-size:14px;font-weight:600;color:var(--text-2,#555);margin:0 0 10px;padding:8px 12px;background:var(--surface,#f6f7fb);border-left:3px solid var(--brand,#4f6ef2);border-radius:4px}.lt{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:13px;line-height:1.6}.lt th,.lt td{border:1px solid var(--border,#e4e4e4);padding:7px 10px;text-align:left;vertical-align:top}.lt th{background:var(--surface,#f4f6fb);font-weight:600;white-space:nowrap;color:var(--text-1,#333)}.lt td:first-child{font-family:Consolas,Monaco,Menlo,monospace;color:#0a6b5a;overflow-wrap:anywhere;cursor:pointer;position:relative}.lt td:first-child:hover{background:#e8f5ee!important}.lt td:first-child.copied{background:#d4edda!important}.lt-copied{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:11px;color:#155724;background:#d4edda;border-radius:3px;padding:1px 5px;white-space:nowrap}.lt tr:nth-child(even) td{background:#fafbfe}.lt-empty{display:none;padding:20px;text-align:center;color:var(--text-3,#999);font-size:13px}.hm-note{background:#fef6e7;border:1px solid #f3ddb6;color:#b45309;border-radius:10px;padding:10px 14px;font-size:13px;margin:10px 0}.hm-note b{font-weight:700}.hm-tip{background:#eaf1ff;border:1px solid #bcd0f7;color:#2459c8;border-radius:10px;padding:10px 14px;font-size:13px;margin:10px 0}.hm-card{background:#fff;border:1px solid var(--border,#e3e6ea);border-radius:10px;padding:12px 14px;margin-bottom:10px}.hm-card h3{font-size:14px;margin:0 0 4px}.hm-card .hm-desc{font-size:13px;color:var(--text-2,#666);margin-bottom:8px}</style><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🌐</span>Open Code 命令速查</h2><p class="tool-desc">Open Code CLI 命令在线速查：涵盖会话管理、模型切换、插件系统、配置管理等常用命令，点击命令即可复制。</p>   <div class="lt-search"><input type="search" id="linuxSearch" placeholder="输入命令或说明快速过滤" autocomplete="off" /></div><ul class="t-tabs"><li><button type="button" class="t-tab active" data-panel="p-basic">🚀 基础命令</button></li><li><button type="button" class="t-tab" data-panel="p-model">🧠 模型管理</button></li><li><button type="button" class="t-tab" data-panel="p-plugin">🔌 插件系统</button></li><li><button type="button" class="t-tab" data-panel="p-config">⚙️ 配置管理</button></li><li><button type="button" class="t-tab" data-panel="p-trouble">🔧 故障排查</button></li></ul><div class="t-panel-wrap"><div class="lt-empty" id="linuxEmpty">未找到匹配的命令，请尝试其他关键词</div>
+
+<div class="t-panel active" id="p-basic">
+<h3 class="lt-sub">会话管理</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>启动交互会话</td><td>open-code</td></tr>
+<tr><td>单次执行</td><td>open-code run "你的提示词"</td></tr>
+<tr><td>继续会话</td><td>open-code continue</td></tr>
+<tr><td>列出历史</td><td>open-code history</td></tr>
+<tr><td>清除历史</td><td>open-code clear</td></tr>
+<tr><td>查看版本</td><td>open-code --version</td></tr>
+<tr><td>显示帮助</td><td>open-code --help</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-model">
+<h3 class="lt-sub">模型切换与管理</h3>
+<div class="hm-note">⚠️ Open Code 支持多模型后端，可动态切换</div>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>查看当前模型</td><td>open-code model get</td></tr>
+<tr><td>切换到 GPT-4</td><td>open-code model use gpt-4</td></tr>
+<tr><td>切换到 Claude</td><td>open-code model use claude-3-opus</td></tr>
+<tr><td>切换到本地模型</td><td>open-code model use llama2:70b</td></tr>
+<tr><td>列出可用模型</td><td>open-code model list</td></tr>
+<tr><td>设置默认模型</td><td>open-code model default gpt-4-turbo</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-plugin">
+<h3 class="lt-sub">插件系统</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>安装插件</td><td>open-code plugin install plugin-name</td></tr>
+<tr><td>卸载插件</td><td>open-code plugin uninstall plugin-name</td></tr>
+<tr><td>列出已安装</td><td>open-code plugin list</td></tr>
+<tr><td>搜索插件</td><td>open-code plugin search keyword</td></tr>
+<tr><td>更新插件</td><td>open-code plugin update plugin-name</td></tr>
+<tr><td>启用插件</td><td>open-code plugin enable plugin-name</td></tr>
+<tr><td>禁用插件</td><td>open-code plugin disable plugin-name</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-config">
+<h3 class="lt-sub">配置管理</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>查看配置</td><td>open-code config show</td></tr>
+<tr><td>设置 API Key</td><td>open-code config set api_key YOUR_KEY</td></tr>
+<tr><td>设置温度</td><td>open-code config set temperature 0.7</td></tr>
+<tr><td>设置 max_tokens</td><td>open-code config set max_tokens 4096</td></tr>
+<tr><td>重置配置</td><td>open-code config reset</td></tr>
+<tr><td>编辑配置文件</td><td>open-code config edit</td></tr>
+<tr><td>配置文件路径</td><td>~/.open-code/config.json</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-trouble">
+<h3 class="lt-sub">故障排查</h3>
+
+<div class="hm-card"><h3>① 命令未找到</h3><div class="hm-desc"><b>根因</b>：open-code 未安装或不在 PATH · <b>解法</b>：检查安装和环境变量</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查安装</td><td>which open-code</td></tr><tr><td>重新安装</td><td>npm install -g @open-code/cli</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>② 模型连接失败</h3><div class="hm-desc"><b>根因</b>：API Key 无效或模型不可用 · <b>解法</b>：验证 API Key 并切换模型</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>测试连接</td><td>open-code model test</td></tr><tr><td>切换模型</td><td>open-code model use gpt-4</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>③ 插件加载失败</h3><div class="hm-desc"><b>根因</b>：插件版本不兼容或依赖缺失 · <b>解法</b>：更新或重装插件</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查日志</td><td>open-code plugin logs plugin-name</td></tr><tr><td>重装插件</td><td>open-code plugin reinstall plugin-name</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>④ 会话数据丢失</h3><div class="hm-desc"><b>根因</b>：缓存损坏或磁盘空间不足 · <b>解法</b>：清理缓存并重启</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>清理缓存</td><td>open-code cache clear</td></tr><tr><td>检查磁盘</td><td>df -h</td></tr></tbody></table></div>
+</div>
+
+</div></div></div>
+{include file="nav" /}
+{include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function(){'use strict';
+var tabs=document.querySelectorAll('.t-tab'),panels=document.querySelectorAll('.t-panel'),box=document.getElementById('linuxSearch'),empty=document.getElementById('linuxEmpty');
+function filter(){
+  var q=box.value.trim().toLowerCase(),active=document.querySelector('.t-panel.active'),n=0;
+  active.querySelectorAll('tbody tr').forEach(function(tr){
+    if(tr.querySelector('th')){tr.style.display='';return;}
+    var hit=!q||tr.textContent.toLowerCase().indexOf(q)>-1;
+    tr.style.display=hit?'':'none';
+    if(hit)n++;
+  });
+  empty.style.display=(q&&n===0)?'block':'none';
+}
+tabs.forEach(function(b){b.addEventListener('click',function(){
+  tabs.forEach(function(x){x.classList.remove('active');});
+  panels.forEach(function(p){p.classList.remove('active');});
+  b.classList.add('active');
+  document.getElementById(b.getAttribute('data-panel')).classList.add('active');
+  filter();
+});});
+box.addEventListener('input',filter);
+
+function ltFallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+}
+function ltCopy(text, td) {
+    function ok() {
+        td.classList.add('copied');
+        var tip = document.createElement('span');
+        tip.className = 'lt-copied';
+        tip.textContent = '✓ 已复制';
+        td.appendChild(tip);
+        setTimeout(function () {
+            td.classList.remove('copied');
+            if (tip.parentNode) tip.parentNode.removeChild(tip);
+        }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, function () { ltFallbackCopy(text); ok(); });
+    } else {
+        ltFallbackCopy(text); ok();
+    }
+}
+document.addEventListener('click', function (e) {
+    var n = e.target;
+    while (n && n.tagName !== 'TD' && n !== document.body) n = n.parentNode;
+    if (!n || n.tagName !== 'TD') return;
+    var table = n.closest ? n.closest('table.lt') : null;
+    if (!table) return;
+    if (n.cellIndex !== 0 && n.cellIndex !== 1) return;
+    if (n.querySelector('th')) return;
+    var txt = n.textContent.replace(/\s+/g, ' ').trim();
+    if (txt) ltCopy(txt, n);
+});
+})();
+</script>
+<script src="/static/script/sample-data.js" type="text/javascript"></script>
+</body></html>

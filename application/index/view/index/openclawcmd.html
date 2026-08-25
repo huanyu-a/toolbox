@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.openclawcmd.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.openclawcmd.keywords}" /><meta name="description" content="{$Think.config.web.openclawcmd.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
+<link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><style>.tool-card .t-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}.tool-card .t-tabs li{margin:0}.tool-card .t-tabs button.t-tab{display:inline-block;padding:7px 14px;font-size:13px;line-height:1.4;color:var(--text-2,#666);background:var(--surface,#fff);border:1px solid var(--border,#ddd);border-radius:8px;cursor:pointer;transition:color .2s,border-color .2s}.tool-card .t-tabs button.t-tab:hover{color:var(--brand,#4f6ef2);border-color:var(--brand,#4f6ef2)}.tool-card .t-tabs button.t-tab.active{color:#fff;background:var(--brand,#4f6ef2);border-color:var(--brand,#4f6ef2);font-weight:600}.t-panel{display:none}.t-panel.active{display:block}.lt-search{margin:0 0 16px}.lt-search input{width:100%;box-sizing:border-box;padding:9px 12px;font-size:14px;color:var(--text-1,#333);border:1px solid var(--border,#ddd);border-radius:8px;outline:none}.lt-search input:focus{border-color:var(--brand,#4f6ef2)}.lt-sub{font-size:14px;font-weight:600;color:var(--text-2,#555);margin:0 0 10px;padding:8px 12px;background:var(--surface,#f6f7fb);border-left:3px solid var(--brand,#4f6ef2);border-radius:4px}.lt{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:13px;line-height:1.6}.lt th,.lt td{border:1px solid var(--border,#e4e4e4);padding:7px 10px;text-align:left;vertical-align:top}.lt th{background:var(--surface,#f4f6fb);font-weight:600;white-space:nowrap;color:var(--text-1,#333)}.lt td:first-child{font-family:Consolas,Monaco,Menlo,monospace;color:#0a6b5a;overflow-wrap:anywhere;cursor:pointer;position:relative}.lt td:first-child:hover{background:#e8f5ee!important}.lt td:first-child.copied{background:#d4edda!important}.lt-copied{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:11px;color:#155724;background:#d4edda;border-radius:3px;padding:1px 5px;white-space:nowrap}.lt tr:nth-child(even) td{background:#fafbfe}.lt-empty{display:none;padding:20px;text-align:center;color:var(--text-3,#999);font-size:13px}.hm-note{background:#fef6e7;border:1px solid #f3ddb6;color:#b45309;border-radius:10px;padding:10px 14px;font-size:13px;margin:10px 0}.hm-note b{font-weight:700}.hm-tip{background:#eaf1ff;border:1px solid #bcd0f7;color:#2459c8;border-radius:10px;padding:10px 14px;font-size:13px;margin:10px 0}.hm-card{background:#fff;border:1px solid var(--border,#e3e6ea);border-radius:10px;padding:12px 14px;margin-bottom:10px}.hm-card h3{font-size:14px;margin:0 0 4px}.hm-card .hm-desc{font-size:13px;color:var(--text-2,#666);margin-bottom:8px}</style><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">🦞</span>OpenClaw 命令速查</h2><p class="tool-desc">OpenClaw CLI 命令在线速查：涵盖技能管理、Agent 部署、MCP 集成、配置管理等常用命令，点击命令即可复制。</p>   <div class="lt-search"><input type="search" id="linuxSearch" placeholder="输入命令或说明快速过滤" autocomplete="off" /></div><ul class="t-tabs"><li><button type="button" class="t-tab active" data-panel="p-basic">🚀 基础命令</button></li><li><button type="button" class="t-tab" data-panel="p-skill">🎯 技能管理</button></li><li><button type="button" class="t-tab" data-panel="p-agent">🤖 Agent 部署</button></li><li><button type="button" class="t-tab" data-panel="p-mcp">🔌 MCP 集成</button></li><li><button type="button" class="t-tab" data-panel="p-config">⚙️ 配置管理</button></li><li><button type="button" class="t-tab" data-panel="p-trouble">🔧 故障排查</button></li></ul><div class="t-panel-wrap"><div class="lt-empty" id="linuxEmpty">未找到匹配的命令，请尝试其他关键词</div>
+
+<div class="t-panel active" id="p-basic">
+<h3 class="lt-sub">会话管理</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>启动交互会话</td><td>openclaw</td></tr>
+<tr><td>单次执行</td><td>openclaw run "你的指令"</td></tr>
+<tr><td>继续会话</td><td>openclaw continue</td></tr>
+<tr><td>列出历史</td><td>openclaw history</td></tr>
+<tr><td>清除历史</td><td>openclaw history clear</td></tr>
+<tr><td>查看状态</td><td>openclaw status</td></tr>
+<tr><td>查看版本</td><td>openclaw --version</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-skill">
+<h3 class="lt-sub">技能管理</h3>
+<div class="hm-note">⚠️ 技能（Skills）是 OpenClaw 的核心功能模块</div>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>列出技能</td><td>openclaw skill list</td></tr>
+<tr><td>安装技能</td><td>openclaw skill install skill-name</td></tr>
+<tr><td>卸载技能</td><td>openclaw skill uninstall skill-name</td></tr>
+<tr><td>创建技能</td><td>openclaw skill create new-skill</td></tr>
+<tr><td>编辑技能</td><td>openclaw skill edit skill-name</td></tr>
+<tr><td>测试技能</td><td>openclaw skill test skill-name</td></tr>
+<tr><td>发布技能</td><td>openclaw skill publish skill-name</td></tr>
+<tr><td>搜索技能</td><td>openclaw skill search keyword</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-agent">
+<h3 class="lt-sub">Agent 部署</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>部署 Agent</td><td>openclaw agent deploy agent-name</td></tr>
+<tr><td>停止 Agent</td><td>openclaw agent stop agent-name</td></tr>
+<tr><td>重启 Agent</td><td>openclaw agent restart agent-name</td></tr>
+<tr><td>查看状态</td><td>openclaw agent status agent-name</td></tr>
+<tr><td>查看日志</td><td>openclaw agent logs agent-name</td></tr>
+<tr><td>列出 Agents</td><td>openclaw agent list</td></tr>
+<tr><td>配置 Agent</td><td>openclaw agent config agent-name</td></tr>
+<tr><td>删除 Agent</td><td>openclaw agent delete agent-name</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-mcp">
+<h3 class="lt-sub">MCP 集成</h3>
+<div class="hm-note">⚠️ MCP (Model Context Protocol) 允许连接外部工具和服务</div>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>列出 MCP 服务器</td><td>openclaw mcp list</td></tr>
+<tr><td>添加 MCP 服务器</td><td>openclaw mcp add server-name --url http://host:port</td></tr>
+<tr><td>移除 MCP 服务器</td><td>openclaw mcp remove server-name</td></tr>
+<tr><td>测试连接</td><td>openclaw mcp test server-name</td></tr>
+<tr><td>查看工具列表</td><td>openclaw mcp tools server-name</td></tr>
+<tr><td>重启 MCP 服务</td><td>openclaw mcp restart server-name</td></tr>
+<tr><td>编辑配置</td><td>openclaw mcp config edit</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-config">
+<h3 class="lt-sub">配置管理</h3>
+<table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr>
+<tr><td>查看配置</td><td>openclaw config show</td></tr>
+<tr><td>设置 API Key</td><td>openclaw config set api_key YOUR_KEY</td></tr>
+<tr><td>设置模型</td><td>openclaw config set model claude-3-opus</td></tr>
+<tr><td>设置工作目录</td><td>openclaw config set workspace /path/to/dir</td></tr>
+<tr><td>设置日志级别</td><td>openclaw config set log_level debug</td></tr>
+<tr><td>重置配置</td><td>openclaw config reset</td></tr>
+<tr><td>配置文件路径</td><td>~/.openclaw/config.yaml</td></tr>
+</tbody></table>
+</div>
+
+<div class="t-panel" id="p-trouble">
+<h3 class="lt-sub">故障排查</h3>
+
+<div class="hm-card"><h3>① 技能加载失败</h3><div class="hm-desc"><b>根因</b>：技能依赖缺失或版本不兼容 · <b>解法</b>：安装依赖或更新技能</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查依赖</td><td>openclaw skill deps skill-name</td></tr><tr><td>安装依赖</td><td>openclaw skill install-deps skill-name</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>② Agent 部署失败</h3><div class="hm-desc"><b>根因</b>：资源不足或配置错误 · <b>解法</b>：检查日志并调整配置</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>查看日志</td><td>openclaw agent logs agent-name --tail 50</td></tr><tr><td>验证配置</td><td>openclaw agent validate agent-name</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>③ MCP 连接超时</h3><div class="hm-desc"><b>根因</b>：网络问题或服务不可达 · <b>解法</b>：检查网络和服务器状态</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>测试连接</td><td>openclaw mcp ping server-name</td></tr><tr><td>查看状态</td><td>openclaw mcp status server-name</td></tr></tbody></table></div>
+
+<div class="hm-card"><h3>④ 权限被拒绝</h3><div class="hm-desc"><b>根因</b>：文件系统或网络权限不足 · <b>解法</b>：使用 sudo 或调整权限</div><table class="lt"><tbody><tr><th>操作</th><th>命令</th></tr><tr><td>检查权限</td><td>ls -la ~/.openclaw/</td></tr><tr><td>修复权限</td><td>chmod -R 755 ~/.openclaw/</td></tr></tbody></table></div>
+</div>
+
+</div></div></div>
+{include file="nav" /}
+{include file="footer" /}
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function(){'use strict';
+var tabs=document.querySelectorAll('.t-tab'),panels=document.querySelectorAll('.t-panel'),box=document.getElementById('linuxSearch'),empty=document.getElementById('linuxEmpty');
+function filter(){
+  var q=box.value.trim().toLowerCase(),active=document.querySelector('.t-panel.active'),n=0;
+  active.querySelectorAll('tbody tr').forEach(function(tr){
+    if(tr.querySelector('th')){tr.style.display='';return;}
+    var hit=!q||tr.textContent.toLowerCase().indexOf(q)>-1;
+    tr.style.display=hit?'':'none';
+    if(hit)n++;
+  });
+  empty.style.display=(q&&n===0)?'block':'none';
+}
+tabs.forEach(function(b){b.addEventListener('click',function(){
+  tabs.forEach(function(x){x.classList.remove('active');});
+  panels.forEach(function(p){p.classList.remove('active');});
+  b.classList.add('active');
+  document.getElementById(b.getAttribute('data-panel')).classList.add('active');
+  filter();
+});});
+box.addEventListener('input',filter);
+
+function ltFallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+}
+function ltCopy(text, td) {
+    function ok() {
+        td.classList.add('copied');
+        var tip = document.createElement('span');
+        tip.className = 'lt-copied';
+        tip.textContent = '✓ 已复制';
+        td.appendChild(tip);
+        setTimeout(function () {
+            td.classList.remove('copied');
+            if (tip.parentNode) tip.parentNode.removeChild(tip);
+        }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, function () { ltFallbackCopy(text); ok(); });
+    } else {
+        ltFallbackCopy(text); ok();
+    }
+}
+document.addEventListener('click', function (e) {
+    var n = e.target;
+    while (n && n.tagName !== 'TD' && n !== document.body) n = n.parentNode;
+    if (!n || n.tagName !== 'TD') return;
+    var table = n.closest ? n.closest('table.lt') : null;
+    if (!table) return;
+    if (n.cellIndex !== 0 && n.cellIndex !== 1) return;
+    if (n.querySelector('th')) return;
+    var txt = n.textContent.replace(/\s+/g, ' ').trim();
+    if (txt) ltCopy(txt, n);
+});
+})();
+</script>
+<script src="/static/script/sample-data.js" type="text/javascript"></script>
+</body></html>
