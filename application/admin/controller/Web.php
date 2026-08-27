@@ -64,7 +64,7 @@ class Web extends Base
         if ($id > 0) {
             $q = site_cfg_pdo()->prepare('SELECT * FROM friend_links WHERE id=?');
             $q->execute(array($id));
-            $row = $q->fetch(PDO::FETCH_ASSOC);
+            $row = $q->fetch(\PDO::FETCH_ASSOC);
         }
         if (!$row || !$row['id']) {
             // 新增模式给默认值

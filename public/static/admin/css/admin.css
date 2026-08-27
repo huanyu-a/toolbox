@@ -628,24 +628,3 @@ body.side-collapsed .admin-main { margin-left: 0; }
     .topbar-right a[href="/"] { display: none; }
 }
 
-/* ---------- iframe 内页主题切换按钮 ---------- */
-.theme-toggle-sm {
-    width: 32px; height: 32px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    color: var(--text-2);
-    font-size: 14px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: border-color .15s, background .15s, color .15s;
-    margin-left: auto;
-    flex-shrink: 0;
-}
-.theme-toggle-sm:hover {
-    border-color: var(--brand);
-    color: var(--brand);
-}
