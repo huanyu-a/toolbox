@@ -1204,7 +1204,9 @@
 .gotop i {
     display: block;
     font-size: 16px;
-    line-height: 1;
+    line-height: 40px;
+    height: 40px;
+    transform: translateY(2px);
 }
 .copyright .fa-github {
     font-size: 15px;
