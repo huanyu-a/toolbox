@@ -680,3 +680,237 @@
     .home-cta-title { font-size: 24px; }
     .home-cta-btn { padding: 12px 32px; font-size: 15px; }
 }
+
+/* ============================================================
+   Modern v2 — 参考 tools.video 的视觉语言升级
+   追加于文件末尾以获得级联优先；亮暗两套均适配
+   ============================================================ */
+
+/* ---------- Hero 极光背景 v2：更大更艳、缓慢漂移 ---------- */
+.home-hero-mesh {
+    opacity: 1;
+    background:
+        radial-gradient(ellipse 720px 520px at 18% 12%, color-mix(in srgb, var(--tb-primary) 22%, transparent) 0%, transparent 62%),
+        radial-gradient(ellipse 640px 480px at 82% 18%, color-mix(in srgb, var(--tb-c4) 20%, transparent) 0%, transparent 60%),
+        radial-gradient(ellipse 560px 420px at 68% 85%, color-mix(in srgb, var(--tb-c3) 16%, transparent) 0%, transparent 58%),
+        radial-gradient(ellipse 480px 380px at 32% 78%, color-mix(in srgb, var(--tb-c2) 14%, transparent) 0%, transparent 56%);
+    animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+[data-theme="dark"] .home-hero-mesh {
+    opacity: .45;
+}
+@keyframes aurora-drift {
+    0%   { transform: translate3d(0,0,0) scale(1); filter: hue-rotate(0deg); }
+    50%  { transform: translate3d(-2%,-2%,0) scale(1.06); }
+    100% { transform: translate3d(2%,1.5%,0) scale(1.02); filter: hue-rotate(14deg); }
+}
+
+/* ---------- 标题：更大更有气场，accent 流光 ---------- */
+.home-title {
+    font-size: clamp(40px, 4.6vw, 58px);
+    letter-spacing: -1.5px;
+    font-weight: 900;
+}
+.home-title strong,
+.home-title-accent {
+    background: linear-gradient(120deg, var(--tb-primary) 0%, var(--tb-primary-hover) 38%, var(--tb-c4) 70%, var(--tb-primary) 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: title-flow 6s ease-in-out infinite;
+}
+@keyframes title-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+.home-sub {
+    font-size: 16px;
+    max-width: 600px;
+}
+
+/* 徽章呼吸光 */
+.home-badge {
+    animation: badge-pulse 3.2s ease-in-out infinite;
+}
+@keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--tb-primary) 26%, transparent), var(--tb-shadow-sm); }
+    50%      { box-shadow: 0 0 0 9px transparent, var(--tb-shadow-sm); }
+}
+
+/* ---------- 搜索框：白玻璃+悬停微抬 ---------- */
+.home-search-input {
+    height: 56px;
+    border-radius: 100px;
+    border-color: var(--tb-border-strong);
+    box-shadow: 0 6px 24px rgba(45,42,36,.08);
+    transition: border-color .2s, box-shadow .25s, transform .25s;
+}
+.home-search-input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 34px color-mix(in srgb, var(--tb-primary) 16%, rgba(45,42,36,.08));
+}
+
+/* ---------- 热门标签：彩色圆点 chips（参考站语言） ---------- */
+.home-hot-label {
+    padding: 5px 14px;
+    border-radius: 100px;
+    background: color-mix(in srgb, var(--tb-warn) 12%, transparent);
+    color: color-mix(in srgb, var(--tb-warn) 72%, var(--tb-text));
+    font-weight: 700;
+}
+.home-hot a {
+    position: relative;
+    padding-left: 26px;
+    border: none;
+    background: color-mix(in srgb, var(--tb-text) 4%, var(--tb-surface));
+    box-shadow: inset 0 0 0 1px var(--tb-border), var(--tb-shadow-none, 0 0 0 transparent);
+}
+.home-hot a::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--dot-c, var(--tb-primary));
+    transition: transform .15s;
+}
+.home-hot a:nth-of-type(7n+1)::before { background: var(--tb-c1); }
+.home-hot a:nth-of-type(7n+2)::before { background: var(--tb-c2); }
+.home-hot a:nth-of-type(7n+3)::before { background: var(--tb-c3); }
+.home-hot a:nth-of-type(7n+4)::before { background: var(--tb-c4); }
+.home-hot a:nth-of-type(7n+5)::before { background: var(--tb-c5); }
+.home-hot a:nth-of-type(7n+6)::before { background: var(--tb-c6); }
+.home-hot a:nth-of-type(7n+7)::before { background: var(--tb-c7); }
+.home-hot a:hover {
+    color: var(--tb-text);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(45,42,36,.12);
+}
+.home-hot a:hover::before { transform: scale(1.45); }
+
+/* ---------- 特性条：玻璃拟态 + 图标彩底 ---------- */
+.home-features-inner { gap: 18px; }
+.home-feature {
+    background: color-mix(in srgb, var(--tb-surface) 72%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid color-mix(in srgb, var(--tb-border) 80%, transparent);
+    box-shadow: none;
+    border-radius: 16px;
+}
+.home-feature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(45,42,36,.10);
+    border-color: color-mix(in srgb, var(--tile-c, var(--tb-primary)) 35%, var(--tb-border));
+}
+.home-feature:nth-child(1) { --tile-c: var(--tb-c7); }
+.home-feature:nth-child(2) { --tile-c: var(--tb-c4); }
+.home-feature:nth-child(3) { --tile-c: var(--tb-c5); }
+.home-feature:nth-child(4) { --tile-c: var(--tb-c2); }
+.home-feature-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+    border-radius: 13px;
+    background:
+        linear-gradient(135deg,
+            color-mix(in srgb, var(--tile-c) 92%, white) 0%,
+            var(--tile-c) 100%);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--tile-c) 30%, transparent);
+}
+
+/* ---------- 分类卡片：去顶条，图标块渐变化，悬浮强化 ---------- */
+.home-cat-card::before { display: none; }
+.home-cat-card {
+    transition: transform .25s cubic-bezier(.2,.7,.3,1), border-color .2s, box-shadow .25s;
+}
+.home-cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px color-mix(in srgb, var(--cat-c, var(--tb-primary)) 14%, rgba(45,42,36,.10));
+}
+.home-cat-card.open {
+    box-shadow: 0 14px 40px color-mix(in srgb, var(--cat-c, var(--tb-primary)) 18%, rgba(45,42,36,.12));
+}
+.home-cat-card-ico {
+    border-radius: 13px;
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--cat-c, var(--tb-primary)) 88%, white),
+        var(--cat-c, var(--tb-primary)));
+    color: #fff !important;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--cat-c, var(--tb-primary)) 34%, transparent);
+    transition: transform .2s;
+}
+.home-cat-card:hover .home-cat-card-ico { transform: scale(1.06) rotate(-3deg); }
+
+/* 标签胶囊染色 */
+.home-cat-tag {
+    border: 1px solid color-mix(in srgb, var(--cat-c, var(--tb-primary)) 22%, transparent);
+    background: color-mix(in srgb, var(--cat-c, var(--tb-primary)) 7%, transparent);
+    color: color-mix(in srgb, var(--cat-c, var(--tb-primary)) 65%, var(--tb-text));
+    border-radius: 100px;
+    padding: 4px 12px;
+    transition: transform .15s, box-shadow .15s;
+}
+.home-cat-tag:hover { transform: translateY(-1px); }
+
+/* 展开后的工具行 hover 右滑箭头感 */
+.home-cat-tool { border-radius: 10px; }
+.home-cat-tool:hover { background: color-mix(in srgb, var(--cat-c, var(--tb-primary)) 6%, transparent); }
+
+/* ---------- 三步指南：数字徽章渐变化 ---------- */
+.home-step-num {
+    background: linear-gradient(135deg, var(--tb-primary), var(--tb-c4));
+    color: #fff;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--tb-primary) 35%, transparent);
+}
+.home-step-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
+    border-radius: 15px;
+    background: var(--tb-surface);
+    border: 1px solid var(--tb-border);
+    box-shadow: var(--tb-shadow-sm);
+    margin-bottom: 12px;
+}
+.home-step:hover .home-step-ico { transform: translateY(-3px); transition: transform .2s; }
+
+/* ---------- CTA 按钮：渐变+箭头动效 ---------- */
+.home-cta-btn {
+    background: linear-gradient(135deg, var(--tb-primary), var(--tb-c5));
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--tb-primary) 34%, transparent);
+    letter-spacing: .5px;
+}
+.home-cta-btn:hover {
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--tb-primary) 44%, transparent);
+    transform: translateY(-2px);
+}
+
+/* ---------- 滚动入场动画（app.js 注入 .rv / .in） ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    .rv {
+        opacity: 0;
+        transform: translateY(18px);
+        will-change: opacity, transform;
+    }
+    .rv.rv-in {
+        opacity: 1;
+        transform: none;
+        transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+    }
+}
+
+/* ---------- 卡片入场交错延迟 ---------- */
+.home-features-inner .rv:nth-child(2), .home-cat-cards .rv:nth-child(5n+2) { transition-delay: .05s; }
+.home-features-inner .rv:nth-child(3), .home-cat-cards .rv:nth-child(5n+3) { transition-delay: .10s; }
+.home-features-inner .rv:nth-child(4), .home-cat-cards .rv:nth-child(5n+4) { transition-delay: .15s; }

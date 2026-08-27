@@ -30,7 +30,13 @@
                 <li class="nav-search">
                     <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
                 </li>
-                <li class="nav-theme"><a href="javascript:;" id="themeToggle" class="theme-toggle-btn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></a></li>
+                <li class="nav-theme">
+                    <div class="theme-seg" id="themeSeg" role="group" aria-label="主题模式">
+                        <button type="button" data-mode="light" title="浅色模式">☀️</button>
+                        <button type="button" data-mode="dark" title="深色模式">🌙</button>
+                        <button type="button" data-mode="auto" title="跟随系统">🌗</button>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

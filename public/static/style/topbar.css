@@ -375,3 +375,60 @@ body { background: var(--tb-bg); }
     color: var(--tb-primary) !important;
 }
 .copyright span { margin: 0 .5em; }
+
+
+/* ============================================================
+   Modern v2 — 导航滚动玻璃态 + 三态主题切换器
+   ============================================================ */
+
+/* 滚动后顶栏增强（.scrolled 由 app.js 切换） */
+.topbar {
+    transition: box-shadow .25s ease, background .25s ease;
+    box-shadow: none;
+}
+.topbar.scrolled {
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    background: color-mix(in srgb, var(--tb-surface) 86%, transparent) !important;
+    box-shadow: 0 4px 20px rgba(45, 42, 36, .08);
+}
+[data-theme="dark"] .topbar.scrolled {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .45);
+}
+
+/* 三态主题切换器：浅色 / 深色 / 跟随系统 */
+.theme-seg {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 100px;
+    background: var(--tb-surface-hover);
+    border: 1px solid var(--tb-border);
+}
+.theme-seg button {
+    width: 30px;
+    height: 26px;
+    border: none;
+    border-radius: 100px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tb-text-3);
+    transition: background .18s, box-shadow .18s, transform .12s;
+    padding: 0;
+}
+.theme-seg button:hover {
+    transform: translateY(-1px);
+    color: var(--tb-text);
+}
+.theme-seg button.on {
+    background: var(--tb-surface);
+    color: var(--tb-primary);
+    box-shadow: 0 2px 8px rgba(45, 42, 36, .14), inset 0 0 0 1px var(--tb-border);
+}
+.nav-theme a.theme-toggle-btn { display: none; }

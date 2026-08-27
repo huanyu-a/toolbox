@@ -5,10 +5,19 @@
 (function (window, document, $) {
     'use strict';
 
-    /* ---------- 深色模式 ---------- */
+    /* ---------- 深色模式（三态：light / dark / auto） ---------- */
     var THEME_KEY = 'toolbox_theme';
     var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
+    function savedMode() {
+        try { return localStorage.getItem(THEME_KEY); } catch (e) { return null; }
+    }
+    function resolvedTheme() {
+        var m = savedMode();
+        if (m !== 'light' && m !== 'dark') m = 'auto';
+        if (m === 'auto') return (mql && mql.matches) ? 'dark' : 'light';
+        return m;
+    }
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
@@ -19,31 +28,82 @@
         icons.forEach(function (icon) {
             icon.textContent = theme === 'dark' ? '☀️' : '🌙';
         });
-        try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* ignore */ }
+        syncSeg(savedMode() || 'auto');
+    }
+
+    /* 分段式主题切换器（浅/深/跟随系统）状态同步 */
+    function syncSeg(mode) {
+        var segEl = document.getElementById('themeSeg');
+        if (!segEl) return;
+        segEl.querySelectorAll('button').forEach(function (b) {
+            b.classList.toggle('on', b.getAttribute('data-mode') === mode);
+        });
+    }
+    function setTheme(mode) {
+        try { localStorage.setItem(THEME_KEY, mode); } catch (e) { /* ignore */ }
+        applyTheme(resolvedTheme());
     }
 
     function initTheme() {
-        var saved = null;
-        try { saved = localStorage.getItem(THEME_KEY); } catch (e) { /* ignore */ }
-        var theme = saved || (mql && mql.matches ? 'dark' : 'light');
-        applyTheme(theme);
+        applyTheme(resolvedTheme());
     }
 
+    /* 分段切换器事件 */
+    var themeSegEl = document.getElementById('themeSeg');
+    if (themeSegEl) {
+        themeSegEl.addEventListener('click', function (e) {
+            var btn = e.target.closest('button[data-mode]');
+            if (btn) setTheme(btn.getAttribute('data-mode'));
+        });
+    }
     var themeToggles = document.querySelectorAll('.theme-toggle-btn');
+    /* 兼容旧单按钮 / FAB：在浅深间显式切换 */
     themeToggles.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-            applyTheme(cur === 'dark' ? 'light' : 'dark');
+            setTheme(resolvedTheme() === 'dark' ? 'light' : 'dark');
         });
     });
     if (mql && mql.addEventListener) {
-        mql.addEventListener('change', function (e) {
-            var saved = null;
-            try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* ignore */ }
-            if (!saved) applyTheme(e.matches ? 'dark' : 'light');
+        mql.addEventListener('change', function () {
+            if ((savedMode() || 'auto') === 'auto') applyTheme(resolvedTheme());
         });
     }
     initTheme();
+
+    /* ---------- 导航滚动玻璃态 ---------- */
+    (function () {
+        var navEl = document.querySelector('.topbar');
+        if (!navEl) return;
+        var navTick = false;
+        var updateNav = function () {
+            navEl.classList.toggle('scrolled', (window.pageYOffset || document.documentElement.scrollTop) > 6);
+            navTick = false;
+        };
+        window.addEventListener('scroll', function () {
+            if (!navTick) { navTick = true; requestAnimationFrame(updateNav); }
+        }, { passive: true });
+        updateNav();
+    })();
+
+    /* ---------- 滚动入场动画（首页区块渐次浮现） ---------- */
+    (function () {
+        if (!('IntersectionObserver' in window)) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var targets = document.querySelectorAll(
+            '.home-badge,.home-title,.home-sub,.home-search,.home-hot,' +
+            '.home-feature,.home-section-title,.home-section-sub,.home-cat-card,.home-step,.home-cta-inner'
+        );
+        targets.forEach(function (el) { el.classList.add('rv'); });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) {
+                    en.target.classList.add('rv-in');
+                    io.unobserve(en.target);
+                }
+            });
+        }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+        targets.forEach(function (el) { io.observe(el); });
+    })();
 
     /* ---------- 工具数据（注册表注入，供搜索使用） ---------- */
     var TOOLS = [];
