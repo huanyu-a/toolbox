@@ -468,3 +468,16 @@ body { background: var(--tb-bg); }
 
 /* 数字等宽字体用于计数动画 */
 .home-stat-num { font-feature-settings: "tnum"; }
+
+
+/* ---------- FAB 列整体上移，底部 60-99px 区间独留给回到顶部 ---------- */
+.fab-cat    { bottom: 108px !important; }
+.fab-search { bottom: 158px !important; }
+.fab-theme  { bottom: 208px !important; }
+
+
+/* ---------- Modern v5 ---------- */
+.gotop {
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+}

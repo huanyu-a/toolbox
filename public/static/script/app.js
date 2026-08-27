@@ -24,14 +24,18 @@
         } else {
             document.documentElement.removeAttribute('data-theme');
         }
+        var mode = savedMode() || 'auto';
         var icons = document.querySelectorAll('.theme-toggle-btn .theme-icon');
         icons.forEach(function (icon) {
+            var cls = mode === 'auto' ? 'fa-circle-half-stroke'
+                    : (theme === 'dark' ? 'fa-sun' : 'fa-moon');
             var i = icon.querySelector('i');
-            if (i) {
-                i.className = 'fa-solid ' + (theme === 'dark' ? 'fa-sun' : 'fa-moon');
-            } else {
-                icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-            }
+            if (i) { i.className = 'fa-solid ' + cls; }
+            else { icon.innerHTML = '<i class="fa-solid ' + cls + '"></i>'; }
+            var wrap = icon.closest('button') || icon;
+            var label = mode === 'auto' ? '当前：跟随系统'
+                      : mode === 'dark' ? '当前：深色模式' : '当前：浅色模式';
+            if (wrap.setAttribute) wrap.setAttribute('title', label + '（点击切换）');
         });
         syncSeg(savedMode() || 'auto');
     }
@@ -62,10 +66,12 @@
         });
     }
     var themeToggles = document.querySelectorAll('.theme-toggle-btn');
-    /* 兼容旧单按钮 / FAB：在浅深间显式切换 */
+    /* FAB 单按钮：三态循环 浅色 -> 深色 -> 跟随系统 */
     themeToggles.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            setTheme(resolvedTheme() === 'dark' ? 'light' : 'dark');
+            var order = ['light', 'dark', 'auto'];
+            var cur = savedMode() || 'auto';
+            setTheme(order[(order.indexOf(cur) + 1) % 3]);
         });
     });
     if (mql && mql.addEventListener) {

@@ -104,7 +104,8 @@
 .home-search-ico {
     position: absolute;
     left: 18px;
-    top: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 18px;
     height: 18px;
     color: var(--tb-text-3);
@@ -137,7 +138,9 @@
 .home-search-kbd {
     position: absolute;
     right: 16px;
-    top: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
     padding: 3px 10px;
     border: 1px solid var(--tb-border-strong);
     border-radius: 7px;
@@ -154,7 +157,8 @@
 .home-search-clear {
     position: absolute;
     right: 12px;
-    top: 13px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 26px;
     height: 26px;
     border: none;
@@ -1179,3 +1183,35 @@
     border-color: transparent;
     box-shadow: 0 6px 16px color-mix(in srgb, var(--tb-c7) 32%, transparent);
 }
+
+
+/* ============================================================
+   Modern v4 — 板块背景交替 + FAB 给回顶按钮让位
+   ============================================================ */
+
+/* 统计带改用次级底色，与前后板块形成交替 */
+.home-stats {
+    background: var(--tb-bg-alt);
+}
+
+/* 三步指南显式回归主底色（前接 alt 横幅，后接 alt FAQ） */
+.home-steps {
+    background: var(--tb-bg);
+}
+
+
+/* ---------- Modern v5: 回顶按钮 FA 图标 + 底部 GitHub 链接 ---------- */
+.gotop i {
+    display: block;
+    font-size: 18px;
+    line-height: 1;
+}
+.copyright .fa-github {
+    font-size: 15px;
+    margin-right: 3px;
+    vertical-align: -2px;
+}
+.copyright-sep { margin: 0 .6em; opacity: .55; }
+.copyright a[href*="github"] { font-weight: 600; }
+
+.gotop i { color: #fff !important; font-size: 20px; font-weight: 900; }
