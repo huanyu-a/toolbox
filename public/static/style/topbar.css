@@ -478,6 +478,12 @@ body { background: var(--tb-bg); }
 
 /* ---------- Modern v5 ---------- */
 .gotop {
-    padding: 12px 14px !important;
-    border-radius: 12px !important;
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    line-height: 40px !important;
+    text-align: center;
+    right: 16px !important;
+    bottom: 260px !important;
 }

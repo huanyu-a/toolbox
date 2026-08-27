@@ -1203,7 +1203,7 @@
 /* ---------- Modern v5: 回顶按钮 FA 图标 + 底部 GitHub 链接 ---------- */
 .gotop i {
     display: block;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1;
 }
 .copyright .fa-github {
@@ -1214,4 +1214,4 @@
 .copyright-sep { margin: 0 .6em; opacity: .55; }
 .copyright a[href*="github"] { font-weight: 600; }
 
-.gotop i { color: #fff !important; font-size: 16px; font-weight: 900; }
+.gotop i { color: #fff !important; font-size: 16px; }
