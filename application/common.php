@@ -86,6 +86,21 @@ function deleteDir($path)
     }
 }
 
+/**
+ * 站点绝对地址前缀（无尾斜杠）。
+ * 优先取后台配置 web.site.url，留空则自动检测当前请求域名。
+ */
+function site_base()
+{
+    $cfg = trim((string)config('web.site.url'));
+    if ($cfg !== '') {
+        $cfg = rtrim($cfg, '/');
+        if (strpos($cfg, 'http') !== 0) { $cfg = 'https://' . ltrim($cfg, '/'); }
+        return $cfg;
+    }
+    return request()->domain();
+}
+
 function pageapi($key)
 {
     $page = array(
@@ -95,6 +110,7 @@ function pageapi($key)
         'canonical' => '权威URL',
         'keywords' => '页面关键词',
         'description' => '页面描述',
+        'url' => '站点域名',
     );
     return isset($page[$key]) ? $page[$key] : $key;
 }

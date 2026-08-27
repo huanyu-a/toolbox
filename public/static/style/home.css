@@ -17,7 +17,6 @@
     position: relative;
     padding: 72px 0 56px;
     text-align: center;
-    overflow: hidden;
     background: var(--tb-bg);
 }
 
@@ -1217,3 +1216,7 @@
 .copyright a[href*="github"] { font-weight: 600; }
 
 .gotop i { color: #fff !important; font-size: 16px; }
+
+
+/* ---------- v6: 搜索下拉浮窗不再被 hero 裁切 ---------- */
+.home-hero-mesh { border-radius: 0; }

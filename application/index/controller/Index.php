@@ -10,9 +10,18 @@ class Index extends Controller
     public function index()
     {
         $data = array();
+        $base = site_base();
         // 工具注册表（分类导航数据源，TP5.1 顶层配置需用尾点 pull 读取）
         $data['tools'] = config('tools.');
-        // 工具总数
+        // 统一改写为绝对地址（后台 web.site.url 可固定域名，留空自动检测）
+        foreach ((array)$data['tools'] as $ci => $cat) {
+            foreach ((array)$cat['items'] as $ii => $item) {
+                if (isset($item['url']) && strpos($item['url'], 'http') !== 0) {
+                    $data['tools'][$ci]['items'][$ii]['url'] = $base . $item['url'];
+                }
+            }
+        }
+        // 工具总数（改写后重新统计）
         $toolCount = 0;
         foreach ((array)$data['tools'] as $cat) {
             $toolCount += isset($cat['items']) ? count($cat['items']) : 0;
@@ -34,10 +43,11 @@ class Index extends Controller
         $data['current_act'] = $act;
         $data['current_cat'] = '';
         $data['current_tool_name'] = '';
-        $data['current_url'] = $act === 'index' ? '/' : '/' . trim($act, '/') . '/';
+        $data['current_url_rel'] = $act === 'index' ? '/' : '/' . trim($act, '/') . '/';
+        $data['current_url'] = $base . $data['current_url_rel'];
         foreach ((array)$data['tools'] as $cat) {
             foreach ((array)$cat['items'] as $item) {
-                if (rtrim($item['url'], '/') === '/' . trim($act, '/')) {
+                if (rtrim($item['url'], '/') === rtrim($data['current_url'], '/')) {
                     $data['current_cat'] = $cat['cat'];
                     $data['current_tool_name'] = $item['name'];
                     break 2;
@@ -52,7 +62,7 @@ class Index extends Controller
         $data['page_desc'] = isset($pageCfg['description']) ? $pageCfg['description'] : '';
         $data['page_keywords'] = isset($pageCfg['keywords']) ? $pageCfg['keywords'] : '';
         // JSON-LD 结构化数据（控制器拼接，避免模板解析 JSON 花括号冲突）
-        $domain = request()->domain();
+        $domain = site_base();
         if ($act === 'index') {
             $data['jsonld'] = json_encode(array(
                 '@context' => 'https://schema.org',
@@ -74,7 +84,7 @@ class Index extends Controller
                 'itemListElement' => array(
                     array('@type' => 'ListItem', 'position' => 1, 'name' => '首页', 'item' => $domain . '/'),
                     array('@type' => 'ListItem', 'position' => 2, 'name' => $data['current_cat'], 'item' => $domain . '/#cat-' . $data['current_cat']),
-                    array('@type' => 'ListItem', 'position' => 3, 'name' => $data['current_tool_name'], 'item' => $domain . $data['current_url']),
+                    array('@type' => 'ListItem', 'position' => 3, 'name' => $data['current_tool_name'], 'item' => $data['current_url']),
                 ),
             );
             $app = array(
@@ -82,7 +92,7 @@ class Index extends Controller
                 '@type' => 'WebApplication',
                 'name' => $data['page_title'],
                 'description' => $data['page_desc'],
-                'url' => $domain . $data['current_url'],
+                'url' => $data['current_url'],
                 'applicationCategory' => 'UtilitiesApplication',
                 'inLanguage' => 'zh-CN',
                 'operatingSystem' => 'Any',
@@ -239,11 +249,11 @@ class Index extends Controller
     public function sitemap()
     {
         $tools = config('tools.');
-        $domain = request()->domain();
+        $domain = site_base();
         $urls = array(array($domain . '/', '1.0', 'daily'));
         foreach ((array)$tools as $cat) {
             foreach ((array)$cat['items'] as $item) {
-                $urls[] = array($domain . $item['url'], '0.8', 'weekly');
+                $urls[] = array($domain . ltrim($item['url'], '/'), '0.8', 'weekly');
             }
         }
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -258,7 +268,7 @@ class Index extends Controller
     // robots.txt
     public function robots()
     {
-        $domain = request()->domain();
+        $domain = site_base();
         $txt = "User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {$domain}/sitemap.xml\n";
         return response($txt, 200, array('Content-Type' => 'text/plain; charset=utf-8'));
     }

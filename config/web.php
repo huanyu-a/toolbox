@@ -11,6 +11,7 @@ $brand = '寰宇的工具箱';
 return array (
   'site' => array (
     'name' => $brand,
+    'url' => '',
   ),
   'header' => '<!---->',
   'index' => array (

@@ -292,10 +292,12 @@ html { padding-top: 52px !important; }
    ============================================================ */
 body { background: var(--tb-bg); }
 
-/* 足迹历史 */
+/* 足迹历史：左右留白与其它板块(20px)一致 */
 .foot-history {
     color: var(--tb-text-3) !important;
     font-size: 13px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .foot-history a {
     color: var(--tb-text-2);
