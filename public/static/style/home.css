@@ -914,3 +914,268 @@
 .home-features-inner .rv:nth-child(2), .home-cat-cards .rv:nth-child(5n+2) { transition-delay: .05s; }
 .home-features-inner .rv:nth-child(3), .home-cat-cards .rv:nth-child(5n+3) { transition-delay: .10s; }
 .home-features-inner .rv:nth-child(4), .home-cat-cards .rv:nth-child(5n+4) { transition-delay: .15s; }
+
+
+/* ============================================================
+   Modern v3 — 数据统计带 / 双交替横幅 / FAQ / FA 图标适配
+   ============================================================ */
+
+/* ---------- 特性/步骤图标 tile 内的 FA 图标居中 ---------- */
+.home-feature-ico i,
+.home-step-ico i {
+    font-size: 20px;
+    color: #fff;
+}
+.home-badge i { color: var(--tb-ok, #3a9d6e); margin-right: 2px; }
+.home-hot-label i { color: var(--tb-warn); }
+.home-hot-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ---------- 数据统计带 ---------- */
+.home-stats {
+    padding: 30px 20px 10px;
+    background: var(--tb-bg);
+}
+.home-stats-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+.home-stat {
+    text-align: center;
+    padding: 26px 12px 22px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--sc) 6%, var(--tb-surface));
+    border: 1px solid color-mix(in srgb, var(--sc) 14%, transparent);
+    transition: transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s;
+}
+.home-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--sc) 16%, rgba(45,42,36,.10));
+}
+.home-stat-num {
+    display: block;
+    font-size: clamp(34px, 3.4vw, 46px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--sc) 82%, white),
+        var(--sc));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-variant-numeric: tabular-nums;
+}
+.home-stat-cap {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--tb-text-3);
+    font-weight: 600;
+}
+
+/* ---------- 双交替横幅 ---------- */
+.home-band {
+    padding: 64px 20px;
+    background: var(--tb-bg);
+    overflow: hidden;
+}
+.home-band.alt {
+    background: var(--tb-bg-alt);
+}
+.home-band-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    align-items: center;
+    gap: 48px;
+}
+.home-band.reverse .home-band-txt { order: 2; }
+.home-band.reverse .home-band-card { order: 1; justify-self: end; }
+.home-band:not(.reverse) .home-band-card { justify-self: start; }
+.home-band-h {
+    font-size: clamp(26px, 2.8vw, 36px);
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    line-height: 1.25;
+    color: var(--tb-text);
+    margin: 0 0 14px;
+}
+.dot-accent {
+    background: linear-gradient(135deg, var(--tb-primary), var(--tb-c4));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.home-band-p {
+    font-size: 15px;
+    color: var(--tb-text-2);
+    line-height: 1.85;
+    margin: 0 0 20px;
+    max-width: 460px;
+}
+.home-band-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.chip {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--cc) 68%, var(--tb-text));
+    background: color-mix(in srgb, var(--cc) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--cc) 24%, transparent);
+}
+
+/* 巨型数字卡（参考站风格） */
+.home-band-card {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1 / 0.92;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--tb-surface);
+    border: 1px solid var(--tb-border);
+    border-radius: 24px;
+    box-shadow: 0 18px 50px rgba(45, 42, 36, .10);
+    transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s;
+}
+.home-band-card:hover {
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 0 26px 64px rgba(45, 42, 36, .16);
+}
+.band-ico {
+    font-size: 40px;
+    color: var(--tb-c7);
+    margin-bottom: 8px;
+}
+.home-band.alt .band-ico { color: var(--tb-primary); }
+.band-num {
+    font-size: clamp(52px, 5vw, 72px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    color: var(--tb-c7);
+    font-variant-numeric: tabular-nums;
+}
+.home-band.alt .band-num { color: var(--tb-primary); }
+.band-unit {
+    font-size: .5em;
+    font-style: normal;
+    margin-left: 2px;
+}
+.band-cap {
+    font-size: 13px;
+    color: var(--tb-text-3);
+    font-weight: 600;
+}
+
+/* ---------- FAQ 手风琴 ---------- */
+.home-faq {
+    padding: 64px 20px;
+    background: var(--tb-bg-alt);
+}
+.home-faq-inner {
+    max-width: 760px;
+    margin: 0 auto;
+}
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.faq-item {
+    background: var(--tb-surface);
+    border: 1px solid var(--tb-border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+}
+.faq-item[open] {
+    border-color: color-mix(in srgb, var(--tb-primary) 32%, var(--tb-border));
+    box-shadow: 0 8px 28px color-mix(in srgb, var(--tb-primary) 9%, rgba(45,42,36,.08));
+}
+.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 17px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tb-text);
+    user-select: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary i {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    border-radius: 50%;
+    background: var(--tb-bg-alt);
+    color: var(--tb-text-3);
+    transition: transform .25s cubic-bezier(.2,.7,.3,1), background .25s, color .25s;
+}
+.faq-item[open] summary i {
+    transform: rotate(135deg);
+    background: var(--tb-primary);
+    color: #fff;
+}
+.faq-a {
+    padding: 0 20px 18px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--tb-text-2);
+    animation: faq-open .3s ease;
+}
+@keyframes faq-open {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) {
+    .home-stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .home-band-inner { grid-template-columns: 1fr; gap: 28px; }
+    .home-band.reverse .home-band-txt { order: 1; }
+    .home-band.reverse .home-band-card { order: 2; justify-self: center; }
+    .home-band:not(.reverse) .home-band-card { justify-self: center; }
+    .home-band { padding: 44px 20px; }
+}
+
+
+/* ---------- 步骤图标 tile 彩色渐变底（白图标可见性） ---------- */
+.home-steps-grid .home-step:nth-child(1) .home-step-ico {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--tb-c1) 86%, white), var(--tb-c1));
+    border-color: transparent;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--tb-c1) 32%, transparent);
+}
+.home-steps-grid .home-step:nth-child(2) .home-step-ico {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--tb-c4) 86%, white), var(--tb-c4));
+    border-color: transparent;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--tb-c4) 32%, transparent);
+}
+.home-steps-grid .home-step:nth-child(3) .home-step-ico {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--tb-c7) 86%, white), var(--tb-c7));
+    border-color: transparent;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--tb-c7) 32%, transparent);
+}

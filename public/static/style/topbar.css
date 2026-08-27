@@ -432,3 +432,39 @@ body { background: var(--tb-bg); }
     box-shadow: 0 2px 8px rgba(45, 42, 36, .14), inset 0 0 0 1px var(--tb-border);
 }
 .nav-theme a.theme-toggle-btn { display: none; }
+
+
+/* ============================================================
+   Modern v3 — 右上角控件水平对齐 + FA 图标尺寸
+   ============================================================ */
+
+/* 右侧 li 统一为垂直居中 flex，消除搜索按钮与主题切换器错位 */
+.topbar .navbar-nav.navbar-right > li {
+    display: flex;
+    align-items: center;
+    height: 52px;
+    line-height: normal;
+}
+.topbar .nav-search .nav-search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 38px;
+    padding: 0;
+    border-radius: 9px;
+}
+.topbar .nav-search .nav-search-btn i {
+    font-size: 14px;
+}
+.topbar .theme-seg button i {
+    font-size: 12px;
+}
+.topbar .logo_ico i {
+    font-size: 13px;
+}
+.topbar .fab-ico i { font-size: 16px; }
+.search-pop-close i { font-size: 13px; }
+
+/* 数字等宽字体用于计数动画 */
+.home-stat-num { font-feature-settings: "tnum"; }

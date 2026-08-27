@@ -26,7 +26,12 @@
         }
         var icons = document.querySelectorAll('.theme-toggle-btn .theme-icon');
         icons.forEach(function (icon) {
-            icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            var i = icon.querySelector('i');
+            if (i) {
+                i.className = 'fa-solid ' + (theme === 'dark' ? 'fa-sun' : 'fa-moon');
+            } else {
+                icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
         });
         syncSeg(savedMode() || 'auto');
     }
@@ -91,7 +96,8 @@
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var targets = document.querySelectorAll(
             '.home-badge,.home-title,.home-sub,.home-search,.home-hot,' +
-            '.home-feature,.home-section-title,.home-section-sub,.home-cat-card,.home-step,.home-cta-inner'
+            '.home-feature,.home-section-title,.home-section-sub,.home-cat-card,.home-step,.home-cta-inner,' +
+            '.home-stat,.home-band-txt,.home-band-card,.faq-item'
         );
         targets.forEach(function (el) { el.classList.add('rv'); });
         var io = new IntersectionObserver(function (entries) {
@@ -103,6 +109,36 @@
             });
         }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
         targets.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ---------- 数字滚动计数（data-count 元素，进入视口时播放） ---------- */
+    (function () {
+        if (!('IntersectionObserver' in window)) return;
+        var nums = document.querySelectorAll('[data-count]');
+        if (!nums.length) return;
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var paint = function (el, v) {
+            el.textContent = String(v) + (el.getAttribute('data-suffix') || '');
+        };
+        var run = function (el) {
+            var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+            if (reduce || target === 0) { paint(el, target); return; }
+            var t0 = null, DUR = 1100;
+            var step = function (ts) {
+                if (!t0) t0 = ts;
+                var k = Math.min(1, (ts - t0) / DUR);
+                k = 1 - Math.pow(1 - k, 3); // easeOutCubic
+                paint(el, Math.round(target * k));
+                if (k < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+            });
+        }, { threshold: .4 });
+        nums.forEach(function (el) { io.observe(el); });
     })();
 
     /* ---------- 工具数据（注册表注入，供搜索使用） ---------- */

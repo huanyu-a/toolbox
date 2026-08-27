@@ -12,9 +12,9 @@
     <meta name="renderer" content="webkit"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
-    <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/theme-uno.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/home.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/site.min.css?v=2026082702" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/theme-uno.css?v=2026082702" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/home.css?v=2026082702" rel="stylesheet" type="text/css"/>
     {:$Think.config.web.header}
 {include file="seo" /}</head>
 <body>
@@ -24,7 +24,7 @@
     <section class="home-hero">
         <div class="home-hero-mesh" aria-hidden="true"></div>
         <div class="home-hero-inner">
-            <span class="home-badge">🆓 完全免费 · 本地运算 · 无需注册</span>
+            <span class="home-badge"><i class="fa-solid fa-circle-check"></i> 完全免费 · 本地运算 · 无需注册</span>
             <h1 class="home-title"><strong>{:$homeCount}</strong> 款工具，<span class="home-title-accent">打开即用</span></h1>
             <p class="home-sub">JSON 格式化、编码转换、加解密、网络诊断等常用工具，浏览器本地运算，数据不离开你的设备</p>
             <div class="home-search" id="homeSearchWrap">
@@ -35,7 +35,7 @@
                 <div class="home-search-dropdown" id="homeSearchDropdown" style="display:none;"></div>
             </div>
             <div class="home-hot">
-                <span class="home-hot-label">热门 🔥</span>
+                <span class="home-hot-label"><i class="fa-solid fa-fire"></i> 热门</span>
                 <a href="/json/">JSON 格式化</a>
                 <a href="/encrypt/">加密解密</a>
                 <a href="/encode/">编码转换</a>
@@ -51,19 +51,19 @@
     <section class="home-features">
         <div class="home-features-inner">
             <div class="home-feature">
-                <span class="home-feature-ico">🔒</span>
+                <span class="home-feature-ico"><i class="fa-solid fa-lock"></i></span>
                 <div><span class="home-feature-h">本地运算</span><span class="home-feature-d">数据不离开设备</span></div>
             </div>
             <div class="home-feature">
-                <span class="home-feature-ico">⚡</span>
+                <span class="home-feature-ico"><i class="fa-solid fa-bolt"></i></span>
                 <div><span class="home-feature-h">打开即用</span><span class="home-feature-d">无需安装注册</span></div>
             </div>
             <div class="home-feature">
-                <span class="home-feature-ico">🆓</span>
+                <span class="home-feature-ico"><i class="fa-solid fa-gift"></i></span>
                 <div><span class="home-feature-h">完全免费</span><span class="home-feature-d">所有功能免费</span></div>
             </div>
             <div class="home-feature">
-                <span class="home-feature-ico">📦</span>
+                <span class="home-feature-ico"><i class="fa-solid fa-layer-group"></i></span>
                 <div><span class="home-feature-h">{$tools|count} 大分类</span><span class="home-feature-d">{:$homeCount} 款工具全覆盖</span></div>
             </div>
         </div>
@@ -102,6 +102,128 @@
         </div>
     </section>
 
+    <!-- ============ 数据统计带 ============ -->
+    <section class="home-stats">
+        <div class="home-stats-inner">
+            <div class="home-stat" style="--sc:var(--tb-c1)">
+                <span class="home-stat-num" data-count="{:$homeCount}">0</span>
+                <span class="home-stat-cap">款在线工具</span>
+            </div>
+            <div class="home-stat" style="--sc:var(--tb-c4)">
+                <span class="home-stat-num" data-count="{$tools|count}">0</span>
+                <span class="home-stat-cap">大功能分类</span>
+            </div>
+            <div class="home-stat" style="--sc:var(--tb-c7)">
+                <span class="home-stat-num" data-count="0">0</span>
+                <span class="home-stat-cap">次数据上传</span>
+            </div>
+            <div class="home-stat" style="--sc:var(--tb-c5)">
+                <span class="home-stat-num" data-count="100" data-suffix="%">0%</span>
+                <span class="home-stat-cap">完全免费开放</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 双交替横幅 ============ -->
+    <section class="home-band">
+        <div class="home-band-inner">
+            <div class="home-band-txt">
+                <h2 class="home-band-h">本地优先，<br/>数据不出设备<span class="dot-accent">。</span></h2>
+                <p class="home-band-p">除 IP 查询等必须联网取数的工具外，格式化、转换、加解密全部在浏览器本地完成——不上传服务器、不留存日志，断网也能用。</p>
+                <div class="home-band-chips">
+                    <span class="chip" style="--cc:var(--tb-c1)">纯前端运行</span>
+                    <span class="chip" style="--cc:var(--tb-c4)">Web Crypto 加密</span>
+                    <span class="chip" style="--cc:var(--tb-c7)">零日志零存储</span>
+                </div>
+            </div>
+            <div class="home-band-card">
+                <span class="band-ico"><i class="fa-solid fa-shield-halved"></i></span>
+                <strong class="band-num">0</strong>
+                <span class="band-cap">次数据上传</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-band reverse alt">
+        <div class="home-band-inner">
+            <div class="home-band-card">
+                <span class="band-ico"><i class="fa-solid fa-bolt-lightning"></i></span>
+                <strong class="band-num">1<i class="band-unit">s</i></strong>
+                <span class="band-cap">内加载完毕</span>
+            </div>
+            <div class="home-band-txt">
+                <h2 class="home-band-h">打开即用，<br/>用完即走<span class="dot-accent">。</span></h2>
+                <p class="home-band-p">无需安装 App，无需注册账号，页面静态缓存 + 本地运算双加速；常用参数自动记忆，重复劳动一键搞定。</p>
+                <div class="home-band-chips">
+                    <span class="chip" style="--cc:var(--tb-c2)">免安装免注册</span>
+                    <span class="chip" style="--cc:var(--tb-c5)">移动端全适配</span>
+                    <span class="chip" style="--cc:var(--tb-c6)">结果一键复制</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 数据统计带 ============ -->
+    <section class="home-stats">
+        <div class="home-stats-inner">
+            <div class="home-stat" style="--sc:var(--tb-c1)">
+                <span class="home-stat-num" data-count="{:$homeCount}">0</span>
+                <span class="home-stat-cap">款在线工具</span>
+            </div>
+            <div class="home-stat" style="--sc:var(--tb-c4)">
+                <span class="home-stat-num" data-count="{$tools|count}">0</span>
+                <span class="home-stat-cap">大功能分类</span>
+            </div>
+            <div class="home-stat" style="--sc:var(--tb-c7)">
+                <span class="home-stat-num" data-count="0">0</span>
+                <span class="home-stat-cap">次数据上传</span>
+            </div>
+            <div class="home-stat" style="--sc:var(--tb-c5)">
+                <span class="home-stat-num" data-count="100" data-suffix="%">0%</span>
+                <span class="home-stat-cap">完全免费开放</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 双交替横幅 ============ -->
+    <section class="home-band">
+        <div class="home-band-inner">
+            <div class="home-band-txt">
+                <h2 class="home-band-h">本地优先，<br/>数据不出设备<span class="dot-accent">。</span></h2>
+                <p class="home-band-p">除 IP 查询等必须联网取数的工具外，格式化、转换、加解密全部在浏览器本地完成——不上传服务器、不留存日志，断网也能用。</p>
+                <div class="home-band-chips">
+                    <span class="chip" style="--cc:var(--tb-c1)">纯前端运行</span>
+                    <span class="chip" style="--cc:var(--tb-c4)">Web Crypto 加密</span>
+                    <span class="chip" style="--cc:var(--tb-c7)">零日志零存储</span>
+                </div>
+            </div>
+            <div class="home-band-card">
+                <span class="band-ico"><i class="fa-solid fa-shield-halved"></i></span>
+                <strong class="band-num">0</strong>
+                <span class="band-cap">次数据上传</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-band reverse alt">
+        <div class="home-band-inner">
+            <div class="home-band-card">
+                <span class="band-ico"><i class="fa-solid fa-bolt-lightning"></i></span>
+                <strong class="band-num">1<i class="band-unit">s</i></strong>
+                <span class="band-cap">内加载完毕</span>
+            </div>
+            <div class="home-band-txt">
+                <h2 class="home-band-h">打开即用，<br/>用完即走<span class="dot-accent">。</span></h2>
+                <p class="home-band-p">无需安装 App，无需注册账号，页面静态缓存与本地运算双加速；常用参数自动记忆，重复劳动一键搞定。</p>
+                <div class="home-band-chips">
+                    <span class="chip" style="--cc:var(--tb-c2)">免安装免注册</span>
+                    <span class="chip" style="--cc:var(--tb-c5)">移动端全适配</span>
+                    <span class="chip" style="--cc:var(--tb-c6)">结果一键复制</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ============ 三步使用指南 ============ -->
     <section class="home-steps">
         <div class="home-steps-inner">
@@ -109,23 +231,91 @@
             <p class="home-section-sub">无需安装、无需注册，三步完成所有操作</p>
             <div class="home-steps-grid">
                 <div class="home-step">
-                    <span class="home-step-ico">🔍</span>
+                    <span class="home-step-ico"><i class="fa-solid fa-magnifying-glass"></i></span>
                     <span class="home-step-num">1</span>
                     <h3 class="home-step-h">选择工具</h3>
                     <p class="home-step-p">从顶部分类菜单或搜索框找到你需要的工具</p>
                 </div>
                 <div class="home-step">
-                    <span class="home-step-ico">⌨️</span>
+                    <span class="home-step-ico"><i class="fa-solid fa-keyboard"></i></span>
                     <span class="home-step-num">2</span>
                     <h3 class="home-step-h">输入数据</h3>
                     <p class="home-step-p">粘贴文本、上传文件或填写参数，浏览器本地处理</p>
                 </div>
                 <div class="home-step">
-                    <span class="home-step-ico">📋</span>
+                    <span class="home-step-ico"><i class="fa-solid fa-copy"></i></span>
                     <span class="home-step-num">3</span>
                     <h3 class="home-step-h">复制结果</h3>
                     <p class="home-step-p">一键复制处理后的结果，即用即走</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 常见问题 ============ -->
+    <section class="home-faq">
+        <div class="home-faq-inner">
+            <h2 class="home-section-title">常见问题</h2>
+            <p class="home-section-sub">关于这个工具箱，你可能想知道</p>
+            <div class="faq-list">
+                <details class="faq-item" open>
+                    <summary>使用要收费吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">完全免费，没有任何功能需要付费解锁，也没有广告和弹窗。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>我的数据会被上传吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">不会。格式化、编解码、加解密、计算类工具全部在你的浏览器本地完成，数据不离开设备；仅 IP 查询、网页检测等少数工具需要联网获取公开数据。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>需要注册账号吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">不需要。所有工具打开即用，也没有任何使用次数限制。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>手机上可以使用吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">可以。全站响应式设计，手机、平板、桌面浏览器均有良好体验。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>处理结果怎么保存？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">支持一键复制到剪贴板；部分工具还支持下载为文件，方便直接归档或分享。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>发现 Bug 或想新增工具？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">欢迎通过页脚联系方式反馈，高频需求会优先排期。</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 常见问题 ============ -->
+    <section class="home-faq">
+        <div class="home-faq-inner">
+            <h2 class="home-section-title">常见问题</h2>
+            <p class="home-section-sub">关于这个工具箱，你可能想知道</p>
+            <div class="faq-list">
+                <details class="faq-item" open>
+                    <summary>使用要收费吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">完全免费，没有任何功能需要付费解锁，也没有广告和弹窗。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>我的数据会被上传吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">不会。格式化、编解码、加解密、计算类工具全部在你的浏览器本地完成，数据不离开设备；仅 IP 查询、网页检测等少数工具需要联网获取公开数据。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>需要注册账号吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">不需要。所有工具打开即用，也没有任何使用次数限制。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>手机上可以使用吗？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">可以。全站响应式设计，手机、平板、桌面浏览器均有良好体验。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>处理结果怎么保存？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">支持一键复制到剪贴板；部分工具还支持下载为文件，方便直接归档或分享。</div>
+                </details>
+                <details class="faq-item">
+                    <summary>发现 Bug 或想新增工具？<i class="fa-solid fa-plus"></i></summary>
+                    <div class="faq-a">欢迎通过页脚联系方式反馈，高频需求会优先排期。</div>
+                </details>
             </div>
         </div>
     </section>
@@ -243,6 +433,6 @@
 </script>
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/app.js" type="text/javascript"></script>
+<script src="/static/script/app.js?v=2026082702" type="text/javascript"></script>
 </body>
 </html>

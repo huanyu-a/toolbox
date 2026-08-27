@@ -1,12 +1,13 @@
-<link href="/static/style/theme-uno.css" rel="stylesheet" type="text/css"/>
-<link href="/static/style/topbar.css" rel="stylesheet" type="text/css"/>
+<link href="/static/fontawesome/css/all.min.css?v=2026082702" rel="stylesheet" type="text/css"/>
+<link href="/static/style/theme-uno.css?v=2026082702" rel="stylesheet" type="text/css"/>
+<link href="/static/style/topbar.css?v=2026082702" rel="stylesheet" type="text/css"/>
 <nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar"><span class="sr-only">{$Think.config.web.site.name}</span> <span
+                    aria-expanded="false" aria-controls="navbar"><span class="sr-only">搜索</span> <span
                     class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="/" title="{$Think.config.web.site.name}"><em class="logo_ico glyphicon glyphicon-wrench"></em>{$Think.config.web.site.name}</a>
+            <a class="navbar-brand" href="/" title="{$Think.config.web.site.name}"><em class="logo_ico"><i class="fa-solid fa-screwdriver-wrench"></i></em>{$Think.config.web.site.name}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" role="navigation">
             <ul class="nav navbar-nav" id="top_menu">
@@ -28,13 +29,13 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-search">
-                    <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
+                    <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具" aria-label="搜索工具"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </li>
                 <li class="nav-theme">
                     <div class="theme-seg" id="themeSeg" role="group" aria-label="主题模式">
-                        <button type="button" data-mode="light" title="浅色模式">☀️</button>
-                        <button type="button" data-mode="dark" title="深色模式">🌙</button>
-                        <button type="button" data-mode="auto" title="跟随系统">🌗</button>
+                        <button type="button" data-mode="light" title="浅色模式"><i class="fa-solid fa-sun"></i></button>
+                        <button type="button" data-mode="dark" title="深色模式"><i class="fa-solid fa-moon"></i></button>
+                        <button type="button" data-mode="auto" title="跟随系统"><i class="fa-solid fa-circle-half-stroke"></i></button>
                     </div>
                 </li>
             </ul>
@@ -56,14 +57,14 @@
 <nav class="float-cat-nav" id="floatCatNav" aria-label="分类导航"></nav>
 <!-- 移动端悬浮按钮组：分类（右下角，点击展开右侧面板）、搜索/主题（右上角） -->
 <div class="fab-mask" id="fabMask" style="display:none;"></div>
-<button type="button" class="fab fab-cat" id="fabCatBtn" title="分类导航" aria-label="分类导航" aria-expanded="false"><span class="fab-ico">☰</span></button>
-<button type="button" class="fab fab-search" id="fabSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="fab-ico">🔍</span></button>
-<button type="button" class="fab fab-theme theme-toggle-btn" id="fabThemeBtn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></button>
+<button type="button" class="fab fab-cat" id="fabCatBtn" title="分类导航" aria-label="分类导航" aria-expanded="false"><span class="fab-ico"><i class="fa-solid fa-bars"></i></span></button>
+<button type="button" class="fab fab-search" id="fabSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="fab-ico"><i class="fa-solid fa-magnifying-glass"></i></span></button>
+<button type="button" class="fab fab-theme theme-toggle-btn" id="fabThemeBtn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon"><i class="fa-solid fa-moon"></i></span></button>
 <div class="search-pop" id="searchPop" style="display:none;">
     <div class="container">
         <div class="search-pop-head">
             <input type="text" class="form-control search-pop-input" id="topSearchInput" placeholder="搜索工具，如：json、md5、时间戳…" autocomplete="off">
-            <button type="button" class="search-pop-close" id="searchPopClose" aria-label="关闭搜索"><span class="glyphicon glyphicon-remove"></span></button>
+            <button type="button" class="search-pop-close" id="searchPopClose" aria-label="关闭搜索"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="search-pop-body" id="searchDropdown"></div>
     </div>
