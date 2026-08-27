@@ -497,13 +497,118 @@ function build_tongji_code($id = '')
 
 /**
  * 根据配置输出百度统计混淆代码到页面
+ * 配置来源：SQLite 库（runtime/site_config.db，挂载卷，重建镜像不丢失）；
+ * 库中从未配置过时回退旧版 config/tongji.php（兼容迁移）。
  * @return string 启用的统计代码；未启用 / 未配置返回空字符串
  */
 function tongji_config_code()
 {
-    $cfg = config('tongji.');
-    if (empty($cfg) || empty($cfg['enabled']) || empty($cfg['baidu_id'])) {
+    $enabled  = site_cfg_get('tongji_enabled');
+    $baidu_id = site_cfg_get('tongji_baidu_id');
+    if ($enabled === null && $baidu_id === null) {
+        // 数据库从未写入：读旧版文件配置（升级过渡，写一次库后不再走这里）
+        $cfg = config('tongji.');
+        if (!empty($cfg['enabled']) && !empty($cfg['baidu_id'])) {
+            return build_tongji_code($cfg['baidu_id']);
+        }
         return '';
     }
-    return build_tongji_code($cfg['baidu_id']);
+    if ($enabled === '1' && preg_match('/^[a-zA-Z0-9]+$/', (string)$baidu_id)) {
+        return build_tongji_code((string)$baidu_id);
+    }
+    return '';
+}
+
+/* ============================================================
+ * 站点配置 KV 存储（SQLite）
+ * 友情链接、百度统计等易被镜像覆盖的运行数据统一入库；
+ * 库文件固定在 runtime 目录（Docker 挂载卷），重建/更新不丢。
+ * ============================================================ */
+
+/**
+ * 获取站点配置；键不存在时返回 $default
+ * @param string $key
+ * @param mixed  $default 缺省用 null 表示"从未设置"，调用方据此做兼容分支
+ */
+function site_cfg_get($key, $default = null)
+{
+    try {
+        $st = site_cfg_pdo()->prepare('SELECT v FROM config_kv WHERE k = ? LIMIT 1');
+        $st->execute(array((string)$key));
+        $v = $st->fetchColumn();
+        return ($v === false || $v === null) ? $default : (string)$v;
+    } catch (\Exception $e) {
+        return $default;
+    }
+}
+
+/** 写入站点配置（存在即覆盖） */
+function site_cfg_set($key, $value)
+{
+    try {
+        $st = site_cfg_pdo()->prepare('REPLACE INTO config_kv (k, v) VALUES (?, ?)');
+        return (bool)$st->execute(array((string)$key, (string)$value));
+    } catch (\Exception $e) {
+        return false;
+    }
+}
+
+/**
+ * SQLite 连接（懒加载 + 自动建表），进程内复用
+ */
+function site_cfg_pdo()
+{
+    static $pdo = null;
+    if ($pdo instanceof PDO) {
+        return $pdo;
+    }
+    $dir = defined('RUNTIME_PATH') ? RUNTIME_PATH : (sys_get_temp_dir() . DIRECTORY_SEPARATOR);
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0777, true);
+    }
+    $path = rtrim($dir, '/\\') . DIRECTORY_SEPARATOR . 'site_config.db';
+    $pdo = new PDO('sqlite:' . $path);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_TIMEOUT, 5); // 并发写等锁，避免 busy 报错
+    try { $pdo->exec('PRAGMA journal_mode=WAL'); } catch (\Exception $e) { /* 只读环境忽略 */ }
+    $pdo->exec("CREATE TABLE IF NOT EXISTS config_kv (k TEXT PRIMARY KEY, v TEXT NOT NULL DEFAULT '')");
+    return $pdo;
+}
+
+/**
+ * 友情链接默认内容（与线上最后一次编辑一致，兜底防空白）
+ */
+function site_friend_links_default()
+{
+    return <<<'HTML'
+<div class="friend-link-row">
+    友情链接：
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2023017689号</a>
+    <span class="fl-sep">|</span>
+    <a href="https://www.bx9y.com.cn/" target="_blank">知识分享萌</a>
+    <span class="fl-sep">|</span>
+    <a href="https://hao.bx9y.com.cn/" target="_blank">寰宇的导航站</a>
+</div>
+HTML;
+}
+
+/**
+ * 输出友情链接 HTML（前台 footer 的 view/link.html 调用）
+ * 优先取数据库；为空时尝试从旧模板一次性迁移入库，再退回默认值
+ */
+function site_render_friend_links()
+{
+    $v = trim((string)site_cfg_get('friend_links_html', ''));
+    if ($v === '' && defined('APP_PATH')) {
+        $legacyFile = APP_PATH . 'index/view/link.html';
+        if (is_file($legacyFile)) {
+            $legacy = trim((string)@file_get_contents($legacyFile));
+            // 排除动态壳自身与新装环境的空白模板
+            if ($legacy !== '' && strpos($legacy, 'site_render_friend_links') === false && strpos($legacy, 'friend-link-row') !== false) {
+                site_cfg_set('friend_links_html', $legacy);
+                $v = $legacy;
+            }
+        }
+    }
+    return $v !== '' ? $v : site_friend_links_default();
 }

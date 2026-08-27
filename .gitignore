@@ -6,7 +6,5 @@
 /.check/
 
 /backup/
-/scripts/
-.opensquilla/
-.zcode/
-MEMORY.md
+/scripts/*
+!/scripts/site_config_seed.php

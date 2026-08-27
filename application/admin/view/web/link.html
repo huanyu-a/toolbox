@@ -11,7 +11,7 @@
 <div class="page">
     <h1 class="page-title">🔗 友情链接<a class="theme-toggle-sm" href="javascript:;" onclick="var t=AdminTheme.toggle();var s=this.querySelector('span');s.textContent=t==='dark'?'☀️':'🌙';this.title=t==='dark'?'切换到浅色模式':'切换到深色模式';" title="切换深浅色模式"><span>🌙</span></a></h1>
     <div class="card">
-        <p class="card-desc">编辑 application/index/view/link.html 中的友链内容，保存后前台首页立即生效。</p>
+        <p class="card-desc">友情链接内容（存储于数据库，更新/重建镜像不会丢失）。首页底部展示，支持完整 HTML。</p>
         <form method="post" action="">
             <div class="form-item">
                 <textarea class="form-textarea" id="Xcode" name="Xcode" style="min-height:240px">{$content}</textarea>
