@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes 网关与进程管理命令速查手册</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --border: #e3e6ea;
+    --text: #1f2329;
+    --text-2: #5a6472;
+    --accent: #2f6fed;
+    --accent-bg: #eaf1ff;
+    --green: #16a34a;
+    --green-bg: #eafaf0;
+    --amber: #b45309;
+    --amber-bg: #fef6e7;
+    --code-bg: #f0f2f5;
+    --mono: "Cascadia Code", Consolas, "Courier New", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 32px 16px 60px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 28px; }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: .5px; }
+  header p { color: var(--text-2); margin-top: 8px; font-size: 14px; }
+  .badge {
+    display: inline-block; padding: 3px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; margin-top: 12px;
+    background: var(--green-bg); color: var(--green); border: 1px solid #bfe8cd;
+  }
+  section { margin-bottom: 26px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 17px; font-weight: 700; margin-bottom: 12px;
+  }
+  .sec-title .num {
+    width: 26px; height: 26px; border-radius: 8px; flex: none;
+    background: var(--accent); color: #fff; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 18px; margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(16,24,40,.05);
+  }
+  .card h3 { font-size: 15px; margin-bottom: 4px; }
+  .card .desc { font-size: 13px; color: var(--text-2); margin-bottom: 10px; }
+  .cmd-row {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 8px;
+  }
+  .cmd-row:last-child { margin-bottom: 0; }
+  .cmd-label {
+    flex: none; font-size: 11px; font-weight: 700; color: var(--text-2);
+    background: #fff; border: 1px solid var(--border); border-radius: 6px;
+    padding: 2px 8px; white-space: nowrap;
+  }
+  .cmd-label.ops { color: var(--accent); border-color: #bcd0f7; background: var(--accent-bg); }
+  code {
+    font-family: var(--mono); font-size: 13px; word-break: break-all;
+    flex: 1; user-select: all;
+  }
+  .copy-btn {
+    flex: none; border: none; cursor: pointer;
+    background: var(--accent); color: #fff; font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 8px; transition: background .15s;
+  }
+  .copy-btn:hover { background: #2459c8; }
+  .copy-btn.done { background: var(--green); }
+  .note {
+    background: var(--amber-bg); border: 1px solid #f3ddb6; color: var(--amber);
+    border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-top: 10px;
+  }
+  .note b { font-weight: 700; }
+  .tip {
+    background: var(--accent-bg); border: 1px solid #bcd0f7; color: #2459c8;
+    border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-top: 10px;
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+  .toast {
+    position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%) translateY(20px);
+    background: #1f2329; color: #fff; padding: 10px 20px; border-radius: 10px;
+    font-size: 14px; opacity: 0; pointer-events: none; transition: all .25s;
+    z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  footer { text-align: center; color: var(--text-2); font-size: 12px; margin-top: 30px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Hermes 网关与进程管理速查</h1>
+    <p>本机 Hermes（默认 + dingtalk2）网关 / Dashboard / Cron / 故障排查 / 自启管理命令 · 点击命令即可复制</p>
+    <span class="badge">Hermes Agent v0.20.0 · v2（2026-08-19 更新）</span>
+  </header>
+
+  <section>
+    <div class="sec-title"><span class="num">1</span>网关管理 · 默认网关</div>
+    <div class="card">
+      <div class="desc">默认 profile（Hermes_Gateway_default）</div>
+      <div class="cmd-row"><span class="cmd-label ops">启动</span><code>hermes gateway start</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">停止</span><code>hermes gateway stop</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">重启</span><code>hermes gateway restart</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">状态</span><code>hermes gateway status</code><button class="copy-btn">复制</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">2</span>网关管理 · dingtalk2 网关</div>
+    <div class="card">
+      <div class="desc">dingtalk2 profile（Hermes_Gateway_dingtalk2）</div>
+      <div class="cmd-row"><span class="cmd-label ops">启动</span><code>hermes -p dingtalk2 gateway start</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">停止</span><code>hermes -p dingtalk2 gateway stop</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">重启</span><code>hermes -p dingtalk2 gateway restart</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">状态</span><code>hermes -p dingtalk2 gateway status</code><button class="copy-btn">复制</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">3</span>Dashboard（端口 9119）</div>
+    <div class="card">
+      <div class="desc">Dashboard 是 Web 服务进程，没有 start/stop 命令，只能结束进程</div>
+      <div class="cmd-row"><span class="cmd-label">查找 PID</span><code>netstat -ano | findstr :9119</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">关闭</span><code>taskkill /PID &lt;PID&gt; /F</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">确认</span><code>netstat -ano | findstr :9119</code><button class="copy-btn">复制</button></div>
+      <div class="note">⚠️ dashboard 进程通常需要 <b>/F 强杀</b>（优雅停止常被系统拒绝）</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">4</span>一键清理所有 Hermes 进程</div>
+    <div class="card">
+      <div class="desc">含网关 + Dashboard 全部结束（PowerShell 执行）</div>
+      <div class="cmd-row"><span class="cmd-label ops">全杀</span><code>Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'hermes_cli\.main' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }</code><button class="copy-btn">复制</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">5</span>防止开机自启（可选）</div>
+    <div class="card">
+      <div class="desc">执行后网关 / Dashboard 不会随开机自动启动</div>
+      <div class="cmd-row"><span class="cmd-label ops">删除 dingtalk2 任务</span><code>schtasks /Delete /TN "Hermes_Gateway_dingtalk2" /F</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">删除默认任务</span><code>schtasks /Delete /TN "Hermes_Gateway_default" /F</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">仅禁用（可恢复）</span><code>schtasks /Change /TN "Hermes_Gateway_dingtalk2" /Disable</code><button class="copy-btn">复制</button></div>
+      <div class="note">Dashboard 开机自启是 Startup 文件夹里的 <b>Hermes_Dashboard.vbs</b>，删除或移走该文件即可</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">6</span>Cron 定时任务管理</div>
+    <div class="card">
+      <div class="desc">Hermes 内置定时任务（数据在 <code>%LOCALAPPDATA%\hermes\cron\</code>），用 <code>hermes cron</code> 管理</div>
+      <div class="cmd-row"><span class="cmd-label">列出任务</span><code>hermes cron list</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">含已禁用</span><code>hermes cron list --all</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">创建任务</span><code>hermes cron create "50 19 * * *" "任务提示词" --name "任务名" --model sensenova-6.8-flash-lite --provider daili</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">改模型</span><code>hermes cron edit &lt;job_id&gt; --model sensenova-6.8-flash-lite --provider daili</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">手动触发</span><code>hermes cron run &lt;job_id&gt;</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">执行历史</span><code>hermes cron runs &lt;job_id&gt; --limit 10</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">暂停</span><code>hermes cron pause &lt;job_id&gt;</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">恢复</span><code>hermes cron resume &lt;job_id&gt;</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">删除任务</span><code>hermes cron remove &lt;job_id&gt;</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label">调度器状态</span><code>hermes cron status</code><button class="copy-btn">复制</button></div>
+      <div class="note">⚠️ 任务模型必须<b>显式指定</b>（--model + --provider）。全局模型配置一变，未 pin 模型的任务会被 drift guard 跳过（"Skipped to prevent unintended spend"），见下方故障排查 ③。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">7</span>故障排查速查</div>
+
+    <div class="card">
+      <h3>① 'hermes' 不是内部或外部命令</h3>
+      <div class="desc"><b>根因</b>：PATH 未生效或用了旧终端 &nbsp;·&nbsp; <b>解法</b>：新开终端；仍不行用完整路径：</div>
+      <div class="cmd-row"><code>"C:\Users\WIN11\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe" gateway status</code><button class="copy-btn">复制</button></div>
+    </div>
+
+    <div class="card">
+      <h3>② HTTP 503: No available channel for model ... (distributor)</h3>
+      <div class="desc"><b>根因</b>：nexus 网关模型名不匹配——0731 系列必须带 <code>-chat</code> 后缀（如 <code>deepseek-v4-flash-0731-chat</code>）&nbsp;·&nbsp; <b>解法</b>：先用 curl 验证，再改任务模型：</div>
+      <div class="cmd-row"><span class="cmd-label">验证</span><code>curl -s https://nexus.bx9y.com.cn/v1/chat/completions -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" -d "{\"model\":\"deepseek-v4-flash-0731-chat\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}"</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">改模型</span><code>hermes cron edit &lt;job_id&gt; --model deepseek-v4-flash-0731-chat --provider daili</code><button class="copy-btn">复制</button></div>
+    </div>
+
+    <div class="card">
+      <h3>③ Skipped to prevent unintended spend (drift guard)</h3>
+      <div class="desc"><b>根因</b>：cron 任务模型未 pin，全局模型配置变更后任务被跳过 &nbsp;·&nbsp; <b>解法</b>：显式指定模型与 provider：</div>
+      <div class="cmd-row"><code>hermes cron edit &lt;job_id&gt; --model sensenova-6.8-flash-lite --provider daili</code><button class="copy-btn">复制</button></div>
+    </div>
+
+    <div class="card">
+      <h3>④ 停止 dashboard 报"拒绝访问"</h3>
+      <div class="desc"><b>根因</b>：dashboard 进程不允许优雅停止 &nbsp;·&nbsp; <b>解法</b>：加 /F 强杀：</div>
+      <div class="cmd-row"><code>taskkill /PID &lt;PID&gt; /F</code><button class="copy-btn">复制</button></div>
+    </div>
+
+    <div class="card">
+      <h3>⑤ 网关 stop 后又自动复活</h3>
+      <div class="desc"><b>根因</b>：计划任务 / 开机自启脚本残留 &nbsp;·&nbsp; <b>解法</b>：删计划任务 + Startup 里的 Hermes VBS：</div>
+      <div class="cmd-row"><code>schtasks /Delete /TN "Hermes_Gateway_dingtalk2" /F</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><code>schtasks /Delete /TN "Hermes_Gateway_default" /F</code><button class="copy-btn">复制</button></div>
+    </div>
+
+    <div class="card">
+      <h3>⑥ 端口 9119 被占用 / dashboard 起不来</h3>
+      <div class="desc"><b>根因</b>：已有 dashboard 实例在跑 &nbsp;·&nbsp; <b>解法</b>：找到 PID 结束即可：</div>
+      <div class="cmd-row"><span class="cmd-label">找 PID</span><code>netstat -ano | findstr :9119</code><button class="copy-btn">复制</button></div>
+      <div class="cmd-row"><span class="cmd-label ops">结束</span><code>taskkill /PID &lt;PID&gt; /F</code><button class="copy-btn">复制</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title"><span class="num">8</span>使用要点</div>
+    <div class="grid2">
+      <div class="card">
+        <h3>🔑 hermes 命令</h3>
+        <div class="desc">已加入用户 PATH，需在新开的终端执行；旧终端不认时用完整路径：</div>
+        <div class="cmd-row"><code>"C:\Users\WIN11\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe" gateway status</code><button class="copy-btn">复制</button></div>
+      </div>
+      <div class="card">
+        <h3>💡 日常建议</h3>
+        <div class="desc">临时停用用 <code>gateway stop</code>（优雅、不丢会话）；想彻底告别用第 1~2 条 + 第 5 条一起做。</div>
+      </div>
+    </div>
+    <div class="tip">💬 status 是只读查询，不会启动或修改任何东西。看到 "Gateway process running (PID: xxxx)" 只是说明网关正在运行。</div>
+  </section>
+
+  <footer>Hermes 命令速查 v2 · 更新于 2026-08-19 · 数据源：本机 Hermes v0.20.0 实测</footer>
+</div>
+
+<div class="toast" id="toast">已复制 ✓</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var code = btn.parentElement.querySelector('code').innerText;
+      // 还原 &lt; &gt; 实体为真实字符
+      var text = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+      var done = function () {
+        btn.textContent = '已复制';
+        btn.classList.add('done');
+        var toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(function () {
+          btn.textContent = '复制';
+          btn.classList.remove('done');
+          toast.classList.remove('show');
+        }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallback(text); done(); });
+      } else { fallback(text); done(); }
+      function fallback(t) {
+        var ta = document.createElement('textarea');
+        ta.value = t; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      }
+    });
+  });
+</script>
+</body>
+</html>

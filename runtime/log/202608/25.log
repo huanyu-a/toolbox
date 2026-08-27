@@ -1,0 +1,48 @@
+---------------------------------------------------------------
+
+[2026-08-25T04:03:49+08:00] 172.17.0.1 GET www.bohe.cn/ctf.txt
+[ error ] [0]模板文件不存在:/app/application/index/view/index/ctf.html
+---------------------------------------------------------------
+
+[2026-08-25T04:06:31+08:00] 172.17.0.1 GET www.bohe.cn/ctf.txt
+[ error ] [0]模板文件不存在:/app/application/index/view/index/ctf.html
+---------------------------------------------------------------
+
+[2026-08-25T04:06:31+08:00] 172.17.0.1 GET www.bohe.cn/doctor/
+[ error ] [0]模板文件不存在:/app/application/index/view/index/doctor.html
+---------------------------------------------------------------
+
+[2026-08-25T04:06:32+08:00] 172.17.0.1 GET www.bohe.cn/yyk/
+[ error ] [0]模板文件不存在:/app/application/index/view/index/yyk.html
+---------------------------------------------------------------
+
+[2026-08-25T04:13:42+08:00] 172.17.0.1 GET www.bohe.cn/ctf.txt
+[ error ] [0]模板文件不存在:/app/application/index/view/index/ctf.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:26+08:00] 172.17.0.1 GET www.bohe.cn/admin
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:26+08:00] 172.17.0.1 GET www.bohe.cn/admin/
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:26+08:00] 172.17.0.1 GET www.bohe.cn/ctf.txt
+[ error ] [0]模板文件不存在:/app/application/index/view/index/ctf.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:27+08:00] 172.17.0.1 GET www.bohe.cn/composer.json
+[ error ] [0]模板文件不存在:/app/application/index/view/index/composer.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:27+08:00] 172.17.0.1 GET www.bohe.cn/phpinfo.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/phpinfo.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:27+08:00] 172.17.0.1 GET www.bohe.cn/upload/
+[ error ] [0]模板文件不存在:/app/application/index/view/index/upload.html
+---------------------------------------------------------------
+
+[2026-08-25T04:21:27+08:00] 172.17.0.1 GET www.bohe.cn/uploads/
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html

@@ -7,3 +7,6 @@
 
 /backup/
 /scripts/
+.opensquilla/
+.zcode/
+MEMORY.md

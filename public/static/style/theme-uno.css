@@ -31,6 +31,7 @@
     --tb-text: #2D2A24;
     --tb-text-2: #6B6660;
     --tb-text-3: #9C978F;
+    --tb-text-1: var(--tb-text);
 
     /* 边框 */
     --tb-border: #E8E5DD;
@@ -102,6 +103,7 @@
     --border: var(--tb-border);
     --border-strong: var(--tb-border-strong);
     --text: var(--tb-text);
+    --text-1: var(--tb-text);
     --text-2: var(--tb-text-2);
     --text-3: var(--tb-text-3);
     --radius: var(--tb-radius);
@@ -139,6 +141,7 @@
     --tb-text: #E8E4DC;
     --tb-text-2: #A8A29A;
     --tb-text-3: #75706A;
+    --tb-text-1: var(--tb-text);
 
     /* 边框 */
     --tb-border: #38332E;
@@ -196,6 +199,7 @@
     --border: var(--tb-border);
     --border-strong: var(--tb-border-strong);
     --text: var(--tb-text);
+    --text-1: var(--tb-text);
     --text-2: var(--tb-text-2);
     --text-3: var(--tb-text-3);
     --shadow-sm: var(--tb-shadow-sm);

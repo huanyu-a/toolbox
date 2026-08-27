@@ -1,0 +1,288 @@
+---------------------------------------------------------------
+
+[2026-08-26T02:52:34+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T02:52:34+08:00] 172.17.0.1 GET 10.1.102.64:9090/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/login.html
+---------------------------------------------------------------
+
+[2026-08-26T02:52:34+08:00] 172.17.0.1 GET 10.1.102.64:9090/phpinfo.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/phpinfo.html
+---------------------------------------------------------------
+
+[2026-08-26T02:52:35+08:00] 172.17.0.1 GET 10.1.102.64:9090/tool
+[ error ] [0]模板文件不存在:/app/application/index/view/index/tool.html
+---------------------------------------------------------------
+
+[2026-08-26T02:52:35+08:00] 172.17.0.1 GET 10.1.102.64:9090/tools
+[ error ] [0]模板文件不存在:/app/application/index/view/index/tools.html
+---------------------------------------------------------------
+
+[2026-08-26T02:52:35+08:00] 172.17.0.1 GET 10.1.102.64:9090/sub
+[ error ] [0]模板文件不存在:/app/application/index/view/index/sub.html
+---------------------------------------------------------------
+
+[2026-08-26T02:53:30+08:00] 172.17.0.1 GET 10.1.102.64:9090/config.php.bak
+[ error ] [0]模板文件不存在:/app/application/index/view/index/config.html
+---------------------------------------------------------------
+
+[2026-08-26T02:53:30+08:00] 172.17.0.1 GET 10.1.102.64:9090/composer.json
+[ error ] [0]模板文件不存在:/app/application/index/view/index/composer.html
+---------------------------------------------------------------
+
+[2026-08-26T02:53:31+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T02:53:31+08:00] 172.17.0.1 GET 10.1.102.64:9090/login.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/login.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:17+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:17+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin/
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:18+08:00] 172.17.0.1 GET 10.1.102.64:9090/user/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/user.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:18+08:00] 172.17.0.1 GET 10.1.102.64:9090/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/login.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:18+08:00] 172.17.0.1 GET 10.1.102.64:9090/api.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/api.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:19+08:00] 172.17.0.1 GET 10.1.102.64:9090/phpinfo.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/phpinfo.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:19+08:00] 172.17.0.1 GET 10.1.102.64:9090/composer.json
+[ error ] [0]模板文件不存在:/app/application/index/view/index/composer.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:20+08:00] 172.17.0.1 GET 10.1.102.64:9090/runtime/log/202608/26.log
+[ error ] [0]模板文件不存在:/app/application/index/view/index/runtime.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:20+08:00] 172.17.0.1 GET 10.1.102.64:9090/application/database.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/application.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:28+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T02:55:48+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T02:56:17+08:00] 172.17.0.1 POST 10.1.102.64:9090/index.php?s=captcha
+[ error ] [0]模板文件不存在:/app/application/index/view/index/captcha.html
+---------------------------------------------------------------
+
+[2026-08-26T03:31:58+08:00] 172.17.0.1 POST 10.1.102.64:9090/index.php?s=captcha
+[ error ] [0]模板文件不存在:/app/application/index/view/index/captcha.html
+---------------------------------------------------------------
+
+[2026-08-26T03:33:57+08:00] 172.17.0.1 GET 10.1.102.64:9090/login.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/login.html
+---------------------------------------------------------------
+
+[2026-08-26T03:33:58+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:33:58+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:33:58+08:00] 172.17.0.1 GET 10.1.102.64:9090/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/login.html
+---------------------------------------------------------------
+
+[2026-08-26T03:33:58+08:00] 172.17.0.1 GET 10.1.102.64:9090/backend.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/backend.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:56+08:00] 172.17.0.1 GET 10.1.102.64:9090/login.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/login.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:56+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:56+08:00] 172.17.0.1 GET 10.1.102.64:9090/admin/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:57+08:00] 172.17.0.1 GET 10.1.102.64:9090/index.php?s=admin/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:57+08:00] 172.17.0.1 GET 10.1.102.64:9090/index.php?s=admin/index/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:57+08:00] 172.17.0.1 GET 10.1.102.64:9090/index.php?s=/admin/login/index
+[ error ] [0]模板文件不存在:/app/application/index/view/index/admin.html
+---------------------------------------------------------------
+
+[2026-08-26T03:34:57+08:00] 172.17.0.1 GET 10.1.102.64:9090/user/login
+[ error ] [0]模板文件不存在:/app/application/index/view/index/user.html
+---------------------------------------------------------------
+
+[2026-08-26T03:48:55+08:00] 172.17.0.1 GET 10.1.102.64:9090/composer.json
+[ error ] [0]模板文件不存在:/app/application/index/view/index/composer.html
+---------------------------------------------------------------
+
+[2026-08-26T03:48:55+08:00] 172.17.0.1 GET 10.1.102.64:9090/config/database.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/config.html
+---------------------------------------------------------------
+
+[2026-08-26T03:48:55+08:00] 172.17.0.1 GET 10.1.102.64:9090/config/app.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/config.html
+---------------------------------------------------------------
+
+[2026-08-26T03:48:55+08:00] 172.17.0.1 GET 10.1.102.64:9090/runtime/log/202608/26.log
+[ error ] [0]模板文件不存在:/app/application/index/view/index/runtime.html
+---------------------------------------------------------------
+
+[2026-08-26T03:48:55+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/index.php
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:49:30+08:00] 172.17.0.1 POST 10.1.102.64:9090/?s=captcha
+[ error ] [0]模板文件不存在:/app/application/index/view/index/captcha.html
+---------------------------------------------------------------
+
+[2026-08-26T03:52:40+08:00] 172.17.0.1 GET 10.1.102.64:9090//10.1.102.64:9090/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/10.html
+---------------------------------------------------------------
+
+[2026-08-26T03:52:42+08:00] 172.17.0.1 GET 10.1.102.64:9090//10.1.102.64:9090/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/10.html
+---------------------------------------------------------------
+
+[2026-08-26T03:52:43+08:00] 172.17.0.1 POST 10.1.102.64:9090/favicon/
+[ error ] [2]imagecreatefromgif(): '/tmp/phpiiD5SU' is not a valid GIF file
+---------------------------------------------------------------
+
+[2026-08-26T03:57:04+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:04+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:04+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:05+08:00] 172.17.0.1 GET 10.1.102.64:9090/upload/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/upload.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:05+08:00] 172.17.0.1 GET 10.1.102.64:9090/upload/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/upload.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:05+08:00] 172.17.0.1 GET 10.1.102.64:9090/upload/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/upload.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:05+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/uploads/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:05+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/uploads/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:06+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/uploads/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:06+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/upload/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:06+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/upload/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:06+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/upload/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:06+08:00] 172.17.0.1 GET 10.1.102.64:9090/runtime/temp/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/runtime.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:07+08:00] 172.17.0.1 GET 10.1.102.64:9090/runtime/temp/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/runtime.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:07+08:00] 172.17.0.1 GET 10.1.102.64:9090/runtime/temp/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/runtime.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:07+08:00] 172.17.0.1 GET 10.1.102.64:9090/static/upload/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/static.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:07+08:00] 172.17.0.1 GET 10.1.102.64:9090/static/upload/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/static.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:08+08:00] 172.17.0.1 GET 10.1.102.64:9090/static/upload/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/static.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:08+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/images/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:08+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/images/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:08+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/images/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:08+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/allimg/cxprobe64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:09+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/allimg/cxprobe64.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T03:57:09+08:00] 172.17.0.1 GET 10.1.102.64:9090/uploads/allimg/favicon.ico?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/uploads.html
+---------------------------------------------------------------
+
+[2026-08-26T04:00:12+08:00] 172.17.0.1 GET 10.1.102.64:9090/cxlogpoison_9090
+[ error ] [0]模板文件不存在:/app/application/index/view/index/cxlogpoison_9090.html
+---------------------------------------------------------------
+
+[2026-08-26T04:00:13+08:00] 172.17.0.1 GET 10.1.102.64:9090/var/www/html/runtime/log/202608/26.log/index/index?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/var.html
+---------------------------------------------------------------
+
+[2026-08-26T04:03:00+08:00] 172.17.0.1 GET 10.1.102.64:9090/no_such_route_zzzz
+[ error ] [0]模板文件不存在:/app/application/index/view/index/no_such_route_zzzz.html
+---------------------------------------------------------------
+
+[2026-08-26T04:06:17+08:00] 172.17.0.1 GET 10.1.102.64:9090/public/cxr64.php?c=id
+[ error ] [0]模板文件不存在:/app/application/index/view/index/public.html

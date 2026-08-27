@@ -249,11 +249,19 @@
             showMsg(cfg.msg || '已填入示例数据' + (filled ? '' : ''));
         });
 
-        // 插入到 actions 最前面；若无 actions 则插入 card 开头
-        if ($('.tool-actions')) {
-            $('.tool-actions').insertBefore(btn, $('.tool-actions').firstChild);
+        // 插入位置优先级：.tool-actions 最前面 > 第一个 .t-row 之后 > .tool-card 尾部
+        var actions = $('.tool-actions');
+        if (actions) {
+            actions.insertBefore(btn, actions.firstChild);
         } else {
-            host.insertBefore(btn, host.firstChild);
+            // 找到第一个 .t-row（输入行），插到它后面
+            var firstRow = $('.tool-card .t-row');
+            if (firstRow && firstRow.parentNode) {
+                firstRow.parentNode.insertBefore(btn, firstRow.nextSibling);
+            } else {
+                // 兜底：插到 tool-card 尾部
+                host.appendChild(btn);
+            }
         }
     }
 

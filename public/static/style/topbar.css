@@ -69,6 +69,7 @@
 
 /* ---------- 顶栏下拉菜单重设计 ---------- */
 .topbar .dropdown-menu {
+    background: var(--tb-surface);
     border: 1px solid var(--tb-border);
     border-radius: var(--tb-radius);
     box-shadow: 0 8px 28px rgba(45,42,36,.12), 0 2px 8px rgba(45,42,36,.06);
@@ -76,6 +77,10 @@
     min-width: 220px;
     max-width: 560px;
     animation: dropdownSlide .18s cubic-bezier(.4,0,.2,1);
+}
+/* 深色模式下金属阴影 */
+[data-theme="dark"] .topbar .dropdown-menu {
+    box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.35);
 }
 /* 工具数多的分类下拉菜单自动多列（仅 hover 时生效） */
 .topbar .dropdown:hover .dropdown-menu.ul-list {
@@ -153,6 +158,14 @@
 }
 .topbar .dropdown-menu > li.cur > a .dropdown-tool-dot {
     opacity: 1;
+}
+
+/* 覆盖 Bootstrap 下拉菜单硬编码颜色（仅 divider/头部，item 配色由上方规则按分类处理） */
+.topbar .dropdown-menu .divider {
+    background-color: var(--tb-border) !important;
+}
+.topbar .dropdown-menu .dropdown-header {
+    color: var(--tb-text-3) !important;
 }
 
 /* 分类菜单激活态：底部彩色下划线 */

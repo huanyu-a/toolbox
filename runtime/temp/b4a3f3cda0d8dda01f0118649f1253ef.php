@@ -1,0 +1,233 @@
+<?php /*a:6:{s:51:"/app/application/index/view/index/keyboardcode.html";i:1787024461;s:36:"/app/application/index/view/seo.html";i:1787024468;s:39:"/app/application/index/view/header.html";i:1787218864;s:36:"/app/application/index/view/nav.html";i:1786603123;s:39:"/app/application/index/view/footer.html";i:1787218004;s:37:"/app/application/index/view/link.html";i:1787217514;}*/ ?>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title><?php echo htmlentities(app('config')->get('web.keyboardcode.title')); ?>-<?php echo htmlentities(app('config')->get('web.site.name')); ?></title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="<?php echo htmlentities(app('config')->get('web.keyboardcode.keywords')); ?>" /><meta name="description" content="<?php echo htmlentities(app('config')->get('web.keyboardcode.description')); ?>" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]--><?php echo app('config')->get('web.header'); ?><link rel="canonical" href="<?php echo request()->domain(); ?><?php echo htmlentities((isset($current_url) && ($current_url !== '')?$current_url:'/')); ?>" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:site_name" content="<?php echo htmlentities(app('config')->get('web.site.name')); ?>" />
+<meta property="og:title" content="<?php echo htmlentities((isset($page_title) && ($page_title !== '')?$page_title:'')); ?>" />
+<meta property="og:description" content="<?php echo htmlentities((isset($page_desc) && ($page_desc !== '')?$page_desc:'')); ?>" />
+<meta property="og:url" content="<?php echo request()->domain(); ?><?php echo htmlentities((isset($current_url) && ($current_url !== '')?$current_url:'/')); ?>" />
+<meta property="og:image" content="<?php echo request()->domain(); ?>/favicon.ico" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="<?php echo htmlentities((isset($page_title) && ($page_title !== '')?$page_title:'')); ?>" />
+<meta name="twitter:description" content="<?php echo htmlentities((isset($page_desc) && ($page_desc !== '')?$page_desc:'')); ?>" />
+<?php if(isset($jsonld) && $jsonld != ''): ?><script type="application/ld+json"><?php echo $jsonld; ?></script><?php endif; ?>
+</head><body><link href="/static/style/theme-uno.css" rel="stylesheet" type="text/css"/>
+<link href="/static/style/topbar.css" rel="stylesheet" type="text/css"/>
+<nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar"><span class="sr-only"><?php echo htmlentities(app('config')->get('web.site.name')); ?></span> <span
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="/" title="<?php echo htmlentities(app('config')->get('web.site.name')); ?>"><em class="logo_ico glyphicon glyphicon-wrench"></em><?php echo htmlentities(app('config')->get('web.site.name')); ?></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" role="navigation">
+            <ul class="nav navbar-nav" id="top_menu">
+                <?php if(is_array($tools) || $tools instanceof \think\Collection || $tools instanceof \think\Paginator): $i = 0; $__LIST__ = $tools;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cat): $mod = ($i % 2 );++$i;?>
+                <li class="dropdown<?php if($cat['cat'] == $current_cat): ?> active<?php endif; if(count($cat['items']) > 6): ?> multi-col<?php endif; ?>" data-cat="<?php echo htmlentities($cat['cat']); ?>" style="--cat-c:var(--tb-c<?php echo htmlentities($key+1); ?>);--cat-bg:var(--tb-c<?php echo htmlentities($key+1); ?>-bg)">
+                    <a href="/#cat-<?php echo htmlentities($cat['cat']); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><?php echo htmlentities($cat['cat']); ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu ul-list">
+                        <li class="dropdown-header-cat"><span class="dropdown-header-dot" style="background:var(--cat-c)"></span><?php echo htmlentities($cat['cat']); ?><span class="dropdown-header-count"><?php echo htmlentities(count($cat['items'])); ?> 个工具</span></li>
+                        <?php if(is_array($cat['items']) || $cat['items'] instanceof \think\Collection || $cat['items'] instanceof \think\Paginator): $i = 0; $__LIST__ = $cat['items'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$tool): $mod = ($i % 2 );++$i;?>
+                        <li<?php if($tool['url'] == $current_url): ?> class="cur"<?php endif; ?>><a href="<?php echo htmlentities($tool['url']); ?>"<?php if($tool['accent'] != ''): ?> style="color:<?php echo htmlentities($tool['accent']); ?>"<?php endif; ?>><span class="dropdown-tool-dot" style="background:var(--cat-c)"></span><?php echo htmlentities($tool['name']); ?></a></li>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </ul>
+                </li>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
+                <li class="dropdown more-menu" id="moreMenu" style="display:none;">
+                    <a href="javascript:;" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
+                    <ul class="dropdown-menu ul-list more-list" id="moreMenuList"></ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-search">
+                    <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
+                </li>
+                <li class="nav-theme"><a href="javascript:;" id="themeToggle" class="theme-toggle-btn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<?php if($current_tool_name != ''): ?>
+<div class="crumb-bar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li><?php if($current_cat != ''): ?><a href="/#cat-<?php echo htmlentities($current_cat); ?>"><?php echo htmlentities($current_cat); ?></a><?php else: ?>工具<?php endif; ?></li>
+            <li class="active"><?php echo htmlentities($current_tool_name); ?></li>
+        </ol>
+    </div>
+</div>
+<?php endif; ?>
+<div class="search-pop-mask" id="searchMask" style="display:none;"></div>
+<nav class="float-cat-nav" id="floatCatNav" aria-label="分类导航"></nav>
+<!-- 移动端悬浮按钮组：分类（右下角，点击展开右侧面板）、搜索/主题（右上角） -->
+<div class="fab-mask" id="fabMask" style="display:none;"></div>
+<button type="button" class="fab fab-cat" id="fabCatBtn" title="分类导航" aria-label="分类导航" aria-expanded="false"><span class="fab-ico">☰</span></button>
+<button type="button" class="fab fab-search" id="fabSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="fab-ico">🔍</span></button>
+<button type="button" class="fab fab-theme theme-toggle-btn" id="fabThemeBtn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></button>
+<div class="search-pop" id="searchPop" style="display:none;">
+    <div class="container">
+        <div class="search-pop-head">
+            <input type="text" class="form-control search-pop-input" id="topSearchInput" placeholder="搜索工具，如：json、md5、时间戳…" autocomplete="off">
+            <button type="button" class="search-pop-close" id="searchPopClose" aria-label="关闭搜索"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+        <div class="search-pop-body" id="searchDropdown"></div>
+    </div>
+</div>
+<script>window.TOOLS_DATA = <?php echo isset($tools) && $tools ? json_encode($tools) : '[]'; ?>;</script>
+<?php echo tongji_config_code(); ?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T510L8HTF9"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-T510L8HTF9")</script>
+<style>.anjian-split {height:32px;float:left;font-size:12px;}
+.anjian-btn {height:30px;width:31px;background-color:#fff;border:1px solid #CCC;padding-left:4px;padding-top:1px;float:left;font-family:verdana;margin-right:3px;margin-left:3px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow:hidden;line-height:15px}
+#anjian_test {width:890px;height:250px;margin-right:auto;margin-left:auto;margin-top:40px;background-color:#323232;}
+#anjian_test_zuo {width:834px;float:left;margin-left:8px;}
+#anjian_test_you {width:38px;float:left;}
+#anjian_test_xia {width:872px;margin-right:auto;margin-left:auto;margin-bottom:60px;}
+#anjian_test_xia_zuo {float:left;margin-top:12px;margin-left:3px;color:#666;}
+#anjian_test_xia_you {float:right;margin-top:8px;margin-right:3px;}
+.anjian-btn{font-size:12px}
+.anjian-btn.on{background-color:#ffd54a!important;border-color:#e6a800!important;color:#202020!important;font-weight:600}
+#kbPanel2{overflow-x:auto}</style>
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">⌨️</span>按键码 / 键盘测试 / Android 按键码</h2>
+        <p class="tool-desc">在线获取键盘 KeyCode 键值、可视化测试键盘各按键是否完好，并附 Android 系统按键码（KEYCODE）对照表。</p>
+        <ul class="t-tabs" id="kbTabs">
+            <li><button type="button" class="t-tab active" data-panel="kbPanel1">KeyCode 获取</button></li>
+            <li><button type="button" class="t-tab" data-panel="kbPanel2">键盘测试</button></li>
+            <li><button type="button" class="t-tab" data-panel="kbPanel3">Android 按键码</button></li>
+        </ul>
+        <div id="kbPanel1" class="t-panel active">
+            <label class="t-label" for="kbInput">点击下方输入框后按下任意按键，即可实时显示对应的 KeyCode</label>
+            <div class="t-row" style="margin-bottom:10px">
+                <div class="t-col" style="flex:1">
+                    <input class="t-input" style="width:100%" type="text" id="kbInput" placeholder="请在此输入按键">
+                </div>
+            </div>
+            <div class="t-result show">
+                <div class="t-row">
+                    <div class="t-col" style="flex:1"><span class="t-result-label">KeyCode 值：</span><b id="kbCode" style="font-size:20px;color:var(--brand)">-</b></div>
+                    <div class="t-col" style="flex:1"><span class="t-result-label">按键名称：</span><b id="kbKey" style="font-size:20px;color:var(--brand)">-</b></div>
+                </div>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ghost" type="button" data-copy="#kbResultText">复制结果</button>
+            </div>
+            <textarea class="t-area" id="kbResultText" style="display:none" readonly></textarea>
+            <div class="t-error" id="kbError"></div>
+        </div>
+        <div id="kbPanel2" class="t-panel">
+            <p class="t-desc" style="color:var(--text-2);font-size:13px">在下方键盘上依次按下每个按键，被按下的键会高亮；若某个键无反应则可能失灵。测试小键盘时请确保 Num Lock 开启。</p>
+            <div id="anjian_test"><div id="anjian_test_zuo">  <div style="clear: both;height: 8px;"></div>  <div class="anjian-btn" id="btn_id_27">Esc</div>  <div class="anjian-split" style="width: 32px;"></div>  <div class="anjian-btn" id="btn_id_112">F1</div>  <div class="anjian-btn" id="btn_id_113">F2</div>  <div class="anjian-btn" id="btn_id_114">F3</div>  <div class="anjian-btn" id="btn_id_115">F4</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_116">F5</div>  <div class="anjian-btn" id="btn_id_117">F6</div>  <div class="anjian-btn" id="btn_id_118">F7</div>  <div class="anjian-btn" id="btn_id_119">F8</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_120">F9</div>  <div class="anjian-btn" id="btn_id_121">F10</div>  <div class="anjian-btn" id="btn_id_122">F11</div>  <div class="anjian-btn" id="btn_id_123">F12</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_44" title='Print Screen'>Print<br />Scrn</div>  <div class="anjian-btn" id="btn_id_145" title='Scroll Lock'>Scroll<br />Lock</div>  <div class="anjian-btn" id="btn_id_19" title='Pause Break'>Pause<br />Break</div>  <div style="clear: both;height: 8px;"></div>    <div class="anjian-btn" id="btn_id_192">~<br />`</div>  <div class="anjian-btn" id="btn_id_49">!<br />1</div>  <div class="anjian-btn" id="btn_id_50">@<br />2</div>  <div class="anjian-btn" id="btn_id_51">#<br />3</div>  <div class="anjian-btn" id="btn_id_52">$<br />4</div>  <div class="anjian-btn" id="btn_id_53">%<br />5</div>  <div class="anjian-btn" id="btn_id_54">^<br />6</div>  <div class="anjian-btn" id="btn_id_55">&amp;<br />7</div>  <div class="anjian-btn" id="btn_id_56">*<br />8</div>  <div class="anjian-btn" id="btn_id_57">（<br />9</div>  <div class="anjian-btn" id="btn_id_48">）<br />0</div>  <div class="anjian-btn" id="btn_id_189">—<br />-</div>  <div class="anjian-btn" id="btn_id_187">+<br />=</div>  <div class="anjian-btn" id="btn_id_8" style="width: 67px;">Backspace</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_45">Insert</div>  <div class="anjian-btn" id="btn_id_36">Home</div>  <div class="anjian-btn" id="btn_id_33">Page<br />Up</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_144">Num<br />Lock</div>  <div class="anjian-btn" id="btn_id_111">/</div>  <div class="anjian-btn" id="btn_id_106">*</div>  <div style="clear: both;height: 8px;"></div>  <div class="anjian-btn" id="btn_id_9" style="width: 44px;">Tab</div>  <div class="anjian-btn" id="btn_id_81">Q</div>  <div class="anjian-btn" id="btn_id_87">W</div>  <div class="anjian-btn" id="btn_id_69">E</div>  <div class="anjian-btn" id="btn_id_82">R</div>  <div class="anjian-btn" id="btn_id_84">T</div>  <div class="anjian-btn" id="btn_id_89">Y</div>  <div class="anjian-btn" id="btn_id_85">U</div>  <div class="anjian-btn" id="btn_id_73">I</div>  <div class="anjian-btn" id="btn_id_79">O</div>  <div class="anjian-btn" id="btn_id_80">P</div>  <div class="anjian-btn" id="btn_id_219">{<br />[</div>  <div class="anjian-btn" id="btn_id_221">}<br />]</div>  <div class="anjian-btn" id="btn_id_220" style="width: 55px;">|<br />\</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_46">Del</div>  <div class="anjian-btn" id="btn_id_35">End</div>  <div class="anjian-btn" id="btn_id_34">Page<br />Down</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_103">7<br />Home</div>  <div class="anjian-btn" id="btn_id_104">8<br />↑</div>  <div class="anjian-btn" id="btn_id_105">9<br />Pg Up</div>  <div style="clear: both;height: 8px;"></div>  <div class="anjian-btn" id="btn_id_20" style="width: 56px;">Caps<br />Lock</div>  <div class="anjian-btn" id="btn_id_65">A</div>  <div class="anjian-btn" id="btn_id_83">S</div>  <div class="anjian-btn" id="btn_id_68">D</div>  <div class="anjian-btn" id="btn_id_70">F</div>  <div class="anjian-btn" id="btn_id_71">G</div>  <div class="anjian-btn" id="btn_id_72">H</div>  <div class="anjian-btn" id="btn_id_74">J</div>  <div class="anjian-btn" id="btn_id_75">K</div>  <div class="anjian-btn" id="btn_id_76">L</div>  <div class="anjian-btn" id="btn_id_186">:<br />;</div>  <div class="anjian-btn" id="btn_id_222">"<br />'</div>  <div class="anjian-btn" id="btn_id_13" style="width: 78px;">Enter</div>  <div class="anjian-split" style="width: 154px;"></div>  <div class="anjian-btn" id="btn_id_100">4<br />←</div>  <div class="anjian-btn" id="btn_id_101">5</div>  <div class="anjian-btn" id="btn_id_102">6<br />→</div>  <div style="clear: both;height: 8px;"></div>  <div class="anjian-btn" id="btn_id_16" style="width: 80px;">Shift</div>  <div class="anjian-btn" id="btn_id_90">Z</div>  <div class="anjian-btn" id="btn_id_88">X</div>  <div class="anjian-btn" id="btn_id_67">C</div>  <div class="anjian-btn" id="btn_id_86">V</div>  <div class="anjian-btn" id="btn_id_66">B</div>  <div class="anjian-btn" id="btn_id_78">N</div>  <div class="anjian-btn" id="btn_id_77">M</div>  <div class="anjian-btn" id="btn_id_188">&lt;<br />,</div>  <div class="anjian-btn" id="btn_id_190">&gt;<br />.</div>  <div class="anjian-btn" id="btn_id_191">?<br />/</div>  <div class="anjian-btn" id="btn_id_16_2" style="width: 92px;">Shift</div>  <div class="anjian-split" style="width: 58px;"></div>  <div class="anjian-btn" id="btn_id_38">↑</div>  <div class="anjian-split" style="width: 58px;"></div>  <div class="anjian-btn" id="btn_id_97">1<br />End</div>  <div class="anjian-btn" id="btn_id_98">2<br />↓</div>  <div class="anjian-btn" id="btn_id_99">3<br />Pg Dn</div><div style="clear: both;height: 8px;"></div>  <div class="anjian-btn" id="btn_id_17" style="width: 50px;">Ctrl</div>  <div class="anjian-btn" id="btn_id_91">Win</div>  <div class="anjian-btn" id="btn_id_18">Alt</div>  <div class="anjian-btn" id="btn_id_32" style="width: 271px;">Space</div>  <div class="anjian-btn" id="btn_id_18_2">Alt</div>  <div class="anjian-btn" id="btn_id_92">Win</div>  <div class="anjian-btn" id="btn_id_93">Menu</div>  <div class="anjian-btn" id="btn_id_17_2">Ctrl</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_37">←</div>  <div class="anjian-btn" id="btn_id_40">↓</div>  <div class="anjian-btn" id="btn_id_39">→</div>  <div class="anjian-split" style="width: 20px;"></div>  <div class="anjian-btn" id="btn_id_96" style="width: 68px;">0<br />Ins</div>  <div class="anjian-btn" id="btn_id_110">.<br />Del</div></div><div id="anjian_test_you"><div style="clear: both;height: 48px;"></div><div class="anjian-btn" id="btn_id_109">-</div><div style="clear: both;height: 8px;"></div><div class="anjian-btn" id="btn_id_107" style="height: 70px;">+</div><div style="clear: both;height: 8px;"></div><div class="anjian-btn" id="btn_id_13_2" style="height: 70px;">Enter</div></div></div><div id="anjian_test_xia"><div id="anjian_test_xia_zuo">PCJSON提示：当您要测试小键盘上的数字按键时，请检查键盘上的【Num Lock】是否处于开启状态。</div><div id="anjian_test_xia_you"><button type="button" class="t-btn t-btn-ghost" id="kbReset">按键全部重置</button></div></div>
+        </div>
+        <div id="kbPanel3" class="t-panel">
+            <div style="overflow-x:auto"><table class="table table-bordered table-striped" style="margin:0"><thead><tr><th>按键常量</th><th>说明</th><th>键值</th></tr></thead><tbody><tr><td style="white-space:nowrap"><code>KEYCODE_CALL</code></td><td>拨号键</td><td>5</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_ENDCALL</code></td><td>挂机键</td><td>6</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_HOME</code></td><td>按键Home</td><td>3</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_MENU</code></td><td>菜单键</td><td>82</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_BACK</code></td><td>返回键</td><td>4</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_SEARCH</code></td><td>搜索键</td><td>84</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_CAMERA</code></td><td>拍照键</td><td>27</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_FOCUS</code></td><td>拍照对焦键</td><td>80</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_POWER</code></td><td>电源键</td><td>26</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_NOTIFICATION</code></td><td>通知键</td><td>83</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_MUTE</code></td><td>话筒静音键</td><td>91</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_VOLUME_MUTE</code></td><td>扬声器静音键</td><td>164</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_VOLUME_UP</code></td><td>音量增加键</td><td>24</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_VOLUME_DOWN</code></td><td>音量减小键</td><td>25</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_ENTER</code></td><td>回车键</td><td>66</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_ESCAPE</code></td><td>ESC键</td><td>111</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_DPAD_CENTER</code></td><td>导航键确定键</td><td>23</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_DPAD_UP</code></td><td>导航键向上</td><td>19</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_DPAD_DOWN</code></td><td>导航键向下</td><td>20</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_DPAD_LEFT</code></td><td>导航键向左</td><td>21</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_DPAD_RIGHT</code></td><td>导航键向右</td><td>22</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_MOVE_HOME</code></td><td>光标移动到开始键</td><td>122</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_MOVE_END</code></td><td>光标移动到末尾键</td><td>123</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_PAGE_UP</code></td><td>向上翻页键</td><td>92</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_PAGE_DOWN</code></td><td>向下翻页键</td><td>93</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_DEL</code></td><td>退格键</td><td>67</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_FORWARD_DEL</code></td><td>删除键</td><td>112</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_INSERT</code></td><td>插入键</td><td>124</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_TAB</code></td><td>Tab键</td><td>61</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_NUM_LOCK</code></td><td>小键盘锁</td><td>143</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_CAPS_LOCK</code></td><td>大写锁定键</td><td>115</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_BREAK</code></td><td>Break/Pause键</td><td>121</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_SCROLL_LOCK</code></td><td>滚动锁定键</td><td>116</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_ZOOM_IN</code></td><td>放大键</td><td>168</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_ZOOM_OUT</code></td><td>缩小键</td><td>169</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_0</code></td><td>按键'0'</td><td>7</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_1</code></td><td>按键'1'</td><td>8</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_2</code></td><td>按键'2'</td><td>9</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_3</code></td><td>按键'3'</td><td>10</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_4</code></td><td>按键'4'</td><td>11</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_5</code></td><td>按键'5'</td><td>12</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_6</code></td><td>按键'6'</td><td>13</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_7</code></td><td>按键'7'</td><td>14</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_8</code></td><td>按键'8'</td><td>15</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_9</code></td><td>按键'9'</td><td>16</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_A</code></td><td>按键'A'</td><td>29</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_B</code></td><td>按键'B'</td><td>30</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_C</code></td><td>按键'C'</td><td>31</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_D</code></td><td>按键'D'</td><td>32</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_E</code></td><td>按键'E'</td><td>33</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_F</code></td><td>按键'F'</td><td>34</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_G</code></td><td>按键'G'</td><td>35</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_H</code></td><td>按键'H'</td><td>36</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_I</code></td><td>按键'I'</td><td>37</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_J</code></td><td>按键'J'</td><td>38</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_K</code></td><td>按键'K'</td><td>39</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_L</code></td><td>按键'L'</td><td>40</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_M</code></td><td>按键'M'</td><td>41</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_N</code></td><td>按键'N'</td><td>42</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_O</code></td><td>按键'O'</td><td>43</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_P</code></td><td>按键'P'</td><td>44</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_Q</code></td><td>按键'Q'</td><td>45</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_R</code></td><td>按键'R'</td><td>46</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_S</code></td><td>按键'S'</td><td>47</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_T</code></td><td>按键'T'</td><td>48</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_U</code></td><td>按键'U'</td><td>49</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_V</code></td><td>按键'V'</td><td>50</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_W</code></td><td>按键'W'</td><td>51</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_X</code></td><td>按键'X'</td><td>52</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_Y</code></td><td>按键'Y'</td><td>53</td></tr><tr><td style="white-space:nowrap"><code>KEYCODE_Z</code></td><td>按键'Z'</td><td>54</td></tr></tbody></table></div>
+        </div>
+    </div>
+    <div class="tool-card">
+        <h2 class="tool-title">📖 关于按键码</h2>
+        <p class="tool-desc">KeyCode 是浏览器键盘事件的按键数值（如 Enter=13、Space=32、A=65），用于前端开发中监听按键。Android 的 KeyEvent.KEYCODE 常量值（如 KEYCODE_BACK=4）用于安卓应用开发。</p>
+    </div>
+</div></div>
+<div class="container foot-history" id="foot-history">
+    <div class="row">
+        <div class="col-md-12"><span>您的足迹：</span><span id="visit_history"></span></div>
+    </div>
+</div>
+<?php if($act != 'index'): ?>
+<div class="container foot-nav-wrap">
+    <div class="row">
+        <div class="col-md-12 footer-nav">
+            <h2>常用工具推荐</h2>
+            <div class="list-inline-bg">
+                <ul class="list-inline rand-tools">
+                    <?php if(is_array($randTools) || $randTools instanceof \think\Collection || $randTools instanceof \think\Paginator): $i = 0; $__LIST__ = $randTools;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$tool): $mod = ($i % 2 );++$i;?>
+                    <li><span></span><a href="<?php echo htmlentities($tool['url']); ?>"<?php if($tool['accent'] != ''): ?> style="color:<?php echo htmlentities($tool['accent']); ?>"<?php endif; ?>><?php echo htmlentities($tool['name']); ?></a></li>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<div class="copyright" id="footer">
+    <div class="container">
+        <?php if($act == 'index'): ?>
+        <div class="friend-link-row">
+    友情链接：
+    <a href="https://hub.openeeds.com/" target="_blank" rel="nofollow noopener">Docker镜像加速</a>
+    <span class="fl-sep">|</span>
+    <a href="https://docker.openeeds.com/" target="_blank" rel="nofollow noopener">国内DockerHub</a>
+    <span class="fl-sep">|</span>
+    <a href="https://www.cyberguard.best/#/register?code=PxOrTfcH" target="_blank" rel="nofollow noopener">推荐机场</a>
+</div>
+
+        <?php endif; ?>
+        <div class="row">
+            <div class="col-sm-12"><span>Copyright ©2024-<?php echo htmlentities(date('Y',!is_numeric(date('Y-m-d g:i a',time()))? strtotime(date('Y-m-d g:i a',time())) : date('Y-m-d g:i a',time()))); ?> <a href="/"><?php echo htmlentities(app('config')->get('web.site.name')); ?></a></span><!-- | <span><a
+                    href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">粤ICP备2021140346号</a></span>--></div>
+        </div>
+    </div>
+</div>
+<a class="gotop" href="#top" title="返回顶部" style="display: none;"><span class="arrow"></span><span class="arrow lit"></span></a>
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    // Tab 切换
+    var tabs = document.querySelectorAll('#kbTabs .t-tab');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            document.querySelectorAll('#kbTabs ~ .t-panel').forEach(function (p) { p.classList.remove('active'); });
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+
+    // 面板1：按键 → KeyCode 实时显示
+    var kbInput = document.getElementById('kbInput');
+    var kbCode = document.getElementById('kbCode');
+    var kbKey = document.getElementById('kbKey');
+    var kbResult = document.getElementById('kbResultText');
+    var kbError = document.getElementById('kbError');
+    kbInput.addEventListener('keydown', function (e) {
+        e.preventDefault();
+        kbInput.value = '';
+        kbCode.textContent = e.keyCode;
+        kbKey.textContent = e.key || '(无法识别)';
+        kbResult.value = 'KeyCode: ' + e.keyCode + '\n按键: ' + (e.key || '(无法识别)');
+        kbError.classList.remove('show');
+    });
+
+    // 面板2：键盘测试（按下按键对应键位高亮，直至点击“按键全部重置”）
+    function getKeyEls(code) {
+        var list = [];
+        var a = document.getElementById('btn_id_' + code);
+        if (a) list.push(a);
+        var b = document.getElementById('btn_id_' + code + '_2');
+        if (b) list.push(b);
+        return list;
+    }
+    document.addEventListener('keydown', function (e) {
+        var els = getKeyEls(e.keyCode);
+        if (els.length) {
+            els.forEach(function (el) { el.classList.add('on'); });
+            if (!e.ctrlKey && !e.metaKey && !e.altKey) e.preventDefault();
+        }
+    });
+    document.getElementById('kbReset').addEventListener('click', function () {
+        document.querySelectorAll('#anjian_test .anjian-btn.on').forEach(function (el) {
+            el.classList.remove('on');
+        });
+    });
+})();
+</script>
+<script src="/static/script/sample-data.js" type="text/javascript"></script>
+</body></html>

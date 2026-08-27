@@ -1,0 +1,612 @@
+<?php /*a:6:{s:46:"/app/application/index/view/index/convert.html";i:1787024461;s:36:"/app/application/index/view/seo.html";i:1787024468;s:39:"/app/application/index/view/header.html";i:1787218864;s:36:"/app/application/index/view/nav.html";i:1786603123;s:39:"/app/application/index/view/footer.html";i:1787218004;s:37:"/app/application/index/view/link.html";i:1787217514;}*/ ?>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title><?php echo htmlentities(app('config')->get('web.convert.title')); ?>-<?php echo htmlentities(app('config')->get('web.site.name')); ?></title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="<?php echo htmlentities(app('config')->get('web.convert.keywords')); ?>" /><meta name="description" content="<?php echo htmlentities(app('config')->get('web.convert.description')); ?>" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]--><?php echo app('config')->get('web.header'); ?><link rel="canonical" href="<?php echo request()->domain(); ?><?php echo htmlentities((isset($current_url) && ($current_url !== '')?$current_url:'/')); ?>" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:site_name" content="<?php echo htmlentities(app('config')->get('web.site.name')); ?>" />
+<meta property="og:title" content="<?php echo htmlentities((isset($page_title) && ($page_title !== '')?$page_title:'')); ?>" />
+<meta property="og:description" content="<?php echo htmlentities((isset($page_desc) && ($page_desc !== '')?$page_desc:'')); ?>" />
+<meta property="og:url" content="<?php echo request()->domain(); ?><?php echo htmlentities((isset($current_url) && ($current_url !== '')?$current_url:'/')); ?>" />
+<meta property="og:image" content="<?php echo request()->domain(); ?>/favicon.ico" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="<?php echo htmlentities((isset($page_title) && ($page_title !== '')?$page_title:'')); ?>" />
+<meta name="twitter:description" content="<?php echo htmlentities((isset($page_desc) && ($page_desc !== '')?$page_desc:'')); ?>" />
+<?php if(isset($jsonld) && $jsonld != ''): ?><script type="application/ld+json"><?php echo $jsonld; ?></script><?php endif; ?>
+</head><body><link href="/static/style/theme-uno.css" rel="stylesheet" type="text/css"/>
+<link href="/static/style/topbar.css" rel="stylesheet" type="text/css"/>
+<nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar"><span class="sr-only"><?php echo htmlentities(app('config')->get('web.site.name')); ?></span> <span
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="/" title="<?php echo htmlentities(app('config')->get('web.site.name')); ?>"><em class="logo_ico glyphicon glyphicon-wrench"></em><?php echo htmlentities(app('config')->get('web.site.name')); ?></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" role="navigation">
+            <ul class="nav navbar-nav" id="top_menu">
+                <?php if(is_array($tools) || $tools instanceof \think\Collection || $tools instanceof \think\Paginator): $i = 0; $__LIST__ = $tools;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cat): $mod = ($i % 2 );++$i;?>
+                <li class="dropdown<?php if($cat['cat'] == $current_cat): ?> active<?php endif; if(count($cat['items']) > 6): ?> multi-col<?php endif; ?>" data-cat="<?php echo htmlentities($cat['cat']); ?>" style="--cat-c:var(--tb-c<?php echo htmlentities($key+1); ?>);--cat-bg:var(--tb-c<?php echo htmlentities($key+1); ?>-bg)">
+                    <a href="/#cat-<?php echo htmlentities($cat['cat']); ?>" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><?php echo htmlentities($cat['cat']); ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu ul-list">
+                        <li class="dropdown-header-cat"><span class="dropdown-header-dot" style="background:var(--cat-c)"></span><?php echo htmlentities($cat['cat']); ?><span class="dropdown-header-count"><?php echo htmlentities(count($cat['items'])); ?> 个工具</span></li>
+                        <?php if(is_array($cat['items']) || $cat['items'] instanceof \think\Collection || $cat['items'] instanceof \think\Paginator): $i = 0; $__LIST__ = $cat['items'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$tool): $mod = ($i % 2 );++$i;?>
+                        <li<?php if($tool['url'] == $current_url): ?> class="cur"<?php endif; ?>><a href="<?php echo htmlentities($tool['url']); ?>"<?php if($tool['accent'] != ''): ?> style="color:<?php echo htmlentities($tool['accent']); ?>"<?php endif; ?>><span class="dropdown-tool-dot" style="background:var(--cat-c)"></span><?php echo htmlentities($tool['name']); ?></a></li>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </ul>
+                </li>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
+                <li class="dropdown more-menu" id="moreMenu" style="display:none;">
+                    <a href="javascript:;" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
+                    <ul class="dropdown-menu ul-list more-list" id="moreMenuList"></ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-search">
+                    <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="glyphicon glyphicon-search"></span></button>
+                </li>
+                <li class="nav-theme"><a href="javascript:;" id="themeToggle" class="theme-toggle-btn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<?php if($current_tool_name != ''): ?>
+<div class="crumb-bar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li><?php if($current_cat != ''): ?><a href="/#cat-<?php echo htmlentities($current_cat); ?>"><?php echo htmlentities($current_cat); ?></a><?php else: ?>工具<?php endif; ?></li>
+            <li class="active"><?php echo htmlentities($current_tool_name); ?></li>
+        </ol>
+    </div>
+</div>
+<?php endif; ?>
+<div class="search-pop-mask" id="searchMask" style="display:none;"></div>
+<nav class="float-cat-nav" id="floatCatNav" aria-label="分类导航"></nav>
+<!-- 移动端悬浮按钮组：分类（右下角，点击展开右侧面板）、搜索/主题（右上角） -->
+<div class="fab-mask" id="fabMask" style="display:none;"></div>
+<button type="button" class="fab fab-cat" id="fabCatBtn" title="分类导航" aria-label="分类导航" aria-expanded="false"><span class="fab-ico">☰</span></button>
+<button type="button" class="fab fab-search" id="fabSearchBtn" title="搜索工具" aria-label="搜索工具"><span class="fab-ico">🔍</span></button>
+<button type="button" class="fab fab-theme theme-toggle-btn" id="fabThemeBtn" title="切换深浅色模式" aria-label="切换深浅色模式"><span class="theme-icon">🌙</span></button>
+<div class="search-pop" id="searchPop" style="display:none;">
+    <div class="container">
+        <div class="search-pop-head">
+            <input type="text" class="form-control search-pop-input" id="topSearchInput" placeholder="搜索工具，如：json、md5、时间戳…" autocomplete="off">
+            <button type="button" class="search-pop-close" id="searchPopClose" aria-label="关闭搜索"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+        <div class="search-pop-body" id="searchDropdown"></div>
+    </div>
+</div>
+<script>window.TOOLS_DATA = <?php echo isset($tools) && $tools ? json_encode($tools) : '[]'; ?>;</script>
+<?php echo tongji_config_code(); ?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T510L8HTF9"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-T510L8HTF9")</script>
+<div class="container"><div class="tool-wrap">
+    <div class="tool-card">
+        <h2 class="tool-title"><span class="t-ico">🔄</span>数值转换</h2>
+        <p class="tool-desc">时间戳互转、世界时间、在线时钟、进制转换、HEX/RGB 颜色转换、调色板、rem/px 转换七种数值与单位转换工具合集，全程浏览器本地运算。</p>
+        <ul class="t-tabs" id="cvTabs">
+            <li><button type="button" class="t-tab active" data-panel="cvTime">时间戳转换</button></li>
+            <li><button type="button" class="t-tab" data-panel="cvWorld">世界时间</button></li>
+            <li><button type="button" class="t-tab" data-panel="cvClock">在线时钟</button></li>
+            <li><button type="button" class="t-tab" data-panel="cvHex">进制转换</button></li>
+            <li><button type="button" class="t-tab" data-panel="cvColor">颜色转换</button></li>
+            <li><button type="button" class="t-tab" data-panel="cvPal">调色板</button></li>
+            <li><button type="button" class="t-tab" data-panel="cvRem">rem/px</button></li>
+        </ul>
+
+        <!-- 时间戳转换 -->
+        <div id="cvTime" class="t-panel cv-panel active">
+            <div class="t-row" style="margin-bottom:14px">
+                <div class="t-col" style="flex:1">
+                    <label class="t-label" for="utNow">当前时间戳（秒）</label>
+                    <input class="t-input" style="width:100%" type="text" id="utNow" readonly>
+                </div>
+                <div class="t-col" style="flex:1">
+                    <label class="t-label" for="utMs">当前时间戳（毫秒）</label>
+                    <input class="t-input" style="width:100%" type="text" id="utMs" readonly>
+                </div>
+            </div>
+            <label class="t-label" for="utTsInput">时间戳 → 日期</label>
+            <div class="t-row" style="margin-bottom:10px">
+                <div class="t-col" style="flex:1">
+                    <input class="t-input" style="width:100%" type="text" id="utTsInput" placeholder="如 1755300000（秒）或 1755300000000（毫秒）">
+                </div>
+                <div class="t-col" style="flex:0 0 auto">
+                    <button class="t-btn" type="button" id="utTs2Date">转换</button>
+                </div>
+            </div>
+            <div class="t-result" id="utTsResult">
+                <textarea class="t-area t-area-readonly" id="utTsOut" rows="4" readonly></textarea>
+                <div class="tool-actions" style="margin-top:8px"><button class="t-btn t-btn-ghost" type="button" data-copy="#utTsOut">复制结果</button></div>
+            </div>
+            <label class="t-label" for="utDateInput">日期 → 时间戳</label>
+            <div class="t-row" style="margin-bottom:10px">
+                <div class="t-col" style="flex:1">
+                    <input class="t-input" style="width:100%" type="datetime-local" id="utDateInput">
+                </div>
+                <div class="t-col" style="flex:0 0 auto">
+                    <button class="t-btn" type="button" id="utDate2Ts">转换</button>
+                </div>
+            </div>
+            <div class="t-result" id="utDateResult">
+                <textarea class="t-area t-area-readonly" id="utDateOut" rows="2" readonly></textarea>
+                <div class="tool-actions" style="margin-top:8px"><button class="t-btn t-btn-ghost" type="button" data-copy="#utDateOut">复制结果</button></div>
+            </div>
+            <div class="t-error" id="utError"></div>
+        </div>
+
+        <!-- 世界时间 -->
+        <div id="cvWorld" class="t-panel cv-panel">
+            <p class="t-label">世界主要城市实时时间（每秒刷新，本地计算）</p>
+            <table class="table table-bordered table-striped" id="utWorldTable">
+                <thead><tr><th>城市</th><th>时区</th><th>当前时间</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- 在线时钟 -->
+        <div id="cvClock" class="t-panel cv-panel">
+            <p class="t-label">当前时间（本地时区，每秒刷新）</p>
+            <div style="text-align:center;padding:24px 0">
+                <div id="utClockTime" style="font-size:40px;font-weight:700;font-family:Consolas,monospace;color:var(--brand)"></div>
+                <div id="utClockDate" style="font-size:16px;color:var(--text-2);margin-top:8px"></div>
+                <div id="utClockWeek" style="font-size:13px;color:var(--text-3);margin-top:4px"></div>
+            </div>
+        </div>
+
+        <!-- 进制转换 -->
+        <div id="cvHex" class="t-panel cv-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="hexInput">输入数值</label>
+                    <input class="t-input" style="width:100%" type="text" id="hexInput" placeholder="输入要转换的数值">
+                    <div class="t-options" style="margin-top:10px">
+                        <label><input type="radio" name="hexFrom" value="2" checked> 二进制</label>
+                        <label><input type="radio" name="hexFrom" value="8"> 八进制</label>
+                        <label><input type="radio" name="hexFrom" value="10"> 十进制</label>
+                        <label><input type="radio" name="hexFrom" value="16"> 十六进制</label>
+                    </div>
+                </div>
+                <div class="t-col">
+                    <label class="t-label">转换结果</label>
+                    <div class="t-result" id="hexResult" style="display:block">
+                        <div style="margin-bottom:8px"><span class="t-result-label">二进制：</span><span id="hexOut2"></span></div>
+                        <div style="margin-bottom:8px"><span class="t-result-label">八进制：</span><span id="hexOut8"></span></div>
+                        <div style="margin-bottom:8px"><span class="t-result-label">十进制：</span><span id="hexOut10"></span></div>
+                        <div><span class="t-result-label">十六进制：</span><span id="hexOut16"></span></div>
+                        <button class="t-copy" type="button" data-copy="#hexOut10">复制十进制</button>
+                    </div>
+                </div>
+            </div>
+            <div class="t-error" id="hexError"></div>
+        </div>
+
+        <!-- 颜色转换 -->
+        <div id="cvColor" class="t-panel cv-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="hexInp">HEX 颜色值</label>
+                    <input class="t-input" id="hexInp" type="text" placeholder="请输入HEX值 如:#FFFFFF" />
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="outRgb">RGB 颜色值</label>
+                    <input class="t-input" id="outRgb" type="text" readonly placeholder="如：255,255,255" />
+                </div>
+            </div>
+            <div class="t-options">
+                <label><input type="checkbox" id="appendRgb" /> 添加 rgb() 前缀</label>
+            </div>
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="rgbInp">RGB 颜色值</label>
+                    <input class="t-input" id="rgbInp" type="text" placeholder="请输入RGB值 如:255,255,255" />
+                </div>
+                <div class="t-col">
+                    <label class="t-label" for="outHex">HEX 颜色值</label>
+                    <input class="t-input" id="outHex" type="text" readonly placeholder="如：#FFFFFF" />
+                </div>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ghost" type="button" id="rgbClear">清空</button>
+            </div>
+            <div class="t-result">
+                <button class="t-copy" type="button" data-copy="#outRgb">复制 RGB</button>
+                <button class="t-copy" type="button" data-copy="#outHex">复制 HEX</button>
+                <div class="t-row" style="margin-top:10px">
+                    <span class="t-result-label">颜色预览：</span>
+                    <span id="previewText" class="t-result-label" style="font-weight:400"></span>
+                </div>
+                <div id="previewBox" style="width:100%;height:44px;border-radius:6px;border:1px solid rgba(128,128,128,.35);margin-top:8px"></div>
+            </div>
+            <div class="t-error" id="rgbError"></div>
+        </div>
+
+        <!-- 调色板 -->
+        <div id="cvPal" class="t-panel cv-panel">
+            <div class="t-grid">
+                <div class="t-col">
+                    <label class="t-label" for="pickColor">取色器</label>
+                    <input type="color" id="pickColor" value="#4f6ef2" style="width:100%;height:44px;border:1px solid var(--border);border-radius:8px;background:var(--surface);cursor:pointer">
+                </div>
+                <div class="t-col">
+                    <label class="t-label">当前颜色</label>
+                    <input class="t-input" id="pickResult" type="text" readonly value="#4F6EF2  |  rgb(79,110,242)">
+                    <div class="t-options" style="margin-top:8px">
+                        <button class="t-btn t-btn-sm" type="button" id="pickApply">应用到转换</button>
+                        <button class="t-btn t-btn-sm t-btn-ghost" type="button" data-copy="#pickResult">复制</button>
+                    </div>
+                </div>
+            </div>
+            <label class="t-label" for="hueSlider" style="margin-top:14px">色相滑块（Hue）</label>
+            <input type="range" id="hueSlider" min="0" max="360" value="220" style="width:100%">
+            <div id="hueStrip" style="width:100%;height:36px;border-radius:6px;margin-top:8px;background:linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)"></div>
+            <label class="t-label" style="margin-top:14px">常用色板</label>
+            <div id="paletteGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;margin-top:6px"></div>
+            <div class="t-error" id="palErr"></div>
+        </div>
+
+        <!-- rem/px -->
+        <div id="cvRem" class="t-panel cv-panel">
+            <label class="t-label" for="rmContent">输入要转换的 CSS 代码</label>
+            <textarea class="t-area" id="rmContent" rows="8" placeholder="输入要转换的CSS代码"></textarea>
+            <div class="t-options">
+                <label><input type="checkbox" id="rmIgnore" checked="checked" /> 不处理border</label>
+                <span>1Rem = </span>
+                <input class="t-input" id="rmRem" type="text" value="16" style="width:80px;display:inline-block;" />
+                <span> px</span>
+            </div>
+            <div class="tool-actions">
+                <button class="t-btn t-btn-ok" type="button" id="rmBtn">转换</button>
+                <button class="t-btn t-btn-ghost" type="button" id="rmClear">清空</button>
+            </div>
+            <div class="t-result" id="rmResult">
+                <button class="t-copy" type="button" data-copy="#rmResultText">复制结果</button>
+                <div id="rmResultText"></div>
+            </div>
+            <div class="t-error" id="rmError"></div>
+        </div>
+    </div>
+</div></div>
+<div class="container foot-history" id="foot-history">
+    <div class="row">
+        <div class="col-md-12"><span>您的足迹：</span><span id="visit_history"></span></div>
+    </div>
+</div>
+<?php if($act != 'index'): ?>
+<div class="container foot-nav-wrap">
+    <div class="row">
+        <div class="col-md-12 footer-nav">
+            <h2>常用工具推荐</h2>
+            <div class="list-inline-bg">
+                <ul class="list-inline rand-tools">
+                    <?php if(is_array($randTools) || $randTools instanceof \think\Collection || $randTools instanceof \think\Paginator): $i = 0; $__LIST__ = $randTools;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$tool): $mod = ($i % 2 );++$i;?>
+                    <li><span></span><a href="<?php echo htmlentities($tool['url']); ?>"<?php if($tool['accent'] != ''): ?> style="color:<?php echo htmlentities($tool['accent']); ?>"<?php endif; ?>><?php echo htmlentities($tool['name']); ?></a></li>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<div class="copyright" id="footer">
+    <div class="container">
+        <?php if($act == 'index'): ?>
+        <div class="friend-link-row">
+    友情链接：
+    <a href="https://hub.openeeds.com/" target="_blank" rel="nofollow noopener">Docker镜像加速</a>
+    <span class="fl-sep">|</span>
+    <a href="https://docker.openeeds.com/" target="_blank" rel="nofollow noopener">国内DockerHub</a>
+    <span class="fl-sep">|</span>
+    <a href="https://www.cyberguard.best/#/register?code=PxOrTfcH" target="_blank" rel="nofollow noopener">推荐机场</a>
+</div>
+
+        <?php endif; ?>
+        <div class="row">
+            <div class="col-sm-12"><span>Copyright ©2024-<?php echo htmlentities(date('Y',!is_numeric(date('Y-m-d g:i a',time()))? strtotime(date('Y-m-d g:i a',time())) : date('Y-m-d g:i a',time()))); ?> <a href="/"><?php echo htmlentities(app('config')->get('web.site.name')); ?></a></span><!-- | <span><a
+                    href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">粤ICP备2021140346号</a></span>--></div>
+        </div>
+    </div>
+</div>
+<a class="gotop" href="#top" title="返回顶部" style="display: none;"><span class="arrow"></span><span class="arrow lit"></span></a>
+<script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/script/toolbox.js" type="text/javascript"></script>
+<script src="/static/script/app.js" type="text/javascript"></script>
+<script>
+(function () {
+    'use strict';
+    var tabs = document.querySelectorAll('#cvTabs .t-tab');
+    var panels = document.querySelectorAll('.cv-panel');
+    tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabs.forEach(function (b) { b.classList.remove('active'); });
+            panels.forEach(function (p) { p.classList.remove('active'); });
+            btn.classList.add('active');
+            var panel = document.getElementById(btn.getAttribute('data-panel'));
+            if (panel) panel.classList.add('active');
+        });
+    });
+
+    /* ===== 时间戳转换 ===== */
+    var utErr = document.getElementById('utError');
+    function utPad(n) { return n < 10 ? '0' + n : '' + n; }
+    function utFmt(d) {
+        return d.getFullYear() + '-' + utPad(d.getMonth() + 1) + '-' + utPad(d.getDate()) + ' ' + utPad(d.getHours()) + ':' + utPad(d.getMinutes()) + ':' + utPad(d.getSeconds());
+    }
+    function utRefreshNow() {
+        var now = new Date();
+        document.getElementById('utNow').value = Math.floor(now.getTime() / 1000);
+        document.getElementById('utMs').value = now.getTime();
+    }
+    utRefreshNow();
+    setInterval(utRefreshNow, 1000);
+    document.getElementById('utTs2Date').addEventListener('click', function () {
+        utErr.classList.remove('show');
+        var v = document.getElementById('utTsInput').value.trim();
+        if (!v) { utErr.textContent = '请输入时间戳'; utErr.classList.add('show'); return; }
+        var ts = parseFloat(v);
+        if (isNaN(ts)) { utErr.textContent = '时间戳格式不正确'; utErr.classList.add('show'); return; }
+        if (Math.abs(ts) < 1e12) ts *= 1000;
+        var d = new Date(ts);
+        if (isNaN(d.getTime())) { utErr.textContent = '无法解析该时间戳'; utErr.classList.add('show'); return; }
+        var out = '本地时间：' + utFmt(d) + '\nUTC 时间：' + d.toUTCString() + '\n时间戳（秒）：' + Math.floor(d.getTime() / 1000) + '\n时间戳（毫秒）：' + d.getTime();
+        document.getElementById('utTsOut').value = out;
+        document.getElementById('utTsResult').classList.add('show');
+    });
+    document.getElementById('utDate2Ts').addEventListener('click', function () {
+        utErr.classList.remove('show');
+        var v = document.getElementById('utDateInput').value;
+        if (!v) { utErr.textContent = '请选择日期时间'; utErr.classList.add('show'); return; }
+        var d = new Date(v);
+        if (isNaN(d.getTime())) { utErr.textContent = '日期格式不正确'; utErr.classList.add('show'); return; }
+        document.getElementById('utDateOut').value = '秒：' + Math.floor(d.getTime() / 1000) + '   毫秒：' + d.getTime();
+        document.getElementById('utDateResult').classList.add('show');
+    });
+
+    /* ===== 世界时间 ===== */
+    var cvCities = [
+        ['北京', 'Asia/Shanghai'], ['香港', 'Asia/Hong_Kong'], ['东京', 'Asia/Tokyo'],
+        ['首尔', 'Asia/Seoul'], ['新加坡', 'Asia/Singapore'], ['曼谷', 'Asia/Bangkok'],
+        ['新德里', 'Asia/Kolkata'], ['迪拜', 'Asia/Dubai'], ['莫斯科', 'Europe/Moscow'],
+        ['柏林', 'Europe/Berlin'], ['巴黎', 'Europe/Paris'], ['伦敦', 'Europe/London'],
+        ['开罗', 'Africa/Cairo'], ['悉尼', 'Australia/Sydney'], ['奥克兰', 'Pacific/Auckland'],
+        ['夏威夷（檀香山）', 'Pacific/Honolulu'], ['阿拉斯加', 'America/Anchorage'],
+        ['太平洋时间（洛杉矶）', 'America/Los_Angeles'], ['山地时间（丹佛）', 'America/Denver'],
+        ['中部时间（芝加哥）', 'America/Chicago'], ['东部时间（纽约）', 'America/New_York'],
+        ['大西洋时间（哈利法克斯）', 'America/Halifax'], ['巴西（圣保罗）', 'America/Sao_Paulo'],
+        ['大西洋-中部', 'Atlantic/South_Georgia'], ['多伦多', 'America/Toronto']
+    ];
+    function cvRenderWorld() {
+        var tbody = document.querySelector('#utWorldTable tbody');
+        tbody.innerHTML = '';
+        cvCities.forEach(function (c) {
+            var tr = document.createElement('tr');
+            var now = new Date();
+            var t = now.toLocaleString('zh-CN', { timeZone: c[1], hour12: false });
+            tr.innerHTML = '<td>' + c[0] + '</td><td>' + c[1] + '</td><td>' + t + '</td>';
+            tbody.appendChild(tr);
+        });
+    }
+    cvRenderWorld();
+    setInterval(cvRenderWorld, 1000);
+
+    /* ===== 在线时钟 ===== */
+    function cvRenderClock() {
+        var now = new Date();
+        document.getElementById('utClockTime').textContent = utPad(now.getHours()) + ':' + utPad(now.getMinutes()) + ':' + utPad(now.getSeconds());
+        document.getElementById('utClockDate').textContent = now.getFullYear() + '年' + (now.getMonth() + 1) + '月' + now.getDate() + '日';
+        document.getElementById('utClockWeek').textContent = '星期' + '日一二三四五六'.charAt(now.getDay());
+    }
+    cvRenderClock();
+    setInterval(cvRenderClock, 1000);
+
+    /* ===== 进制转换 ===== */
+    var hexError = document.getElementById('hexError');
+    function hexShow(m) { hexError.textContent = m; hexError.classList.add('show'); }
+    function hexHide() { hexError.classList.remove('show'); }
+    function hexRun() {
+        hexHide();
+        var input = document.getElementById('hexInput').value.trim();
+        var from = parseInt(document.querySelector('input[name="hexFrom"]:checked').value, 10);
+        if (!input) {
+            ['hexOut2', 'hexOut8', 'hexOut10', 'hexOut16'].forEach(function (id) { document.getElementById(id).textContent = ''; });
+            return;
+        }
+        var cleaned = input;
+        if (from === 16 && /^0x/i.test(cleaned)) cleaned = cleaned.slice(2);
+        var dec;
+        try {
+            dec = parseInt(cleaned, from);
+            if (isNaN(dec)) throw new Error('invalid');
+        } catch (e) {
+            hexShow('输入内容不符合所选进制的格式');
+            return;
+        }
+        document.getElementById('hexOut2').textContent = dec.toString(2);
+        document.getElementById('hexOut8').textContent = dec.toString(8);
+        document.getElementById('hexOut10').textContent = dec.toString(10);
+        document.getElementById('hexOut16').textContent = dec.toString(16).toUpperCase();
+    }
+    var hexTimer = null;
+    document.getElementById('hexInput').addEventListener('input', function () {
+        clearTimeout(hexTimer);
+        hexTimer = setTimeout(hexRun, 300);
+    });
+    document.querySelectorAll('input[name="hexFrom"]').forEach(function (r) { r.addEventListener('change', hexRun); });
+
+    /* ===== 颜色转换 ===== */
+    var hexInp = document.getElementById('hexInp');
+    var outRgb = document.getElementById('outRgb');
+    var rgbInp = document.getElementById('rgbInp');
+    var outHex = document.getElementById('outHex');
+    var appendRgb = document.getElementById('appendRgb');
+    var rgbErrorEl = document.getElementById('rgbError');
+    var previewText = document.getElementById('previewText');
+    var previewBox = document.getElementById('previewBox');
+    function rgbShow(m) { rgbErrorEl.textContent = m; rgbErrorEl.classList.add('show'); }
+    function rgbHide() { rgbErrorEl.classList.remove('show'); }
+    function clearPreview() { previewText.textContent = ''; previewBox.style.backgroundColor = 'transparent'; }
+    function showPreview(text, color) { previewText.textContent = text; previewBox.style.backgroundColor = color; }
+    function hexVal(ch) { return parseInt(ch || '0', 16); }
+    function hexToRgb(hex) {
+        hex = String(hex).toUpperCase();
+        return (hexVal(hex.charAt(0)) * 16 + hexVal(hex.charAt(1))) + ',' + (hexVal(hex.charAt(2)) * 16 + hexVal(hex.charAt(3))) + ',' + (hexVal(hex.charAt(4)) * 16 + hexVal(hex.charAt(5)));
+    }
+    function pad2(n) { var h = n.toString(16).toUpperCase(); return h.length < 2 ? '0' + h : h; }
+    function rgbToHex(parts) { return pad2(parseInt(parts[0], 10)) + pad2(parseInt(parts[1], 10)) + pad2(parseInt(parts[2], 10)); }
+    function convertHex() {
+        rgbHide(); clearPreview();
+        var hex = hexInp.value.trim();
+        if (hex.charAt(0) === '#') hex = hex.slice(1);
+        if (hex.length === 3) hex = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) + hex.charAt(2) + hex.charAt(2);
+        if (!/^[0-9A-Fa-f]{6}$/.test(hex)) { outRgb.value = ''; rgbShow('请输入正确的 HEX 颜色值，如 #FFFFFF 或 #FFF'); return; }
+        var rgb = hexToRgb(hex);
+        var display = appendRgb.checked ? 'rgb(' + rgb + ')' : rgb;
+        outRgb.value = display;
+        showPreview('#' + hex.toUpperCase() + ' → ' + display, '#' + hex.toUpperCase());
+    }
+    function convertRgb() {
+        rgbHide(); clearPreview();
+        var raw = rgbInp.value.toUpperCase();
+        if (raw.indexOf('RGB') === 0) raw = raw.replace('RGB(', '').replace(')', '');
+        var parts = raw.indexOf(',') !== -1 ? raw.split(',') : (raw.indexOf(' ') !== -1 ? raw.split(' ') : [raw]);
+        if (parts.length !== 3 || parts.some(function (p) { return !/^\d+$/.test(p.trim()) || parseInt(p.trim(), 10) < 0 || parseInt(p.trim(), 10) > 255; })) {
+            outHex.value = ''; rgbShow('请输入正确的 RGB 值，如 255,255,255 或 rgb(255,255,255)'); return;
+        }
+        var nums = parts.map(function (p) { return parseInt(p.trim(), 10); });
+        var hex = rgbToHex(nums);
+        outHex.value = '#' + hex;
+        showPreview('rgb(' + nums.join(',') + ') → #' + hex, '#' + hex);
+    }
+    hexInp.addEventListener('input', convertHex);
+    rgbInp.addEventListener('input', convertRgb);
+    appendRgb.addEventListener('change', function () {
+        var old = outRgb.value.trim();
+        if (old === '') return;
+        if (appendRgb.checked) outRgb.value = 'rgb(' + old + ')';
+        else outRgb.value = old.replace('rgb(', '').replace(')', '');
+    });
+    document.getElementById('rgbClear').addEventListener('click', function () {
+        hexInp.value = ''; outRgb.value = ''; rgbInp.value = ''; outHex.value = '';
+        clearPreview(); rgbHide(); hexInp.focus();
+    });
+
+    /* ===== 调色板 ===== */
+    var pickColor = document.getElementById('pickColor');
+    var pickResult = document.getElementById('pickResult');
+    var palErr = document.getElementById('palErr');
+    function updatePick() {
+        var hex = pickColor.value.toUpperCase();
+        var r = parseInt(hex.substr(1, 2), 16), g = parseInt(hex.substr(3, 2), 16), b = parseInt(hex.substr(5, 2), 16);
+        pickResult.value = hex + '  |  rgb(' + r + ',' + g + ',' + b + ')';
+        palErr.classList.remove('show');
+    }
+    pickColor.addEventListener('input', updatePick);
+    function applyToConvert(hex) {
+        hexInp.value = hex;
+        convertHex();
+        var colorTab = document.querySelector('#cvTabs .t-tab[data-panel="cvColor"]');
+        if (colorTab) colorTab.click();
+    }
+    document.getElementById('pickApply').addEventListener('click', function () { applyToConvert(pickColor.value); });
+    function hslToHex(h) {
+        h = ((h % 360) + 360) % 360;
+        var s = 100 / 100, l = 50 / 100;
+        var c = (1 - Math.abs(2 * l - 1)) * s;
+        var x = c * (1 - Math.abs((h / 60) % 2 - 1));
+        var m = l - c / 2;
+        var r, g, b;
+        if (h < 60) { r = c; g = x; b = 0; }
+        else if (h < 120) { r = x; g = c; b = 0; }
+        else if (h < 180) { r = 0; g = c; b = x; }
+        else if (h < 240) { r = 0; g = x; b = c; }
+        else if (h < 300) { r = x; g = 0; b = c; }
+        else { r = c; g = 0; b = x; }
+        return '#' + [r, g, b].map(function (v) { return pad2(Math.round((v + m) * 255)); }).join('');
+    }
+    document.getElementById('hueSlider').addEventListener('input', function () {
+        var hex = hslToHex(parseInt(this.value, 10));
+        pickColor.value = hex;
+        updatePick();
+    });
+    var cvCommon = ['#000000','#444444','#888888','#cccccc','#eeeeee','#ffffff','#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4caf50','#8bc34a','#cddc39','#ffeb3b','#ffc107','#ff9800','#ff5722','#795548','#607d8b','#fce4ec','#f3e5f5','#e8eaf6','#e3f2fd','#e0f7fa','#e0f2f1','#e8f5e9','#fff9c4','#fff3e0','#ffebee','#d32f2f','#c2185b','#7b1fa2','#512da8','#303f9f','#1976d2','#0288d1','#0097a7','#00796b','#388e3c','#689f38','#afb42b','#fbc02d','#f57c00','#e64a19','#5d4037','#455a64'];
+    function buildPalette() {
+        var grid = document.getElementById('paletteGrid');
+        cvCommon.forEach(function (c) {
+            var sw = document.createElement('div');
+            sw.style.cssText = 'height:44px;border-radius:6px;cursor:pointer;background:' + c + ';border:1px solid rgba(128,128,128,.3)';
+            sw.title = c;
+            sw.addEventListener('click', function () {
+                pickColor.value = c;
+                updatePick();
+                applyToConvert(c);
+            });
+            grid.appendChild(sw);
+        });
+    }
+    buildPalette();
+
+    /* ===== rem/px 转换 ===== */
+    var rmContent = document.getElementById('rmContent'), rmRem = document.getElementById('rmRem'), rmIgnore = document.getElementById('rmIgnore');
+    var rmResult = document.getElementById('rmResult'), rmResultText = document.getElementById('rmResultText'), rmError = document.getElementById('rmError');
+    function rmShow(m) { rmError.textContent = m; rmError.classList.add('show'); }
+    function rmHide() { rmError.classList.remove('show'); }
+    function rmFormat(s) {
+        s = String(s);
+        s = s.replace(/\s*([\{\}\:\;\,])\s*/g, "$1");
+        s = s.replace(/(\s*)\}/g, "$1;}");
+        s = s.replace(/;\s*;/g, ";");
+        s = s.replace(/\,[\s\.\#\d]*{/g, "{");
+        s = s.replace(/([^\s])\{([^\s])/g, "$1 {\n\t$2");
+        s = s.replace(/([^\s])\}([^\n]*)/g, "$1\n}\n$2");
+        s = s.replace(/([^\s]);([^\s\}])/g, "$1;\n\t$2");
+        s = s.replace(/\n(\n)*( *)*(\n)*\n/g, "");
+        s = s.replace(/\s+\*\//g, "*/");
+        return s;
+    }
+    function rmPack(s) {
+        s = String(s);
+        s = s.replace(/\s*([\{\}\:\;\,])\s*/g, "$1");
+        s = s.replace(/\,[\s\.\#\d]*\{/g, "{");
+        s = s.replace(/;\s*;/g, ";");
+        var m = s.match(/^\s*(\S+(\s+\S+)*)\s*$/);
+        return (m == null) ? "" : m[1];
+    }
+    function rmRound(n) {
+        var r = Math.round(n * 10000) / 10000;
+        return String(r).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+    }
+    document.getElementById('rmBtn').addEventListener('click', function () {
+        rmHide();
+        var text = rmContent.value;
+        var remRaw = rmRem.value;
+        if (text === '') { rmShow('请填写要转换的CSS'); return; }
+        if (remRaw === '') { rmShow('请填写1rem等于多少px值'); return; }
+        if (remRaw <= 0) { rmShow('请填写正确的px值'); return; }
+        var rem = parseInt(remRaw, 10);
+        var ignoreBorder = rmIgnore.checked;
+        var lines = rmFormat(text).split('\n');
+        var sb = '';
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            sb += line.replace(/\d+px/g, function (px) {
+                if (ignoreBorder && /border:/i.test(line)) return px;
+                return rmRound(parseInt(px, 10) / rem) + 'rem';
+            }) + '\n';
+        }
+        var sourceArr = text.split('\n');
+        var out = (sourceArr.length > 1) ? rmFormat(sb) : rmPack(sb);
+        rmResultText.textContent = out;
+        rmResult.classList.add('show');
+    });
+    document.getElementById('rmClear').addEventListener('click', function () {
+        rmContent.value = '';
+        rmResultText.textContent = '';
+        rmResult.classList.remove('show');
+        rmHide();
+        rmContent.focus();
+    });
+})();
+</script>
+<script src="/static/script/sample-data.js" type="text/javascript"></script>
+</body></html>
