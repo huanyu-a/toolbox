@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{if condition="$row.id gt 0"}编辑{else/}新增{/if}友情链接 - {$Think.config.web.site.name}后台</title>
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <script src="/static/admin/js/theme.js"></script>
+</head>
+<body>
+<div class="page">
+    <h1 class="page-title"><a class="back" href="/{$Think.config.admin.path}/web/link.html">← 返回列表</a> / {if condition="$row.id gt 0"}编辑友情链接{else/}新增友情链接{/if}</h1>
+    <div class="card" style="max-width:560px">
+        <form method="post" action="">
+            <input type="hidden" name="id" value="{$row.id}">
+            <div class="form-item">
+                <label>网站名称 *</label>
+                <input class="form-input" type="text" name="name" value="{$row.name}" required placeholder="如：寰宇的导航站">
+            </div>
+            <div class="form-item">
+                <label>URL *</label>
+                <input class="form-input" type="text" name="url" value="{$row.url}" required placeholder="https://example.com">
+                <div class="form-hint">不带协议时自动补 https://</div>
+            </div>
+            <div class="form-item">
+                <label style="display:inline-flex;align-items:center;gap:8px;margin-right:24px">
+                    <input type="checkbox" name="nofollow" value="1"{if condition="$row.nofollow eq 1"} checked{/if} style="width:16px;height:16px">
+                    nofollow（不传递权重）
+                </label>
+                <label style="display:inline-flex;align-items:center;gap:8px">
+                    <input type="checkbox" name="status" value="1"{if condition="$row.status eq 1"} checked{/if} style="width:16px;height:16px">
+                    启用
+                </label>
+            </div>
+            <div class="form-item">
+                <label>排序</label>
+                <input class="form-input" type="number" name="sort" value="{$row.sort}" style="width:120px">
+                <div class="form-hint">数字越小越靠前，默认 100</div>
+            </div>
+            <div class="form-item">
+                <label>备注（仅后台可见）</label>
+                <textarea class="form-textarea" name="remark" rows="2" style="min-height:auto">{$row.remark}</textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn" type="submit">保存</button>
+                <a class="btn btn-ghost" href="/{$Think.config.admin.path}/web/link.html">取消</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

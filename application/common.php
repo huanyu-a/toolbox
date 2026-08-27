@@ -572,7 +572,76 @@ function site_cfg_pdo()
     $pdo->setAttribute(PDO::ATTR_TIMEOUT, 5); // 并发写等锁，避免 busy 报错
     try { $pdo->exec('PRAGMA journal_mode=WAL'); } catch (\Exception $e) { /* 只读环境忽略 */ }
     $pdo->exec("CREATE TABLE IF NOT EXISTS config_kv (k TEXT PRIMARY KEY, v TEXT NOT NULL DEFAULT '')");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS friend_links (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL DEFAULT '',
+        url TEXT NOT NULL DEFAULT '',
+        nofollow INTEGER NOT NULL DEFAULT 1,
+        sort INTEGER NOT NULL DEFAULT 100,
+        status INTEGER NOT NULL DEFAULT 1,
+        remark TEXT NOT NULL DEFAULT '',
+        created_at TEXT NOT NULL DEFAULT (datetime('now','localtime'))
+    )");
     return $pdo;
+}
+
+/**
+ * 友情链接列表（结构化存储于 friend_links 表）
+ * @param bool $onlyActive true 仅返回启用行（前台用）
+ */
+function friend_links_all($onlyActive = false)
+{
+    try {
+        $sql = 'SELECT * FROM friend_links' . ($onlyActive ? ' WHERE status = 1' : '') . ' ORDER BY sort ASC, id ASC';
+        return site_cfg_pdo()->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\Exception $e) {
+        return array();
+    }
+}
+
+/**
+ * 旧数据一次性迁移：friend_links 表为空时，把旧 KV（friend_links_html 整段 HTML，
+ * 其次内置默认串）里的 <a> 标签逐条解析入库。返回导入条数；已有数据直接返回 0。
+ */
+function friend_links_import_legacy()
+{
+    static $checked = false;
+    if ($checked) {
+        return 0; // 单次请求内只查一次
+    }
+    $checked = true;
+    try {
+        $cnt = (int)site_cfg_pdo()->query('SELECT COUNT(*) FROM friend_links')->fetchColumn();
+    } catch (\Exception $e) {
+        return 0;
+    }
+    if ($cnt > 0) {
+        return 0;
+    }
+    $html = trim((string)site_cfg_get('friend_links_html', ''));
+    if ($html === '') {
+        $html = site_friend_links_default();
+    }
+    $n = 0;
+    if (!preg_match_all('/<a\s[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)<\/a>/is', $html, $m, PREG_SET_ORDER)) {
+        return 0;
+    }
+    $st = site_cfg_pdo()->prepare('INSERT INTO friend_links (name, url, nofollow, sort, status) VALUES (?, ?, ?, ?, 1)');
+    foreach ($m as $a) {
+        $url  = trim($a[1]);
+        $name = trim(strip_tags($a[2]));
+        if ($url === '' || $name === '' || !preg_match('#^https?://#i', $url)) {
+            continue;
+        }
+        $st->execute(array(
+            $name,
+            $url,
+            stripos($a[0], 'nofollow') !== false ? 1 : 0, // 继承原链接的 nofollow 标记
+            ($n + 1) * 10,                                // 保持原显示顺序
+        ));
+        $n++;
+    }
+    return $n;
 }
 
 /**
@@ -594,21 +663,27 @@ HTML;
 
 /**
  * 输出友情链接 HTML（前台 footer 的 view/link.html 调用）
- * 优先取数据库；为空时尝试从旧模板一次性迁移入库，再退回默认值
+ * 数据来源 friend_links 表（增删改在后台管理）；表空时先尝试旧数据一次性迁移。
  */
 function site_render_friend_links()
 {
-    $v = trim((string)site_cfg_get('friend_links_html', ''));
-    if ($v === '' && defined('APP_PATH')) {
-        $legacyFile = APP_PATH . 'index/view/link.html';
-        if (is_file($legacyFile)) {
-            $legacy = trim((string)@file_get_contents($legacyFile));
-            // 排除动态壳自身与新装环境的空白模板
-            if ($legacy !== '' && strpos($legacy, 'site_render_friend_links') === false && strpos($legacy, 'friend-link-row') !== false) {
-                site_cfg_set('friend_links_html', $legacy);
-                $v = $legacy;
-            }
-        }
+    friend_links_import_legacy();
+    $rows = friend_links_all(true);
+    if (!$rows) {
+        return '';
     }
-    return $v !== '' ? $v : site_friend_links_default();
+    $items = array();
+    foreach ($rows as $r) {
+        $url = trim((string)$r['url']);
+        if (!preg_match('#^https?://#i', $url)) {
+            continue; // 只输出 http/https，防 javascript: 伪协议
+        }
+        $rel = !empty($r['nofollow']) ? ' rel="nofollow noopener"' : '';
+        $items[] = '<a href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank"' . $rel . '>'
+                 . htmlspecialchars((string)$r['name'], ENT_QUOTES) . '</a>';
+    }
+    if (!$items) {
+        return '';
+    }
+    return '<div class="friend-link-row">友情链接：' . implode('<span class="fl-sep">|</span>', $items) . '</div>';
 }

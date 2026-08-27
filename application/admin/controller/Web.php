@@ -18,32 +18,79 @@ class Web extends Base
             'content'=>$web['header']
         ]);
     }
+    /**
+     * 友情链接列表（结构化存储于 friend_links 表，数据库管理）
+     */
     public function link()
     {
         $this->checkLogin();
-        $legacyPath = $this->rootPath() . 'application/index/view/link.html';
-        if(request()->isPost()){
-            // 内容写入 SQLite（runtime 挂载卷），模板文件不再承载，重建镜像不丢失
-            $Xcode = (string)input('Xcode');
-            site_cfg_set('friend_links_html', $Xcode);
-        }
-        $content = (string)site_cfg_get('friend_links_html', '');
-        if ($content === '') {
-            // 升级过渡：从旧模板一次性迁移入库；无旧内容时给默认值便于编辑
-            if (is_file($legacyPath)) {
-                $c = (string)@file_get_contents($legacyPath);
-                if (trim($c) !== '' && strpos($c, 'site_render_friend_links') === false && strpos($c, 'friend-link-row') !== false) {
-                    site_cfg_set('friend_links_html', $c);
-                    $content = $c;
-                }
-            }
-            if ($content === '') {
-                $content = site_friend_links_default();
-            }
-        }
+        friend_links_import_legacy(); // 表为空时把旧 KV 整段 HTML 解析入库（升级过渡）
         return $this->fetch('', [
-            'content'=>$content
+            'list' => friend_links_all(false)
         ]);
+    }
+
+    /**
+     * 编辑/新增友链：GET 渲染表单，POST 校验保存
+     */
+    public function linkEdit()
+    {
+        $this->checkLogin();
+        $id = intval(input('param.id', 0));
+        if (request()->isPost()) {
+            $name   = trim(input('post.name', '', 'trim'));
+            $url    = trim(input('post.url', '', 'trim'));
+            $remark = trim(input('post.remark', '', 'trim'));
+            $sort   = intval(input('post.sort', 100));
+            $status = input('post.status', 0, 'intval') ? 1 : 0;
+            $nof    = input('post.nofollow', 0, 'intval') ? 1 : 0;
+            if (!preg_match('#^https?://#i', $url)) {
+                $url = 'https://' . ltrim($url, '/');
+            }
+            if ($name === '' || !preg_match('#^https?://#i', $url)) {
+                exit('<meta charset="utf-8"><script>alert("请填写网站名称与正确的 URL");history.back();</script>');
+            }
+            if ($id > 0) {
+                $st = site_cfg_pdo()->prepare('UPDATE friend_links SET name=?, url=?, nofollow=?, sort=?, status=?, remark=? WHERE id=?');
+                $st->execute(array($name, $url, $nof, $sort, $status, $remark, $id));
+            } else {
+                $st = site_cfg_pdo()->prepare('INSERT INTO friend_links (name, url, nofollow, sort, status, remark) VALUES (?, ?, ?, ?, ?, ?)');
+                $st->execute(array($name, $url, $nof, $sort, $status, $remark));
+            }
+            header('Location: /' . config('admin.path') . '/web/link.html');
+            exit;
+        }
+        $row = null;
+        if ($id > 0) {
+            $q = site_cfg_pdo()->prepare('SELECT * FROM friend_links WHERE id=?');
+            $q->execute(array($id));
+            $row = $q->fetch(PDO::FETCH_ASSOC);
+        }
+        if (!$row || !$row['id']) {
+            // 新增模式给默认值
+            $row = array(
+                'id' => 0, 'name' => '', 'url' => '', 'nofollow' => 1,
+                'sort' => 100, 'status' => 1, 'remark' => '',
+            );
+        }
+        return $this->fetch('', ['row' => $row]);
+    }
+
+    /**
+     * 删除友链（POST + 前端 data-confirm 二次确认）
+     */
+    public function linkDel()
+    {
+        $this->checkLogin();
+        if (request()->isPost()) {
+            $id = intval(input('post.id', 0));
+            if ($id > 0) {
+                $st = site_cfg_pdo()->prepare('DELETE FROM friend_links WHERE id=?');
+                $st->execute(array($id));
+            }
+        }
+        header('Location: /' . config('admin.path') . '/web/link.html');
+        exit;
     }
     public function nav()
     {
