@@ -11,6 +11,13 @@ class Index extends Controller
     {
         $data = array();
         $base = site_base();
+        $act = input('act', 'index');
+
+        // 视图文件缺失时直接渲染 404（避免 TP5 兜底 500）
+        if ($act !== 'index' && !$this->viewExists($act)) {
+            return $this->e404();
+        }
+
         // 工具注册表（分类导航数据源，TP5.1 顶层配置需用尾点 pull 读取）
         $data['tools'] = config('tools.');
         // 统一改写为绝对地址（后台 web.site.url 可固定域名，留空自动检测）
@@ -38,7 +45,6 @@ class Index extends Controller
         shuffle($allTools);
         $data['randTools'] = array_slice($allTools, 0, 20);
         // 当前工具信息（面包屑 + 导航高亮 + SEO）
-        $act = input('act', 'index');
         $data['act'] = $act;
         $data['current_act'] = $act;
         $data['current_cat'] = '';
@@ -239,6 +245,31 @@ class Index extends Controller
                 break;
         }
         return $this->fetch($act, $data);
+    }
+
+    /** 判断视图文件是否存在（index 模块 /index 目录下） */
+    protected function viewExists($act)
+    {
+        static $dir = null;
+        if ($dir === null) {
+            // __DIR__ = application/index/controller → dirname×2 = application → + index/view/index
+            $dir = rtrim(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'index/view/index', DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        }
+        $safe = preg_replace('/[^a-zA-Z0-9_\-]/', '', (string)$act);
+        return is_file($dir . $safe . '.html');
+    }
+
+    // 404 页面
+    public function e404()
+    {
+        $tools = config('tools.');
+        return $this->fetch('e404', [
+            'tools'             => $tools,
+            'current_cat'       => '',
+            'current_url'       => '',
+            'current_tool_name' => '',
+            'act'               => 'e404',
+        ])->code(404);
     }
 
     // 站点地图
