@@ -10,3 +10,4 @@
 !/scripts/site_config_seed.php
 .zcode/
 /runtime/search_memory_db.py
+MEMORY.md
