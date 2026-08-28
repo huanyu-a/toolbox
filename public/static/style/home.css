@@ -99,6 +99,7 @@
     position: relative;
     max-width: 560px;
     margin: 0 auto;
+    z-index: 50;
 }
 .home-search-ico {
     position: absolute;

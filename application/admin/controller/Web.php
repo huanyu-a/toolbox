@@ -141,19 +141,6 @@ class Web extends Base
         $this->checkLogin();
         $enabled  = site_cfg_get('tongji_enabled');   // null = 库中从未设置
         $baidu_id = site_cfg_get('tongji_baidu_id');
-        if ($enabled === null && $baidu_id === null) {
-            // 升级过渡：旧版 config/tongji.php 存在则迁移一次入库
-            $legacyFile = $this->rootPath() . 'config/tongji.php';
-            if (is_file($legacyFile)) {
-                $old = @include $legacyFile;
-                if (is_array($old)) {
-                    $enabled  = !empty($old['enabled']) ? '1' : '0';
-                    $baidu_id = isset($old['baidu_id']) ? (string)$old['baidu_id'] : '';
-                    site_cfg_set('tongji_enabled', $enabled);
-                    site_cfg_set('tongji_baidu_id', $baidu_id);
-                }
-            }
-        }
         if(request()->isPost()){
             $enabled_v = input('post.enabled', 0, 'intval') ? '1' : '0';
             $id_v      = trim(input('post.baidu_id', '', 'trim'));

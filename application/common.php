@@ -513,22 +513,13 @@ function build_tongji_code($id = '')
 
 /**
  * 根据配置输出百度统计混淆代码到页面
- * 配置来源：SQLite 库（runtime/site_config.db，挂载卷，重建镜像不丢失）；
- * 库中从未配置过时回退旧版 config/tongji.php（兼容迁移）。
+ * 配置来源：SQLite 库（runtime/site_config.db，挂载卷，重建镜像不丢失）。
  * @return string 启用的统计代码；未启用 / 未配置返回空字符串
  */
 function tongji_config_code()
 {
     $enabled  = site_cfg_get('tongji_enabled');
     $baidu_id = site_cfg_get('tongji_baidu_id');
-    if ($enabled === null && $baidu_id === null) {
-        // 数据库从未写入：读旧版文件配置（升级过渡，写一次库后不再走这里）
-        $cfg = config('tongji.');
-        if (!empty($cfg['enabled']) && !empty($cfg['baidu_id'])) {
-            return build_tongji_code($cfg['baidu_id']);
-        }
-        return '';
-    }
     if ($enabled === '1' && preg_match('/^[a-zA-Z0-9]+$/', (string)$baidu_id)) {
         return build_tongji_code((string)$baidu_id);
     }

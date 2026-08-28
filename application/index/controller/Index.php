@@ -106,10 +106,6 @@ class Index extends Controller
                 $data['uuid_letter'] = input('uuid_letter', 2);
                 $data['uuid'] = uuid($data['uuid_number'], $data['uuid_letter']);
                 break;
-            case 'caiji':
-                $data['url'] = input('url', '');
-                $data['content'] = $data['url'] ? Fcurl($data['url']) : '';
-                break;
             case 'ip':
                 if (request()->isPost()) {
                     $ip = input('post.ip');
@@ -269,7 +265,8 @@ class Index extends Controller
     public function robots()
     {
         $domain = site_base();
-        $txt = "User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {$domain}/sitemap.xml\n";
+        $adminPath = trim((string)config('admin.path'), '/');
+        $txt = "User-agent: *\nAllow: /\nDisallow: /{$adminPath}\nSitemap: {$domain}/sitemap.xml\n";
         return response($txt, 200, array('Content-Type' => 'text/plain; charset=utf-8'));
     }
 

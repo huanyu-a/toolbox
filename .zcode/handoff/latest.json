@@ -1,35 +1,38 @@
 {
   "agent": "main",
-  "timestamp": "2026-08-27T11:20:00",
+  "timestamp": "2026-08-28T12:00:00",
   "status": "completed",
-  "summary": "友情链接结构化改造完成：SQLite friend_links 表 CRUD（名称/URL/nofollow/排序/状态/备注），后台表格管理页+编辑页，前台渲染转义输出；线上已自动迁移 3 条并验证；镜像 deploy-20260827-dbtbl",
+  "summary": "文档优化轮：README.md 全面更新（54 工具/7 分类、SQLite 配置存储、ADMIN_PATH、pdo_sqlite 依赖、备份口径改为 config+site_config.db）；MEMORY.md 脱敏后移出 git 跟踪（生产凭据已转移到 .zcode/prod-credentials.txt，git 忽略）；runtime/search_memory_db.py 同步移出跟踪。另盘点出可优化清单（未注册 caiji 页、45 个未引用 pcjs 脚本、robots.txt Disallow 路径、百度统计迁移分支、PHP 语法本地无解释器只能靠容器内 lint）",
   "artifacts": [
-    "application/common.php",
-    "application/admin/controller/Web.php",
-    "application/admin/view/web/link.html",
-    "application/admin/view/web/link_edit.html"
+    "README.md",
+    "MEMORY.md",
+    ".gitignore",
+    ".zcode/prod-credentials.txt"
   ],
   "quality": {
     "checks": [
       {
+        "name": "doc-consistency",
+        "result": "pass",
+        "detail": "README 数字与 config/tools.php 实际注册数(54/7分类)核对一致；工具表与注册表逐类核对"
+      },
+      {
+        "name": "credential-audit",
+        "result": "pass",
+        "detail": "MEMORY.md 中 mgr-9gdjm7xrtl / toolbox / Toolbox@2026 已全部移除；git 历史中仍存在(449b5e0, 8eb4a14)，换历史需用户决策"
+      },
+      {
         "name": "php-lint",
-        "result": "pass",
-        "detail": "common.php/Web.php 容器内 php -l 通过"
-      },
-      {
-        "name": "migration",
-        "result": "pass",
-        "detail": "3条旧数据解析入库,顺序与nofollow继承正确"
-      },
-      {
-        "name": "live",
-        "result": "pass",
-        "detail": "首页表驱动渲染一致; admin URL 302守卫正常(注意:action须驼峰linkEdit/linkDel,蛇形404)"
+        "result": "skip",
+        "detail": "本机无 php 解释器、Docker Desktop 未运行；上一轮已容器内验证过"
       }
     ],
     "gate_passed": true
   },
   "next": [
-    "用户登录后台实测新增/编辑/停用/删除流程"
+    "处理 caiji 孤儿页（注册进 tools.php 或删除视图）",
+    "清理 45 个未引用 pcjs 脚本与 hightout.js/shizhong.css（减包体）",
+    "robots.txt 的 Disallow:/admin 与实际后台路径(动态 ADMIN_PATH)不一致",
+    "代码轮改动(Web.php/common.php/home.css)尚未提交推送"
   ]
 }
