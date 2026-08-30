@@ -1221,3 +1221,56 @@
 
 /* ---------- v6: 搜索下拉浮窗不再被 hero 裁切 ---------- */
 .home-hero-mesh { border-radius: 0; }
+
+
+/* ---------- Modern v6：hero 下拉键盘高亮 ---------- */
+.home-search-item.active {
+    background: var(--tb-surface-hover);
+    border-color: var(--tb-primary);
+}
+.home-search-item.active .home-search-item-name { color: var(--tb-primary); }
+
+/* ---------- Modern v6：最近使用区块 ---------- */
+.home-recent { padding: 8px 0 28px; }
+.home-recent .home-section-title i { color: var(--tb-primary); font-size: .8em; margin-right: 6px; }
+.home-recent-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 18px;
+}
+.home-recent-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--tb-border);
+    border-radius: 999px;
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: border-color .18s, transform .18s, box-shadow .18s;
+}
+.home-recent-chip:hover {
+    border-color: var(--tb-primary);
+    color: var(--tb-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(217, 119, 87, .15);
+    text-decoration: none;
+}
+.home-recent-chip-name { font-weight: 600; }
+.home-recent-chip-cat {
+    font-size: 11px;
+    color: var(--tb-text-3);
+    border: 1px solid var(--tb-border);
+    border-radius: 999px;
+    padding: 0 7px;
+    background: var(--tb-bg-soft);
+}
+.home-recent-chip-go { font-size: 11px; color: var(--tb-text-3); }
+@media (max-width: 768px) {
+    .home-recent-list { gap: 8px; }
+    .home-recent-chip { padding: 7px 12px; font-size: 13px; }
+}

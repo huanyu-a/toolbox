@@ -1,6 +1,10 @@
-<link href="/static/fontawesome/css/all.min.css?v=2026082815" rel="stylesheet" type="text/css"/>
-<link href="/static/style/theme-uno.css?v=2026082815" rel="stylesheet" type="text/css"/>
-<link href="/static/style/topbar.css?v=2026082815" rel="stylesheet" type="text/css"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)"/>
+<meta name="theme-color" content="#1F1B16" media="(prefers-color-scheme: dark)"/>
+<link rel="apple-touch-icon" href="/static/images/pwa/apple-touch-icon.png"/>
+<link href="/static/fontawesome/css/all.min.css?v=2026083015" rel="stylesheet" type="text/css"/>
+<link href="/static/style/theme-uno.css?v=2026083015" rel="stylesheet" type="text/css"/>
+<link href="/static/style/topbar.css?v=2026083015" rel="stylesheet" type="text/css"/>
 <nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -28,6 +32,11 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li class="nav-search-li">
+                    <button type="button" class="nav-search-btn" id="topSearchBtn" title="搜索工具 (Ctrl K)" aria-label="搜索工具">
+                        <i class="fa-solid fa-magnifying-glass"></i><span class="nav-search-text">搜索</span><kbd class="nav-search-kbd">Ctrl K</kbd>
+                    </button>
+                </li>
             </ul>
         </div>
     </div>

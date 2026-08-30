@@ -12,9 +12,9 @@
     <meta name="renderer" content="webkit"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
-    <link href="/static/style/site.min.css?v=2026082815" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/theme-uno.css?v=2026082815" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/home.css?v=2026082815" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/site.min.css?v=2026083015" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/theme-uno.css?v=2026083015" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/home.css?v=2026083015" rel="stylesheet" type="text/css"/>
     {:$Think.config.web.header}
 {include file="seo" /}</head>
 <body>
@@ -44,6 +44,15 @@
                 <a href="/calculator/">计算器</a>
                 <a href="/uuid/">UUID 生成</a>
             </div>
+        </div>
+    </section>
+
+    <!-- ============ 最近使用（有足迹时由 app.js 显示） ============ -->
+    <section class="home-recent" id="homeRecentWrap" hidden aria-label="最近使用的工具">
+        <div class="home-showcase-inner">
+            <h2 class="home-section-title"><i class="fa-solid fa-clock-rotate-left"></i> 最近使用</h2>
+            <p class="home-section-sub">你最近打开过的工具，点击直达</p>
+            <div class="home-recent-list" id="homeRecentList"></div>
         </div>
     </section>
 
@@ -232,29 +241,57 @@
     ];
     function renderResults(kw) {
         kw = kw.trim().toLowerCase();
-        if (!kw) { dropdown.style.display = 'none'; return; }
+        if (!kw) { dropdown.style.display = 'none'; heroHits = []; return; }
         var hits = allTools.filter(function(t) {
             return t.name.toLowerCase().indexOf(kw) !== -1 ||
                    t.desc.toLowerCase().indexOf(kw) !== -1 ||
                    t.cat.toLowerCase().indexOf(kw) !== -1 ||
                    t.url.toLowerCase().indexOf(kw) !== -1;
         }).slice(0, 8);
+        heroHits = hits;
         if (!hits.length) {
             dropdown.innerHTML = '<div class="home-search-empty">没有找到匹配的工具，换个关键词试试</div>';
         } else {
-            dropdown.innerHTML = hits.map(function(t) {
-                return '<a href="' + t.url + '" class="home-search-item">' +
+            dropdown.innerHTML = hits.map(function(t, i) {
+                return '<a href="' + t.url + '" class="home-search-item' + (i === 0 ? ' active' : '') + '" data-i="' + i + '">' +
                     '<span class="home-search-item-name">' + t.name + '</span>' +
                     '<span class="home-search-item-cat">' + t.cat + '</span>' +
                     '<span class="home-search-item-desc">' + t.desc + '</span></a>';
             }).join('');
         }
         dropdown.style.display = 'block';
+        heroActive = 0;
+    }
+    var heroHits = [];
+    var heroActive = 0;
+    function heroMove(delta) {
+        if (!heroHits.length) return;
+        heroActive = (heroActive + delta + heroHits.length) % heroHits.length;
+        var items = dropdown.querySelectorAll('.home-search-item');
+        items.forEach(function (el, i) { el.classList.toggle('active', i === heroActive); });
+        var cur = items[heroActive];
+        if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest' });
     }
     search.addEventListener('input', function() {
         var kw = search.value;
         if (clear) clear.style.display = kw ? 'flex' : 'none';
         renderResults(kw);
+    });
+    search.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown') { e.preventDefault(); heroMove(1); return; }
+        if (e.key === 'ArrowUp') { e.preventDefault(); heroMove(-1); return; }
+        if (e.key === 'Enter' && !e.isComposing) {
+            var hit = heroHits[heroActive];
+            if (hit) { e.preventDefault(); window.location.href = hit.url; }
+        }
+    });
+    dropdown.addEventListener('mouseover', function(e) {
+        var item = e.target.closest ? e.target.closest('.home-search-item') : null;
+        if (!item) return;
+        heroActive = Number(item.getAttribute('data-i')) || 0;
+        dropdown.querySelectorAll('.home-search-item').forEach(function (el, i) {
+            el.classList.toggle('active', i === heroActive);
+        });
     });
     if (clear) {
         clear.addEventListener('click', function() {
@@ -316,6 +353,6 @@
 </script>
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/app.js?v=2026082815" type="text/javascript"></script>
+<script src="/static/script/app.js?v=2026083015" type="text/javascript"></script>
 </body>
 </html>

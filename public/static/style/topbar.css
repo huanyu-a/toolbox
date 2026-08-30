@@ -489,3 +489,97 @@ body { background: var(--tb-bg); }
     right: 16px !important;
     bottom: 260px !important;
 }
+
+
+/* ---------- 导航栏搜索按钮（桌面端，Modern v6） ---------- */
+.nav-search-li { display: flex; align-items: center; }
+.nav-search-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--tb-border);
+    background: var(--tb-surface);
+    color: var(--tb-text-3);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: pointer;
+    transition: border-color .18s, color .18s, box-shadow .18s;
+}
+.nav-search-btn:hover {
+    border-color: var(--tb-primary);
+    color: var(--tb-primary);
+    box-shadow: 0 0 0 3px rgba(217, 119, 87, .12);
+}
+.nav-search-btn i { font-size: 12px; }
+.nav-search-kbd {
+    font-family: inherit;
+    font-size: 11px;
+    color: var(--tb-text-3);
+    border: 1px solid var(--tb-border);
+    border-radius: 5px;
+    padding: 0 5px;
+    background: var(--tb-bg-soft);
+}
+@media (max-width: 991px) {
+    .nav-search-li { display: none; } /* 移动端走 FAB 搜索键 */
+}
+
+/* ---------- 搜索弹窗：列表式结果（含描述 + 键盘高亮） ---------- */
+.sd-list { margin-bottom: 12px; }
+.sd-list:last-child { margin-bottom: 0; }
+.sd-list-title {
+    font-size: 12px;
+    color: var(--tb-text-3);
+    margin: 0 0 6px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.sd-list-title i { font-size: 11px; }
+.sd-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: var(--tb-radius);
+    color: var(--tb-text);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background .12s, border-color .12s;
+}
+.sd-row:hover, .sd-row.active {
+    background: var(--tb-bg-soft);
+    border-color: var(--tb-border);
+    text-decoration: none;
+}
+.sd-row.active { border-color: var(--tb-primary); }
+.sd-row-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sd-row-name { font-size: 14px; font-weight: 600; color: var(--tb-text); }
+.sd-row.active .sd-row-name { color: var(--tb-primary); }
+.sd-row-desc {
+    font-size: 12px;
+    color: var(--tb-text-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 420px;
+}
+.sd-row-cat {
+    flex: none;
+    font-size: 11px;
+    color: var(--tb-text-3);
+    border: 1px solid var(--tb-border);
+    border-radius: 999px;
+    padding: 1px 8px;
+    background: var(--tb-surface);
+}
+.sd-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--tb-text-3);
+    padding: 6px 0 2px;
+}

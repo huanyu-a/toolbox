@@ -197,43 +197,107 @@
         }
     }
 
-    /* ---------- 顶部导航搜索（图标弹窗） ---------- */
+    function toolsLookup() {
+        // url 归一化反查表：'/json/' -> {name, desc, cat}
+        var map = {};
+        TOOLS.forEach(function (cat) {
+            (cat.items || []).forEach(function (t) {
+                var key = (t.url || '').replace(/^https?:\/\/[^\/]+/i, '').replace(/\/+$/, '') + '/';
+                map[key] = { name: t.name, desc: t.desc || '', cat: cat.cat, url: t.url };
+            });
+        });
+        return map;
+    }
+
+    function recentList() {
+        try {
+            var list = JSON.parse(localStorage.getItem('toolbox_history') || '[]');
+            return Array.isArray(list) ? list.slice(0, 8) : [];
+        } catch (e) { return []; }
+    }
+
+    /* ---------- 顶部导航搜索（弹窗，列表式 + 键盘导航） ---------- */
     var topBtn = document.getElementById('topSearchBtn');
     var topInput = document.getElementById('topSearchInput');
     var searchPop = document.getElementById('searchPop');
     var searchMask = document.getElementById('searchMask');
     var searchClose = document.getElementById('searchPopClose');
     var sd = document.getElementById('searchDropdown');
+    var sdHits = [];      // 当前渲染结果（扁平，供键盘导航）
+    var sdActive = 0;     // 当前高亮下标
+
+    function sdRenderRow(t) {
+        return '<a class="sd-row" href="' + t.url + '" data-idx="' + t._i + '">'
+            + '<span class="sd-row-main"><span class="sd-row-name">' + t.name + '</span>'
+            + '<span class="sd-row-desc">' + t.desc + '</span></span>'
+            + '<span class="sd-row-cat">' + t.cat + '</span></a>';
+    }
+
+    function sdRefresh() {
+        var rows = sd ? sd.querySelectorAll('.sd-row') : [];
+        rows.forEach(function (r) {
+            r.classList.toggle('active', Number(r.getAttribute('data-idx')) === sdActive);
+        });
+        var cur = sd ? sd.querySelector('.sd-row.active') : null;
+        if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest' });
+    }
+
+    function sdMove(delta) {
+        if (!sdHits.length) return;
+        sdActive = (sdActive + delta + sdHits.length) % sdHits.length;
+        sdRefresh();
+    }
 
     function renderTopSearch(kw) {
         if (!sd) return;
         kw = (kw || '').trim().toLowerCase();
-        if (!kw || !TOOLS.length) {
-            sd.innerHTML = '';
-            return;
-        }
-        var groups = [];
-        TOOLS.forEach(function (cat) {
-            var hits = cat.items.filter(function (t) {
-                return t.name.toLowerCase().indexOf(kw) !== -1 || t.url.toLowerCase().indexOf(kw) !== -1;
-            });
-            if (hits.length) {
-                groups.push({ cat: cat.cat, items: hits.slice(0, 8) });
-            }
-        });
-        if (!groups.length) {
-            sd.innerHTML = '<div class="sd-empty">未找到匹配的工具：' + (kw ? kw : '') + '</div>';
-            return;
-        }
+        sdHits = [];
         var html = '';
-        groups.forEach(function (g) {
-            html += '<div class="sd-group"><div class="sd-title">' + g.cat + '</div>';
-            g.items.forEach(function (t) {
-                html += '<span class="sd-item"><a href="' + t.url + '">' + t.name + '</a></span>';
+        var lookup = toolsLookup();
+
+        if (!kw) {
+            // 空关键词：最近使用 + 提示
+            var recent = recentList();
+            if (recent.length) {
+                html += '<div class="sd-list"><div class="sd-list-title"><i class="fa-solid fa-clock-rotate-left"></i> 最近使用</div>';
+                recent.forEach(function (item) {
+                    var info = lookup[item.url] || {};
+                    sdHits.push({ url: item.url, name: item.name, desc: info.desc || '', cat: info.cat || '最近' });
+                });
+                sdHits.forEach(function (t, i) { t._i = i; html += sdRenderRow(t); });
+                html += '</div>';
+            }
+            html += '<div class="sd-hint">输入关键词搜索全部 ' + TOOLS.reduce(function (n, c) { return n + (c.items || []).length; }, 0) + ' 个工具</div>';
+            sd.innerHTML = html;
+            sdActive = 0;
+            sdRefresh();
+            return;
+        }
+
+        TOOLS.forEach(function (cat) {
+            var hits = (cat.items || []).filter(function (t) {
+                var u = (t.url || '').replace(/^https?:\/\/[^\/]+/i, '');
+                return t.name.toLowerCase().indexOf(kw) !== -1
+                    || u.toLowerCase().indexOf(kw) !== -1
+                    || (t.desc || '').toLowerCase().indexOf(kw) !== -1
+                    || cat.cat.toLowerCase().indexOf(kw) !== -1;
             });
-            html += '</div>';
+            hits.slice(0, 6).forEach(function (t) {
+                sdHits.push({ url: t.url, name: t.name, desc: t.desc || '', cat: cat.cat });
+            });
         });
-        sd.innerHTML = html;
+        // 按分类分组渲染（保持命中顺序）
+        var groups = {};
+        sdHits.forEach(function (t, i) { t._i = i; (groups[t.cat] = groups[t.cat] || []).push(t); });
+        var finalHtml = '';
+        Object.keys(groups).forEach(function (catName) {
+            finalHtml += '<div class="sd-list"><div class="sd-list-title">' + catName + '</div>';
+            groups[catName].forEach(function (t) { finalHtml += sdRenderRow(t); });
+            finalHtml += '</div>';
+        });
+        sd.innerHTML = sdHits.length ? finalHtml : '<div class="sd-empty">未找到匹配的工具，换个关键词试试</div>';
+        sdActive = 0;
+        sdRefresh();
     }
 
     function openSearch() {
@@ -269,7 +333,39 @@
     }
     if (searchClose) searchClose.addEventListener('click', closeSearch);
     if (searchMask) searchMask.addEventListener('click', closeSearch);
+    if (sd) {
+        sd.addEventListener('mouseover', function (e) {
+            var row = e.target.closest ? e.target.closest('.sd-row') : null;
+            if (!row) return;
+            sdActive = Number(row.getAttribute('data-idx')) || 0;
+            sdRefresh();
+        });
+    }
     document.addEventListener('keydown', function (e) {
+        var popOpen = searchPop && searchPop.style.display === 'block';
+        // 键盘导航：弹窗打开时 ↑↓ 移动高亮、Enter 跳转
+        if (popOpen && sdHits.length) {
+            if (e.key === 'ArrowDown') { e.preventDefault(); sdMove(1); return; }
+            if (e.key === 'ArrowUp') { e.preventDefault(); sdMove(-1); return; }
+            if (e.key === 'Enter' && !e.isComposing) {
+                var hit = sdHits[sdActive];
+                if (hit) { e.preventDefault(); window.location.href = hit.url; return; }
+            }
+        }
+        // 全局快捷键：Ctrl/⌘+K 呼出搜索（首页已有聚焦逻辑，跳过）；'/' 呼出
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+            if (document.getElementById('homeSearch')) return; // 首页由页内脚本聚焦 hero 搜索框
+            e.preventDefault();
+            popOpen ? closeSearch() : openSearch();
+            return;
+        }
+        if (e.key === '/' && !popOpen) {
+            var t = e.target;
+            var tag = t && t.tagName ? t.tagName.toLowerCase() : '';
+            if (tag === 'input' || tag === 'textarea' || tag === 'select' || (t && t.isContentEditable)) return;
+            e.preventDefault();
+            openSearch();
+        }
         if (e.key === 'Escape') {
             closeSearch();
             closeCatNav();
@@ -278,14 +374,8 @@
     if (topInput) {
         topInput.addEventListener('input', function () { renderTopSearch(topInput.value); });
         topInput.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-                var kw = topInput.value.trim();
-                if (kw && TOOLS.length) {
-                    var hit = TOOLS.reduce(function (acc, cat) { return acc.concat(cat.items); }, [])
-                        .filter(function (t) { return t.name.indexOf(kw) !== -1 || t.url.indexOf(kw) !== -1; })[0];
-                    if (hit) window.location.href = hit.url;
-                }
-            }
+            // ↑↓/Enter 由全局键盘导航处理；这里处理 IME 组合态下的 Enter（不跳转）
+            if (e.key === 'Enter' && e.isComposing) e.preventDefault();
         });
     }
 
@@ -473,33 +563,70 @@
     /* ---------- 足迹历史 ---------- */
     function initHistory() {
         var box = document.getElementById('visit_history');
-        if (!box) return;
-        try {
-            var key = 'toolbox_history';
-            var list = JSON.parse(localStorage.getItem(key) || '[]');
-            if (!list.length) return;
-            var html = '';
-            list.slice(0, 8).forEach(function (item) {
-                html += '<a href="' + item.url + '" style="margin-right:10px;color:' + 'inherit' + '">' + item.name + '</a>';
-            });
-            box.innerHTML = html;
-        } catch (e) { /* ignore */ }
+        if (box) {
+            try {
+                var list = recentList();
+                if (list.length) {
+                    var html = '';
+                    list.slice(0, 8).forEach(function (item) {
+                        html += '<a href="' + item.url + '" style="margin-right:10px;color:' + 'inherit' + '">' + item.name + '</a>';
+                    });
+                    box.innerHTML = html;
+                }
+            } catch (e) { /* ignore */ }
+        }
+        // 首页「最近使用」区块：有足迹才显示
+        var recentWrap = document.getElementById('homeRecentWrap');
+        var recentListEl = document.getElementById('homeRecentList');
+        if (recentWrap && recentListEl) {
+            var recents = recentList();
+            if (recents.length) {
+                var lookup = toolsLookup();
+                var chipsHtml = '';
+                recents.slice(0, 8).forEach(function (item) {
+                    var info = lookup[item.url] || {};
+                    chipsHtml += '<a class="home-recent-chip" href="' + item.url + '" title="' + (info.desc || item.name) + '">'
+                        + '<span class="home-recent-chip-name">' + item.name + '</span>'
+                        + (info.cat ? '<span class="home-recent-chip-cat">' + info.cat + '</span>' : '')
+                        + '<i class="fa-solid fa-arrow-right home-recent-chip-go"></i></a>';
+                });
+                recentListEl.innerHTML = chipsHtml;
+                recentWrap.hidden = false;
+            }
+        }
     }
     initHistory();
+
+    /* ---------- 404 页搜索桥接：hero 搜索框直接驱动搜索弹窗 ---------- */
+    (function () {
+        var bridge = document.getElementById('e404SearchBridge');
+        if (!bridge || !topInput) return;
+        var input = document.getElementById('homeSearch');
+        if (!input) return;
+        input.addEventListener('focus', function () { openSearch(); });
+        input.addEventListener('input', function () {
+            if (searchPop && searchPop.style.display !== 'block') openSearch();
+            topInput.value = input.value;
+            renderTopSearch(topInput.value);
+        });
+    })();
 
     function recordHistory() {
         try {
             var key = 'toolbox_history';
             var list = JSON.parse(localStorage.getItem(key) || '[]');
             var path = window.location.pathname.replace(/\/+$/, '') + '/';
-            // 优先用工具名称（TOOLS_DATA 注册表反查），找不到再回退页面标题
+            // 优先用工具名称（TOOLS_DATA 注册表反查，URL 归一化后比对），找不到再回退页面标题
             var name = '';
+            var norm = function (u) {
+                return (u || '').replace(/^https?:\/\/[^\/]+/i, '').replace(/\/+$/, '') + '/';
+            };
             try {
                 var cats = window.TOOLS_DATA || [];
                 for (var ci = 0; ci < cats.length; ci++) {
                     var items = cats[ci].items || [];
                     for (var ii = 0; ii < items.length; ii++) {
-                        if (items[ii].url === path) { name = items[ii].name; break; }
+                        if (norm(items[ii].url) === path) { name = items[ii].name; break; }
                     }
                     if (name) break;
                 }
