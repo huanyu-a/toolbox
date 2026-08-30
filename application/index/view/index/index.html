@@ -12,9 +12,9 @@
     <meta name="renderer" content="webkit"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
-    <link href="/static/style/site.min.css?v=2026083015" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/theme-uno.css?v=2026083015" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/home.css?v=2026083015" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/site.min.css?v=2026083022" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/theme-uno.css?v=2026083022" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/home.css?v=2026083022" rel="stylesheet" type="text/css"/>
     {:$Think.config.web.header}
 {include file="seo" /}</head>
 <body>
@@ -44,6 +44,15 @@
                 <a href="/calculator/">计算器</a>
                 <a href="/uuid/">UUID 生成</a>
             </div>
+        </div>
+    </section>
+
+    <!-- ============ 常用收藏（有收藏时由 app.js 显示） ============ -->
+    <section class="home-recent" id="homePinsWrap" hidden aria-label="常用收藏">
+        <div class="home-showcase-inner">
+            <h2 class="home-section-title"><i class="fa-solid fa-star"></i> 常用收藏</h2>
+            <p class="home-section-sub">你固定的工具，随时直达，点击 × 取消收藏</p>
+            <div class="home-recent-list" id="homePinsList"></div>
         </div>
     </section>
 
@@ -353,6 +362,6 @@
 </script>
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/app.js?v=2026083015" type="text/javascript"></script>
+<script src="/static/script/app.js?v=2026083022" type="text/javascript"></script>
 </body>
 </html>

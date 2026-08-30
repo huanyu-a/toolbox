@@ -1,17 +1,16 @@
 {
   "agent": "main",
-  "timestamp": "2026-08-30T11:00:00",
+  "timestamp": "2026-08-30T12:30:00",
   "status": "completed",
-  "summary": "五轮深度审查（安全/功能/前端/仓库/回归部署）完成并已上线 deploy-20260830-review。修复 15 项：SSRF 中央防护(curl_safe_target)、后台文件管理路径穿越、CSRF 同源校验、session 固定、robots 泄露真实后台路径(上轮回归,已改回诱饵)、favicon 体积校验失效、死 API 分支、清除缓存删 site_config.db 数据破坏 bug、IP 页反射 XSS、Host 头回显、快捷方式头注入+save_url 白名单、/api 物理目录劫持致快捷方式失效(改 /doapi)、Apache autoindex 关闭、静态资源版本号 bump、.dockerignore 补敏感目录、backup/65MB+runtime 产物移出 git 跟踪",
-  "artifacts": ["application/common.php","application/index/controller/Index.php","application/admin/controller/Base.php","application/admin/controller/File.php","application/admin/controller/Index.php","application/admin/view/web/index.html","application/index/view/index/shortcut.html","application/index/view/index/refresh.html","application/index/view/index/e404.html",".dockerignore"],
+  "summary": "功能迭代上线 deploy-20260830-ux（77cc370）：搜索弹窗升级列表式结果（名称+描述+分类徽标）、桌面导航栏搜索入口、全局 Ctrl+K 与 '/' 快捷键、↑↓/Enter 键盘环形导航、首页「最近使用」chips 区块（localStorage 足迹）、搜索面板最近分组、404 页接入 app.js、修复足迹名存 SEO 标题 bug（URL 归一化反查）、PWA manifest+品牌图标+theme-color。Playwright 浏览器级 20/20 通过后上线",
+  "artifacts": ["public/static/script/app.js","public/static/style/topbar.css","public/static/style/home.css","public/manifest.json","public/static/images/pwa/","application/index/view/header.html","application/index/view/index/index.html","application/index/view/index/e404.html"],
   "quality": {
     "checks": [
-      {"name": "php-lint", "result": "pass", "detail": "6 个改动文件容器内 php -l 全过"},
-      {"name": "e2e-admin", "result": "pass", "detail": "伪造 session 实测:后台 4 页 200、路径穿越被拦、伪造 Origin CSRF 被拒、同源 POST 正常、清缓存后 site_config.db 数据存活"},
-      {"name": "e2e-front", "result": "pass", "detail": "首页/工具页/404/robots/SSRF 拦截/汇率代理 本地+线上双验证;外网 UA 200/404 正确"},
-      {"name": "assets", "result": "pass", "detail": "455 处静态资源引用全存在;版本号 2026082815 全局生效"}
+      {"name": "js-syntax", "result": "pass", "detail": "node --check app.js + 首页内联脚本"},
+      {"name": "e2e-browser", "result": "pass", "detail": "Playwright 20/20：搜索/键盘导航/最近使用/404/PWA/零JS报错"},
+      {"name": "live", "result": "pass", "detail": "线上首页/工具页/404/manifest/icon 全 200，版本号 2026083015 生效"}
     ],
     "gate_passed": true
   },
-  "next": ["生产凭据仍在 git 历史(449b5e0/8eb4a14),建议换密码", "服务器旧镜像可回滚: deploy-20260828-404"]
+  "next": ["可选：service worker 离线缓存（当前 manifest-only，未做 SW 以避免缓存失效风险）", "生产凭据换密码（遗留）"]
 }

@@ -1,10 +1,11 @@
 <link rel="manifest" href="/manifest.json"/>
+<link rel="preload" href="/static/fontawesome/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin/>
 <meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)"/>
 <meta name="theme-color" content="#1F1B16" media="(prefers-color-scheme: dark)"/>
 <link rel="apple-touch-icon" href="/static/images/pwa/apple-touch-icon.png"/>
-<link href="/static/fontawesome/css/all.min.css?v=2026083015" rel="stylesheet" type="text/css"/>
-<link href="/static/style/theme-uno.css?v=2026083015" rel="stylesheet" type="text/css"/>
-<link href="/static/style/topbar.css?v=2026083015" rel="stylesheet" type="text/css"/>
+<link href="/static/fontawesome/css/all.min.css?v=2026083022" rel="stylesheet" type="text/css"/>
+<link href="/static/style/theme-uno.css?v=2026083022" rel="stylesheet" type="text/css"/>
+<link href="/static/style/topbar.css?v=2026083022" rel="stylesheet" type="text/css"/>
 <nav class="navbar navbar-default navbar-static-top navbar-fixed-top topbar" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -43,12 +44,20 @@
 </nav>
 {if condition="$current_tool_name != ''"}
 <div class="crumb-bar">
-    <div class="container">
+    <div class="container crumb-flex">
         <ol class="breadcrumb">
             <li><a href="/">首页</a></li>
             <li>{if condition="$current_cat != ''"}<a href="/#cat-{$current_cat}">{$current_cat}</a>{else}工具{/if}</li>
             <li class="active">{$current_tool_name}</li>
         </ol>
+        <div class="crumb-actions">
+            <button type="button" class="crumb-btn" id="tbPinBtn" data-url="{$current_url}" data-name="{$current_tool_name}" data-cat="{$current_cat}" title="收藏此工具">
+                <i class="fa-regular fa-star"></i>
+            </button>
+            <button type="button" class="crumb-btn" id="tbShareBtn" data-url="{$current_url}" data-name="{$current_tool_name}" title="复制链接分享">
+                <i class="fa-solid fa-link"></i>
+            </button>
+        </div>
     </div>
 </div>
 {/if}

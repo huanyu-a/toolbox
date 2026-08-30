@@ -216,6 +216,37 @@
         } catch (e) { return []; }
     }
 
+    /* ---------- 常用收藏（pin） ---------- */
+    var PIN_KEY = 'toolbox_pins';
+    function pinNorm(u) {
+        return (u || '').replace(/^https?:\/\/[^\/]+/i, '').replace(/\/+$/, '') + '/';
+    }
+    function pinList() {
+        try {
+            var list = JSON.parse(localStorage.getItem(PIN_KEY) || '[]');
+            return Array.isArray(list) ? list : [];
+        } catch (e) { return []; }
+    }
+    function pinSave(list) {
+        try { localStorage.setItem(PIN_KEY, JSON.stringify(list)); } catch (e) { /* ignore */ }
+    }
+    function isPinned(path) {
+        return pinList().some(function (p) { return p.url === path; });
+    }
+    function togglePin(url, name, cat) {
+        var path = pinNorm(url);
+        var list = pinList().filter(function (p) { return p.url !== path; });
+        var pinned;
+        if (isPinned(path)) {
+            pinned = false; // 已收藏 → 取消（上面 filter 已移除）
+        } else {
+            list.unshift({ url: path, name: name || '', cat: cat || '', ts: Date.now() });
+            pinned = true;
+        }
+        pinSave(list);
+        return pinned;
+    }
+
     /* ---------- 顶部导航搜索（弹窗，列表式 + 键盘导航） ---------- */
     var topBtn = document.getElementById('topSearchBtn');
     var topInput = document.getElementById('topSearchInput');
@@ -256,19 +287,29 @@
         var lookup = toolsLookup();
 
         if (!kw) {
-            // 空关键词：最近使用 + 提示
+            // 空关键词：常用收藏 + 最近使用 + 提示
+            var html0 = '';
+            var pins = pinList();
+            if (pins.length) {
+                html0 += '<div class="sd-list"><div class="sd-list-title"><i class="fa-solid fa-star"></i> 常用收藏</div>';
+                pins.slice(0, 6).forEach(function (p) {
+                    var info = lookup[p.url] || {};
+                    sdHits.push({ url: p.url, name: p.name || info.name || p.url, desc: info.desc || '', cat: p.cat || info.cat || '收藏' });
+                });
+                sdHits.forEach(function (t, i) { t._i = i; html0 += sdRenderRow(t); });
+                html0 += '</div>';
+            }
             var recent = recentList();
             if (recent.length) {
-                html += '<div class="sd-list"><div class="sd-list-title"><i class="fa-solid fa-clock-rotate-left"></i> 最近使用</div>';
+                html0 += '<div class="sd-list"><div class="sd-list-title"><i class="fa-solid fa-clock-rotate-left"></i> 最近使用</div>';
                 recent.forEach(function (item) {
                     var info = lookup[item.url] || {};
                     sdHits.push({ url: item.url, name: item.name, desc: info.desc || '', cat: info.cat || '最近' });
                 });
-                sdHits.forEach(function (t, i) { t._i = i; html += sdRenderRow(t); });
-                html += '</div>';
+                sdHits.forEach(function (t, i) { t._i = i; html0 += sdRenderRow(t); });
+                html0 += '</div>';
             }
-            html += '<div class="sd-hint">输入关键词搜索全部 ' + TOOLS.reduce(function (n, c) { return n + (c.items || []).length; }, 0) + ' 个工具</div>';
-            sd.innerHTML = html;
+            sd.innerHTML = html0 + sdKeysHtml();
             sdActive = 0;
             sdRefresh();
             return;
@@ -295,9 +336,13 @@
             groups[catName].forEach(function (t) { finalHtml += sdRenderRow(t); });
             finalHtml += '</div>';
         });
-        sd.innerHTML = sdHits.length ? finalHtml : '<div class="sd-empty">未找到匹配的工具，换个关键词试试</div>';
+        sd.innerHTML = (sdHits.length ? finalHtml : '<div class="sd-empty">未找到匹配的工具，换个关键词试试</div>') + sdKeysHtml();
         sdActive = 0;
         sdRefresh();
+    }
+
+    function sdKeysHtml() {
+        return '<div class="sd-keys"><span><kbd>↑</kbd><kbd>↓</kbd> 选择</span><span><kbd>Enter</kbd> 打开</span><span><kbd>Esc</kbd> 关闭</span></div>';
     }
 
     function openSearch() {
@@ -593,6 +638,82 @@
                 recentListEl.innerHTML = chipsHtml;
                 recentWrap.hidden = false;
             }
+        }
+        // 首页「常用收藏」区块
+        var pinsWrap = document.getElementById('homePinsWrap');
+        var pinsListEl = document.getElementById('homePinsList');
+        if (pinsWrap && pinsListEl) {
+            var renderPins = function () {
+                var pins = pinList();
+                if (!pins.length) {
+                    pinsWrap.hidden = true;
+                    pinsListEl.innerHTML = '';
+                    return;
+                }
+                var lookup2 = toolsLookup();
+                var chips = '';
+                pins.slice(0, 10).forEach(function (p, i) {
+                    var info = lookup2[p.url] || {};
+                    chips += '<a class="home-recent-chip" href="' + p.url + '" title="' + (info.desc || p.name) + '">'
+                        + '<i class="fa-solid fa-star home-recent-chip-star"></i>'
+                        + '<span class="home-recent-chip-name">' + (p.name || info.name || p.url) + '</span>'
+                        + (p.cat || info.cat ? '<span class="home-recent-chip-cat">' + (p.cat || info.cat) + '</span>' : '')
+                        + '</a>'
+                        + '<button type="button" class="home-pin-remove" data-pin-i="' + i + '" title="取消收藏" aria-label="取消收藏"><i class="fa-solid fa-xmark"></i></button>';
+                });
+                pinsListEl.innerHTML = chips;
+                pinsWrap.hidden = false;
+            };
+            renderPins();
+            pinsListEl.addEventListener('click', function (e) {
+                var btn = e.target.closest ? e.target.closest('.home-pin-remove') : null;
+                if (!btn) return;
+                e.preventDefault();
+                e.stopPropagation();
+                var i = Number(btn.getAttribute('data-pin-i'));
+                var pins = pinList();
+                if (i >= 0 && i < pins.length) {
+                    pins.splice(i, 1);
+                    pinSave(pins);
+                    renderPins();
+                }
+            });
+        }
+
+        // 工具页面包屑操作：收藏星标 / 复制链接分享
+        var pinBtn = document.getElementById('tbPinBtn');
+        if (pinBtn) {
+            var path0 = pinNorm(pinBtn.getAttribute('data-url'));
+            var syncPinIcon = function () {
+                var on = isPinned(path0);
+                pinBtn.classList.toggle('is-pinned', on);
+                pinBtn.innerHTML = on ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+                pinBtn.title = on ? '取消收藏' : '收藏此工具';
+            };
+            syncPinIcon();
+            pinBtn.addEventListener('click', function () {
+                togglePin(pinBtn.getAttribute('data-url'), pinBtn.getAttribute('data-name'), pinBtn.getAttribute('data-cat'));
+                syncPinIcon();
+            });
+        }
+        var shareBtn = document.getElementById('tbShareBtn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', function () {
+                var url = shareBtn.getAttribute('data-url') || window.location.href;
+                var done = function () {
+                    shareBtn.classList.add('is-done');
+                    shareBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    setTimeout(function () {
+                        shareBtn.classList.remove('is-done');
+                        shareBtn.innerHTML = '<i class="fa-solid fa-link"></i>';
+                    }, 1500);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(done, function () { fallbackCopy(url, done); });
+                } else {
+                    fallbackCopy(url, done);
+                }
+            });
         }
     }
     initHistory();

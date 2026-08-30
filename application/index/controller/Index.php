@@ -43,7 +43,6 @@ class Index extends Controller
             }
         }
         shuffle($allTools);
-        $data['randTools'] = array_slice($allTools, 0, 20);
         // 当前工具信息（面包屑 + 导航高亮 + SEO）
         $data['act'] = $act;
         $data['current_act'] = $act;
@@ -59,6 +58,26 @@ class Index extends Controller
                     break 2;
                 }
             }
+        }
+        // 底部推荐：同分类工具优先（相关推荐），其余随机补足 20 个（当前工具不出现）
+        if ($act !== 'index' && $data['current_cat'] !== '') {
+            $catTools = array();
+            $rest = array();
+            foreach ($allTools as $item) {
+                if (rtrim($item['url'], '/') === rtrim($data['current_url'], '/')) {
+                    continue; // 当前工具本身不推荐
+                }
+                if ($item['cat'] === $data['current_cat']) {
+                    $catTools[] = $item;
+                } else {
+                    $rest[] = $item;
+                }
+            }
+            shuffle($catTools);
+            shuffle($rest);
+            $data['randTools'] = array_slice(array_merge($catTools, $rest), 0, 20);
+        } else {
+            $data['randTools'] = array_slice($allTools, 0, 20);
         }
         // 页面 SEO 元信息（来自 web 配置）
         $webCfg = config('web.');

@@ -1274,3 +1274,24 @@
     .home-recent-list { gap: 8px; }
     .home-recent-chip { padding: 7px 12px; font-size: 13px; }
 }
+
+
+/* ---------- Modern v8：收藏 chip 取消按钮 ---------- */
+.home-recent-chip-star { color: var(--tb-primary); font-size: 11px; }
+.home-pin-remove {
+    width: 20px;
+    height: 20px;
+    margin-left: -4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--tb-text-3);
+    cursor: pointer;
+    font-size: 11px;
+    align-self: center;
+    transition: background .15s, color .15s;
+}
+.home-pin-remove:hover { background: rgba(0, 0, 0, .06); color: var(--tb-danger, #dc2626); }
