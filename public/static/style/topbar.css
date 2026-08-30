@@ -648,4 +648,5 @@ body { background: var(--tb-bg); }
 @media (min-width: 992px) {
     .fab-cat, .fab-search { display: none !important; }
     .fab-theme { display: flex !important; bottom: 24px !important; }
+    .gotop { bottom: 74px !important; } /* 回顶紧贴主题键上方，保持 10px 等距 */
 }

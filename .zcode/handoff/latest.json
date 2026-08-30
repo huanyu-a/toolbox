@@ -1,16 +1,16 @@
 {
   "agent": "main",
-  "timestamp": "2026-08-30T13:40:00",
+  "timestamp": "2026-08-30T14:30:00",
   "status": "completed",
-  "summary": "v8 迭代上线 deploy-20260830-pins（5534fb2）：工具页面包屑收藏星标（localStorage toolbox_pins，实心/描边星切换）与复制链接分享按钮（✓ 反馈）；首页「常用收藏」chips 区块（× 一键取消，位于最近使用上方）；搜索面板空关键词优先收藏分组；搜索面板底部快捷键提示行；工具页底部推荐纯随机改同分类优先（相关推荐，排除当前工具）；fa-solid-900.woff2 预加载。Playwright e2e 15/15 + v7 回归 6/6 通过",
-  "artifacts": ["application/index/controller/Index.php","application/index/view/header.html","application/index/view/nav.html","application/index/view/index/index.html","public/static/script/app.js","public/static/style/topbar.css","public/static/style/home.css"],
+  "summary": "修复 PC 端 FAB 悬浮按钮误显示（deploy-20260830-fabfix, 2760684）：根因是浮动按钮类名 .fab 与 Font Awesome Brands 图标类冲突，all.min.css 后加载的 display: var(--fa-display,inline-block) 覆盖了 .fab{display:none}。topbar.css 用 !important 压回：默认隐藏、≤991px 显示；PC 隐藏分类/搜索 FAB（分类走导航下拉、搜索走导航栏搜索键），保留主题 FAB（PC 唯一主题入口）下移 bottom:24px。Playwright 实测 5 档视口 + 线上 PC/移动端双验证通过，主题三态循环正常",
+  "artifacts": ["public/static/style/topbar.css", "application/index/view/（版本号 bump 2026083023）"],
   "quality": {
     "checks": [
-      {"name": "lint", "result": "pass", "detail": "php -l Index.php + node --check app.js"},
-      {"name": "e2e-browser", "result": "pass", "detail": "Playwright v8 15/15 + v7 回归 6/6：收藏/分享/面板分组/相关推荐同分类/零JS报错"},
-      {"name": "live", "result": "pass", "detail": "线上首页/工具页/404 全 200，新标记 7+2 处，版本号 2026083022 生效"}
+      {"name": "viewport-matrix", "result": "pass", "detail": "1920/1360/992: cat+search 隐藏、theme+navSearch 可见；768/375: 三键齐全"},
+      {"name": "function", "result": "pass", "detail": "PC 主题三态循环 auto→light→dark→auto 图标跟随；移动端分类键 active 面板正常"},
+      {"name": "live", "result": "pass", "detail": "线上 PC fabCatBtn 隐藏、fabTheme 保留、导航搜索可见；移动端三键齐全；版本 2026083023"}
     ],
     "gate_passed": true
   },
-  "next": ["可选：收藏与最近数据导出/导入", "可选：更多工具补示例数据按钮（当前 11/54）", "生产凭据换密码（遗留）"]
+  "next": ["生产凭据换密码（遗留）"]
 }
