@@ -21,10 +21,12 @@ return [
     'path'      => '/',
     // cookie 有效域名
     'domain'    => '',
-    //  cookie 启用安全传输
-    'secure'    => false,
+    //  cookie 启用安全传输（HTTPS 下强制 Secure，本地 HTTP 调试不受影响）
+    'secure'    => (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443)
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https'),
     // httponly设置
-    'httponly'  => '',
+    'httponly'  => true,
     // 是否使用 setcookie
     'setcookie' => true,
 ];

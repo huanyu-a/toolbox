@@ -23,4 +23,10 @@ return [
     'type'           => '',
     // 是否自动开启 SESSION
     'auto_start'     => true,
+    // 会话 Cookie 仅限 HTTP 访问（禁 JS 读取，防 XSS 窃取）
+    'httponly'       => 1,
+    // 会话 Cookie 仅 HTTPS 传输（经反代时识别 X-Forwarded-Proto；本地 HTTP 调试不受影响）
+    'secure'         => (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443)
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https'),
 ];

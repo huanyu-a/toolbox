@@ -1295,3 +1295,22 @@
     transition: background .15s, color .15s;
 }
 .home-pin-remove:hover { background: rgba(0, 0, 0, .06); color: var(--tb-danger, #dc2626); }
+
+
+/* ---------- 数据导出/导入（页脚入口） ---------- */
+.fdata-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 13px;
+    color: inherit;
+    opacity: .85;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity .15s, color .15s;
+}
+.fdata-btn:hover { opacity: 1; color: var(--tb-primary); }
+.fdata-btn i { font-size: 12px; }

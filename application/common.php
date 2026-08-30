@@ -11,6 +11,24 @@
 
 // 应用公共文件
 
+/* ---------- 全局安全加固（HTTP 请求生效，CLI 下 header/ini 调用为无害空操作） ---------- */
+if (PHP_SAPI !== 'cli') {
+    // 隐藏 PHP 版本指纹（X-Powered-By: PHP/7.4.33）
+    header_remove('X-Powered-By');
+    // 防点击劫持：禁止被第三方页面 iframe 嵌套
+    header('X-Frame-Options: SAMEORIGIN');
+    // 防 MIME 嗅探
+    header('X-Content-Type-Options: nosniff');
+    // 外链跳转不携带完整 URL
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    // 工具站用不到的高危浏览器能力一律禁用
+    header('Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+    // 会话 Cookie 同站限制（PHP 7.3+；框架 Session::init 不处理该键，此处先行设置可存活到 session_start）
+    if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+        @ini_set('session.cookie_samesite', 'Lax');
+    }
+}
+
 /**
  * SSRF 防护：校验出站 URL，安全时返回解析信息，不安全返回 false
  * 仅允许 http/https；拒绝内网/环回/链路本地等保留地址；固定解析结果防 DNS 重绑定

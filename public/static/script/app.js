@@ -718,6 +718,103 @@
     }
     initHistory();
 
+    /* ---------- 数据导出/导入（收藏 + 足迹，页脚入口） ---------- */
+    function dpToast(msg, ok) {
+        var d = document.createElement('div');
+        d.textContent = msg;
+        d.style.cssText = 'position:fixed;left:50%;bottom:80px;transform:translateX(-50%);'
+            + 'background:' + (ok === false ? '#8f3f34' : '#2d2a24') + ';color:#fff;padding:10px 18px;'
+            + 'border-radius:8px;font-size:13px;z-index:99999;box-shadow:0 4px 16px rgba(0,0,0,.2);'
+            + 'opacity:0;transition:opacity .25s;max-width:80vw;';
+        document.body.appendChild(d);
+        requestAnimationFrame(function () { d.style.opacity = '1'; });
+        setTimeout(function () {
+            d.style.opacity = '0';
+            setTimeout(function () { if (d.parentNode) d.remove(); }, 300);
+        }, 2200);
+    }
+    function initDataPort() {
+        var exBtn = document.getElementById('tbExportBtn');
+        var imBtn = document.getElementById('tbImportBtn');
+        var imFile = document.getElementById('tbImportFile');
+        if (!exBtn || !imBtn || !imFile) return;
+
+        exBtn.addEventListener('click', function () {
+            var his;
+            try { his = JSON.parse(localStorage.getItem('toolbox_history') || '[]'); } catch (e) { his = []; }
+            if (!Array.isArray(his)) his = [];
+            var data = {
+                app: 'toolbox',
+                version: 1,
+                exported: new Date().toISOString(),
+                pins: pinList(),
+                history: his
+            };
+            var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'toolbox-data-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '.json';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+            dpToast('已导出 ' + data.pins.length + ' 个收藏、' + data.history.length + ' 条足迹', true);
+        });
+
+        imBtn.addEventListener('click', function () { imFile.click(); });
+        imFile.addEventListener('change', function () {
+            var f = imFile.files && imFile.files[0];
+            imFile.value = '';
+            if (!f) return;
+            if (f.size > 1024 * 1024) { dpToast('文件过大，请选择本站导出的 JSON 备份', false); return; }
+            var reader = new FileReader();
+            reader.onload = function () {
+                try {
+                    var data = JSON.parse(String(reader.result));
+                    if (!data || typeof data !== 'object' || data.app !== 'toolbox') throw new Error('format');
+                    // 合并收藏：按 url 去重，字段白名单清洗
+                    var pins = pinList();
+                    var seen = {};
+                    pins.forEach(function (p) { seen[p.url] = 1; });
+                    var addP = 0;
+                    (Array.isArray(data.pins) ? data.pins : []).forEach(function (p) {
+                        if (!p || typeof p !== 'object') return;
+                        var url = pinNorm(p.url);
+                        if (url === '/' || url.charAt(0) !== '/' || seen[url]) return;
+                        seen[url] = 1;
+                        pins.push({ url: url, name: String(p.name || '').slice(0, 60), cat: String(p.cat || '').slice(0, 20), ts: Number(p.ts) || Date.now() });
+                        addP++;
+                    });
+                    pinSave(pins);
+                    // 合并足迹：按 url 去重，保留最近 12 条
+                    var his;
+                    try { his = JSON.parse(localStorage.getItem('toolbox_history') || '[]'); } catch (e) { his = []; }
+                    if (!Array.isArray(his)) his = [];
+                    var seenH = {};
+                    his.forEach(function (h) { seenH[h.url] = 1; });
+                    var addH = 0;
+                    (Array.isArray(data.history) ? data.history : []).forEach(function (h) {
+                        if (!h || typeof h !== 'object') return;
+                        var url = pinNorm(h.url);
+                        if (url === '/' || url.charAt(0) !== '/' || seenH[url]) return;
+                        seenH[url] = 1;
+                        his.push({ url: url, name: String(h.name || '').slice(0, 60), ts: Number(h.ts) || Date.now() });
+                        addH++;
+                    });
+                    his.sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+                    his = his.slice(0, 12);
+                    try { localStorage.setItem('toolbox_history', JSON.stringify(his)); } catch (e) { /* ignore */ }
+                    dpToast('导入完成：新增 ' + addP + ' 个收藏、' + addH + ' 条足迹', true);
+                    initHistory(); // 重渲染首页收藏/足迹区块
+                } catch (e) {
+                    dpToast('导入失败：不是有效的备份数据', false);
+                }
+            };
+            reader.readAsText(f);
+        });
+    }
+    initDataPort();
+
     /* ---------- 404 页搜索桥接：hero 搜索框直接驱动搜索弹窗 ---------- */
     (function () {
         var bridge = document.getElementById('e404SearchBridge');
@@ -835,5 +932,15 @@
             }
         });
     });
+
+    /* ---------- Service Worker 注册（离线缓存；仅安全上下文） ---------- */
+    (function () {
+        var secure = window.location.protocol === 'https:'
+            || ['localhost', '127.0.0.1'].indexOf(window.location.hostname) > -1;
+        if (!secure || !('serviceWorker' in navigator)) return;
+        window.addEventListener('load', function () {
+            try { navigator.serviceWorker.register('/service-worker.js').catch(function () {}); } catch (e) {}
+        });
+    })();
 
 })(window, document, window.jQuery);
