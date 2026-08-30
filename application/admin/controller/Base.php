@@ -25,6 +25,32 @@ class Base extends Controller
         if(!$this->isLogin()){
             exit($this->redirect(url(config('admin.path') . '/index/login'), 302));
         }
+        $this->checkSameOrigin();
+    }
+
+    /**
+     * CSRF 防护：后台写操作（POST）要求 Origin/Referer 与当前 Host 同源（头存在才校验）。
+     * 配合隐蔽后台路径，挡掉跨站伪造写请求（文件编辑/配置覆盖等）。
+     */
+    protected function checkSameOrigin()
+    {
+        if (!request()->isPost()) {
+            return;
+        }
+        $host = strtolower(parse_url('http://' . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'x'), PHP_URL_HOST) ?: '');
+        $candidates = array();
+        if (!empty($_SERVER['HTTP_ORIGIN'])) {
+            $candidates[] = $_SERVER['HTTP_ORIGIN'];
+        }
+        if (!empty($_SERVER['HTTP_REFERER'])) {
+            $candidates[] = $_SERVER['HTTP_REFERER'];
+        }
+        foreach ($candidates as $u) {
+            $p = parse_url($u);
+            if (empty($p['host']) || strtolower($p['host']) !== $host) {
+                exit('非法请求来源');
+            }
+        }
     }
 
     /**

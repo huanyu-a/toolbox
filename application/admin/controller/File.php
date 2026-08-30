@@ -29,8 +29,15 @@ class File extends Base
     public function html()
     {
         $this->checkLogin();
-        $file = input('file');
+        // 只允许本目录下的 .html 文件名，杜绝 ../ 路径穿越读写任意文件
+        $file = basename(trim((string)input('file', '')));
+        if (!preg_match('/^[a-zA-Z0-9_\-]+\.html$/', $file)) {
+            exit('<meta charset="utf-8"><script>alert("非法文件名");history.back();</script>');
+        }
         $dir = $this->rootPath() . 'application/index/view/index/' . $file;
+        if (!is_file($dir)) {
+            exit('<meta charset="utf-8"><script>alert("文件不存在");history.back();</script>');
+        }
         if(request()->isPost()){
             $Xcode = input('Xcode');
             file_put_contents($dir, $Xcode);

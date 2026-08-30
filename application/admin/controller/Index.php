@@ -31,7 +31,13 @@ class Index extends Base
     {
         $this->checkLogin();
         if(request()->isPost()) {
-            deleteDir(app()->getRootPath().'runtime');
+            // 只清模板编译缓存与框架缓存；runtime 根下的 site_config.db（友链/统计/站点配置）和日志绝不能删
+            $root = app()->getRootPath() . 'runtime' . DIRECTORY_SEPARATOR;
+            foreach (array('cache', 'temp') as $sub) {
+                if (is_dir($root . $sub)) {
+                    deleteDir($root . $sub);
+                }
+            }
             return json(['code'=>0, 'msg'=>'缓存已清除']);
         }
         return $this->fetch();
@@ -59,6 +65,7 @@ class Index extends Base
                 return json(['code'=>-1, 'msg'=>'验证码错误']);
             }
             if($username == $config['username'] && $password == $config['password']){
+                session_regenerate_id(true); // 防 session 固定
                 session('admin', $this->getSession());
                 return json(['code'=>0, 'msg'=>'登录成功']);
             }else{

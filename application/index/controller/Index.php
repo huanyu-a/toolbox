@@ -115,11 +115,13 @@ class Index extends Controller
             case 'ip':
                 if (request()->isPost()) {
                     $ip = input('post.ip');
+                    // 只允许 IP/域名常见字符，防头部注入与反射 XSS
+                    $ip = preg_match('/^[a-zA-Z0-9.\-:]+$/', (string)$ip) ? $ip : '';
                     return $this->redirect('/ip/' . $ip . '.html', 302);
                 }
                 $ips = new \Net\Ips(app()->getRootPath().'QQWry.dat');
                 $ip = input('ip');
-                if ($ip) {
+                if ($ip && preg_match('/^[a-zA-Z0-9.\-:]+$/', (string)$ip)) {
                     $data['ym']['ip'] = $ip;
                     $data['ym']['domain'] = gethostbyname($ip);
                     $domain = preg_replace('/(\d+)..*/', '\\1', $data['ym']['domain']);
@@ -144,7 +146,7 @@ class Index extends Controller
                     $upimage = input('file.upimage');
                     $getInfo = $upimage->getInfo();
                     if (isset($getInfo['tmp_name']) && $getInfo['tmp_name'] && is_uploaded_file($getInfo['tmp_name'])) {
-                        if ($getInfo['type'] > 210000) {
+                        if (!isset($getInfo['size']) || $getInfo['size'] > 210000) {
                             $data['upmsg'] = "<font color=\"red\">你上传的文件体积超过了限制 最大不能超过200K</font>";
                         } else {
                             $fileext = array("image/pjpeg", "image/gif", "image/x-png", "image/png", "image/jpeg", "image/jpg");
@@ -292,12 +294,11 @@ class Index extends Controller
         return response($xml, 200, array('Content-Type' => 'application/xml; charset=utf-8'));
     }
 
-    // robots.txt
+    // robots.txt（公开可读，禁止输出真实后台路径——等于泄露隐蔽入口；/admin 为无害诱饵）
     public function robots()
     {
         $domain = site_base();
-        $adminPath = trim((string)config('admin.path'), '/');
-        $txt = "User-agent: *\nAllow: /\nDisallow: /{$adminPath}\nSitemap: {$domain}/sitemap.xml\n";
+        $txt = "User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {$domain}/sitemap.xml\n";
         return response($txt, 200, array('Content-Type' => 'text/plain; charset=utf-8'));
     }
 
@@ -307,8 +308,13 @@ class Index extends Controller
         $save_name = input('save_name');
         $save_url = input('save_url');
         if ($save_name && $save_url) {
+            // 头部注入防护：文件名剔除 CR/LF 与控制字符，URL 只允许常规字符
+            $save_name = preg_replace('/[\x00-\x1F\x7F]/', '', (string)$save_name);
+            $save_url  = preg_match('#^https?://[\w\-.:/~?&=%+,;@!\[\]()\'\*]+$#i', (string)$save_url) ? $save_url : '';
+            if ($save_url === '') {
+                return 'invalid url';
+            }
             header("Content-Type: application/octet-stream");
-            //$ua = $_SERVER["HTTP_USER_AGENT"];
             $filename = urldecode($save_name) . '.url';//生成的文件名
             $encoded_filename = urlencode($filename);
             $encoded_filename = str_replace("+", "%20", $encoded_filename);
@@ -478,107 +484,6 @@ class Index extends Controller
                     'html_gjczcd' => $html_gjczcd,
                     'html_mdjgjs' => $html_mdjgjs
                 )));
-                break;
-            case 'check_url':
-                $page = input('page', 1);
-                $url = input('url');
-                $str = Fcurl($url);
-                $count_str = '';
-                $data = '';
-                $list = array(array(), array(), 0);
-                if ($str) {
-                    preg_match_all('/<a .*?href="(.*?)".*?>/is', $str, $ahref);
-                    $aLink = [];
-                    $title = preg_replace("/.*<title>(.*?)<\/title>.*/is", '\\1', $str);
-                    $url_p = 'http://' . preg_replace("/(http[s]?:)?(\/\/)?([\w.]+)[\w\/]*[\w.]*\??[\w=&\+\%]*/is", '\\3', $url);
-                    $id = 1;
-                    $aLink[] = array(
-                        'url' => $url_p,
-                        'title' => $title,
-                        'id' => $id
-                    );
-                    $arr = array();
-                    foreach ($ahref['1'] as $key => $vo) {
-                        $qdiv = substr($vo, 0, 1) != '#' && $vo != '/' && substr($vo, 0, 11) != 'javascript:';
-                        if ($qdiv && $vo != $url_p && !in_array($vo, $arr)) {
-                            $arr[] = $vo;
-                            if (substr($vo, 0, 2) == '//') {
-                                ++$id;
-                                $aLink[] = array(
-                                    'url' => 'http:' . $vo,
-                                    'title' => '',
-                                    'id' => $id
-                                );
-                            } else
-                                if (substr($vo, 0, 4) == 'http') {
-                                    ++$id;
-                                    $aLink[] = array(
-                                        'url' => $vo,
-                                        'title' => '',
-                                        'id' => $id
-                                    );
-                                } else {
-                                    if (substr($vo, 0, 1) == '/') {
-                                        ++$id;
-                                        $aLink[] = array(
-                                            'url' => $url_p . $vo,
-                                            'title' => '',
-                                            'id' => $id
-                                        );
-                                    } else {
-                                        ++$id;
-                                        $aLink[] = array(
-                                            'url' => $url_p . '/' . $vo,
-                                            'title' => '',
-                                            'id' => $id
-                                        );
-                                    }
-                                }
-                        }
-                    }
-                    $list = page($aLink, 20, $page);
-                    for ($i = 1; $i <= $list['1']; $i++) {
-                        $count_str .= '<li class="page-number "><a href="javascript:;" style="' . ($i == $page ? 'background:#ccc' : '') . '" onclick="get_data(' . $i . ')">' . $i . '</a></li>';
-                    }
-                    foreach ($list['0'] as $key => $vo) {
-                        $data .= '<tr class=""><td class="order">' . $vo['id'] . '</td><td class="title" id="tr_title_' . $vo['id'] . '">' . ($vo['title'] ? $vo['title'] : ' - ') . '</td><td class="owner" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><a class="green" href="' . $vo['url'] . '" target="_blank">' . $vo['url'] . '</a></td><td class="title" id="tr_' . $vo['id'] . '"> - </td></tr>';
-                    }
-                }
-                return json(array(
-                    'status' => $str ? 1 : 0,
-                    'data' => $data,
-                    'obj' => $list['0'],
-                    'total_count' => $list['2'],
-                    'count_str' => $count_str
-                ));
-                break;
-            case 'single_url':
-                $url = input('url');
-                $str = '';
-                if ($url) {
-                    $str = urltitlecode($url);
-                }
-                return json($str);
-                break;
-            case 'camelcase':
-                $id = input('id');
-                $text = input('text');
-                if ($id == 2) {
-                    $text = preg_replace_callback('/([^a-zA-Z][a-z])/', function ($m) {
-                        $str = str_replace('_', '', $m[0]);
-                        return strtoupper($str);
-                    }, ucfirst($text));
-                } else {
-                    $text = preg_replace_callback('/(([A-Z]).*?([A-Z]))/', function ($m) {
-                        $str = str_replace($m['3'], '_' . $m['3'], $m[0]);
-                        return $str;
-                    }, ucfirst($text));
-                    $text = strtolower($text);
-                }
-                $data = array();
-                $data['status'] = $text ? 1 : 0;
-                $data['msg'] = $text;
-                return json($data);
                 break;
             default:
                 /*$ifpost = 0;

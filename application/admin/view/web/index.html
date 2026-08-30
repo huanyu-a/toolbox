@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
     <title>全局配置 - {$Think.config.web.site.name}后台</title>
     <link rel="stylesheet" href="/static/admin/css/admin.css">
     <script src="/static/admin/js/theme.js"></script>
@@ -24,7 +25,7 @@
             {else/}
             <h3>{$key|pageapi}</h3>
             <div class="form-item">
-                <textarea class="form-textarea" name="web[{$key}]" style="min-height:300px">{$content}</textarea>
+                <textarea class="form-textarea" name="web[{$key}]" style="min-height:300px">{$vo}</textarea>
             </div>
             {/if}
         </div>

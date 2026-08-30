@@ -8,11 +8,11 @@
         <form action="" method="post" target="_blank" id="form" name="form">
             <div class="form-group">
                 <label class="t-label" for="name">名称</label>
-                <input type="text" class="t-input" id="name" name="name" value="{$_SERVER.HTTP_HOST}在线工具" style="max-width:420px" />
+                <input type="text" class="t-input" id="name" name="name" value="{$Think.server.HTTP_HOST|htmlspecialchars}在线工具" style="max-width:420px" />
             </div>
             <div class="form-group">
                 <label class="t-label" for="url">网址</label>
-                <input type="text" id="url" name="url" class="t-input" value="http://{$_SERVER.HTTP_HOST}/" style="max-width:420px" />
+                <input type="text" id="url" name="url" class="t-input" value="http://{$Think.server.HTTP_HOST|htmlspecialchars}/" style="max-width:420px" />
             </div>
             <div class="tool-actions">
                 <button type="button" name="generate" onclick="check()" class="t-btn">创建快捷方式并下载</button>
@@ -25,10 +25,10 @@
 <script type="text/javascript">
             function check(){
                 var  name=$("#name").val(),url=$("#url").val();
-                window.location.href="/api?save_name="+name+"&save_url="+url;
+                window.location.href="/doapi?save_name="+name+"&save_url="+url;
             }
         </script>{include file="nav" /}
 {include file="footer" /}
-<script src="/static/script/app.js?v=2026082715" type="text/javascript"></script>
+<script src="/static/script/app.js?v=2026082815" type="text/javascript"></script>
 <script src="/static/script/sample-data.js" type="text/javascript"></script>
 </body></html>

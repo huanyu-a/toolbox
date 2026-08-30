@@ -10,8 +10,37 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+/**
+ * SSRF 防护：校验出站 URL，安全时返回解析信息，不安全返回 false
+ * 仅允许 http/https；拒绝内网/环回/链路本地等保留地址；固定解析结果防 DNS 重绑定
+ */
+function curl_safe_target($url)
+{
+    $p = parse_url((string)$url);
+    if (!$p || empty($p['host']) || empty($p['scheme'])) return false;
+    if (!in_array(strtolower($p['scheme']), array('http', 'https'), true)) return false;
+    if (isset($p['port']) && ((int)$p['port'] < 1 || (int)$p['port'] > 65535)) return false;
+    $host = $p['host'];
+    if (filter_var($host, FILTER_VALIDATE_IP)) {
+        $ip = $host;
+    } else {
+        $ip = @gethostbyname($host);
+        if ($ip === $host) return false; // 域名解析失败
+    }
+    if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+        return false; // 内网/保留地址拒绝
+    }
+    $port = isset($p['port']) ? (int)$p['port'] : (strtolower($p['scheme']) === 'https' ? 443 : 80);
+    return array('ip' => $ip, 'port' => $port, 'host' => $host);
+}
+
 function Fcurl($url, $ifpost = 0, $datafields = '', $cookiefile = '', $v = false)
 {
+    $target = curl_safe_target($url);
+    if ($target === false) {
+        return '';
+    }
     $ip_long = array(
         array('607649792', '608174079'), //36.56.0.0-36.63.255.255
         array('1038614528', '1039007743'), //61.232.0.0-61.237.255.255
@@ -38,6 +67,8 @@ function Fcurl($url, $ifpost = 0, $datafields = '', $cookiefile = '', $v = false
     );
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+    curl_setopt($ch, CURLOPT_RESOLVE, array($target['host'] . ':' . $target['port'] . ':' . $target['ip']));
     curl_setopt($ch, CURLOPT_HEADER, $v);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
     $ifpost && curl_setopt($ch, CURLOPT_POST, $ifpost);
@@ -235,8 +266,14 @@ function strToUTF8($strText)
 
 function urlheader($url)
 {
+    $target = curl_safe_target($url);
+    if ($target === false) {
+        return array();
+    }
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+    curl_setopt($curl, CURLOPT_RESOLVE, array($target['host'] . ':' . $target['port'] . ':' . $target['ip']));
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($curl, CURLOPT_HEADER, 1);  //输出header信息
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  //不显示网页内容
@@ -273,8 +310,14 @@ function urlheader($url)
 function urltitlecode($url)
 {
     $url = htmlspecialchars_decode($url);
+    $target = curl_safe_target($url);
+    if ($target === false) {
+        return '';
+    }
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+    curl_setopt($curl, CURLOPT_RESOLVE, array($target['host'] . ':' . $target['port'] . ':' . $target['ip']));
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  //不显示网页内容
     curl_setopt($curl, CURLOPT_ENCODING, ''); //允许执行gzip

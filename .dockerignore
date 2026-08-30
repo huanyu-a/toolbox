@@ -9,3 +9,6 @@ runtime
 README.md
 backup
 scripts
+# 本地工作区（含 prod-credentials.txt 等敏感备忘，绝不能进镜像）
+.zcode
+MEMORY.md

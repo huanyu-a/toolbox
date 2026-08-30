@@ -25,7 +25,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html/
 
 # Apache：DocumentRoot 指向 public（ThinkPHP 入口），启用 .htaccess 重写与静态缓存
-RUN printf '<VirtualHost *:80>\n  DocumentRoot /var/www/html/public\n  <Directory /var/www/html/public/>\n    Options Indexes FollowSymLinks\n    AllowOverride All\n    Require all granted\n  </Directory>\n</VirtualHost>\n' > /etc/apache2/sites-available/000-default.conf \
+RUN printf '<VirtualHost *:80>\n  DocumentRoot /var/www/html/public\n  <Directory /var/www/html/public/>\n    Options -Indexes +FollowSymLinks\n    AllowOverride All\n    Require all granted\n  </Directory>\n</VirtualHost>\n' > /etc/apache2/sites-available/000-default.conf \
     && mkdir -p runtime/cache runtime/temp runtime/log \
     && chown -R www-data:www-data /var/www/html/runtime \
     && chown www-data:www-data /var/www/html/config
