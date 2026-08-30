@@ -153,6 +153,36 @@
             run: [{ click: 'uuidRun' }],
             msg: '已生成 UUID 示例'
         },
+
+        /* ===== 命令速查页：演示搜索过滤 ===== */
+        '/claudecodecmd/': {
+            fill: { '#linuxSearch': '会话' },
+            msg: '已演示搜索「会话」，清空输入框即可查看全部'
+        },
+        '/codexcmd/': {
+            fill: { '#linuxSearch': 'exec' },
+            msg: '已演示搜索「exec」，清空输入框即可查看全部'
+        },
+        '/deepseekharnesscmd/': {
+            fill: { '#linuxSearch': 'harness' },
+            msg: '已演示搜索「harness」，清空输入框即可查看全部'
+        },
+        '/hermescmd/': {
+            fill: { '#linuxSearch': 'gateway' },
+            msg: '已演示搜索「gateway」，清空输入框即可查看全部'
+        },
+        '/openclawcmd/': {
+            fill: { '#linuxSearch': 'openclaw' },
+            msg: '已演示搜索「openclaw」，清空输入框即可查看全部'
+        },
+        '/opencmd/': {
+            fill: { '#linuxSearch': 'open-code' },
+            msg: '已演示搜索「open-code」，清空输入框即可查看全部'
+        },
+        '/picmd/': {
+            fill: { '#linuxSearch': 'history' },
+            msg: '已演示搜索「history」，清空输入框即可查看全部'
+        },
     };
 
     function $(sel) {
