@@ -635,3 +635,17 @@ body { background: var(--tb-bg); }
     background: var(--tb-bg-soft);
     margin-right: 2px;
 }
+
+
+/* ---------- FAB 类名冲突修复：FA 的 .fab 是 Brands 图标类，后加载覆盖了 display ----------
+   原意：.fab 默认隐藏，仅 ≤991px 显示。此处用 !important 压回。 */
+.fab { display: none !important; }
+@media (max-width: 991px) {
+    .fab { display: flex !important; }
+}
+/* PC（≥992px）：分类/搜索 FAB 不显示（分类走导航栏下拉、搜索走导航栏搜索键）；
+   主题切换 FAB 是 PC 唯一主题入口，保留并落到常规右下角位置 */
+@media (min-width: 992px) {
+    .fab-cat, .fab-search { display: none !important; }
+    .fab-theme { display: flex !important; bottom: 24px !important; }
+}
