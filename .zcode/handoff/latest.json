@@ -24,5 +24,9 @@
   },
   "next": [
     "生产凭据换密码（遗留）"
-  ]
+  ],
+  "lastAction": "安全加固+功能迭代：4 个安全响应头/X-Powered-By 移除/session Cookie HttpOnly+Secure+samesite/Lax（common.php+config/session+cookie.php）；收藏足迹 JSON 导出导入（页脚按钮）；Service Worker 离线缓存（静态缓存优先+页面网络优先回退）；版本 2026083026。提交 6aa1c66 已推送，线上镜像 deploy-20260830-sw，本地 18/18 + 线上 7/7 验证通过",
+  "lastDeploy": "deploy-20260830-sw (6aa1c66)",
+  "lastDeployAt": "2026-08-30",
+  "deployNote": "注意：服务器 /www/docker/tools 下有两棵树 — src/（构建用 COPY 源）与根级 application/、public/（历史遗留副本）；tar 管道解包会同时落两处，Dockerfile 只用 src/。改 JS 单文件可用 scp 直传 src/ 再 build"
 }
