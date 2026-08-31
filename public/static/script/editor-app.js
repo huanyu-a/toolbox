@@ -13,6 +13,7 @@
   var $stChars = $('#stChars');
   var $stAll = $('#stAll');
   var $stBlocks = $('#stBlocks');
+  var $stTokens = $('#stTokens');
 
   var vditor = null;
   var htmlCm = null;
@@ -209,6 +210,10 @@
     $stChars.text(chars);
     $stAll.text(md.length);
     $stBlocks.text(blocks);
+    /* Token 估算：CJK 字符按 1 字 1 token，其余按每 4 字符 1 token */
+    var cjk = (text.match(/[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3040-\u30ff\uac00-\ud7af]/g) || []).length;
+    var other = chars - cjk;
+    $stTokens.text(cjk + Math.ceil(other / 4));
   }
 
   function scheduleSave() {
