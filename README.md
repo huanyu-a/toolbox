@@ -10,13 +10,18 @@
 
 ## ✨ 功能特性
 
-- 🧰 **54 款工具，7 大分类**：开发编程 / 文本处理 / 计算换算 / 网络运维 / 站长辅助 / 生活趣味 / Agent 命令速查
+- 🧰 **54 款工具，7 大分类**：开发编程 12 / 文本处理 4 / 计算换算 7 / 网络运维 9 / 站长辅助 7 / 生活趣味 8 / Agent 命令速查 7
 - 🔒 **本地运算**：纯前端工具在浏览器内计算，数据不上传服务器
-- 🔍 **工具搜索**：首页支持 `Ctrl K` 快捷搜索，顶部导航分类 hover 展开工具名
+- 🔍 **全站搜索面板**：首页 `Ctrl K` 呼出，工具名 / 描述模糊匹配、键盘导航、回车直达；顶部导航分类 hover 展开工具名
+- ⭐ **收藏与足迹**：工具页一键星标收藏（首页展示常用收藏区块）、自动记录最近使用足迹、同分类相关推荐
+- 🔄 **数据导出导入**：页脚「导出 / 导入数据」把收藏与足迹打包为 JSON 备份，导入自动合并去重（1MB 上限），换浏览器不丢数据
+- 📴 **离线可用（PWA）**：Service Worker 缓存静态资源与已访问页面，断网也能打开；支持安装到主屏幕（manifest.json）
+- 🎯 **一键示例数据**：每个工具页「示例数据」按钮自动填充演示内容并触发计算，全部工具页均已配置并逐一校验
 - 💱 **实时汇率**：世界货币查询内置 60 秒级实时汇率接口
 - 🛡️ **百度统计混淆防爬**：后台填 ID 即自动注入防广告拦截器识别的混淆统计代码
+- 🔐 **安全加固**：全站安全响应头（X-Frame-Options / nosniff / Referrer-Policy / Permissions-Policy）、会话 Cookie HttpOnly / Secure / SameSite、出站请求 SSRF 防护、动态 robots.txt 不泄露真实后台路径
 - ⚙️ **可视化后台**：网站配置（TDK / 名称 / 域名）、顶部导航、页脚、友情链接、账号、缓存、文件管理
-- 🔎 **SEO 友好**：动态站点地图（sitemap.xml）、robots.txt、JSON-LD 结构化数据、全站可配置 TDK
+- 🔎 **SEO 友好**：动态站点地图（sitemap.xml）、JSON-LD 结构化数据、全站可配置 TDK、自定义 404 页
 - 🎨 **三态主题**：亮 / 暗 / 跟随系统，全站（含后台与速查页）适配深色模式
 
 ## 🗂 内置工具一览
@@ -40,6 +45,7 @@
 - **数据**：无需 MySQL — 站点配置 / 友情链接存 SQLite（`runtime/site_config.db`），IP 归属地使用 `QQWry.dat`
 - **验证码**：cccyun/think-captcha
 - **图标**：Font Awesome 自托管（含 brands）
+- **离线 / 安装**：Service Worker（`public/service-worker.js`）+ PWA manifest
 - **部署**：Docker（生产 + 开发双镜像，Nginx / php-fpm）
 
 ## 📁 目录结构
@@ -50,7 +56,7 @@ toolbox/
 ├── config/               # 配置（admin 账号、web 全站 TDK、tools 工具导航、tongji 旧版统计）
 ├── docker/               # Docker 部署（生产 Dockerfile / compose / 开发镜像）
 ├── extend/               # 扩展库（IP 查询等）
-├── public/               # Web 根目录（入口 index.php、静态资源）
+├── public/               # Web 根目录（入口 index.php、静态资源、service-worker.js、manifest.json、404 页）
 ├── route/                # 路由配置
 ├── runtime/              # 运行缓存、日志与 site_config.db（SQLite 配置库，可写）
 ├── QQWry.dat             # 纯真 IP 数据库（运行时依赖，勿删）
@@ -177,12 +183,47 @@ php -S 0.0.0.0:8080 -t public public/router.php
 
 ---
 
+## 🎨 前端约定
+
+### 静态资源缓存版本号
+
+所有视图引用 CSS / JS 均带 `?v=` 查询参数（当前 `v=2026083026`）：
+
+- **修改任何 CSS / JS 后必须同步提升对应引用的 `?v=`**，否则用户浏览器命中旧缓存看不到更新
+- 批量更新：`grep -rl "旧版本号" application/index/view/ | xargs sed -i "s/旧版本号/新版本号/g"`
+
+### Service Worker（离线缓存）
+
+`public/service-worker.js` 采用双缓存策略：
+
+- 静态资源（`/static/` 且带 `?v=`）：cache-first（immutable）
+- 页面导航：network-first + LRU 上限 30 条，断网回退最近缓存
+- ⚠️ **变更 SW 逻辑必须同时提升文件内的 `CACHE` 版本号**（如 `tb-static-v1` → `tb-static-v2`），否则旧缓存不淘汰
+
+### 浏览器本地存储
+
+收藏（`toolbox_pins`）、足迹（`toolbox_history`）、主题（`toolbox_theme`）均存 localStorage；前两者可从页脚导出为 JSON 备份文件并跨设备导入（合并去重）。
+
+---
+
+## 🔐 安全设计
+
+- **安全响应头**（`application/common.php` 全局注入）：`X-Frame-Options: SAMEORIGIN`、`X-Content-Type-Options: nosniff`、`Referrer-Policy: strict-origin-when-cross-origin`、`Permissions-Policy`（禁用摄像头 / 麦克风 / 定位等）、移除 `X-Powered-By`
+- **会话与 Cookie**：HttpOnly + SameSite=Lax，HTTPS 下自动启用 Secure 标志
+- **SSRF 防护**：所有服务端出站请求（网站检测 / IP 查询等）统一经 `curl_safe_target()` 校验目标，禁止内网地址与非常规协议
+- **后台隐蔽**：`ADMIN_PATH` 自定义入口路径；动态 `robots.txt` 只输出无害诱饵路径（如 `/admin`），**绝不输出真实后台路径**
+- **登录保护**：验证码 + 登录限速，后台所有方法强制 `checkLogin` 校验
+- **输出安全**：前端结果一律 `textContent` 注入，禁止 `innerHTML` 拼接用户输入
+
+---
+
 ## ⚠️ 注意事项
 
 - `QQWry.dat` 为 IP 归属地数据库（约 10MB），为运行时依赖，**请勿删除**
-- `runtime/` 目录需保持可写（SQLite 配置库也在此，容器内已自动授权 `www-data`）
+- `runtime/` 目录需保持可写（SQLite 配置库也在此，容器内已自动授权 `www-data`）；后台「清除缓存」**不会**删除 `site_config.db`（站点配置库，删了会丢后台数据）
 - PHP 需启用 `pdo_sqlite` 扩展（镜像已内置；宿主机直跑需自行确认）
 - 后台「网站配置」保存时会重写 `config/web.php`，请确保该文件可写
+- 修改 CSS / JS 必须同步提升视图中的 `?v=` 版本号；修改 service-worker.js 必须同步提升其 `CACHE` 版本号（见上文「前端约定」）
 - 生产环境建议开启 HTTPS（反向代理或云负载均衡终结 SSL），并在后台固定「站点域名」以保证 SEO URL 一致
 
 ## 📄 License
