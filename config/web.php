@@ -201,9 +201,9 @@ return array (
   ),
 
   'editor' => array (
-    'title' => '在线Markdown编辑器,HTML在线编辑器,Markdown转HTML',
-    'keywords' => '在线Markdown编辑器,Markdown在线编辑器,Html在线编辑器,富文本在线编辑器,Markdown转Html,Html转Markdown,Markdown与Html互转,在线文章编辑器',
-    'description' => '在线 Markdown 编辑器与 Html 富文本编辑器，基于 Vditor 引擎，支持所见即所得、即时渲染、分屏预览在线编辑，可视化编辑与 HTML 源码切换，实现 Markdown 与 Html 在线互转；内置代码高亮、自动保存草稿、一键复制，下载 html/md、全屏与字数统计，在线写作、排版与程序员笔记工具，免安装打开即用。',
+    'title' => '在线Markdown编辑器,HTML在线编辑器,Markdown转HTML,Token计算器',
+    'keywords' => '在线Markdown编辑器,Markdown在线编辑器,Html在线编辑器,富文本在线编辑器,Markdown转Html,Html转Markdown,Markdown与Html互转,Token在线计算,Token计算器,大模型Token估算,在线文章编辑器',
+    'description' => '在线 Markdown 编辑器与 Html 富文本编辑器，基于 Vditor 引擎，支持所见即所得、即时渲染、分屏预览在线编辑，可视化编辑与 HTML 源码切换，实现 Markdown 与 Html 在线互转；内置代码高亮、自动保存草稿、一键复制，下载 html/md、全屏与字数统计；实时 Token 估算计算器，中文按字、英文按 4 字符估算大模型 Token 用量，写作提示词、控制成本必备；在线写作、排版与程序员笔记工具，免安装打开即用。',
   ),
 
   'areacode' => array (
