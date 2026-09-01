@@ -1,32 +1,44 @@
 {
   "agent": "main",
-  "timestamp": "2026-09-01T19:40:00",
+  "timestamp": "2026-09-01T21:30:00",
   "status": "completed",
-  "summary": "用户报告「回到顶部的箭头看不到了」已修复上线。根因：FA 化改造(aac4b69)时 .gotop i 的尺寸/白色规则写进了 home.css，而 home.css 只在首页模板加载——56 个工具页没有该规则，chevron 继承链接色橙色，橙色按钮上橙字=不可见。修复：把 .gotop i 规则(16px/line-height 40px/#fff/translateY(2px) 光学居中)移入全站加载的 topbar.css Modern v5 段，header.html bump topbar.css ?v=2026090102 穿透 SW 缓存。本地 Playwright 验证：PC 1280x600 工具页 /convert 滚动后 display:block、图标 rgb(255,255,255) 16px、按钮 40x40 位于 (1224,486)；首页同样白色正常；移动端 390x667 长页 bootstrapicon 滚动后同样可见（短页如 /timestamp 页高仅 674px 不足 300px 滚动阈值不出现属预期）。commit a0b00cd 已推 GitHub；tar 同步两文件(md5 配平)→secret-scan clean→build deploy-20260901-visual2→切容器 Up 正常；线上验证：topbar.css?v=2026090102 200、/convert 引用新版本、css 内含 .gotop i、首页 200、robots 仍只 /admin 假路径。",
+  "summary": "用户报告「好多工具，tab 上的工具名丢了」（截图为 JSON 工具箱页）已修复上线。根因：FA 图标化改造(aac4b69)给大量 t-tab 按钮加了 <i> 图标，但部分按钮只剩图标、文字为空。修复：正则扫描全部 56 个工具页模板，找出 33 个纯图标 t-tab，按目标面板内容补齐中文标签（GET 参数、Go 结构体、热量、数据大小、训练管理、htpasswd、dingtalk2 网关、防开机自启等），覆盖 16 个模板文件，仅改 HTML 文本、无 CSS/JS 变更故未 bump ?v=。本地 Playwright 验证 12 PC 页(1280x900) + 移动端 /json /linuxcmd(390x844)：0 空文本、0 溢出，BAD_COUNT=0。commit d2953db 已推 GitHub；tar 同步 16 文件(md5 配平 c5fa1716…)→secret-scan clean→build deploy-20260901-tabs1→切容器 Up 正常。线上验证：/json 含 GET 参数/Go 结构体/C# 实体类/JSON↔YAML；linuxcmd/picmd/hermescmd/regex 全部 tab 标签正常。",
   "artifacts": [
-    "public/static/style/topbar.css",
-    "application/index/view/header.html"
+    "application/index/view/index/json.html",
+    "application/index/view/index/html2js.html",
+    "application/index/view/index/editor.html",
+    "application/index/view/index/calc.html",
+    "application/index/view/index/claudecodecmd.html",
+    "application/index/view/index/codexcmd.html",
+    "application/index/view/index/deepseekharnesscmd.html",
+    "application/index/view/index/encrypt.html",
+    "application/index/view/index/hermescmd.html",
+    "application/index/view/index/linuxcmd.html",
+    "application/index/view/index/openclawcmd.html",
+    "application/index/view/index/opencmd.html",
+    "application/index/view/index/picmd.html",
+    "application/index/view/index/regex.html",
+    "application/index/view/index/subnetmask.html",
+    "application/index/view/index/httpheader.html"
   ],
   "quality": {
     "checks": [
-      {"name": "secret-scan", "result": "pass", "detail": "服务器 src/ Web.php grep mgr-/admin_login_key clean"},
-      {"name": "visual-acceptance", "result": "pass", "detail": "Playwright 计算样式+截图：PC工具页/首页/M端长页 chevron 均 #fff 16px 可见；截图像素采样确认"},
-      {"name": "live-verify", "result": "pass", "detail": "新 ?v= 200、/convert 引用 2026090102、css 含 .gotop i、首页 200、robots 无泄漏"},
-      {"name": "test", "result": "skip", "detail": "纯 CSS 修复，无单测路径"}
+      {"name": "residual-scan", "result": "pass", "detail": "修复后再扫描全站模板，0 个纯图标 t-tab 残留（修复前 33 个）"},
+      {"name": "playwright-visual", "result": "pass", "detail": "12 PC 页(1280x900) + 移动端 /json /linuxcmd(390x844)：empty=0 overflow=0 BAD_COUNT=0"},
+      {"name": "md5-sync", "result": "pass", "detail": "16 文件本地与服务端 md5 合计一致 c5fa1716ff2873a0dd94631f741f72fd"},
+      {"name": "secret-scan", "result": "pass", "detail": "服务端 src 树 grep 'mgr-|admin_login_key' 无命中"},
+      {"name": "live-verify", "result": "pass", "detail": "线上 /json 含 GET 参数/Go 结构体/C# 实体类/JSON↔YAML；linuxcmd/picmd/hermescmd/regex 全部 tab 有中文标签"}
     ],
     "gate_passed": true
   },
   "next": [
-    "观察线上移动端真实体验(吸底栏与长页滚动)",
-    "遗留：生产密码轮换(用户决策, 449b5e0/8eb4a14 旧提交)",
-    "后续迭代候选：工具页骨架屏/骨架加载态、深色模式逐页复查新组件",
-    "可选：home.css 里重复的 .gotop i 规则可去重(值一致无冲突, 优先级低)"
+    "遗留：生产凭据轮换（用户决策）",
+    "后续迭代候选：工具页骨架屏、深色模式逐页复查 tab 组件"
   ],
-  "lastDeploy": "deploy-20260901-visual2 (a0b00cd)",
+  "lastDeploy": "deploy-20260901-tabs1 (d2953db)",
   "lastDeployAt": "2026-09-01",
-  "deployNote": "双树坑持续：tar 只同步到 /www/docker/tools/src/。SW 缓存 tb-static-v1/tb-pages-v1 未动，靠新 ?v=2026090102 穿透。验证技巧：/convert 页高 1083-视口900 只有 183px 滚动余量，测 gotop 需视口调矮(600)或换长页(bootstrapicon 9000px+)",
+  "deployNote": "双树坑持续：tar 只同步到 /www/docker/tools/src/，docker build 必须在 /www/docker/tools（Dockerfile 所在目录）执行、context 为 .（COPY src/）。纯模板文本变更未 bump ?v=，SW tb-pages-v1 缓存的旧 HTML 因 URL 相同可能仍被返回——真机若见旧样式强刷或清 SW 即可，HTML 由网络优先策略自然更新。",
   "read_files": [
-    "public/static/style/topbar.css",
-    "application/index/view/header.html"
+    "application/index/view/index/json.html"
   ]
 }
