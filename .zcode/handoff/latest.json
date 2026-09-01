@@ -1,32 +1,32 @@
 {
   "agent": "main",
-  "timestamp": "2026-09-01T18:20:00",
+  "timestamp": "2026-09-01T19:40:00",
   "status": "completed",
-  "summary": "工具页视觉迭代(56页)完成并上线：新增 tool-upgrade.css(203行,移动端sticky操作栏safe-area/t-tabs横向滑动/橙色焦点环/卡片悬停阴影/按钮按压反馈/tb-toast样式/触控44px)+tool-upgrade.js(标签自动居中滚动+window.tbToast)；53个工具页模板注入css+js引用(?v=2026090101)；批量emoji→FontAwesome6.7.2共90+处(含fa-lobster→fa-fish修正)。本地容器8081经PC1280+M390双端18张截图验收通过(6张抽检全覆盖关键特性)；commit 2ad2815 已推GitHub；生产tar同步src→secret-scan clean→build镜像 deploy-20260901-visual1→切容器运行正常；线上browser-UA验证：首页+5工具页200、css/js资源200、convert页含新引用与FA图标、5页css-ref抽检全1、robots仍只暴露/admin假路径。注意：静态资源无浏览器UA访问被nginx挡403属既有防护，非回归。",
+  "summary": "用户报告「回到顶部的箭头看不到了」已修复上线。根因：FA 化改造(aac4b69)时 .gotop i 的尺寸/白色规则写进了 home.css，而 home.css 只在首页模板加载——56 个工具页没有该规则，chevron 继承链接色橙色，橙色按钮上橙字=不可见。修复：把 .gotop i 规则(16px/line-height 40px/#fff/translateY(2px) 光学居中)移入全站加载的 topbar.css Modern v5 段，header.html bump topbar.css ?v=2026090102 穿透 SW 缓存。本地 Playwright 验证：PC 1280x600 工具页 /convert 滚动后 display:block、图标 rgb(255,255,255) 16px、按钮 40x40 位于 (1224,486)；首页同样白色正常；移动端 390x667 长页 bootstrapicon 滚动后同样可见（短页如 /timestamp 页高仅 674px 不足 300px 滚动阈值不出现属预期）。commit a0b00cd 已推 GitHub；tar 同步两文件(md5 配平)→secret-scan clean→build deploy-20260901-visual2→切容器 Up 正常；线上验证：topbar.css?v=2026090102 200、/convert 引用新版本、css 内含 .gotop i、首页 200、robots 仍只 /admin 假路径。",
   "artifacts": [
-    "public/static/style/tool-upgrade.css",
-    "public/static/script/tool-upgrade.js",
-    "application/index/view/index/*.html (53)"
+    "public/static/style/topbar.css",
+    "application/index/view/header.html"
   ],
   "quality": {
     "checks": [
-      {"name": "secret-scan", "result": "pass", "detail": "部署前后 Web.php grep mgr-/admin_login_key 均 clean"},
-      {"name": "visual-acceptance", "result": "pass", "detail": "本地 PC+M 18截图，6张抽检：FA图标/橙色焦点/吸底操作栏/横向标签/无FAB遮挡 全过"},
-      {"name": "live-verify", "result": "pass", "detail": "首页+convert/json/editor/linuxcmd/subnetmask/encrypt 200；新css/js资源200且带?v=2026090101"},
-      {"name": "test", "result": "skip", "detail": "纯前端视觉改动，无单测覆盖路径"}
+      {"name": "secret-scan", "result": "pass", "detail": "服务器 src/ Web.php grep mgr-/admin_login_key clean"},
+      {"name": "visual-acceptance", "result": "pass", "detail": "Playwright 计算样式+截图：PC工具页/首页/M端长页 chevron 均 #fff 16px 可见；截图像素采样确认"},
+      {"name": "live-verify", "result": "pass", "detail": "新 ?v= 200、/convert 引用 2026090102、css 含 .gotop i、首页 200、robots 无泄漏"},
+      {"name": "test", "result": "skip", "detail": "纯 CSS 修复，无单测路径"}
     ],
     "gate_passed": true
   },
   "next": [
     "观察线上移动端真实体验(吸底栏与长页滚动)",
     "遗留：生产密码轮换(用户决策, 449b5e0/8eb4a14 旧提交)",
-    "后续迭代候选：工具页骨架屏/骨架加载态、深色模式逐页复查新组件"
+    "后续迭代候选：工具页骨架屏/骨架加载态、深色模式逐页复查新组件",
+    "可选：home.css 里重复的 .gotop i 规则可去重(值一致无冲突, 优先级低)"
   ],
-  "lastDeploy": "deploy-20260901-visual1 (2ad2815)",
+  "lastDeploy": "deploy-20260901-visual2 (a0b00cd)",
   "lastDeployAt": "2026-09-01",
-  "deployNote": "服务器 /www/docker/tools 双树坑仍在：只认 src/；tar 管道同步 application/index/view/index/*.html + 两个新静态文件已验证落位。SW 缓存 tb-static-v1/tb-pages-v1 未 bump（新资源带独立 ?v= 可穿透）",
+  "deployNote": "双树坑持续：tar 只同步到 /www/docker/tools/src/。SW 缓存 tb-static-v1/tb-pages-v1 未动，靠新 ?v=2026090102 穿透。验证技巧：/convert 页高 1083-视口900 只有 183px 滚动余量，测 gotop 需视口调矮(600)或换长页(bootstrapicon 9000px+)",
   "read_files": [
-    "public/static/style/tool-upgrade.css",
-    "public/static/script/tool-upgrade.js"
+    "public/static/style/topbar.css",
+    "application/index/view/header.html"
   ]
 }
