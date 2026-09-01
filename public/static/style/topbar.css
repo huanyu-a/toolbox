@@ -489,6 +489,15 @@ body { background: var(--tb-bg); }
     right: 16px !important;
     bottom: 260px !important;
 }
+/* FA 箭头样式须全站生效（home.css 只覆盖首页；工具页无此规则时图标继承链接色=橙底橙字不可见） */
+.gotop i {
+    display: block;
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+    color: #fff !important;
+    transform: translateY(2px); /* 光学居中：补偿 chevron 字形基线偏上 */
+}
 
 
 /* ---------- 导航栏搜索按钮（桌面端，Modern v6） ---------- */
