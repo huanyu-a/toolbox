@@ -1,8 +1,8 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.ip.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.ip.keywords}" /><meta name="description" content="{$Think.config.web.ip.description}" /><meta name="description" content="{$Think.config.web.ip.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
-        <h2 class="tool-title"><span class="t-ico">🌐</span>IP 查询 / 转换</h2>
+        <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-globe" aria-hidden="true"></i></span>IP 查询 / 转换</h2>
         <p class="tool-desc">IP 地址归属地查询、本机 IP 信息展示，以及 IPv4 地址与 32 位数字地址互转，全部本地计算、结果可一键复制。</p>
         <ul class="t-tabs" id="ipTabs">
             <li><button type="button" class="t-tab active" data-panel="ipPanel1">归属地查询</button></li>
@@ -78,7 +78,7 @@
         </div>
     </div>
     <div class="tool-card">
-        <h2 class="tool-title">📖 关于 IP 工具</h2>
+        <h2 class="tool-title"><i class="fa-solid fa-book-open" aria-hidden="true"></i> 关于 IP 工具</h2>
         <p class="tool-desc">归属地查询支持 IP 与域名，结果包含数字地址与物理位置。IP/数字互转：IPv4 的每个段为 0~255，数字地址 = a*256³ + b*256² + c*256 + d，完全本地计算。</p>
     </div>
 </div></div>
@@ -87,7 +87,7 @@
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
 <script src="/static/script/toolbox.js"></script>
-<script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
+<script src="/static/script/tool-upgrade.js?v=2026090101" type="text/javascript"></script><script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
 <script>
 (function () {
     'use strict';

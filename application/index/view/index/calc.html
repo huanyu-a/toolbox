@@ -1,22 +1,22 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.calc.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.calc.keywords}" /><meta name="description" content="{$Think.config.web.calc.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" />
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
-        <h2 class="tool-title"><span class="t-ico">📐</span>单位换算器</h2>
+        <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i></span>单位换算器</h2>
         <p class="tool-desc">长度、面积、体积、温度、时间、速度、压力、功率、角度、力、热量、密度、数据大小等常用单位在线互转，在任意输入框输入数值即可同步换算全部单位。</p>
-        <ul class="t-tabs"><li><button type="button" class="t-tab active" data-panel="panel-calclength">📏 长度</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcarea">📐 面积</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcvolume">🧊 体积</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calctemperature">🌡️ 温度</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calctime">⏱️ 时间</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcspeed">🚀 速度</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcpressure">🌡️ 压力</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcpower">⚡ 功率</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcangle">📐 角度</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcforce">⚙️ 力</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcheat">🔥 热量</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcthickness">📏 密度</button></li>
-<li><button type="button" class="t-tab" data-panel="panel-calcdata">💾 数据大小</button></li></ul>
+        <ul class="t-tabs"><li><button type="button" class="t-tab active" data-panel="panel-calclength"><i class="fa-solid fa-ruler" aria-hidden="true"></i> 长度</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcarea"><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i> 面积</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcvolume"><i class="fa-solid fa-cube" aria-hidden="true"></i> 体积</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calctemperature"><i class="fa-solid fa-temperature-half" aria-hidden="true"></i> 温度</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calctime"><i class="fa-solid fa-stopwatch" aria-hidden="true"></i> 时间</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcspeed"><i class="fa-solid fa-rocket" aria-hidden="true"></i> 速度</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcpressure"><i class="fa-solid fa-temperature-half" aria-hidden="true"></i> 压力</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcpower"><i class="fa-solid fa-bolt" aria-hidden="true"></i> 功率</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcangle"><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i> 角度</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcforce"><i class="fa-solid fa-gear" aria-hidden="true"></i> 力</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcheat"><i class="fa-solid fa-fire" aria-hidden="true"></i></button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcthickness"><i class="fa-solid fa-ruler" aria-hidden="true"></i> 密度</button></li>
+<li><button type="button" class="t-tab" data-panel="panel-calcdata"><i class="fa-solid fa-database" aria-hidden="true"></i></button></li></ul>
         <div class="t-panel-wrap"><div class="t-panel active" id="panel-calclength">
   <div class="u-grid"><div class="u-item"><label class="u-name">公里 <em class="u-sym">(（km）)</em></label><input type="text" class="u-in" data-unit="0" inputmode="decimal" placeholder="输入数值" /></div>
 <div class="u-item"><label class="u-name">米 <em class="u-sym">(（m）)</em></label><input type="text" class="u-in" data-unit="1" inputmode="decimal" placeholder="输入数值" /></div>
@@ -215,7 +215,7 @@
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
 <script src="/static/script/toolbox.js"></script>
-<script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
+<script src="/static/script/tool-upgrade.js?v=2026090101" type="text/javascript"></script><script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
 <script>
 (function () {
     'use strict';

@@ -1,0 +1,203 @@
+/* ============================================================
+   tool-upgrade.css — 工具页视觉迭代层（加载于 tool-theme.css 之后）
+   作用域全部限定 .tool-card / 工具页容器，不影响首页与其他板块
+   PC：焦点环统一品牌橙、按钮/卡片微精化、toast
+   M(≤767px)：操作栏吸底、44px 触控目标、Tabs 横向滑动
+   ============================================================ */
+
+/* ---------- 图标对齐：替换 emoji 后的 <i class="fa-..."> 内联适配 ---------- */
+
+/* 标题徽章内的图标（原 30px 方块，emoji 字号 15px → FA 同级） */
+.tool-card .tool-title .t-ico i {
+    font-size: 15px;
+    line-height: 1;
+}
+
+/* Tab / 按钮文本内的图标与文字对齐 */
+.tool-card .t-tab i,
+.tool-card .t-btn i {
+    font-size: 13px;
+    line-height: 1;
+    vertical-align: -1px;
+}
+.tool-card .t-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.tool-card .t-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ---------- PC 通用精化 ---------- */
+
+/* 统一焦点环：site.min.css 中 t-area 残留蓝色 rgba(79,110,242) → 品牌橙 */
+.tool-card .t-area:focus,
+.tool-card .t-options select:focus,
+.tool-card .t-options .t-input:focus,
+.tool-card .t-input:focus,
+.tool-card select:focus {
+    box-shadow: 0 0 0 3px rgba(217, 119, 87, .14);
+}
+
+/* 键盘可达性：按钮/Tab 聚焦可见环 */
+.tool-card .t-btn:focus-visible,
+.tool-card .t-tab:focus-visible,
+.tool-card button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(217, 119, 87, .22);
+}
+
+/* 卡片：极轻的顶部品牌线 + 悬停阴影加深（桌面端） */
+@media (min-width: 768px) {
+    .tool-card {
+        transition: box-shadow .25s ease;
+    }
+    .tool-card:hover {
+        box-shadow: var(--shadow-md, 0 10px 30px rgba(15, 23, 42, .08));
+    }
+    /* 输出区域只读态更有“结果面板”感 */
+    .tool-card .t-area.t-area-readonly {
+        border-style: dashed;
+    }
+}
+
+/* t-btn 按压反馈（两端） */
+.tool-card .t-btn {
+    transition: transform .12s ease, box-shadow .18s ease, background .18s ease, opacity .18s ease;
+}
+.tool-card .t-btn:active {
+    transform: translateY(1px) scale(.985);
+}
+
+/* toast：全局单例，JS 动态插入 body */
+#tb-toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%) translateY(8px);
+    z-index: 2147483000;
+    max-width: min(86vw, 420px);
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #fff;
+    background: rgba(30, 35, 45, .92);
+    box-shadow: 0 8px 28px rgba(15, 23, 42, .25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease;
+}
+#tb-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+[data-theme="dark"] #tb-toast {
+    background: rgba(238, 240, 245, .95);
+    color: #1c2130;
+}
+
+/* ---------- 移动端 ≤767px ---------- */
+@media (max-width: 767px) {
+
+    .tool-wrap {
+        padding-bottom: 24px;
+    }
+
+    /* Tabs：横向滑动条（不换行），隐藏滚动条 */
+    .tool-card .t-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-left: -22px;
+        margin-right: -22px;
+        padding-left: 16px;
+        padding-right: 16px;
+        scroll-padding-left: 16px;
+    }
+    .tool-card .t-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 触控目标 ≥40px */
+    .tool-card .t-tab {
+        min-height: 40px;
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    .tool-card .t-tab i {
+        font-size: 12px;
+    }
+    .tool-card .t-btn {
+        min-height: 44px;
+        padding: 10px 18px;
+    }
+    .tool-card .t-btn.t-btn-sm {
+        min-height: 40px;
+        padding: 8px 14px;
+    }
+    .tool-card .t-area {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    .tool-card .t-options select,
+    .tool-card .t-options .t-input,
+    .tool-card .t-input,
+    .tool-card select,
+    .tool-card input[type="text"],
+    .tool-card input[type="number"],
+    .tool-card input[type="url"] {
+        min-height: 42px;
+        padding: 8px 11px;
+        font-size: 14px;
+    }
+
+    /* 吸底操作栏：卡片底部动作区在滚动期间钉在视口底 */
+    .tool-card .tool-actions {
+        position: sticky;
+        bottom: 0;
+        z-index: 30;
+        margin: 16px -22px -22px;
+        padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        backdrop-filter: blur(10px) saturate(1.15);
+        -webkit-backdrop-filter: blur(10px) saturate(1.15);
+    }
+    /* 有多个卡片时只让“最后一个含动作区的卡片”吸底，避免中段卡片提前钉住 */
+    .tool-card:has(.tool-actions):not(:last-of-type) .tool-actions {
+        position: static;
+    }
+    .tool-card .tool-actions .t-btn {
+        flex: 1 1 auto;
+        white-space: nowrap;
+    }
+
+    /* toast 给吸底栏留出空间 */
+    #tb-toast {
+        bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* 极窄屏 ≤360px：按钮纵向铺满 */
+@media (max-width: 360px) {
+    .tool-card .tool-actions .t-btn {
+        flex: 1 1 100%;
+    }
+}
+
+/* 尊重减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+    .tool-card .t-btn,
+    .tool-card .t-btn:active,
+    #tb-toast,
+    .tool-card {
+        transition: none !important;
+        transform: none !important;
+    }
+}

@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.autoformat.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.autoformat.keywords}" /><meta name="description" content="{$Think.config.web.autoformat.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
 <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}<style>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}<style>
 /* 本页专用：一行多列紧凑布局（仅作用于 #autoformatCard，不影响其他工具页） */
 #autoformatCard .af-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 #autoformatCard .af-grid-3 { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
@@ -30,7 +30,7 @@
 </style></head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card" id="autoformatCard">
-        <h2 class="tool-title"><span class="t-ico">📝</span>文章自动排版</h2>
+        <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></span>文章自动排版</h2>
         <p class="tool-desc">在线自动排版工具为您提供文章一键排版、文章自动排版编辑器，可用于小说、论文排版，支持段前缩进、段间空行、标点转换、简繁转换、行号、查找替换、错别字检查与配置记忆。</p>
         <label class="t-label" for="srcText">待排版文本</label>
         <textarea class="t-area" id="srcText" name="srcText" rows="10" placeholder="请输入要排版的文本内容（支持直接粘贴网页内容，排版时自动清理HTML标签）"></textarea>
@@ -150,6 +150,6 @@
 </script>
 <script src="/static/script/pcjs/autoformat.js"></script>
 <script src="/static/script/toolbox.js"></script>
-<script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
+<script src="/static/script/tool-upgrade.js?v=2026090101" type="text/javascript"></script><script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
 <script src="/static/script/sample-data.js?v=2026083026" type="text/javascript"></script>
 </body></html>

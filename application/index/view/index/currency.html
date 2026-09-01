@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.currency.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.currency.keywords}" /><meta name="description" content="{$Think.config.web.currency.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
 <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}
 <style>
 .rate-panel { margin-bottom: 20px; padding: 18px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
 .rate-panel .rp-title { font-size: 16px; font-weight: 600; margin: 0 0 12px; color: var(--text-1); }
@@ -15,7 +15,7 @@
 .rate-board .rb-item { margin-right: 20px; white-space: nowrap; }
 .rate-board .rb-val { color: var(--brand); font-weight: 700; font-size: 16px; }
 </style>
-</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico">💱</span>世界各地货币查询</h2><p class="tool-desc">世界各国货币查询与实时汇率换算：提供全球各国及地区货币名称、符号表示与进位制信息查询，支持美元、欧元、日元、英镑、港币、人民币等主流货币的实时汇率在线换算，外贸、旅游、金融从业者快速查阅。</p>
+</head><body>{include file="header" /}<div class="container"><div class="tool-wrap"><div class="tool-card"><h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-money-bill-transfer" aria-hidden="true"></i></span>世界各地货币查询</h2><p class="tool-desc">世界各国货币查询与实时汇率换算：提供全球各国及地区货币名称、符号表示与进位制信息查询，支持美元、欧元、日元、英镑、港币、人民币等主流货币的实时汇率在线换算，外贸、旅游、金融从业者快速查阅。</p>
 <div class="rate-panel"><h3 class="rp-title">实时汇率换算</h3><div class="rate-form"><input type="number" id="rateAmount" class="form-control" value="100" min="0" step="any" placeholder="金额" /><select id="rateFrom" class="form-control"><option value="USD" selected>美元 USD</option>
 <option value="CNY">人民币 CNY</option>
 <option value="EUR">欧元 EUR</option>
@@ -177,6 +177,6 @@
 })();
 </script>{include file="nav" /}
 {include file="footer" /}
-<script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
+<script src="/static/script/tool-upgrade.js?v=2026090101" type="text/javascript"></script><script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
 <script src="/static/script/sample-data.js?v=2026083026" type="text/javascript"></script>
 </body></html>

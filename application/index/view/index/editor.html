@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.editor.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.editor.keywords}" /><meta name="description" content="{$Think.config.web.editor.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
 <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}
 <link href="/static/vditor/dist/index.css" rel="stylesheet" type="text/css"/>
 <link href="/static/script/codemirror/codemirror.css" rel="stylesheet" type="text/css"/>
 <style>
@@ -26,20 +26,20 @@
 </head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
   <div class="tool-card">
-    <h2 class="tool-title"><span class="t-ico">📝</span>富文本 · Markdown 在线编辑器</h2>
+    <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></span>富文本 · Markdown 在线编辑器</h2>
     <p class="tool-desc">基于 Vditor 引擎，支持所见即所得 / 即时渲染 / 分屏预览三种编辑模式，可视化编辑与 HTML 源码一键切换，实现 Markdown 与 HTML 双向互转，全程本地处理。</p>
     <ul class="t-tabs editor-tabs" id="modeTabs">
-      <li><button type="button" class="t-tab active" data-mode="tui">🖊️ 可视化编辑</button></li>
-      <li><button type="button" class="t-tab" data-mode="html">🔧 HTML 源码</button></li>
+      <li><button type="button" class="t-tab active" data-mode="tui"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i></button></li>
+      <li><button type="button" class="t-tab" data-mode="html"><i class="fa-solid fa-wrench" aria-hidden="true"></i> HTML 源码</button></li>
     </ul>
     <div class="t-panel active" id="paneTui"><div id="vditor"></div></div>
     <div class="t-panel" id="paneHtml"><div class="html-wrap"><textarea id="htmlSource" spellcheck="false"></textarea></div></div>
     <div class="tool-actions" style="margin-top:14px">
-      <button class="t-btn t-btn-ghost" type="button" id="btnSample">✨ 示例</button>
-      <button class="t-btn t-btn-ghost" type="button" id="btnClear">🗑️ 清空</button>
-      <button class="t-btn t-btn-ghost" type="button" id="btnCopyHtml">📋 复制 HTML</button>
-      <button class="t-btn t-btn-ghost" type="button" id="btnCopyMd">📋 复制 Markdown</button>
-      <button class="t-btn t-btn-ghost" type="button" id="btnCopyTxt">📄 复制 TXT</button>
+      <button class="t-btn t-btn-ghost" type="button" id="btnSample"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> 示例</button>
+      <button class="t-btn t-btn-ghost" type="button" id="btnClear"><i class="fa-solid fa-trash-can" aria-hidden="true"></i> 清空</button>
+      <button class="t-btn t-btn-ghost" type="button" id="btnCopyHtml"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> 复制 HTML</button>
+      <button class="t-btn t-btn-ghost" type="button" id="btnCopyMd"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> 复制 Markdown</button>
+      <button class="t-btn t-btn-ghost" type="button" id="btnCopyTxt"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> 复制 TXT</button>
       <button class="t-btn t-btn-ghost" type="button" id="btnDlHtml">⬇️ 下载 .html</button>
       <button class="t-btn t-btn-ghost" type="button" id="btnDlMd">⬇️ 下载 .md</button>
     </div>
@@ -53,7 +53,7 @@
     </div>
   </div>
   <div class="tool-card">
-    <h2 class="tool-title">📖 关于 Markdown / HTML 在线编辑器</h2>
+    <h2 class="tool-title"><i class="fa-solid fa-book-open" aria-hidden="true"></i> 关于 Markdown / HTML 在线编辑器</h2>
     <p class="tool-desc">本工具基于 Vditor 引擎构建，同时支持所见即所得（输出 HTML）、即时渲染（Markdown）与分屏预览三种编辑模式，并提供 HTML 源码视图，可一键切换、实时预览。支持自动保存草稿、代码块语法高亮、复制 HTML/Markdown、下载 .html/.md 文件以及全屏编辑，适用于文章撰写、网站编辑、微信公众号排版、程序员笔记等场景在线使用。</p>
   </div>
 </div></div>
@@ -70,6 +70,6 @@
 <script src="/static/vditor/dist/index.min.js" type="text/javascript"></script>
 <script src="/static/script/filesave.js" type="text/javascript"></script>
 <script src="/static/script/editor-app.js?v=2026083101" type="text/javascript"></script>
-<script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
+<script src="/static/script/tool-upgrade.js?v=2026090101" type="text/javascript"></script><script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
 <script src="/static/script/sample-data.js?v=2026083026" type="text/javascript"></script>
 </body></html>
