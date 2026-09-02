@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
     <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/>
     <!--[if lt IE 9]>
     <script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
@@ -63,6 +63,13 @@
         return '事件';
     }
 
+    // 输出转义：在线接口为第三方数据，必须转义后再入 innerHTML
+    function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
     function render(t) {
         curType = t;
         var list = all;
@@ -88,7 +95,7 @@
                 var yr = it.y;
                 if (parseInt(yr, 10) < 0) yr = '公元前' + Math.abs(parseInt(yr, 10)) + '年';
                 else yr = yr + '年';
-                html += '<tr><td><span class="lx_name">' + yr + '</span><span class="lx_value">' + it.d + '</span></td></tr>';
+                html += '<tr><td><span class="lx_name">' + esc(yr) + '</span><span class="lx_value">' + esc(it.d) + '</span></td></tr>';
             }
         }
         document.getElementById('lsjt-list').innerHTML = html;

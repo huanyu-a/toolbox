@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.textconvert.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.textconvert.keywords}" /><meta name="description" content="{$Think.config.web.textconvert.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-hashtag" aria-hidden="true"></i></span>文本转换</h2>
@@ -22,7 +22,7 @@
             <textarea class="t-area" id="pyContent" rows="6" placeholder="请输入要转换的汉字"></textarea>
             <div class="t-options" style="margin-top:12px">
                 <span style="font-weight:600">输出模式：</span>
-                <select id="pyMode" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:#fff">
+                <select id="pyMode" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:var(--surface,#fff)">
                     <option value="5">对照（拼音在汉字上）</option>
                     <option value="4">对照（拼音在汉字下）</option>
                     <option value="3">对照（拼音在汉字前）</option>
@@ -66,9 +66,9 @@
             <label class="t-label" for="srcText">输入要格式化的文本</label>
             <textarea class="t-area" id="srcText" rows="6" placeholder="请输入要格式化的文本"></textarea>
             <div class="t-options" style="margin-top:12px">
-                分隔字符：<input type="text" id="iS" value="|" size="3" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:#fff;text-align:center">
-                页宽：<input type="text" id="iW" value="24" size="3" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:#fff;text-align:center">
-                页高：<input type="text" id="iH" value="19" size="3" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:#fff;text-align:center">
+                分隔字符：<input type="text" id="iS" value="|" size="3" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:var(--surface,#fff);text-align:center">
+                页宽：<input type="text" id="iW" value="24" size="3" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:var(--surface,#fff);text-align:center">
+                页高：<input type="text" id="iH" value="19" size="3" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:var(--surface,#fff);text-align:center">
                 <label><input type="checkbox" onclick="cbig5();"> 转为繁体</label>
             </div>
             <div class="tool-actions" style="margin-top:12px">
@@ -103,7 +103,7 @@
             <textarea class="t-area" id="fxInput" rows="6" placeholder="请输入要制作特效的汉字"></textarea>
             <div class="t-options" style="margin-top:12px">
                 <span style="font-weight:600">区分方式：</span>
-                <select id="fxMode" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:#fff">
+                <select id="fxMode" style="padding:4px 8px;border:1px solid #d8d8d8;border-radius:6px;background:var(--surface,#fff)">
                     <option value="">区分字母</option>
                     <option value=" ">区分单词</option>
                 </select>
@@ -216,6 +216,9 @@
 
     /* 汉字拼音：pinyin.js 的 toPinyin + pydic（读音） */
     var pyContent = document.getElementById('pyContent'), pyResult = document.getElementById('pyResultText'), pyError = document.getElementById('pyError');
+    function pyEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
     document.getElementById('pyBtn').addEventListener('click', function () {
         hideErr(pyError);
         var v = pyContent.value;
@@ -249,7 +252,7 @@
                 str += '</em> ';
             } else {
                 var br = (parseInt(hidesel) == 4 || parseInt(hidesel) == 5) ? '<br>' : '';
-                if (document.getElementById('pySym').checked) str += '<em>' + br + con.charAt(i) + '</em> ';
+                if (document.getElementById('pySym').checked) str += '<em>' + br + pyEscape(con.charAt(i)) + '</em> ';
             }
         }
         pyResult.innerHTML = str;
@@ -272,11 +275,14 @@
     var flipInput = document.getElementById('flipInput'), flipResult = document.getElementById('flipResult'), flipResultText = document.getElementById('flipResultText'), flipError = document.getElementById('flipError');
     var flipTable = {
         a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ı',
-        j: 'ɾ', k: 'ʞ', m: 'ɯ', n: 'u', r: 'ɹ', t: 'ʇ', v: 'ʌ', w: 'ʍ', y: 'ʎ',
+        j: 'ɾ', k: 'ʞ', l: 'ן', m: 'ɯ', n: 'u', r: 'ɹ', t: 'ʇ', v: 'ʌ', w: 'ʍ', y: 'ʎ',
         '.': '˙', '[': ']', '(': ')', '{': '}', '?': '¿', '!': '¡', "'": ',', '<': '>', '_': '‾',
         '‿': '⁀', '⁅': '⁆', '∴': '∵', '\r': '\n'
     };
-    Object.keys(flipTable).forEach(function (k) { flipTable[flipTable[k]] = k; });
+    Object.keys(flipTable).forEach(function (k) {
+        /* \r/\n 不做反向映射，避免把 \n 翻成 \r 破坏换行 */
+        if (k !== '\r' && k !== '\n') flipTable[flipTable[k]] = k;
+    });
     document.getElementById('flipBtn').addEventListener('click', function () {
         hideErr(flipError);
         var v = flipInput.value;
@@ -292,6 +298,9 @@
 
     /* 文字特效 */
     var fxInput = document.getElementById('fxInput'), fxColor = document.getElementById('fxColor'), fxCode = document.getElementById('fxCode'), fxError = document.getElementById('fxError');
+    function fxEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
     document.getElementById('fxBtn').addEventListener('click', function () {
         hideErr(fxError);
         var words = fxInput.value;
@@ -306,7 +315,7 @@
                 var c1 = Math.round(Math.random() * 15), c2 = Math.round(Math.random() * 15), c3 = Math.round(Math.random() * 15);
                 var c4 = Math.round(Math.random() * 15), c5 = Math.round(Math.random() * 15), c6 = Math.round(Math.random() * 15);
                 var size = 1 + Math.round(Math.random() * 6);
-                code += '<font color="#' + cs[c1] + cs[c2] + cs[c3] + cs[c4] + cs[c5] + cs[c6] + '" size="' + size + '">' + arr[t] + '</font>';
+                code += '<font color="#' + cs[c1] + cs[c2] + cs[c3] + cs[c4] + cs[c5] + cs[c6] + '" size="' + size + '">' + fxEscape(arr[t]) + '</font>';
             }
         }
         fxColor.innerHTML = code;

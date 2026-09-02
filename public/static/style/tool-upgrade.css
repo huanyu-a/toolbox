@@ -201,3 +201,34 @@
         transform: none !important;
     }
 }
+
+/* ---------- 暗色模式全局兜底（bootstrap 遗留白底组件） ----------
+   site.min.css 的 .table-striped/.form-control 硬编码白底，暗色下条纹行
+   浅灰底+浅字不可读；仅 [data-theme="dark"] 作用域，浅色主题零影响 */
+[data-theme="dark"] .table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: var(--surface-2, #1c2431);
+}
+[data-theme="dark"] .table>tbody>tr:hover>td,
+[data-theme="dark"] .table>tbody>tr:hover>th {
+    background-color: var(--surface-2, #1c2431);
+}
+[data-theme="dark"] .table td,
+[data-theme="dark"] .table th {
+    border-color: var(--border, #2a3547);
+    color: var(--text-1, #e5e7eb);
+}
+[data-theme="dark"] .form-control {
+    background-color: var(--surface, #111827);
+    color: var(--text-1, #e5e7eb);
+    border-color: var(--border, #2a3547);
+}
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="url"],
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--surface, #111827);
+    color: var(--text-1, #e5e7eb);
+    border-color: var(--border, #2a3547);
+}

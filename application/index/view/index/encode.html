@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.encode.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.encode.keywords}" /><meta name="description" content="{$Think.config.web.encode.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-font" aria-hidden="true"></i></span>编码转换</h2>
@@ -300,6 +300,7 @@
                 </div>
             </div>
         </div>
+        </div><!-- /#encAsc -->
 
         <!-- 摩尔斯 -->
         <div id="encMorse" class="t-panel enc-panel">
@@ -706,6 +707,7 @@
 (function () {
     var input = document.getElementById('mcInput');
     var result = document.getElementById('mcResult');
+    var resultBox = document.getElementById('mcResultBox');
     var error = document.getElementById('mcError');
     function showErr(m) { error.textContent = m; error.classList.add('show'); }
     function hideErr() { error.classList.remove('show'); }
@@ -748,6 +750,7 @@
             out = out.substring(0, out.length - 1);
         }
         result.textContent = out;
+        resultBox.classList.add('show');
     }
     function decode() {
         hideErr();
@@ -775,10 +778,11 @@
             }
         }
         result.textContent = out;
+        resultBox.classList.add('show');
     }
     document.getElementById('mcEncode').addEventListener('click', encode);
     document.getElementById('mcDecode').addEventListener('click', decode);
-    document.getElementById('mcClear').addEventListener('click', function () { input.value = ''; result.textContent = ''; hideErr(); input.focus(); });
+    document.getElementById('mcClear').addEventListener('click', function () { input.value = ''; result.textContent = ''; resultBox.classList.remove('show'); hideErr(); input.focus(); });
     input.addEventListener('keydown', function (e) { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') encode(); });
 })();
 </script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.convert.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.convert.keywords}" /><meta name="description" content="{$Think.config.web.convert.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></span>数值转换</h2>
@@ -295,18 +295,45 @@
         }
         var cleaned = input;
         if (from === 16 && /^0x/i.test(cleaned)) cleaned = cleaned.slice(2);
-        var dec;
-        try {
-            dec = parseInt(cleaned, from);
-            if (isNaN(dec)) throw new Error('invalid');
-        } catch (e) {
+        // 严格校验：parseInt 会把 "1F"（按二进制）静默截断成 1，必须先按进制校验字符集
+        var sign = '';
+        if (cleaned.charAt(0) === '+' || cleaned.charAt(0) === '-') { sign = cleaned.charAt(0); cleaned = cleaned.slice(1); }
+        var reMap = { 2: /^[01]+$/, 8: /^[0-7]+$/, 10: /^\d+$/, 16: /^[0-9a-fA-F]+$/ };
+        if (!reMap[from].test(cleaned)) {
             hexShow('输入内容不符合所选进制的格式');
             return;
         }
-        document.getElementById('hexOut2').textContent = dec.toString(2);
-        document.getElementById('hexOut8').textContent = dec.toString(8);
-        document.getElementById('hexOut10').textContent = dec.toString(10);
-        document.getElementById('hexOut16').textContent = dec.toString(16).toUpperCase();
+        // 大数安全：超过 2^53 时 Number 会丢精度，改用字符串逐位转换（基数为 1e9 的 limbs）
+        var digitChars = '0123456789abcdef';
+        var limbs = [0];
+        for (var i = 0; i < cleaned.length; i++) {
+            var dgt = parseInt(cleaned.charAt(i), from);
+            var carry = dgt;
+            for (var j = 0; j < limbs.length; j++) {
+                var t = limbs[j] * from + carry;
+                limbs[j] = t % 1000000000;
+                carry = Math.floor(t / 1000000000);
+            }
+            while (carry > 0) { limbs.push(carry % 1000000000); carry = Math.floor(carry / 1000000000); }
+        }
+        function limbsToStr(base) {
+            var a = limbs.slice(), out = '';
+            while (a.length > 1 || a[0] > 0) {
+                var rem = 0;
+                for (var k = a.length - 1; k >= 0; k--) {
+                    var cur = rem * 1000000000 + a[k];
+                    a[k] = Math.floor(cur / base);
+                    rem = cur % base;
+                }
+                while (a.length > 1 && a[a.length - 1] === 0) a.pop();
+                out = digitChars.charAt(rem) + out;
+            }
+            return out || '0';
+        }
+        document.getElementById('hexOut2').textContent = sign + limbsToStr(2);
+        document.getElementById('hexOut8').textContent = sign + limbsToStr(8);
+        document.getElementById('hexOut10').textContent = sign + limbsToStr(10);
+        document.getElementById('hexOut16').textContent = (sign + limbsToStr(16)).toUpperCase();
     }
     var hexTimer = null;
     document.getElementById('hexInput').addEventListener('input', function () {
@@ -463,16 +490,16 @@
         var remRaw = rmRem.value;
         if (text === '') { rmShow('请填写要转换的CSS'); return; }
         if (remRaw === '') { rmShow('请填写1rem等于多少px值'); return; }
-        if (remRaw <= 0) { rmShow('请填写正确的px值'); return; }
         var rem = parseInt(remRaw, 10);
+        if (isNaN(rem) || rem <= 0) { rmShow('请填写正确的px值'); return; }
         var ignoreBorder = rmIgnore.checked;
         var lines = rmFormat(text).split('\n');
         var sb = '';
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
-            sb += line.replace(/\d+px/g, function (px) {
+            sb += line.replace(/\d*\.?\d+px/gi, function (px) {
                 if (ignoreBorder && /border:/i.test(line)) return px;
-                return rmRound(parseInt(px, 10) / rem) + 'rem';
+                return rmRound(parseFloat(px) / rem) + 'rem';
             }) + '\n';
         }
         var sourceArr = text.split('\n');

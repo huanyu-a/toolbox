@@ -15,14 +15,14 @@
 <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
 <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/>
 <style>
-.tsf-tabs{margin:0 0 14px;padding:0;border-bottom:2px solid #e7e7e7;overflow:hidden;list-style:none;}
+.tsf-tabs{margin:0 0 14px;padding:0;border-bottom:2px solid var(--border,#e7e7e7);overflow:hidden;list-style:none;}
 .tsf-tabs li{float:left;margin:0 2px 0 0;}
-.tsf-tabs a{display:block;padding:8px 16px;font-size:14px;color:#666;border:1px solid #e7e7e7;border-bottom:none;border-radius:4px 4px 0 0;background:#f7f7f7;text-decoration:none;}
-.tsf-tabs a:hover{color:#333;background:#fff;}
+.tsf-tabs a{display:block;padding:8px 16px;font-size:14px;color:var(--text-2,#666);border:1px solid var(--border,#e7e7e7);border-bottom:none;border-radius:4px 4px 0 0;background:var(--surface-2,#f7f7f7);text-decoration:none;}
+.tsf-tabs a:hover{color:var(--text,#333);background:var(--surface,#fff);}
 .tsf-tabs li.active a{color:#fff;background:#337ab7;border-color:#337ab7;}
 .tsf-grid{padding:10px 0;}
-.tsf-item{display:inline-block;min-width:44px;padding:6px 10px;margin:4px;font-size:20px;line-height:1.4;text-align:center;border:1px solid #eee;border-radius:4px;cursor:pointer;background:#fff;transition:all .12s ease;-webkit-user-select:none;user-select:none;}
-.tsf-item:hover{border-color:#337ab7;background:#f0f8ff;}
+.tsf-item{display:inline-block;min-width:44px;padding:6px 10px;margin:4px;font-size:20px;line-height:1.4;text-align:center;border:1px solid var(--border,#eee);border-radius:4px;cursor:pointer;background:var(--surface,#fff);color:var(--text,#333);transition:all .12s ease;-webkit-user-select:none;user-select:none;}
+.tsf-item:hover{border-color:#337ab7;background:var(--brand-soft,#f0f8ff);}
 .tsf-item.copied{border-color:#5cb85c;background:#eaffea;color:#3c763d;}
 .tsf-toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);padding:8px 18px;background:rgba(0,0,0,.78);color:#fff;border-radius:20px;font-size:14px;z-index:9999;display:none;pointer-events:none;}
 </style>

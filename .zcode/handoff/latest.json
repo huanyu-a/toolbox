@@ -1,51 +1,77 @@
 {
-  "agent": "main",
-  "timestamp": "2026-09-02T21:50:00",
+  "agent": "coder (E组)",
+  "timestamp": "2026-09-03T03:10:00",
   "status": "completed",
-  "summary": "用户追问「样本覆盖全了吗」，补扫全量数据发现 4 个未覆盖稀有维度（真<ul> 10条/<h4> 80条/emoji 271条/3000+长文 1条；md链接、删除线、下划线加粗、引用、行内代码、HTML实体等维度经全量扫描确认不存在），定向补抽 31 样本校验，抓到 1 个真实缺陷：源数据未闭合 <strong> + <p> 包裹<ul>/<li> 非法嵌套的植发内容，往返后 40 处字面 **。根因两层：① Vditor IR 对损坏 HTML 的解析（normalizeMdInHtml 前置 DOM 规范化兜底修复）；② protectEmphasis 正则 (?=\\S) 遇到 getValue 剥 ZWSP 后的 '** 文本**'（空格开头）放弃保护导致 Md2HTML 无法闭合——改为内容非空即保护。修复后 95 样本（64主+31补测）缺陷 0，本地与线上（deploy-20260902-editor3, ?v=2026090203）一致。commit b445863。",
+  "summary": "E组7个文化/生活工具深度自检完成：发现21个问题、修复18个、移交4个。P1×4：areacode/jieri/shaoshuminzu三模板同款TableSearch用new RegExp(用户输入)直接构造正则，输入( [ *等元字符抛SyntaxError致表单整页提交（已加元字符转义+i旗标，Node桩10用例回归全过）；keyboardcode全局keydown对匹配按键无条件preventDefault且不看页签，F5/F12/空格/Backspace全页被吞（已限定键盘测试页签active且目标非输入框）；tesufuhao与keyboardcode深色模式硬编码#fff卡片配继承浅色文字不可见（改var(--surface/--border/--text)带回退、键位卡显式color:#333）。P2×4：areacode数据错误Kazakstan 327→7、Uzbekistan 233→998、Colombia时差0→-13及4处英文拼写致搜索失配；jieri生物多样性日12月29→5月22、国际和平日改9月21固定日；lishishangdejintian第三方xxapi接口数据未转义直插innerHTML（新增esc()）。P3×5：示例按钮搜北京零命中改中国、毛难族→毛南族、僳僳族→傈僳族、辽上京今地辽宁巴林右旗→内蒙古巴林左旗。验证通过：55民族无缺、lishi-data 366键含2-29闰年、tesufuhao 661星形字符Array.from无损、键盘码120+38项抽查全对、7文件UTF-8无BOM无重复id。移交：site.min.css暗色table-striped条纹行#f9f9f9不可读（全站性P2）、form-control硬编码白底、keyboard.js全站无引用建议删、jieri空tbody。详细报告 .zcode/handoff/agent-report-E.md。",
   "artifacts": [
-    "public/static/script/editor-app.js",
-    "application/index/view/index/editor.html"
+    "application/index/view/index/areacode.html",
+    "application/index/view/index/jieri.html",
+    "application/index/view/index/chaodai.html",
+    "application/index/view/index/shaoshuminzu.html",
+    "application/index/view/index/tesufuhao.html",
+    "application/index/view/index/lishishangdejintian.html",
+    "application/index/view/index/keyboardcode.html",
+    ".zcode/handoff/agent-report-E.md"
   ],
   "quality": {
     "checks": [
       {
-        "name": "coverage-scan",
+        "name": "js-syntax",
         "result": "pass",
-        "detail": "全量6976条重扫稀有维度：md链接/删除线/__加粗__/引用/行内码/实体/img/br 全为0不存在；ul10/h4 80/emoji271/长文1 已定向补测"
+        "detail": "6段内联脚本抽出 node --check 全过（lishi段先替换ThinkPHP标签）"
       },
       {
-        "name": "extra-validate",
+        "name": "search-regression",
         "result": "pass",
-        "detail": "31补测样本缺陷0（修复前1例）；64主样本缺陷0（基线38/72）"
+        "detail": "TableSearch桩测试10用例：空/空白/中文/大小写/( * [ $ ? 注入全过"
       },
       {
-        "name": "live-verify",
+        "name": "data-regression",
         "result": "pass",
-        "detail": "线上95样本缺陷0，?v=2026090203，无pageerror"
+        "detail": "lishi-data 366键含2-29；tesufuhao 3808码点无损、SYMBOL_NAMES 2350键；键盘码120+38项抽查全对；55民族完整"
       },
       {
-        "name": "md5-sync",
+        "name": "dom-integrity",
         "result": "pass",
-        "detail": "343b29e8…/7562d661… 配平"
+        "detail": "7模板id无缺失无重复"
       },
       {
-        "name": "secret-scan",
+        "name": "encoding",
         "result": "pass",
-        "detail": "clean"
+        "detail": "7文件UTF-8无BOM"
+      },
+      {
+        "name": "todo",
+        "result": "pass",
+        "detail": "无TODO/FIXME"
+      },
+      {
+        "name": "lint",
+        "result": "skip",
+        "detail": "ES5/jQuery内联项目无eslint/tsc配置"
       }
     ],
     "gate_passed": true
   },
   "next": [
-    "遗留：生产凭据轮换（用户决策）",
-    "源数据侧 ****/未闭合标签的清洗属 xlsx 上游问题，未处理"
+    "移交项见 agent-report-E.md 第四节：site.min.css暗色table-striped不可读（P2全站）、form-control硬编码白底、keyboard.js死代码删除、jieri空tbody",
+    "已知限制：tesufuhao笑脸分类多字符颜文字被拆单字符（数据无分隔符），如需支持需改CATS数据格式",
+    "建议reviewer抽查TableSearch转义正则与lishishangdejintian esc()覆盖"
   ],
-  "lastDeploy": "deploy-20260902-editor3 (b445863)",
-  "lastDeployAt": "2026-09-02",
-  "deployNote": "GitHub 推送在直连超时改走 socks5h://127.0.0.1:7890（git -c http.proxy=socks5h://…）。editor 数据源画像：AI 答案普遍是 <p> 包裹 markdown 的混合格式，normalizeMdInHtml 已成 editor 标配前置。 editor 容错链最终形态：DOM规范化(修未闭合标签/非法嵌套) → normalizeMdInHtml(md-in-html归一) → HTML2Md → protectEmphasis(非空即补ZWSP) → Md2HTML → stripZeroWidth。",
   "read_files": [
-    "public/static/script/editor-app.js",
-    "application/index/view/index/editor.html"
+    "application/index/view/index/areacode.html",
+    "application/index/view/index/jieri.html",
+    "application/index/view/index/chaodai.html",
+    "application/index/view/index/shaoshuminzu.html",
+    "application/index/view/index/tesufuhao.html",
+    "application/index/view/index/lishishangdejintian.html",
+    "application/index/view/index/keyboardcode.html",
+    "public/static/script/symbol-names.js",
+    "public/static/script/keyboard.js",
+    "public/static/data/lishi-data.js",
+    "application/index/controller/Index.php",
+    "public/static/style/site.min.css",
+    "public/static/style/tool-theme.css",
+    "public/static/style/tool-upgrade.css"
   ]
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.calc.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.calc.keywords}" /><meta name="description" content="{$Think.config.web.calc.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" /><link href="/static/style/site.min.css" rel="stylesheet" type="text/css" />
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i></span>单位换算器</h2>
@@ -134,8 +134,8 @@
 <div class="u-item"><label class="u-name">磅力/英尺㎡ <em class="u-sym">(（lbf/ft㎡）)</em></label><input type="text" class="u-in" data-unit="7" inputmode="decimal" placeholder="输入数值" /></div>
 <div class="u-item"><label class="u-name">磅力/英寸㎡ <em class="u-sym">(（lbf/in㎡ = PSI）)</em></label><input type="text" class="u-in" data-unit="8" inputmode="decimal" placeholder="输入数值" /></div>
 <div class="u-item"><label class="u-name">英吋汞柱 <em class="u-sym">(（in Hg）)</em></label><input type="text" class="u-in" data-unit="9" inputmode="decimal" placeholder="输入数值" /></div>
-<div class="u-item"><label class="u-name">公斤力/厘米㎡ <em class="u-sym">(（kgf/㎡）)</em></label><input type="text" class="u-in" data-unit="10" inputmode="decimal" placeholder="输入数值" /></div>
-<div class="u-item"><label class="u-name">公斤力/米㎡ <em class="u-sym">(（kgf/c㎡）)</em></label><input type="text" class="u-in" data-unit="11" inputmode="decimal" placeholder="输入数值" /></div></div>
+<div class="u-item"><label class="u-name">公斤力/厘米㎡ <em class="u-sym">(（kgf/c㎡）)</em></label><input type="text" class="u-in" data-unit="10" inputmode="decimal" placeholder="输入数值" /></div>
+<div class="u-item"><label class="u-name">公斤力/米㎡ <em class="u-sym">(（kgf/㎡）)</em></label><input type="text" class="u-in" data-unit="11" inputmode="decimal" placeholder="输入数值" /></div></div>
   <div class="tool-actions" style="margin-top:14px"><button class="t-btn t-btn-ghost" type="button" data-reset="panel-calcpressure">全部重置</button></div>
 </div>
 <div class="t-panel" id="panel-calcpower">
@@ -207,7 +207,7 @@
 .u-item { background: var(--surface-2, #f7f8fa); border: 1px solid var(--border, #e5e7eb); border-radius: 8px; padding: 10px 12px; }
 .u-name { display: block; font-size: 13px; color: var(--text-2, #555); margin-bottom: 6px; font-weight: 600; }
 .u-name .u-sym { font-style: normal; color: var(--text-3, #999); font-weight: 400; }
-.u-in { width: 100%; box-sizing: border-box; border: 1px solid var(--border, #e5e7eb); border-radius: 6px; padding: 7px 10px; font-size: 14px; background: #fff; color: var(--text, #222); outline: none; }
+.u-in { width: 100%; box-sizing: border-box; border: 1px solid var(--border, #e5e7eb); border-radius: 6px; padding: 7px 10px; font-size: 14px; background: var(--surface, #fff); color: var(--text, #222); outline: none; }
 .u-in:focus { border-color: var(--brand, #4f6ef2); box-shadow: 0 0 0 3px rgba(79,110,242,.12); }
 </style>
 {include file="nav" /}
@@ -221,7 +221,7 @@
     'use strict';
     var DATA = {
   "calclength": { "bs": [0.001,1.0,10.0,100.0,1000.0,10000.0,1000000.0,0.002,0.3,3.0,30.0,300.0,3000.0,0.00054,0.5468066,0.0006214,0.004971,1.0936133,3.2808399,39.3700787,1000000000.0], "temp": false },
-  "calcarea": { "bs": [1e-06,0.0001,0.0015,1.0,100.0,10000.0,1000000.0,3.861e-07,0.0002471,0.0395369,1.19599,9.0,900.0], "temp": false },
+  "calcarea": { "bs": [1e-06,0.0001,0.0015,1.0,100.0,10000.0,1000000.0,3.861e-07,0.0002471,0.0395369,1.19599,10.7639104,1550.0031], "temp": false },
   "calcvolume": { "bs": [1.0,10.0,100.0,1000.0,10000.0,100000.0,1000000.0,1000000000.0,8.6484898,28.3775933,113.510373,908.0829843,1816.1659685,6.1102569,27.496156,219.9692483,1759.7539864,35195.0797279,66666.6666667,200000.0,67628.0454037,202884.1362111,4226.7528377,6.2898108,264.1720524,1056.6882094,2113.3764189,8453.5056755,33814.0227018,270512.1816147,2077533554.801234,0.0008107,1.3079506,35.3146667,61023.7440947], "temp": false },
   "calctemperature": { "bs": null, "temp": true },
   "calctime": { "bs": [1.0,24.0,0.1428571,1440.0000288,86400.0,86400000.0,0.0027397], "temp": false },
@@ -232,7 +232,7 @@
   "calcforce": { "bs": [1.0,9.80665,0.0098067,999.9999971,2.2046226,0.0022046,0.001], "temp": false },
   "calcheat": { "bs": [1.0,0.001,1.1627e-06,1.5593e-06,1.5809e-06,0.4269569,0.0039674,3.0874843], "temp": false },
   "calcthickness": { "bs": [1.0,0.001,1.0,1000000.0,1000.0,1000.0], "temp": false },
-  "calcdata": { "bs": [1.1368683772161603e-13,9.094947017729282e-13,9.313225746154785e-10,9.5367431640625e-07,0.0009765625,1.0], "temp": false },
+  "calcdata": { "bs": [8796093022208,1099511627776,1073741824,1048576,1024,1], "temp": false },
     };
     var tabs = document.querySelectorAll('.t-tab');
     tabs.forEach(function (btn) {
@@ -259,7 +259,8 @@
                         var c = toC(v, from);
                         out = fromC(c, to);
                     } else {
-                        out = v * cfg.bs[from] / cfg.bs[to];
+                        /* bs[unit] = 1 基准单位折合该单位的数量（如 bs[厘米]=100），故换算为 v*bs[to]/bs[from] */
+                        out = v * cfg.bs[to] / cfg.bs[from];
                     }
                     other.value = (Math.round(out * 1e10) / 1e10).toString();
                 });

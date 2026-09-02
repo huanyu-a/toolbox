@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon"/>
     <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/>
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/>
     <!--[if lt IE 9]>
     <script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -277,6 +277,7 @@
         if (!p) { showHpErr('请输入密码'); return; }
         try {
             document.getElementById('hpResult').value = htpasswd(u, p, +getVal('hpAlg'));
+            document.getElementById('hpResultWrap').classList.add('show');
             hideHpErr();
         } catch (e) {
             showHpErr('生成失败：' + e.message);
@@ -286,6 +287,7 @@
         document.getElementById('hpUser').value = '';
         document.getElementById('hpPwd').value = '';
         document.getElementById('hpResult').value = '';
+        document.getElementById('hpResultWrap').classList.remove('show');
         hideHpErr();
         document.getElementById('hpUser').focus();
     });

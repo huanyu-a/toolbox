@@ -16,9 +16,9 @@ $(document).ready(function(){
 
 var endNumber=true
 var mem=0
-var carry=10
+var carry=16   // 与页面默认选中的"十六进制"一致
 var hexnum="0123456789abcdef"
-var angle="d"
+var angle="r"  // 与页面默认选中的"弧度制"一致
 var stack=""
 var level="0"
 var layer=0
@@ -465,11 +465,15 @@ function funcalc(fun,num)
 		if (fun=="hyptan")
 			return((exp(num)-exp(-num))/(exp(num)+exp(-num)))
 
-		if (fun=="ahypsin" | fun=="hypcos" | fun=="hyptan")
-		{
-			alert("对不起,公式还没有查到!")
-			return(num)
-		}
+		if (fun=="ahypsin")
+			return(log(num+sqrt(num*num+1)))
+		if (fun=="ahypcos" && num>=1)
+			return(log(num+sqrt(num*num-1)))
+		if (fun=="ahyptan" && abs(num)<1)
+			return(0.5*log((1+num)/(1-num)))
+
+		alert("对不起,公式还没有查到!")
+		return(num)
 		
 		alert("超出函数定义范围")
 		return(num)

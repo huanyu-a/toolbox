@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>{$Think.config.web.regex.title}-{$Think.config.web.site.name}</title><meta name="applicable-device" content="pc,mobile" /><meta http-equiv="Cache-Control" content="no-transform" /><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="keywords" content="{$Think.config.web.regex.keywords}" /><meta name="description" content="{$Think.config.web.regex.description}" /><meta name="renderer" content="webkit" /><meta name="apple-mobile-web-app-capable" content="yes" /><link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon" />
 <link href="/static/style/site.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090101" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
+    <link href="/static/style/tool-theme.css" rel="stylesheet" type="text/css"/><link href="/static/style/tool-upgrade.css?v=2026090301" rel="stylesheet" type="text/css"/><!--[if lt IE 9]><script src="//apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><script src="//apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->{:$Think.config.web.header}{include file="seo" /}</head><body>{include file="header" /}
 <div class="container"><div class="tool-wrap">
     <div class="tool-card">
         <h2 class="tool-title"><span class="t-ico"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>正则表达式工具</h2>
@@ -61,7 +61,7 @@
                 <button class="t-btn t-btn-ghost" type="button" data-copy="#rgCodeOut">复制代码</button>
             </div>
             <div class="t-result" id="rgCodeResult" style="display:none;margin-top:12px">
-                <textarea class="t-area t-area-readonly" id="rgCodeOut" rows="10" readonly style="width:100%;box-sizing:border-box;padding:10px;border:1px solid #d9dee7;border-radius:6px;background:#f8fafc;font-family:Consolas,Menlo,monospace;font-size:12px"></textarea>
+                <textarea class="t-area t-area-readonly" id="rgCodeOut" rows="10" readonly style="width:100%;box-sizing:border-box;padding:10px;border:1px solid #d9dee7;border-radius:6px;background:var(--surface-2,#f8fafc);font-family:Consolas,Menlo,monospace;font-size:12px"></textarea>
             </div>
             <div class="t-error" id="rgCodeError" style="display:none;margin-top:10px;color:#c0392b;background:#fdecea;border:1px solid #f5c6c2;border-radius:6px;padding:8px 10px"></div>
         </div>
@@ -334,7 +334,7 @@
             var replaced;
             try { replaced = text.replace(re, rep); } catch (e) { showErr(err1, '替换出错：' + e.message); return; }
             out.innerHTML = '<p class="t-result-label" style="font-weight:600;margin:0 0 8px">替换结果（' + replaced.length + ' 字符）</p>' +
-                '<pre style="white-space:pre-wrap;word-break:break-all;background:#fff;border:1px solid #d9dee7;border-radius:8px;padding:10px;max-height:260px;overflow:auto;margin:0">' + esc(replaced) + '</pre>';
+                '<pre style="white-space:pre-wrap;word-break:break-all;background:var(--surface,#fff);border:1px solid #d9dee7;border-radius:8px;padding:10px;max-height:260px;overflow:auto;margin:0">' + esc(replaced) + '</pre>';
             copy.value = '替换结果：\n' + replaced;
             showResult(out);
             return;
@@ -372,14 +372,14 @@
             var it = items[i];
             var ghtml = '';
             for (var gi = 1; gi < it.groups.length; gi++) {
-                ghtml += '<span style="display:inline-block;margin:0 6px 2px 0;background:#f0f4fa;border:1px solid #d9dee7;border-radius:4px;padding:0 6px">$' + gi + '=' + (it.groups[gi] === null ? '—' : esc(it.groups[gi])) + '</span>';
+                ghtml += '<span style="display:inline-block;margin:0 6px 2px 0;background:#f0f4fa;color:#333;border:1px solid #d9dee7;border-radius:4px;padding:0 6px">$' + gi + '=' + (it.groups[gi] === null ? '—' : esc(it.groups[gi])) + '</span>';
             }
             rows += '<tr><td>' + (i + 1) + '</td><td style="word-break:break-all">' + esc(it.value) + '</td><td style="word-break:break-all">' + (ghtml || '<span style="color:#999">无</span>') + '</td></tr>';
             var gtxt = it.groups.length > 1 ? ' | 分组:' + it.groups.slice(1).join(',') : '';
             copyLines.push('#' + (i + 1) + ' ' + it.value + gtxt);
         }
         out.innerHTML = '<p class="t-result-label" style="font-weight:600;margin:0 0 8px">共匹配 ' + items.length + ' 处' + (items.length >= 5000 ? '（已达上限，仅展示前 5000 个）' : '') + '</p>' +
-            (items.length ? '<pre style="white-space:pre-wrap;word-break:break-all;background:#fff;border:1px solid #d9dee7;border-radius:8px;padding:10px;max-height:200px;overflow:auto;margin:0 0 10px">' + hl + '</pre>' : '') +
+            (items.length ? '<pre style="white-space:pre-wrap;word-break:break-all;background:var(--surface,#fff);border:1px solid #d9dee7;border-radius:8px;padding:10px;max-height:200px;overflow:auto;margin:0 0 10px">' + hl + '</pre>' : '') +
             '<div style="overflow-x:auto"><table class="table table-bordered table-striped" style="margin:0">' +
             '<thead><tr><th style="width:44px">#</th><th>匹配内容</th><th>分组捕获</th></tr></thead>' +
             '<tbody>' + (rows || '<tr><td colspan="3" style="color:#999">无匹配结果</td></tr>') + '</tbody></table></div>';
