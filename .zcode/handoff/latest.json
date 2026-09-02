@@ -1,62 +1,42 @@
 {
   "agent": "coder (E组)",
-  "timestamp": "2026-09-03T03:10:00",
+  "timestamp": "2026-09-03T02:30:00",
   "status": "completed",
-  "summary": "E组7个文化/生活工具深度自检完成：发现21个问题、修复18个、移交4个。P1×4：areacode/jieri/shaoshuminzu三模板同款TableSearch用new RegExp(用户输入)直接构造正则，输入( [ *等元字符抛SyntaxError致表单整页提交（已加元字符转义+i旗标，Node桩10用例回归全过）；keyboardcode全局keydown对匹配按键无条件preventDefault且不看页签，F5/F12/空格/Backspace全页被吞（已限定键盘测试页签active且目标非输入框）；tesufuhao与keyboardcode深色模式硬编码#fff卡片配继承浅色文字不可见（改var(--surface/--border/--text)带回退、键位卡显式color:#333）。P2×4：areacode数据错误Kazakstan 327→7、Uzbekistan 233→998、Colombia时差0→-13及4处英文拼写致搜索失配；jieri生物多样性日12月29→5月22、国际和平日改9月21固定日；lishishangdejintian第三方xxapi接口数据未转义直插innerHTML（新增esc()）。P3×5：示例按钮搜北京零命中改中国、毛难族→毛南族、僳僳族→傈僳族、辽上京今地辽宁巴林右旗→内蒙古巴林左旗。验证通过：55民族无缺、lishi-data 366键含2-29闰年、tesufuhao 661星形字符Array.from无损、键盘码120+38项抽查全对、7文件UTF-8无BOM无重复id。移交：site.min.css暗色table-striped条纹行#f9f9f9不可读（全站性P2）、form-control硬编码白底、keyboard.js全站无引用建议删、jieri空tbody。详细报告 .zcode/handoff/agent-report-E.md。",
+  "summary": "用户要求「多 agent 对所有工具深度自检并优化修复」。54 个工具按领域分 6 组派 6 个 coder agent 并行(限额后降为串行)深检,共发现约 96 处问题、修复 84 处,主控统一质量门禁后部署。P0 级:calc.html 12 个单位面板换算方向全部反了(1米→0.01厘米,已修+回归)、htaccess2nginx 依赖的 hightout/pcjson_com_msg 全站未定义致转换永不渲染(内联 shim,线上验证 [L]→last 正确)、format.html 压缩因 hightout 报错(shim)、encode.html #encAsc 未闭合致 4 个标签内容不可见、linuxcmd container 未闭合。P1 级:html2js 还原三重缺陷(round-trip 10/10)、encode 摩尔斯与 encrypt htpasswd 结果区不显示、calculator.js 弧度制 sin 错误+反双曲未实现、convert 大数精度(重写字符串大数算法)+rem 垃圾值、websocket 空输入 ReferenceError、TableSearch 用 new RegExp(用户输入) 注入崩溃(3 模板)、keyboardcode 全局吞 F5/F12、uuid 无 crypto 降级、linuxcmd 9 处命令数据错、areacode 区号错、jieri 过时节日、ports 端口表错、textconvert/lishi XSS 转义。P2:7 处+暗色白底硬编码、SSRF 复查(三工具均走 curl_safe_target/Fcurl 无绕过)。主控收尾:calculator.js ?v=2026090301、tool-upgrade.css 全站 bump 0301 并追加暗色 .table-striped/.form-control 兜底(仅 dark 作用域)、eval/code 审查(jsencrypt packer 解码既有实现放行)、secret-scan clean。部署 deploy-20260903-audit1,线上 Playwright 烟测 10 页:0 pageerror;深查确认 htaccess 转换/uuid 生成/calc 换算方向全部正确。commit d581a38(57 文件 +344/-150)。6 组详细报告:.zcode/handoff/agent-report-{A..F}.md(本地留存)。未修复移交:site.min.css min 文件重构(P3)、keyboard.js 死代码清理、jsencrypt eval(packe 解码标准做法,保留)。",
   "artifacts": [
-    "application/index/view/index/areacode.html",
-    "application/index/view/index/jieri.html",
-    "application/index/view/index/chaodai.html",
-    "application/index/view/index/shaoshuminzu.html",
-    "application/index/view/index/tesufuhao.html",
-    "application/index/view/index/lishishangdejintian.html",
-    "application/index/view/index/keyboardcode.html",
-    ".zcode/handoff/agent-report-E.md"
+    "application/index/view/index/(42 模板)",
+    "public/static/style/tool-upgrade.css",
+    "public/static/script/pcjs/calculator.js"
   ],
   "quality": {
     "checks": [
       {
-        "name": "js-syntax",
+        "name": "syntax",
         "result": "pass",
-        "detail": "6段内联脚本抽出 node --check 全过（lishi段先替换ThinkPHP标签）"
+        "detail": "各 agent 内联脚本 node --check 全过;calculator.js 主控复验过"
       },
       {
-        "name": "search-regression",
+        "name": "security",
         "result": "pass",
-        "detail": "TableSearch桩测试10用例：空/空白/中文/大小写/( * [ $ ? 注入全过"
+        "detail": "secret-scan clean;SSRF 复查三网络工具均走 curl_safe_target;eval 审查 2 处均既有安全实现;diff 无新增 eval/document.write"
       },
       {
-        "name": "data-regression",
+        "name": "live-smoke",
         "result": "pass",
-        "detail": "lishi-data 366键含2-29；tesufuhao 3808码点无损、SYMBOL_NAMES 2350键；键盘码120+38项抽查全对；55民族完整"
+        "detail": "10 页 Playwright 0 pageerror;htaccess [L]→last、uuid v4×5、calc 1MB→1024KB 方向正确"
       },
       {
-        "name": "dom-integrity",
+        "name": "md5-sync",
         "result": "pass",
-        "detail": "7模板id无缺失无重复"
-      },
-      {
-        "name": "encoding",
-        "result": "pass",
-        "detail": "7文件UTF-8无BOM"
-      },
-      {
-        "name": "todo",
-        "result": "pass",
-        "detail": "无TODO/FIXME"
-      },
-      {
-        "name": "lint",
-        "result": "skip",
-        "detail": "ES5/jQuery内联项目无eslint/tsc配置"
+        "detail": "全目录 md5 合计 565e4373… 配平"
       }
     ],
     "gate_passed": true
   },
   "next": [
-    "移交项见 agent-report-E.md 第四节：site.min.css暗色table-striped不可读（P2全站）、form-control硬编码白底、keyboard.js死代码删除、jieri空tbody",
-    "已知限制：tesufuhao笑脸分类多字符颜文字被拆单字符（数据无分隔符），如需支持需改CATS数据格式",
-    "建议reviewer抽查TableSearch转义正则与lishishangdejintian esc()覆盖"
+    "遗留:生产凭据轮换(用户决策)",
+    "site.min.css min 文件暗色重构(P3,全站影响需单独评审)",
+    "keyboard.js 死代码清理(P3)"
   ],
   "read_files": [
     "application/index/view/index/areacode.html",
@@ -73,5 +53,8 @@
     "public/static/style/site.min.css",
     "public/static/style/tool-theme.css",
     "public/static/style/tool-upgrade.css"
-  ]
+  ],
+  "lastDeploy": "deploy-20260903-audit1 (d581a38)",
+  "lastDeployAt": "2026-09-03",
+  "deployNote": "多 agent 并行撞账户限额(1302/1308),降为串行+分批恢复。深检分工:A开发格式化10/B前端文本计算10/C网络查询10/D运维SEO10/E文化生活7/F AI命令7,文件互不重叠,公共文件(app/toolbox/tool-upgrade/editor-app/sample-data.js)统一主控管。"
 }
