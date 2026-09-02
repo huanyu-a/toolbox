@@ -1,44 +1,32 @@
 {
   "agent": "main",
-  "timestamp": "2026-09-01T21:30:00",
+  "timestamp": "2026-09-02T18:40:00",
   "status": "completed",
-  "summary": "用户报告「好多工具，tab 上的工具名丢了」（截图为 JSON 工具箱页）已修复上线。根因：FA 图标化改造(aac4b69)给大量 t-tab 按钮加了 <i> 图标，但部分按钮只剩图标、文字为空。修复：正则扫描全部 56 个工具页模板，找出 33 个纯图标 t-tab，按目标面板内容补齐中文标签（GET 参数、Go 结构体、热量、数据大小、训练管理、htpasswd、dingtalk2 网关、防开机自启等），覆盖 16 个模板文件，仅改 HTML 文本、无 CSS/JS 变更故未 bump ?v=。本地 Playwright 验证 12 PC 页(1280x900) + 移动端 /json /linuxcmd(390x844)：0 空文本、0 溢出，BAD_COUNT=0。commit d2953db 已推 GitHub；tar 同步 16 文件(md5 配平 c5fa1716…)→secret-scan clean→build deploy-20260901-tabs1→切容器 Up 正常。线上验证：/json 含 GET 参数/Go 结构体/C# 实体类/JSON↔YAML；linuxcmd/picmd/hermescmd/regex 全部 tab 标签正常。",
+  "summary": "用户报告 editor 工具「HTML源码放内容→可视化编辑正常→再切回HTML源码时 li 里 ** 加粗转不成 strong」已修复上线。根因：切回 HTML 源码用 vditor.getHTML()，其内部 VditorIRDOM2HTML 把 IR DOM 还原成 markdown 再二次解析，还原时丢失 Lute 的零宽保护符（ZWSP），中文全角标点紧邻 ** 时（\"食物：**推荐\"）二次 emphasis 解析失败，<strong> 退化为字面 **。修复 editor-app.js：新增 renderHtml()（markdown 源 → protectEmphasis 给成对 **/~~ 补回 ZWSP（跳过代码围栏）→ 标准 Md2HTML → stripZeroWidth 清除全部零宽字符），所有 HTML 出口（源码视图/复制HTML/下载/统计）统一走 renderHtml；另修复 switchMode 同模式直接 return + htmlDirty 脏标记，解决「示例」按钮在可视化模式下被过期源码清空内容的次生 bug（该 bug 由往返测试暴露，非本次引入——旧代码同样存在：示例 setValue 后 switchMode('tui') 又用空 CodeMirror 覆盖回去）。本地 Playwright 拦截注入验证 + node 三轮往返稳定性（strong=15/15/15、h3/ol/li 全保留）+ 常规 markdown 回归（h1/strong/em/ul/blockquote/code/链接全通过）。commit 20ee71d、?v=2026090201；线上 Playwright 实测 /editor.html：往返后 <strong>=3、字面**=0、零宽=0、h3/ol 保留，PASS。",
   "artifacts": [
-    "application/index/view/index/json.html",
-    "application/index/view/index/html2js.html",
-    "application/index/view/index/editor.html",
-    "application/index/view/index/calc.html",
-    "application/index/view/index/claudecodecmd.html",
-    "application/index/view/index/codexcmd.html",
-    "application/index/view/index/deepseekharnesscmd.html",
-    "application/index/view/index/encrypt.html",
-    "application/index/view/index/hermescmd.html",
-    "application/index/view/index/linuxcmd.html",
-    "application/index/view/index/openclawcmd.html",
-    "application/index/view/index/opencmd.html",
-    "application/index/view/index/picmd.html",
-    "application/index/view/index/regex.html",
-    "application/index/view/index/subnetmask.html",
-    "application/index/view/index/httpheader.html"
+    "public/static/script/editor-app.js",
+    "application/index/view/index/editor.html"
   ],
   "quality": {
     "checks": [
-      {"name": "residual-scan", "result": "pass", "detail": "修复后再扫描全站模板，0 个纯图标 t-tab 残留（修复前 33 个）"},
-      {"name": "playwright-visual", "result": "pass", "detail": "12 PC 页(1280x900) + 移动端 /json /linuxcmd(390x844)：empty=0 overflow=0 BAD_COUNT=0"},
-      {"name": "md5-sync", "result": "pass", "detail": "16 文件本地与服务端 md5 合计一致 c5fa1716ff2873a0dd94631f741f72fd"},
-      {"name": "secret-scan", "result": "pass", "detail": "服务端 src 树 grep 'mgr-|admin_login_key' 无命中"},
-      {"name": "live-verify", "result": "pass", "detail": "线上 /json 含 GET 参数/Go 结构体/C# 实体类/JSON↔YAML；linuxcmd/picmd/hermescmd/regex 全部 tab 有中文标签"}
+      {"name": "node-roundtrip", "result": "pass", "detail": "用户全文 html→md→html 三轮往返 strong 15/15/15、字面** 0、h3 5 ol 5 li 15 稳定"},
+      {"name": "playwright-visual", "result": "pass", "detail": "拦截注入新 JS：STEP2 可视化 strong=15、STEP3 往返 15/0/0、STEP4 二次往返稳定、STEP5 视觉 weight=700"},
+      {"name": "regression", "result": "pass", "detail": "常规 markdown（标题/列表/引用/代码/链接/表格/删除线）源码视图全对；示例按钮含 table/pre/strong=8；复制 HTML 无字面** 无零宽"},
+      {"name": "md5-sync", "result": "pass", "detail": "两文件本地与服务端 md5 一致（25da33a3… / ed5d1113…）"},
+      {"name": "secret-scan", "result": "pass", "detail": "两文件 grep mgr-/admin_login_key 无命中"},
+      {"name": "live-verify", "result": "pass", "detail": "线上 /editor.html ?v=2026090201：往返后 strong=3、字面**=0、h3/ol 保留，VERDICT PASS，无 pageerror"}
     ],
     "gate_passed": true
   },
   "next": [
     "遗留：生产凭据轮换（用户决策）",
-    "后续迭代候选：工具页骨架屏、深色模式逐页复查 tab 组件"
+    "可关注用户旧草稿（localStorage toolbox_editor_draft_v3）里含 ZWSP 的 markdown 在复制 TXT 路径的表现，stripMdSymbols 已兜底"
   ],
-  "lastDeploy": "deploy-20260901-tabs1 (d2953db)",
-  "lastDeployAt": "2026-09-01",
-  "deployNote": "双树坑持续：tar 只同步到 /www/docker/tools/src/，docker build 必须在 /www/docker/tools（Dockerfile 所在目录）执行、context 为 .（COPY src/）。纯模板文本变更未 bump ?v=，SW tb-pages-v1 缓存的旧 HTML 因 URL 相同可能仍被返回——真机若见旧样式强刷或清 SW 即可，HTML 由网络优先策略自然更新。",
+  "lastDeploy": "deploy-20260902-editor1 (20ee71d)",
+  "lastDeployAt": "2026-09-02",
+  "deployNote": "Vditor 3.11.3 的 getHTML 对中文标点紧邻 emphasis 的 IR 内容会丢格式（VditorIRDOM2HTML 二次解析缺陷），凡涉及 HTML 输出必须绕开 getHTML 走 Md2HTML(protectEmphasis(md))。HTML2Md 结果里的 ZWSP 是给 Lute 解析器看的保护符，setValue 前不能清；只在输出端清。CodeMirror 实例挂在 DOM 元素 .CodeMirror 属性上，Playwright 可直接驱动。docker build 上下文是 /www/docker/tools（Dockerfile COPY src/）。",
   "read_files": [
-    "application/index/view/index/json.html"
+    "public/static/script/editor-app.js",
+    "application/index/view/index/editor.html"
   ]
 }
