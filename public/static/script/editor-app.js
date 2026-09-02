@@ -127,8 +127,10 @@
         continue;
       }
       lines[i] = lines[i]
-        .replace(/(\*\*)(?=\S)([^\n]*?\S)\1/g, '$1​$2​$1')
-        .replace(/(~~)(?=\S)([^\n]*?\S)\1/g, '$1​$2​$1');
+        /* 注意不能限制内侧首尾非空白：getValue 序列化会剥掉 ZWSP，
+           列表项整句加粗会变成 "** 文本**"（空格开头），同样需要保护 */
+        .replace(/(\*\*)([^\n]+?)\1/g, '$1​$2​$1')
+        .replace(/(~~)([^\n]+?)\1/g, '$1​$2​$1');
     }
     return lines.join('\n');
   }
@@ -287,6 +289,14 @@
     if (s.indexOf('<') === -1) {
       return s;
     }
+    /* DOM 规范化兜底：修复源数据常见损坏（<strong> 未闭合、<ul>/<li> 被非法
+       包进 <p> 等）。浏览器解析器会在块边界自动闭合行内标签、剥离非法嵌套，
+       未闭合的加粗若不修复会被 IR 解析成跨段 **、往返后变字面星号 */
+    try {
+      var probe = document.createElement('div');
+      probe.innerHTML = s;
+      s = probe.innerHTML;
+    } catch (e) { /* 解析失败保留原文 */ }
     if (s.indexOf('**') === -1 && !/(<p>\s*)(#{1,6}\s|[*+-]\s|\d{1,3}[.)]\s)/i.test(s)) {
       return s;
     }
