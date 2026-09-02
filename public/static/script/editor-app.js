@@ -67,6 +67,15 @@
     }, 1800);
   }
 
+  /* ---------- 零宽字符清理 ----------
+     Lute 的 HTML2Md 在 CJK 标点紧邻 markdown 符号（如 <strong>…：</strong>中文）时，
+     会插入零宽空格（U+200B 等）保护 emphasis 解析——markdown 源/草稿必须原样保留，
+     否则「：**中文」按 CommonMark 规则无法闭合加粗。输出最终 HTML 时清掉不可见字符。 */
+  function stripZeroWidth(s) {
+    /* U+200B ZWSP / U+200C ZWNJ / U+200D ZWJ / U+FEFF BOM / U+2060 word-joiner */
+    return s ? String(s).replace(/[​-‍⁠﻿]/g, '') : s;
+  }
+
   /* ---------- 本地草稿 ---------- */
   function loadDraft() {
     try {
@@ -95,6 +104,48 @@
 
   function getHTML() {
     return vditor ? vditor.getHTML() : '';
+  }
+
+  /* ---------- 可视化 → 最终 HTML ----------
+     不能直接用 vditor.getHTML()：其内部 VditorIRDOM2HTML 把 IR DOM 先还原成
+     markdown 再二次解析，还原时丢掉 Lute 的零宽保护符，"食物：**推荐" 这类
+     中文标点紧邻加粗符号的 emphasis 二次解析失败，strong 退化为字面星号。
+     改为：取 markdown 源 → 给成对的加粗/删除线符号补回 ZWSP 保护（与 Lute
+     HTML2Md 的约定一致）→ 标准 Md2HTML → 清除全部零宽字符。往返幂等。 */
+  function protectEmphasis(md) {
+    if (!md) {
+      return '';
+    }
+    var lines = String(md).split('\n');
+    var fence = false;
+    for (var i = 0; i < lines.length; i++) {
+      if (/^[ \t]{0,3}(?:```|~~~)/.test(lines[i])) {
+        fence = !fence;
+        continue;
+      }
+      if (fence) {
+        continue;
+      }
+      lines[i] = lines[i]
+        .replace(/(\*\*)(?=\S)([^\n]*?\S)\1/g, '$1​$2​$1')
+        .replace(/(~~)(?=\S)([^\n]*?\S)\1/g, '$1​$2​$1');
+    }
+    return lines.join('\n');
+  }
+
+  function renderHtml() {
+    var html = '';
+    try {
+      var md = getValue() || '';
+      if (md && window.Lute && typeof window.Lute.New === 'function'
+          && typeof window.Lute.New().Md2HTML === 'function') {
+        html = window.Lute.New().Md2HTML(protectEmphasis(md)) || '';
+      }
+    } catch (e) { /* 转换失败降级 */ }
+    if (!html) {
+      html = getHTML() || '';
+    }
+    return stripZeroWidth(html);
   }
 
   /* ---------- HTML 属性净化（保留功能属性，去掉自动生成的装饰属性） ---------- */
@@ -195,7 +246,7 @@
 
   /* ---------- 统计 ---------- */
   function updateStats() {
-    var html = getHTML() || '';
+    var html = renderHtml() || '';
     var md = getValue() || '';
     var text = html
       .replace(/<style[\s\S]*?<\/style>/gi, ' ')
@@ -237,6 +288,8 @@
         if (typeof lute.HTML2Md === 'function') {
           var md = lute.HTML2Md(html);
           if (typeof md === 'string') {
+            /* 保留 Lute 插入的零宽保护符：IR 模式 setValue 解析依赖它，
+               去掉会让中文标点紧邻的 ** 无法闭合、加粗不渲染 */
             return md;
           }
         }
@@ -263,21 +316,42 @@
     } catch (e) { /* 主题切换失败不阻塞编辑 */ }
   }
 
-  /* ---------- 模式切换（可视化编辑 <-> HTML 源码） ---------- */
+  /* ---------- 模式切换（可视化编辑 <-> HTML 源码） ----------
+     当前激活模式与源码脏标记：只有从源码模式切走且用户真编辑过 CodeMirror 时，
+     才把源码重新导入可视化；否则（如「示例」在可视化模式下 setValue 后再触发
+     switchMode('tui')）会用过期的源码覆盖编辑器内容。 */
+  var currentMode = 'tui';
+  var htmlDirty = false;
+  var cmSyncing = false;
+
+  function setHtmlSource(html) {
+    cmSyncing = true;
+    htmlCm.setValue(html || '');
+    cmSyncing = false;
+    htmlDirty = false;
+  }
+
   function switchMode(mode) {
+    if (mode === currentMode) {
+      return;
+    }
     var isHtml = mode === 'html';
+    currentMode = mode;
     $('#modeTabs .t-tab').removeClass('active')
       .filter('[data-mode="' + mode + '"]').addClass('active');
     $('#paneTui, #paneHtml').removeClass('active');
     $('#pane' + (isHtml ? 'Html' : 'Tui')).addClass('active');
 
     if (isHtml) {
-      htmlCm.setValue(cleanHtml(getHTML()) || '');
+      setHtmlSource(cleanHtml(renderHtml()));
       window.setTimeout(function () { htmlCm.refresh(); }, 10);
     } else {
       /* 先显示可视化面板，再渲染内容，避免在 display:none 下初始化 */
-      var src = htmlCm.getValue() || '';
-      vditor.setValue(src ? htmlToMd(src) : '');
+      if (htmlDirty) {
+        var src = htmlCm.getValue() || '';
+        vditor.setValue(src ? htmlToMd(src) : '');
+        htmlDirty = false;
+      }
       updateStats();
       scheduleSave();
       window.setTimeout(function () { vditor.focus(); }, 60);
@@ -471,6 +545,12 @@
       viewportMargin: 20
     });
     htmlCm.setSize(null, DEFAULT_HEIGHT);
+    /* 用户在源码视图编辑过才需要回灌可视化；程序 setValue 不算 */
+    htmlCm.on('change', function () {
+      if (!cmSyncing) {
+        htmlDirty = true;
+      }
+    });
 
     /* ---------- 事件绑定 ---------- */
     $('#modeTabs').on('click', '.t-tab', function () {
@@ -496,7 +576,7 @@
         return;
       }
       vditor.setValue('');
-      htmlCm.setValue('');
+      setHtmlSource('');
       clearDraft();
       updateStats();
       $saveTip.text('');
@@ -504,7 +584,7 @@
     });
 
     $('#btnCopyHtml').on('click', function () {
-      copyText(cleanHtml(getHTML()) || '', 'HTML 已复制到剪贴板');
+      copyText(cleanHtml(renderHtml()) || '', 'HTML 已复制到剪贴板');
     });
 
     $('#btnCopyTxt').on('click', function () {
@@ -521,7 +601,7 @@
     });
 
     $('#btnDlHtml').on('click', function () {
-      var body = cleanHtml(getHTML()) || '';
+      var body = cleanHtml(renderHtml()) || '';
       var doc = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="utf-8">\n'
         + '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         + '<title>在线编辑器导出</title>\n</head>\n<body>\n' + body + '\n</body>\n</html>';
