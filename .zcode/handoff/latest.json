@@ -1,30 +1,49 @@
 {
   "agent": "main",
-  "timestamp": "2026-09-02T18:40:00",
+  "timestamp": "2026-09-02T20:10:00",
   "status": "completed",
-  "summary": "用户报告 editor 工具「HTML源码放内容→可视化编辑正常→再切回HTML源码时 li 里 ** 加粗转不成 strong」已修复上线。根因：切回 HTML 源码用 vditor.getHTML()，其内部 VditorIRDOM2HTML 把 IR DOM 还原成 markdown 再二次解析，还原时丢失 Lute 的零宽保护符（ZWSP），中文全角标点紧邻 ** 时（\"食物：**推荐\"）二次 emphasis 解析失败，<strong> 退化为字面 **。修复 editor-app.js：新增 renderHtml()（markdown 源 → protectEmphasis 给成对 **/~~ 补回 ZWSP（跳过代码围栏）→ 标准 Md2HTML → stripZeroWidth 清除全部零宽字符），所有 HTML 出口（源码视图/复制HTML/下载/统计）统一走 renderHtml；另修复 switchMode 同模式直接 return + htmlDirty 脏标记，解决「示例」按钮在可视化模式下被过期源码清空内容的次生 bug（该 bug 由往返测试暴露，非本次引入——旧代码同样存在：示例 setValue 后 switchMode('tui') 又用空 CodeMirror 覆盖回去）。本地 Playwright 拦截注入验证 + node 三轮往返稳定性（strong=15/15/15、h3/ol/li 全保留）+ 常规 markdown 回归（h1/strong/em/ul/blockquote/code/链接全通过）。commit 20ee71d、?v=2026090201；线上 Playwright 实测 /editor.html：往返后 <strong>=3、字面**=0、零宽=0、h3/ol 保留，PASS。",
+  "summary": "用户要求读取 mfk_ask_body xlsx Sheet3 的 answer_final 列获取各种格式、校验 editor 工具并优化，已完成。数据画像：6976 条 answer_final，全部为「<p> 包裹」形态；5757 条含 <p>### 标题</p>、3421 条含 <p>**加粗**</p>、1357 条 <p>* 列表</p>、1095 条 <p>1. 列表</p>、318 条真 <li>、1 条真 <table>——即 AI 输出的「HTML 壳 + Markdown 芯」混合格式。基线校验（72 个分层样本 × Playwright 往返 源码→可视化→源码）：38/72 样本加粗退化（字面 ** 共 926 处），标题 0 退化、无内容丢失、无转义残留。优化 editor-app.js (?v=2026090202)：① htmlToMd 前置 normalizeMdInHtml——把 <p> 包裹的 ###/###### 归一为 h1-h6、成对 ** 归一为 <strong>、`x` 归一为 <code>、连续 */-/+/数字. 列表段落聚合为 ul/ol；② 源码框内容无任何标签时直接按 Markdown 解析（原 Lute 会把 ** 转义成字面星号）。复验：72 样本 38→2（残余 4 处字面 ** 全部来自源数据 <p>**** 无闭合星号 的 AI 输出损坏，编辑器忠实呈现），核心回归 4 例全过（上次 <li><p><strong> 报障场景、手打全要素 markdown、示例按钮、纯 md 贴源码框）。已部署 deploy-20260902-editor2 并线上复验通过（live 模式 72 样本结果与本地一致）。commit 52e49eb（GitHub 直连超时，经 socks5h://127.0.0.1:7890 代理推送成功）。",
   "artifacts": [
     "public/static/script/editor-app.js",
     "application/index/view/index/editor.html"
   ],
   "quality": {
     "checks": [
-      {"name": "node-roundtrip", "result": "pass", "detail": "用户全文 html→md→html 三轮往返 strong 15/15/15、字面** 0、h3 5 ol 5 li 15 稳定"},
-      {"name": "playwright-visual", "result": "pass", "detail": "拦截注入新 JS：STEP2 可视化 strong=15、STEP3 往返 15/0/0、STEP4 二次往返稳定、STEP5 视觉 weight=700"},
-      {"name": "regression", "result": "pass", "detail": "常规 markdown（标题/列表/引用/代码/链接/表格/删除线）源码视图全对；示例按钮含 table/pre/strong=8；复制 HTML 无字面** 无零宽"},
-      {"name": "md5-sync", "result": "pass", "detail": "两文件本地与服务端 md5 一致（25da33a3… / ed5d1113…）"},
-      {"name": "secret-scan", "result": "pass", "detail": "两文件 grep mgr-/admin_login_key 无命中"},
-      {"name": "live-verify", "result": "pass", "detail": "线上 /editor.html ?v=2026090201：往返后 strong=3、字面**=0、h3/ol 保留，VERDICT PASS，无 pageerror"}
+      {
+        "name": "baseline-validate",
+        "result": "pass",
+        "detail": "72 分层样本覆盖全特征；线上基线 38/72 加粗退化、926 处字面**、0 标题退化、0 内容丢失"
+      },
+      {
+        "name": "after-validate",
+        "result": "pass",
+        "detail": "优化后 2/72（残余为源数据 **** 损坏）、4 处、核心回归 CASE1-4 全过"
+      },
+      {
+        "name": "live-verify",
+        "result": "pass",
+        "detail": "线上 editor-app.js?v=2026090202，live 复验与本地一致"
+      },
+      {
+        "name": "md5-sync",
+        "result": "pass",
+        "detail": "e63f250b…/581d5f94… 配平"
+      },
+      {
+        "name": "secret-scan",
+        "result": "pass",
+        "detail": "mgr-/admin_login_key 无命中"
+      }
     ],
     "gate_passed": true
   },
   "next": [
     "遗留：生产凭据轮换（用户决策）",
-    "可关注用户旧草稿（localStorage toolbox_editor_draft_v3）里含 ZWSP 的 markdown 在复制 TXT 路径的表现，stripMdSymbols 已兜底"
+    "answer_final 源数据 ****/闭合缺失的清洗可在数据侧另行处理"
   ],
-  "lastDeploy": "deploy-20260902-editor1 (20ee71d)",
+  "lastDeploy": "deploy-20260902-editor2 (52e49eb)",
   "lastDeployAt": "2026-09-02",
-  "deployNote": "Vditor 3.11.3 的 getHTML 对中文标点紧邻 emphasis 的 IR 内容会丢格式（VditorIRDOM2HTML 二次解析缺陷），凡涉及 HTML 输出必须绕开 getHTML 走 Md2HTML(protectEmphasis(md))。HTML2Md 结果里的 ZWSP 是给 Lute 解析器看的保护符，setValue 前不能清；只在输出端清。CodeMirror 实例挂在 DOM 元素 .CodeMirror 属性上，Playwright 可直接驱动。docker build 上下文是 /www/docker/tools（Dockerfile COPY src/）。",
+  "deployNote": "GitHub 推送在直连超时改走 socks5h://127.0.0.1:7890（git -c http.proxy=socks5h://…）。editor 数据源画像：AI 答案普遍是 <p> 包裹 markdown 的混合格式，normalizeMdInHtml 已成 editor 标配前置。",
   "read_files": [
     "public/static/script/editor-app.js",
     "application/index/view/index/editor.html"
