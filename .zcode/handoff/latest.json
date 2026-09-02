@@ -1,8 +1,8 @@
 {
   "agent": "main",
-  "timestamp": "2026-09-02T20:10:00",
+  "timestamp": "2026-09-02T21:50:00",
   "status": "completed",
-  "summary": "用户要求读取 mfk_ask_body xlsx Sheet3 的 answer_final 列获取各种格式、校验 editor 工具并优化，已完成。数据画像：6976 条 answer_final，全部为「<p> 包裹」形态；5757 条含 <p>### 标题</p>、3421 条含 <p>**加粗**</p>、1357 条 <p>* 列表</p>、1095 条 <p>1. 列表</p>、318 条真 <li>、1 条真 <table>——即 AI 输出的「HTML 壳 + Markdown 芯」混合格式。基线校验（72 个分层样本 × Playwright 往返 源码→可视化→源码）：38/72 样本加粗退化（字面 ** 共 926 处），标题 0 退化、无内容丢失、无转义残留。优化 editor-app.js (?v=2026090202)：① htmlToMd 前置 normalizeMdInHtml——把 <p> 包裹的 ###/###### 归一为 h1-h6、成对 ** 归一为 <strong>、`x` 归一为 <code>、连续 */-/+/数字. 列表段落聚合为 ul/ol；② 源码框内容无任何标签时直接按 Markdown 解析（原 Lute 会把 ** 转义成字面星号）。复验：72 样本 38→2（残余 4 处字面 ** 全部来自源数据 <p>**** 无闭合星号 的 AI 输出损坏，编辑器忠实呈现），核心回归 4 例全过（上次 <li><p><strong> 报障场景、手打全要素 markdown、示例按钮、纯 md 贴源码框）。已部署 deploy-20260902-editor2 并线上复验通过（live 模式 72 样本结果与本地一致）。commit 52e49eb（GitHub 直连超时，经 socks5h://127.0.0.1:7890 代理推送成功）。",
+  "summary": "用户追问「样本覆盖全了吗」，补扫全量数据发现 4 个未覆盖稀有维度（真<ul> 10条/<h4> 80条/emoji 271条/3000+长文 1条；md链接、删除线、下划线加粗、引用、行内代码、HTML实体等维度经全量扫描确认不存在），定向补抽 31 样本校验，抓到 1 个真实缺陷：源数据未闭合 <strong> + <p> 包裹<ul>/<li> 非法嵌套的植发内容，往返后 40 处字面 **。根因两层：① Vditor IR 对损坏 HTML 的解析（normalizeMdInHtml 前置 DOM 规范化兜底修复）；② protectEmphasis 正则 (?=\\S) 遇到 getValue 剥 ZWSP 后的 '** 文本**'（空格开头）放弃保护导致 Md2HTML 无法闭合——改为内容非空即保护。修复后 95 样本（64主+31补测）缺陷 0，本地与线上（deploy-20260902-editor3, ?v=2026090203）一致。commit b445863。",
   "artifacts": [
     "public/static/script/editor-app.js",
     "application/index/view/index/editor.html"
@@ -10,40 +10,40 @@
   "quality": {
     "checks": [
       {
-        "name": "baseline-validate",
+        "name": "coverage-scan",
         "result": "pass",
-        "detail": "72 分层样本覆盖全特征；线上基线 38/72 加粗退化、926 处字面**、0 标题退化、0 内容丢失"
+        "detail": "全量6976条重扫稀有维度：md链接/删除线/__加粗__/引用/行内码/实体/img/br 全为0不存在；ul10/h4 80/emoji271/长文1 已定向补测"
       },
       {
-        "name": "after-validate",
+        "name": "extra-validate",
         "result": "pass",
-        "detail": "优化后 2/72（残余为源数据 **** 损坏）、4 处、核心回归 CASE1-4 全过"
+        "detail": "31补测样本缺陷0（修复前1例）；64主样本缺陷0（基线38/72）"
       },
       {
         "name": "live-verify",
         "result": "pass",
-        "detail": "线上 editor-app.js?v=2026090202，live 复验与本地一致"
+        "detail": "线上95样本缺陷0，?v=2026090203，无pageerror"
       },
       {
         "name": "md5-sync",
         "result": "pass",
-        "detail": "e63f250b…/581d5f94… 配平"
+        "detail": "343b29e8…/7562d661… 配平"
       },
       {
         "name": "secret-scan",
         "result": "pass",
-        "detail": "mgr-/admin_login_key 无命中"
+        "detail": "clean"
       }
     ],
     "gate_passed": true
   },
   "next": [
     "遗留：生产凭据轮换（用户决策）",
-    "answer_final 源数据 ****/闭合缺失的清洗可在数据侧另行处理"
+    "源数据侧 ****/未闭合标签的清洗属 xlsx 上游问题，未处理"
   ],
-  "lastDeploy": "deploy-20260902-editor2 (52e49eb)",
+  "lastDeploy": "deploy-20260902-editor3 (b445863)",
   "lastDeployAt": "2026-09-02",
-  "deployNote": "GitHub 推送在直连超时改走 socks5h://127.0.0.1:7890（git -c http.proxy=socks5h://…）。editor 数据源画像：AI 答案普遍是 <p> 包裹 markdown 的混合格式，normalizeMdInHtml 已成 editor 标配前置。",
+  "deployNote": "GitHub 推送在直连超时改走 socks5h://127.0.0.1:7890（git -c http.proxy=socks5h://…）。editor 数据源画像：AI 答案普遍是 <p> 包裹 markdown 的混合格式，normalizeMdInHtml 已成 editor 标配前置。 editor 容错链最终形态：DOM规范化(修未闭合标签/非法嵌套) → normalizeMdInHtml(md-in-html归一) → HTML2Md → protectEmphasis(非空即补ZWSP) → Md2HTML → stripZeroWidth。",
   "read_files": [
     "public/static/script/editor-app.js",
     "application/index/view/index/editor.html"
