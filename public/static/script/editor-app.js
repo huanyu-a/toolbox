@@ -277,16 +277,91 @@
     }, 600);
   }
 
+  /* ---------- Markdown-in-HTML 归一化（htmlToMd 前置） ----------
+     AI 生成内容常见「<p> 包裹的 markdown」混合格式：<p>### 标题</p>、
+     <p>**加粗**</p>、<p>* 列表项</p>、<p>1. 列表项</p>。Lute 的 HTML2Md 会把
+     ** 当普通文本保留，可视化编辑器里显示字面星号。先把这些结构改写成真正的
+     HTML 标签再交给 Lute 转换，格式就能正确渲染。 */
+  function normalizeMdInHtml(html) {
+    var s = String(html || '');
+    if (s.indexOf('<') === -1) {
+      return s;
+    }
+    if (s.indexOf('**') === -1 && !/(<p>\s*)(#{1,6}\s|[*+-]\s|\d{1,3}[.)]\s)/i.test(s)) {
+      return s;
+    }
+    var inline = function (t) {
+      return t
+        .replace(/\*\*([^*\n]+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`([^`\n]+)`/g, '<code>$1</code>');
+    };
+    var out = '';
+    var listBuf = null; /* { type: 'ul'|'ol', items: [] } */
+    var flushList = function () {
+      if (listBuf) {
+        out += '<' + listBuf.type + '>';
+        for (var i = 0; i < listBuf.items.length; i++) {
+          out += '<li>' + listBuf.items[i] + '</li>';
+        }
+        out += '</' + listBuf.type + '>';
+        listBuf = null;
+      }
+    };
+    var re = /<p>([\s\S]*?)<\/p>/gi;
+    var m;
+    var last = 0;
+    var pushGap = function (gap) {
+      /* 两个 <p> 之间若夹了其它实际内容，视为列表序列中断 */
+      if (/[^\s]/.test(gap.replace(/<[^>]+>/g, ''))) {
+        flushList();
+      }
+      out += gap;
+    };
+    while ((m = re.exec(s))) {
+      pushGap(s.slice(last, m.index));
+      last = re.lastIndex;
+      var inner = m[1];
+      var h = inner.match(/^\s*(#{1,6})\s+([\s\S]*)$/);
+      if (h) {
+        flushList();
+        out += '<h' + h[1].length + '>' + inline(h[2]) + '</h' + h[1].length + '>';
+      } else if (/^\s*[*+-]\s+/.test(inner)) {
+        if (!listBuf || listBuf.type !== 'ul') {
+          flushList();
+          listBuf = { type: 'ul', items: [] };
+        }
+        listBuf.items.push(inline(inner.replace(/^\s*[*+-]\s+/, '')));
+      } else if (/^\s*\d{1,3}[.)]\s+/.test(inner)) {
+        if (!listBuf || listBuf.type !== 'ol') {
+          flushList();
+          listBuf = { type: 'ol', items: [] };
+        }
+        listBuf.items.push(inline(inner.replace(/^\s*\d{1,3}[.)]\s+/, '')));
+      } else {
+        flushList();
+        out += '<p>' + inline(inner) + '</p>';
+      }
+    }
+    out += s.slice(last);
+    flushList();
+    return out;
+  }
+
   /* ---------- HTML 源码转 Markdown（切回可视化时使用） ---------- */
   function htmlToMd(html) {
     if (!html) {
       return '';
     }
+    /* 源码框里贴的是纯 Markdown/纯文本（无任何标签）时直接按 md 使用，
+       否则 Lute 会把 ** 当普通文本转义 */
+    if (!/<[a-zA-Z!/][^>]*>/.test(html)) {
+      return html;
+    }
     try {
       if (window.Lute && typeof window.Lute.New === 'function') {
         var lute = window.Lute.New();
         if (typeof lute.HTML2Md === 'function') {
-          var md = lute.HTML2Md(html);
+          var md = lute.HTML2Md(normalizeMdInHtml(html));
           if (typeof md === 'string') {
             /* 保留 Lute 插入的零宽保护符：IR 模式 setValue 解析依赖它，
                去掉会让中文标点紧邻的 ** 无法闭合、加粗不渲染 */
