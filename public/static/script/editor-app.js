@@ -111,7 +111,13 @@
      markdown 再二次解析，还原时丢掉 Lute 的零宽保护符，"食物：**推荐" 这类
      中文标点紧邻加粗符号的 emphasis 二次解析失败，strong 退化为字面星号。
      改为：取 markdown 源 → 给成对的加粗/删除线符号补回 ZWSP 保护（与 Lute
-     HTML2Md 的约定一致）→ 标准 Md2HTML → 清除全部零宽字符。往返幂等。 */
+     HTML2Md 的约定一致）→ 标准 Md2HTML → 清除全部零宽字符。往返幂等。
+
+     Lute IR 解析实证（probe 矩阵）：ZWSP 必须位于符号内侧——「**内容**」外
+     侧紧贴全角标点或 ZWSP 时 IR/WYSIWYG 双双解析失败（如 <strong>医院（南京）
+     </strong>：转换后 **（南京）**： 不渲染）；仅「全裸 **文本**」例外可解析。
+     因此 protectEmphasis 采用全保护形态 ZWSP**ZWSP 内容 ZWSP**（加粗）与
+     ~~ZWSP 内容 ZWSP~~（删除线，~~ 对外侧 ZWSP 敏感，保持原形态）。 */
   function protectEmphasis(md) {
     if (!md) {
       return '';
@@ -129,10 +135,57 @@
       lines[i] = lines[i]
         /* 注意不能限制内侧首尾非空白：getValue 序列化会剥掉 ZWSP，
            列表项整句加粗会变成 "** 文本**"（空格开头），同样需要保护 */
-        .replace(/(\*\*)([^\n]+?)\1/g, '$1​$2​$1')
+        .replace(/(\*\*)([^\n]+?)\1/g, '​$1​$2​$1')
         .replace(/(~~)([^\n]+?)\1/g, '$1​$2​$1');
     }
     return lines.join('\n');
+  }
+
+  /* ---------- markdown 零宽保护归一化（htmlToMd 后置） ----------
+     Lute HTML2Md 的 ZWSP 布局不稳定：加粗符号内侧是否有 ZWSP 取决于内容
+     首尾字符（空格开头给、普通中文/emoji 不给），闭符号外侧一律带 ZWSP。
+     IR/WYSIWYG 的 setValue 解析要求保护符位于符号内侧，否则
+     <strong>医院（南京）</strong>： 这类内容加粗失效（见 protectEmphasis 注释）。
+     此处逐对归一：闭符号后的 ZWSP 移入闭符号内侧，再确保每对符号头尾
+     内侧各有 ZWSP；行内代码与围栏代码块内不处理。 */
+  function normalizeZwsp(md) {
+    var s = String(md || '');
+    if (s.indexOf('**') === -1 && s.indexOf('~~') === -1) {
+      return s;
+    }
+    var parts = s.split(/(`[^`\n]*`)/);
+    for (var pi = 0; pi < parts.length; pi++) {
+      if (/^`[^`\n]*`$/.test(parts[pi])) {
+        continue; /* 行内代码段原样保留 */
+      }
+      var lines = parts[pi].split('\n');
+      var fence = false;
+      for (var i = 0; i < lines.length; i++) {
+        if (/^[ \t]{0,3}(?:```|~~~)/.test(lines[i])) {
+          fence = !fence;
+          continue;
+        }
+        if (fence) {
+          continue;
+        }
+        /* 闭符号后的 ZWSP 移入闭符号内侧：**内容**​ → **内容​** */
+        lines[i] = lines[i].replace(/(\*\*|~~)([^\n]*?)\1​/g, '$1$2​$1');
+        /* 每对符号内侧确保头尾各有 ZWSP（HTML2Md 未给时补上） */
+        lines[i] = lines[i]
+          .replace(/(\*\*)([^*][\s\S]*?)\1/g, function (m, sym, inner) {
+            var head = inner.charAt(0) === '​' ? inner : '​' + inner;
+            var tail = head.charAt(head.length - 1) === '​' ? head : head + '​';
+            return sym + tail + sym;
+          })
+          .replace(/(~~)([^~][\s\S]*?)\1/g, function (m, sym, inner) {
+            var head = inner.charAt(0) === '​' ? inner : '​' + inner;
+            var tail = head.charAt(head.length - 1) === '​' ? head : head + '​';
+            return sym + tail + sym;
+          });
+      }
+      parts[pi] = lines.join('\n');
+    }
+    return parts.join('');
   }
 
   function renderHtml() {
@@ -373,9 +426,11 @@
         if (typeof lute.HTML2Md === 'function') {
           var md = lute.HTML2Md(normalizeMdInHtml(html));
           if (typeof md === 'string') {
-            /* 保留 Lute 插入的零宽保护符：IR 模式 setValue 解析依赖它，
-               去掉会让中文标点紧邻的 ** 无法闭合、加粗不渲染 */
-            return md;
+            /* 保留并归一 Lute 的零宽保护符：IR 模式 setValue 解析要求保护符
+               位于加粗/删除线符号内侧（**​内容​**），HTML2Md 的布局不稳定
+               （闭符号外侧带 ZWSP、内侧看内容首尾），归一后中文标点紧邻的
+               加粗才能正确闭合渲染 */
+            return normalizeZwsp(md);
           }
         }
       }
