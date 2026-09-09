@@ -188,13 +188,83 @@
     return parts.join('');
   }
 
+  /* ---------- 段落硬化（renderHtml 前置） ----------
+     编辑器内回车产生的是段内软换行（md 单换行），Lute Md2HTML 会渲染成
+     <br />。中文文章习惯「一行一段」，粘贴无空行的多行文本后期望输出
+     独立 <p> 段落而非 <br /> 堆叠。此处在渲染前把「相邻普通行」之间插入
+     空行升级为硬分段；列表/引用/表格/代码块/标题/分隔线等结构行保持
+     markdown 原语义（连续结构行不拆），行尾双空格（作者刻意硬换行）不拆。 */
+  function isStructLine(l) {
+    if (!l.trim()) {
+      return true;
+    }
+    if (/^[ \t]{0,3}(?:[-*+]|\d{1,3}[.)])[ \t]+/.test(l)) {
+      return true; /* 列表项 */
+    }
+    if (/^[ \t]{0,3}>/.test(l)) {
+      return true; /* 引用 */
+    }
+    if (/^[ \t]{0,3}(?:```|~~~)/.test(l)) {
+      return true; /* 代码围栏 */
+    }
+    if (/^[ \t]{0,3}#{1,6}[ \t]/.test(l)) {
+      return true; /* ATX 标题 */
+    }
+    if (/^[ \t]{0,3}\|/.test(l) || /\|[ \t]*$/.test(l)) {
+      return true; /* 表格行 */
+    }
+    if (/^ {4,}\S/.test(l)) {
+      return true; /* 缩进代码 */
+    }
+    if (/^[ \t]{0,3}(?:-(?:[ \t]-){2,}|\*(?:[ \t]\*){2,}|_(?:[ \t]_){2,})[ \t]*$/.test(l)) {
+      return true; /* 分隔线 */
+    }
+    if (/[ \t]{2,}$/.test(l)) {
+      return true; /* 行尾双空格：markdown 硬换行，作者刻意 */
+    }
+    return false;
+  }
+
+  function hardenParagraphs(md) {
+    var lines = String(md).split('\n');
+    var res = [];
+    var fence = false;
+    for (var j = 0; j < lines.length; j++) {
+      var cur = lines[j];
+      var isFence = /^[ \t]{0,3}(?:```|~~~)/.test(cur);
+      var prev = res.length ? res[res.length - 1] : null;
+      /* 连续结构行之间不拆（列表项/表格行/引用行/缩进代码行彼此相邻）；
+         其余任意「非空行 + 非空行」相邻组合都升级为独立段落 */
+      var needSplit = prev !== null && cur.trim() && prev.trim()
+        && !(isStructLine(prev) && isStructLine(cur))
+        && !/[ \t]{2,}$/.test(prev);
+      if (isFence) {
+        if (!fence && needSplit) {
+          res.push('');
+        }
+        fence = !fence;
+        res.push(cur);
+        continue;
+      }
+      if (fence) {
+        res.push(cur);
+        continue;
+      }
+      if (needSplit) {
+        res.push('');
+      }
+      res.push(cur);
+    }
+    return res.join('\n');
+  }
+
   function renderHtml() {
     var html = '';
     try {
       var md = getValue() || '';
       if (md && window.Lute && typeof window.Lute.New === 'function'
           && typeof window.Lute.New().Md2HTML === 'function') {
-        html = window.Lute.New().Md2HTML(protectEmphasis(md)) || '';
+        html = window.Lute.New().Md2HTML(protectEmphasis(hardenParagraphs(md))) || '';
       }
     } catch (e) { /* 转换失败降级 */ }
     if (!html) {
