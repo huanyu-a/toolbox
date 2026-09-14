@@ -16,6 +16,10 @@
 .editor-status b { color: var(--text-1); font-weight: 600; margin-left: 2px; }
 .editor-status-hint { opacity: .75; }
 .editor-status-right { margin-left: auto; color: #10b981; }
+/* 全站 site.min.css 的裸 li{list-style-type:none} 会连带命中 Vditor 正文内容，
+   把有序/无序列表的项目符号全部清掉（Vditor 依赖浏览器原生 list-style 渲染 marker）。
+   此处按父级列表类型恢复：ol→decimal、ul→disc/circle/square，inherit 自动跟随。 */
+#vditor .vditor-reset li { list-style-type: inherit; }
 #toastMsg{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(16px);background:rgba(17,24,39,.92);color:#fff;font-size:13px;padding:9px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:all .25s;z-index:2000;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 #toastMsg.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media (max-width:767px){
@@ -69,7 +73,7 @@
 <script src="/static/script/codemirror/htmlmixed.js" type="text/javascript"></script>
 <script src="/static/vditor/dist/index.min.js" type="text/javascript"></script>
 <script src="/static/script/filesave.js" type="text/javascript"></script>
-<script src="/static/script/editor-app.js?v=2026090802" type="text/javascript"></script>
+<script src="/static/script/editor-app.js?v=2026091401" type="text/javascript"></script>
 <script src="/static/script/tool-upgrade.js?v=2026090101" type="text/javascript"></script><script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
 <script src="/static/script/sample-data.js?v=2026083026" type="text/javascript"></script>
 </body></html>

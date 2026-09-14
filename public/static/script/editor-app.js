@@ -402,6 +402,55 @@
     }, 600);
   }
 
+  /* ---------- 退化嵌套列表扁平化（normalizeMdInHtml 前置） ----------
+     AI 生成/网页复制的 HTML 常见形态：有序列表的每一项被多包了一层单元素列表——
+     <ol><li>甲</li><li><ul><li>乙</li></ul></li><li><ul><li>丙</li></ul></li></ol>。
+     外层 <li> 自身没有任何文字，只装着一个内层列表，而内层列表又只有一个 <li>。
+     这种结构经 HTML2Md 会变成 "2. * 乙"：序号 2. 独占一行、内容退化成子项目符号，
+     渲染出来就是「2. • 乙」，序号与内容分离。
+     这里把内层列表的 <li> 提升为同级项、丢掉空壳 <li>，还原成扁平列表（1. 2. 3.）。
+     仅当外层 <li> 无直接文字、且只含一个 ul/ol 时才处理，正常嵌套列表（父项带文字）不动。 */
+  function flattenBareListItems(root) {
+    var lis = root.querySelectorAll('li');
+    for (var i = 0; i < lis.length; i++) {
+      var li = lis[i];
+      if (!li.parentNode) {
+        continue; /* 已被提升或移除 */
+      }
+      var directText = '';
+      var childEls = [];
+      for (var n = li.firstChild; n; n = n.nextSibling) {
+        if (n.nodeType === 3) {
+          directText += n.nodeValue;
+        } else if (n.nodeType === 1) {
+          childEls.push(n);
+        }
+      }
+      if (directText.replace(/[\s​]/g, '') !== '' || childEls.length !== 1) {
+        continue;
+      }
+      var nested = childEls[0];
+      var tag = nested.tagName ? nested.tagName.toLowerCase() : '';
+      if (tag !== 'ul' && tag !== 'ol') {
+        continue;
+      }
+      var innerLis = [];
+      for (var c = nested.firstChild; c; c = c.nextSibling) {
+        if (c.nodeType === 1 && c.tagName && c.tagName.toLowerCase() === 'li') {
+          innerLis.push(c);
+        }
+      }
+      if (!innerLis.length) {
+        continue;
+      }
+      var parent = li.parentNode;
+      for (var k = 0; k < innerLis.length; k++) {
+        parent.insertBefore(innerLis[k], li);
+      }
+      parent.removeChild(li);
+    }
+  }
+
   /* ---------- Markdown-in-HTML 归一化（htmlToMd 前置） ----------
      AI 生成内容常见「<p> 包裹的 markdown」混合格式：<p>### 标题</p>、
      <p>**加粗**</p>、<p>* 列表项</p>、<p>1. 列表项</p>。Lute 的 HTML2Md 会把
@@ -418,6 +467,7 @@
     try {
       var probe = document.createElement('div');
       probe.innerHTML = s;
+      flattenBareListItems(probe);
       s = probe.innerHTML;
     } catch (e) { /* 解析失败保留原文 */ }
     if (s.indexOf('**') === -1 && !/(<p>\s*)(#{1,6}\s|[*+-]\s|\d{1,3}[.)]\s)/i.test(s)) {
