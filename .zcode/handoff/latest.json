@@ -1,8 +1,8 @@
 {
   "agent": "main (ZCode)",
-  "timestamp": "2026-09-08T00:00:00",
+  "timestamp": "2026-09-14T00:00:00",
   "status": "completed",
-  "summary": "修复 /editor/ 富文本编辑器「<strong>中国医学科学院皮肤病医院（南京）</strong>：</li> 这类内容加粗在前端不渲染」的 bug。根因：Vditor 内嵌 Lute 的 IR/WYSIWYG DOM 解析（Md2VditorIRDOM/Md2VditorDOM）对零宽保护符（U+200B）位置有严格要求——ZWSP 必须位于 **/~~ 符号内侧；Lute HTML2Md 的产物布局不稳定（闭符号外侧一律带 ZWSP、内侧取决于内容首尾字符），导致「**内容**​：全角标点」在 setValue 时 emphasis 解析失败，strong 退化为字面 **。node 层用本地 lute.min.js 复现并矩阵化定位（外Z/内Z/裸 对 20+ 排列）。修复 editor-app.js 两处：① htmlToMd 返回前新增 normalizeZwsp()——闭符号后 ZWSP 移入内侧 + 每对符号头尾内侧补 ZWSP（行内代码/围栏块跳过）；② protectEmphasis() 改为全保护形态 ZWSP**ZWSP 内容 ZWSP**（~~ 保持 ~~Z c Z~~ 形态），getValue 剥 Z 后的草稿重渲染亦幂等。验证：node 回归 20 形态全 PASS + 用户原文全文章 IR/WYSIWYG/renderHtml 三路径 12/12 strong、往返切换无衰减；Docker 本地站 Playwright 实测：源码注入→切可视化 12/12 粗体渲染(fontWeight 700)、复制 HTML 截获输出 12 个 <strong>、0 字面 **、无零宽字符、往返(HTML↔可视化)后 12/12 保持。editor.html bump editor-app.js v=2026090801。临时测试脚本已清理，测试容器已删。",
+  "summary": "修复 /editor/ 列表渲染两个缺陷（用户报「li序列没有渲染出对应的序号符号」，样本为嵌套 <ol><li><ul><li> 结构的康复训练文章）。① 根因A（全局、决定性）：public/static/style/site.min.css 有裸元素规则 li{border:0px;list-style-type:none;margin-bottom:5px}，它会一并命中 Vditor 正文内容 .vditor-reset li，把有序/无序列表的项目符号全部清掉（Vditor 依赖浏览器原生 list-style 渲染 marker：自身 CSS 只写了 .vditor-reset ul{disc}/ul ul{circle}，ol 靠默认 decimal）。修复：editor.html 页内样式加 #vditor .vditor-reset li { list-style-type: inherit; }（specificity 高于裸 li，自动跟随父级 ol→decimal / ul→disc/circle/square）。② 根因B（结构）：AI 生成/网页复制的 HTML 常见退化嵌套 <ol><li>甲</li><li><ul><li>乙</li></ul></li>…</ol>——外层 li 无文字、只装一个内层列表，HTML2Md 产出 \"2. * 乙\"，序号与内容分离、渲染成「2. • 乙」。修复：editor-app.js normalizeMdInHtml 的 DOM 规范化步骤新增 flattenBareListItems()，把空壳 li 的内层 li 提升为同级并删除空壳（仅当外层 li 无直接文字且只含一个 ul/ol 时生效），还原扁平列表 1.2.3.。回归：浏览器端 13/13（5 主用例 + 8 边界）；复制 HTML/MD/TXT 与暗色主题均正常；加粗 ZWSP、段落硬化旧回归未退化。editor.html bump editor-app.js v=2026091401。",
   "artifacts": [
     "public/static/script/editor-app.js",
     "application/index/view/index/editor.html"
@@ -10,21 +10,23 @@
   "quality": {
     "checks": [
       {"name": "syntax", "result": "pass", "detail": "node --check editor-app.js 通过"},
-      {"name": "node-regression", "result": "pass", "detail": "20 形态（南京全称/半角括号/emoji/整句加粗空格开头/引用/表格/嵌套列表/strong紧邻等）IR+WYSIWYG+renderHtml 三路径全 PASS；用户原文 12/12 strong"},
-      {"name": "browser-test", "result": "pass", "detail": "Docker php:7.2-cli 挂载本地站 18099 端口，Playwright 实测 /editor/：12/12 strong 渲染、复制 HTML 无字面 **/零宽字符、往返切换稳定"},
-      {"name": "security", "result": "pass", "detail": "无新增 eval/innerHTML 注入面；正则均为固定模式，无用户输入参与"}
+      {"name": "browser-regression", "result": "pass", "detail": "Docker toolbox-dev 挂载本地站 18099 + Playwright（系统 Chrome）13/13 PASS：A 用户样本扁平化为 1.2.3.4.、B 正常嵌套列表(父项带文字)保留、C decimal/disc/circle 项目符号恢复、D 加粗中文标点 <strong> 保留、E 多行分段、F 空壳 li 多项提升、G 内层 ol 扁平化、H strong+嵌套不误删、I 深层嵌套保留、J 引用/表格/代码块不受影响、K <p>包裹 markdown 归一化仍生效、L 混排序号 1.,2.,3.,4.、M 列表内加粗双修复共存"},
+      {"name": "copy-output", "result": "pass", "detail": "用户全文章复制 HTML：3 个 <ol>、13 个 <li>、0 嵌套列表、data-marker 1..4/1..6/1..3、li list-style=decimal；复制 MD 为纯 1. 2. 3. 列表；复制 TXT 无 markdown 符号；暗色主题 li list-style=decimal 可见"},
+      {"name": "security", "result": "pass", "detail": "flattenBareListItems 只做 DOM 结构搬迁（insertBefore/removeChild），无 innerHTML 拼接、无用户输入进入正则"}
     ],
     "gate_passed": true
   },
   "next": [
-    "提交推送后线上部署（线上 editor-app.js 当前为 v=2026090203 旧版，部署后验证线上 /editor/）",
     "遗留（历史）：site.min.css min 文件重构(P3)、keyboard.js 死代码清理(P3)"
   ],
   "read_files": [
     "public/static/script/editor-app.js",
     "application/index/view/index/editor.html",
-    "public/static/vditor/dist/js/lute/lute.min.js"
+    "public/static/style/site.min.css",
+    "public/static/vditor/dist/index.css"
   ],
-  "lastDeploy": "未部署（待提交推送）",
-  "deployNote": "根因是 Lute ZWSP 布局与 IR 解析器预期不匹配。若未来升级 Vditor/Lute 版本需重跑本矩阵回归（scripts/ 已清理，矩阵用例见本次 commit message）。"
+  "lastDeploy": "deploy-20260914-list1 (1c197af)",
+  "lastDeployAt": "2026-09-14",
+  "fixNote": "本次部署（list1，2026-09-14）：editor 列表序号/项目符号丢失修复。根因A=site.min.css 裸 li{list-style-type:none} 泄漏进 Vditor 内容（editor.html 加 #vditor .vditor-reset li{list-style-type:inherit}）；根因B=退化嵌套 <li><ul><li>（editor-app.js 新增 flattenBareListItems 扁平化，仅外层 li 无直接文字且只含一个 ul/ol 时生效）。editor-app.js v=2026091401。验证：本地浏览器回归 13/13；线上 E2E 用户文章 → 2 个 ol/7 个 li/0 嵌套列表、markers 1.,2.,3.,4.,1.,2.,3.、li list-style=decimal、0 字面 *、复制 HTML 无 <ul>；线上 / /editor /autoformat/ /format/ /json/ /regex/ /calc/ 均 200。回滚镜像：deploy-20260908-editor5（上一版）、deploy-20260908-editor4、deploy-20260903-audit1；compose 备份 docker-compose.yml.bak-20260914。若后续出现同类「编辑器内某元素样式被全局裸元素选择器吃掉」的问题，优先检查 site.min.css / tool-upgrade.css 里的裸 ul/ol/li/table/img 等规则。",
+  "deployNote": "上次部署（editor5，2026-09-08）：editor 多行文本按段落排版——renderHtml 管线新增 hardenParagraphs，相邻普通行插空行升级硬分段（独立 <p>），列表/引用/表格/代码块/标题/分隔线保持原语义，行尾双空格硬换行保留；编辑器内 IR 显示不变，仅复制/导出/源码视图走硬化。回归 43/43；本地 Docker+Playwright 与线上端到端均验证：药理文 13 p/0 br、加粗混合 3 p/2 strong/0 br/0 字面**。回滚镜像：deploy-20260908-editor4（editor ZWSP 加粗修复版）、deploy-20260903-audit1。服务器架构=域名 nginx→127.0.0.1:8080→tools 容器（应用烘焙进镜像，仅 runtime/config 挂载）；部署流程 scp→build 镜像标签→compose 换 tag→up。"
 }
