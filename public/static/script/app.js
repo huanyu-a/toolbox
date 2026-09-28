@@ -279,14 +279,50 @@
         sdRefresh();
     }
 
+    /* 搜索命中计算（多 token 模糊匹配，含页内子工具 subs）——搜索弹窗与首页 hero 搜索共用 */
+    function computeSearchHits(kw) {
+        kw = (kw || '').trim().toLowerCase();
+        // 模糊匹配：关键词按空白/逗号/顿号切分为多个 token，全部命中才算命中（如「单位 时间」→ 单位换算·时间）
+        var kws = kw ? kw.split(/[\s,，、;；]+/).filter(Boolean) : [];
+        if (!kws.length) return null; // 空/纯分隔符输入：无有效关键词
+        var hits = [];
+        TOOLS.forEach(function (cat) {
+            // 顶层工具与页内子工具（subs，url 带 #tab 锚点）分开匹配：顶层优先展示，各限 6 条
+            // parentName：子工具检索串拼接父工具名，父级词也能命中子级（如「单位 压力」→ 单位换算·压力）
+            var makeMatch = function (parentName) {
+                return function (t) {
+                    var u = (t.url || '').replace(/^https?:\/\/[^\/]+/i, '');
+                    // name(+父名)/url/desc/cat 拼合为一个检索单元，要求所有 token 都命中（单 token 行为与原来一致）
+                    var hay = ((parentName ? parentName + ' ' : '') + t.name + ' ' + u + ' ' + (t.desc || '') + ' ' + cat.cat).toLowerCase();
+                    for (var i = 0; i < kws.length; i++) {
+                        if (hay.indexOf(kws[i]) === -1) return false;
+                    }
+                    return true;
+                };
+            };
+            (cat.items || []).filter(makeMatch('')).slice(0, 6).forEach(function (t) {
+                hits.push({ url: t.url, name: t.name, desc: t.desc || '', cat: cat.cat });
+            });
+            (cat.items || []).forEach(function (t) {
+                (t.subs || []).filter(makeMatch(t.name)).slice(0, 6).forEach(function (s) {
+                    hits.push({ url: s.url, name: s.name, desc: s.desc || '', cat: cat.cat });
+                });
+            });
+        });
+        return hits;
+    }
+    // 供首页 hero 搜索（index.html 内联脚本）复用同一套命中引擎
+    window.tbSearchHits = computeSearchHits;
+
     function renderTopSearch(kw) {
         if (!sd) return;
         kw = (kw || '').trim().toLowerCase();
+        var engineHits = computeSearchHits(kw);
         sdHits = [];
         var html = '';
         var lookup = toolsLookup();
 
-        if (!kw) {
+        if (engineHits === null) {
             // 空关键词：常用收藏 + 最近使用 + 提示
             var html0 = '';
             var pins = pinList();
@@ -315,18 +351,7 @@
             return;
         }
 
-        TOOLS.forEach(function (cat) {
-            var hits = (cat.items || []).filter(function (t) {
-                var u = (t.url || '').replace(/^https?:\/\/[^\/]+/i, '');
-                return t.name.toLowerCase().indexOf(kw) !== -1
-                    || u.toLowerCase().indexOf(kw) !== -1
-                    || (t.desc || '').toLowerCase().indexOf(kw) !== -1
-                    || cat.cat.toLowerCase().indexOf(kw) !== -1;
-            });
-            hits.slice(0, 6).forEach(function (t) {
-                sdHits.push({ url: t.url, name: t.name, desc: t.desc || '', cat: cat.cat });
-            });
-        });
+        sdHits = engineHits;
         // 按分类分组渲染（保持命中顺序）
         var groups = {};
         sdHits.forEach(function (t, i) { t._i = i; (groups[t.cat] = groups[t.cat] || []).push(t); });
@@ -378,6 +403,8 @@
     }
     if (searchClose) searchClose.addEventListener('click', closeSearch);
     if (searchMask) searchMask.addEventListener('click', closeSearch);
+    // 同页 hash 跳转（如 /convert/ 页内搜索直达子工具锚点）视同离开搜索，收起弹层
+    window.addEventListener('hashchange', closeSearch);
     if (sd) {
         sd.addEventListener('mouseover', function (e) {
             var row = e.target.closest ? e.target.closest('.sd-row') : null;

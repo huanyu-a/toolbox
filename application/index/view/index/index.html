@@ -240,23 +240,12 @@
     var clear = document.getElementById('homeSearchClear');
     var wrap = document.getElementById('homeSearchWrap');
     if (!search || !dropdown) return;
-    // 工具数据
-    var allTools = [
-        {volist name="tools" id="cat"}
-        {volist name="cat.items" id="tool"}
-        { name: "{$tool.name}", url: "{$tool.url}", cat: "{$cat.cat}", desc: "{if condition="$tool.desc"}{$tool.desc}{else/}{$tool.url}{/if}" },
-        {/volist}
-        {/volist}
-    ];
+    // 命中数据来自 app.js 搜索引擎（多关键词模糊匹配 + 页内子工具 subs），与顶部搜索弹窗同一套
     function renderResults(kw) {
         kw = kw.trim().toLowerCase();
-        if (!kw) { dropdown.style.display = 'none'; heroHits = []; return; }
-        var hits = allTools.filter(function(t) {
-            return t.name.toLowerCase().indexOf(kw) !== -1 ||
-                   t.desc.toLowerCase().indexOf(kw) !== -1 ||
-                   t.cat.toLowerCase().indexOf(kw) !== -1 ||
-                   t.url.toLowerCase().indexOf(kw) !== -1;
-        }).slice(0, 8);
+        heroHits = [];
+        if (!kw || !window.tbSearchHits) { dropdown.style.display = 'none'; return; }
+        var hits = window.tbSearchHits(kw).slice(0, 8);
         heroHits = hits;
         if (!hits.length) {
             dropdown.innerHTML = '<div class="home-search-empty">没有找到匹配的工具，换个关键词试试</div>';
@@ -362,6 +351,6 @@
 </script>
 <script src="/static/script/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/static/script/bootstrap.min.js" type="text/javascript"></script>
-<script src="/static/script/app.js?v=2026083026" type="text/javascript"></script>
+<script src="/static/script/app.js?v=2026092805" type="text/javascript"></script>
 </body>
 </html>

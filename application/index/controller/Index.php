@@ -26,6 +26,14 @@ class Index extends Controller
                 if (isset($item['url']) && strpos($item['url'], 'http') !== 0) {
                     $data['tools'][$ci]['items'][$ii]['url'] = $base . $item['url'];
                 }
+                // 页内子工具（subs，url 带 #tab 锚点）：跟随主工具一并绝对化
+                if (!empty($item['subs']) && is_array($item['subs'])) {
+                    foreach ($item['subs'] as $si => $sub) {
+                        if (isset($sub['url']) && strpos($sub['url'], 'http') !== 0) {
+                            $data['tools'][$ci]['items'][$ii]['subs'][$si]['url'] = $base . $sub['url'];
+                        }
+                    }
+                }
             }
         }
         // 工具总数（改写后重新统计）
