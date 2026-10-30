@@ -11,7 +11,11 @@ class Index extends Controller
     {
         $data = array();
         $base = site_base();
-        $act = input('act', 'index');
+        // act 只允许 [a-zA-Z0-9_-]（与视图文件名同规），必须在此统一净化：
+        // viewExists() 内部会净化后判存在，而 fetch() 与 TDK 查询用原始值——不统一时
+        // ?act=json%22 这类"合法页名+垃圾字符"能通过存在性检查，却在渲染时因模板名含 "
+        // 抛「模板文件不存在」→ 500（线上实测，旧镜像同样复现）。净化后四处取值一致。
+        $act = preg_replace('/[^a-zA-Z0-9_\-]/', '', (string) input('act', 'index'));
 
         // 视图文件缺失时直接渲染 404（避免 TP5 兜底 500）
         if ($act !== 'index' && !$this->viewExists($act)) {
