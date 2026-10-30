@@ -304,6 +304,7 @@ class Index extends Controller
             'current_url'       => '',
             'current_tool_name' => '',
             'act'               => 'e404',
+            'noindex'           => true,
         ])->code(404);
     }
 

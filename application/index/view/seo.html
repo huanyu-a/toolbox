@@ -1,5 +1,5 @@
 <link rel="canonical" href="{:htmlspecialchars(site_base())}{$current_url_rel|default='/'}" />
-<meta name="robots" content="index,follow" />
+<meta name="robots" content="{if condition="isset($noindex)"}noindex,follow{else/}index,follow{/if}" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="zh_CN" />
 <meta property="og:site_name" content="{$Think.config.web.site.name}" />
