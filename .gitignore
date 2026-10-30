@@ -11,3 +11,4 @@
 .zcode/
 /runtime/search_memory_db.py
 MEMORY.md
+.opensquilla/
