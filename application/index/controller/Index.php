@@ -96,6 +96,8 @@ class Index extends Controller
         $data['page_keywords'] = isset($pageCfg['keywords']) ? $pageCfg['keywords'] : '';
         // JSON-LD 结构化数据（控制器拼接，避免模板解析 JSON 花括号冲突）
         $domain = site_base();
+        // JSON_HEX_*：把 < > & ' " 编码为 \uXXXX，防止域名/路径里的 </script> 提前闭合 ld+json 脚本块（Host 头注入）
+        $jsonFlags = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
         if ($act === 'index') {
             $data['jsonld'] = json_encode(array(
                 '@context' => 'https://schema.org',
@@ -109,7 +111,7 @@ class Index extends Controller
                     'target' => $domain . '/?s={search_term_string}',
                     'query-input' => 'required name=search_term_string',
                 ),
-            ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            ), $jsonFlags);
         } else {
             $breadcrumb = array(
                 '@context' => 'https://schema.org',
@@ -130,8 +132,8 @@ class Index extends Controller
                 'inLanguage' => 'zh-CN',
                 'operatingSystem' => 'Any',
             );
-            $data['jsonld'] = json_encode($breadcrumb, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-                . "\n" . json_encode($app, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            $data['jsonld'] = json_encode($breadcrumb, $jsonFlags)
+                . "\n" . json_encode($app, $jsonFlags);
         }
         switch ($act) {
             case 'uuid':
@@ -309,7 +311,7 @@ class Index extends Controller
         $urls = array(array($domain . '/', '1.0', 'daily'));
         foreach ((array)$tools as $cat) {
             foreach ((array)$cat['items'] as $item) {
-                $urls[] = array($domain . ltrim($item['url'], '/'), '0.8', 'weekly');
+                $urls[] = array($domain . '/' . ltrim($item['url'], '/'), '0.8', 'weekly');
             }
         }
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -484,8 +486,10 @@ class Index extends Controller
                 if (!$q) {
                     return json(array('status' => 0, 'msg' => '请输入网址'));
                 }
-                $q = str_replace(array('http://', 'https://'), '', $q);
-                $info = is_url('http://' . $q) ? urlheader($q) : array();
+                // 保留/补齐协议：urlheader() → curl_safe_target() 要求完整 URL，缺 scheme 会被判非法（旧写法恒返回空）
+                $q = trim((string)$q);
+                $url = preg_match('#^https?://#i', $q) ? $q : 'http://' . ltrim($q, '/');
+                $info = is_url($url) ? urlheader($url) : array();
                 return json(array('status' => 1, 'data' => $info));
                 break;
             case 'checkkeyword':

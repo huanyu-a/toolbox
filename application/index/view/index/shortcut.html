@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                 <label class="t-label" for="url">网址</label>
-                <input type="text" id="url" name="url" class="t-input" value="http://{$Think.server.HTTP_HOST|htmlspecialchars}/" style="max-width:420px" />
+                <input type="text" id="url" name="url" class="t-input" value="{:htmlspecialchars(site_base())}/" style="max-width:420px" />
             </div>
             <div class="tool-actions">
                 <button type="button" name="generate" onclick="check()" class="t-btn">创建快捷方式并下载</button>

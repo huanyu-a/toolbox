@@ -77,6 +77,8 @@
         <div class="search-pop-body" id="searchDropdown"></div>
     </div>
 </div>
+<!-- 下方 TOOLS_DATA 含绝对 URL（域名来自 site_base()，配置为空时取自 Host 头）：json_encode 务必保留默认的斜杠转义，
+     不可追加 JSON_UNESCAPED_SLASHES，否则 </script> 将不再被写成 <\/script>，会提前闭合本脚本块造成 XSS。 -->
 <script>window.TOOLS_DATA = {:isset($tools) && $tools ? json_encode($tools) : '[]'};</script>
 {:tongji_config_code()}
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T510L8HTF9"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-T510L8HTF9")</script>
